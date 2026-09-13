@@ -504,6 +504,9 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
               // Check subject composition
               const hasMath = dayPlan.tasks.some((t) => t.subject === 'math');
               const hasRW = dayPlan.tasks.some((t) => t.subject === 'rw');
+              const hasDrill = dayPlan.tasks.some((t) => t.subject === 'drill');
+              const hasReview = dayPlan.tasks.some((t) => t.subject === 'review');
+              const hasLogistics = dayPlan.tasks.some((t) => t.subject === 'logistics');
               const cellTiming = sessionTimings[cell.dateStr];
 
               const diffConfig = getDayLoadDifficulty(dayPlan);
@@ -562,10 +565,18 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                         </span>
                       )}
 
-                      {/* Load Difficulty Badge (Rest, Light, Medium, Hard, Mock) */}
+                      {/* Load Difficulty Badge (Rest, Light, Medium, Hard, Mock, Review, Drill) */}
                       {!isExamDay && (
-                        <span className={`text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${diffConfig.badgeClass}`}>
-                          {diffConfig.shortLabel}
+                        <span className={`text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${
+                          hasReview
+                            ? 'bg-rose-100 text-rose-950 border-rose-300'
+                            : hasDrill
+                            ? 'bg-indigo-100 text-indigo-950 border-indigo-300'
+                            : hasLogistics
+                            ? 'bg-teal-100 text-teal-950 border-teal-300'
+                            : diffConfig.badgeClass
+                        }`}>
+                          {hasReview ? 'Review' : hasDrill ? 'Drill' : hasLogistics ? 'Prep' : diffConfig.shortLabel}
                         </span>
                       )}
                     </div>
@@ -603,15 +614,30 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                           7:15 AM Gates Close
                         </div>
                       </div>
-                    ) : dayPlan.isBuffer ? (
-                      <div className="text-[10px] font-bold text-emerald-800 flex items-center gap-1">
-                        <Coffee className="w-3 h-3 text-emerald-600 shrink-0" />
-                        <span className="truncate hidden sm:inline">Buffer Off Day</span>
-                      </div>
                     ) : dayPlan.isTestDay ? (
                       <div className="text-[10px] font-bold text-sky-900 flex items-center gap-1">
                         <Trophy className="w-3 h-3 text-sky-600 shrink-0" />
-                        <span className="truncate">Mock Exam</span>
+                        <span className="truncate">{dayPlan.tasks[0]?.code || 'Mock Exam'}</span>
+                      </div>
+                    ) : hasReview ? (
+                      <div className="text-[10px] font-bold text-rose-950 flex items-center gap-1">
+                        <BookOpen className="w-3 h-3 text-rose-600 shrink-0" />
+                        <span className="truncate">{dayPlan.tasks[0]?.topic || 'Error-Log Review'}</span>
+                      </div>
+                    ) : hasDrill ? (
+                      <div className="text-[10px] font-bold text-indigo-950 flex items-center gap-1">
+                        <Zap className="w-3 h-3 text-indigo-600 shrink-0" />
+                        <span className="truncate">{dayPlan.tasks[0]?.topic || 'Targeted Drill'}</span>
+                      </div>
+                    ) : hasLogistics ? (
+                      <div className="text-[10px] font-bold text-teal-950 flex items-center gap-1">
+                        <Target className="w-3 h-3 text-teal-600 shrink-0" />
+                        <span className="truncate">{dayPlan.tasks[0]?.topic || 'Prep / Packout'}</span>
+                      </div>
+                    ) : dayPlan.isBuffer ? (
+                      <div className="text-[10px] font-bold text-emerald-800 flex items-center gap-1">
+                        <Coffee className="w-3 h-3 text-emerald-600 shrink-0" />
+                        <span className="truncate hidden sm:inline">Buffer Rest Day</span>
                       </div>
                     ) : (
                       <div className="flex items-center gap-1 flex-wrap">

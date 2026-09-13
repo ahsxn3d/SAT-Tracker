@@ -109,22 +109,43 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
     return DIFFICULTY_CONFIGS.test;
   }
 
-  if (day.isBuffer || day.tasks.length <= 1) {
+  const activeTasks = day.tasks.filter((t) => t.subject !== 'buffer');
+
+  // True buffer or rest day with zero active study tasks
+  if (day.isBuffer && activeTasks.length === 0) {
     return DIFFICULTY_CONFIGS.rest;
   }
 
-  const count = day.tasks.length;
-  
-  // Light day: 2 tasks (e.g. single subject or light buffer drill)
-  if (count === 2) {
+  if (activeTasks.length === 0) {
+    return DIFFICULTY_CONFIGS.rest;
+  }
+
+  const studyMins = day.studyTimeMinutes || activeTasks.reduce((acc, t) => acc + (t.durationMinutes || 20), 0);
+
+  // Phase 2 targeted drills
+  if (activeTasks.some((t) => t.subject === 'drill')) {
+    return studyMins >= 60 ? DIFFICULTY_CONFIGS.standard : DIFFICULTY_CONFIGS.light;
+  }
+
+  // Phase 2 error-log reviews
+  if (activeTasks.some((t) => t.subject === 'review')) {
+    return studyMins >= 60 ? DIFFICULTY_CONFIGS.standard : DIFFICULTY_CONFIGS.light;
+  }
+
+  // Pre-exam packout and ticket logistics
+  if (activeTasks.some((t) => t.subject === 'logistics')) {
     return DIFFICULTY_CONFIGS.light;
   }
 
-  // Medium day: 3 to 4 tasks (standard balanced day: 2 Math + 1 RW, or 1 Math + 2 RW)
-  if (count <= 4) {
+  const count = activeTasks.length;
+  
+  if (count <= 2 || studyMins <= 45) {
+    return DIFFICULTY_CONFIGS.light;
+  }
+
+  if (count <= 4 || studyMins <= 120) {
     return DIFFICULTY_CONFIGS.standard;
   }
 
-  // Hard day: 5 or more tasks (heavy backlog rollover or intensive drill)
   return DIFFICULTY_CONFIGS.intensive;
 }
