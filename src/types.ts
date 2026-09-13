@@ -27,6 +27,8 @@ export interface DayPlan {
   isBuffer: boolean;
   isTestDay?: boolean;
   studyTimeMinutes?: number;
+  breakTimeMinutes?: number;
+  totalTimeMinutes?: number;
   tasks: TaskItem[];
   specialInstructions?: string;
   userNotes?: string;
