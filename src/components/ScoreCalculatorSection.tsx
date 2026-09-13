@@ -13,13 +13,15 @@ import {
   Zap, 
   BookOpen, 
   Save, 
-  Sparkles,
-  ArrowRight,
-  RotateCcw,
-  Lock,
-  Unlock,
-  ShieldAlert,
-  Award
+  Sparkles, 
+  ArrowRight, 
+  RotateCcw, 
+  Lock, 
+  Unlock, 
+  ShieldAlert, 
+  Award,
+  ChevronUp,
+  ChevronDown
 } from 'lucide-react';
 
 export interface MockTestScoreRecord {
@@ -48,6 +50,91 @@ export const MOCK_TESTS_CONFIG = [
   { id: 'p2-test-4', name: 'Bluebook Test #4 (Final Rehearsal)', date: 'Sat Oct 31', tag: 'Final Full Mock' },
   { id: 'w9-d1-2', name: 'Test-Day Timing Dry Run', date: 'Mon Nov 2', tag: 'Exact Wakeup Dry Run' },
 ];
+
+/**
+ * Custom Number Input Stepper Component
+ * Replaces ugly browser native spinners with custom styled arrows
+ * that match the main web UI and always appear smoothly on hover
+ */
+interface ScoreInputStepperProps {
+  value: number;
+  onChange: (val: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  colorScheme?: 'blue' | 'emerald';
+  id?: string;
+  ariaLabel?: string;
+}
+
+const ScoreInputStepper: React.FC<ScoreInputStepperProps> = ({
+  value,
+  onChange,
+  min = 200,
+  max = 800,
+  step = 10,
+  colorScheme = 'blue',
+  id,
+  ariaLabel
+}) => {
+  const handleIncrement = () => {
+    onChange(Math.min(max, (value || min) + step));
+  };
+
+  const handleDecrement = () => {
+    onChange(Math.max(min, (value || min) - step));
+  };
+
+  const isBlue = colorScheme === 'blue';
+
+  return (
+    <div className="relative group flex items-center">
+      <input
+        id={id}
+        aria-label={ariaLabel}
+        type="number"
+        min={min}
+        max={max}
+        step={step}
+        value={value || ''}
+        onChange={(e) => {
+          const v = parseInt(e.target.value) || 0;
+          onChange(v);
+        }}
+        className={`w-full py-3 pl-4 pr-11 rounded-xl border-2 font-black text-center text-xl transition font-['JetBrains_Mono'] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+          isBlue
+            ? 'bg-white/95 text-[#0d2a45] border-[#9ec4e0] focus:border-[#2563eb] focus:ring-2 focus:ring-blue-300/40 shadow-xs'
+            : 'bg-white/95 text-[#0c3325] border-[#97d0ba] focus:border-[#059669] focus:ring-2 focus:ring-emerald-300/40 shadow-xs'
+        }`}
+      />
+      
+      {/* Custom styled stepper controls - smooth, elegant micro-arrows */}
+      <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center bg-[#edf5fc] group-hover:bg-white rounded-lg border border-[#b8d6ed] shadow-2xs overflow-hidden transition-all duration-150">
+        <button
+          type="button"
+          tabIndex={-1}
+          onClick={handleIncrement}
+          className="w-7 h-4 flex items-center justify-center text-[#2563eb] hover:bg-[#dbeaf5] active:bg-[#bfdbfe] transition cursor-pointer"
+          title="Increase (+10)"
+          aria-label="Increase by 10"
+        >
+          <ChevronUp className="w-3.5 h-3.5 stroke-[3]" />
+        </button>
+        <div className="w-full h-[1px] bg-[#c8def0]" />
+        <button
+          type="button"
+          tabIndex={-1}
+          onClick={handleDecrement}
+          className="w-7 h-4 flex items-center justify-center text-[#2563eb] hover:bg-[#dbeaf5] active:bg-[#bfdbfe] transition cursor-pointer"
+          title="Decrease (-10)"
+          aria-label="Decrease by 10"
+        >
+          <ChevronDown className="w-3.5 h-3.5 stroke-[3]" />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 interface ScoreCalculatorSectionProps {
   initialTestId?: string;
@@ -223,15 +310,15 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
   return (
     <section id="section-score-calculator" className="space-y-6">
-      {/* Top Banner */}
-      <div className="bg-gradient-to-br from-[#07213a] via-[#0b3455] to-[#03517c] border-2 border-sky-400/40 rounded-3xl p-6 sm:p-8 shadow-grave text-white relative overflow-hidden">
+      {/* Top Banner - Smooth Light Ocean / Calming Executive Blue Theme */}
+      <div className="bg-gradient-to-br from-[#1d4f7c] via-[#266295] to-[#17436b] border-2 border-[#5a90bb]/50 rounded-3xl p-6 sm:p-8 shadow-grave text-white relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[11px] font-black uppercase px-3 py-1 rounded-full bg-amber-400/25 text-amber-200 border border-amber-300/40 font-['JetBrains_Mono']">
                 Official Progression Engine
               </span>
-              <span className="text-[11px] text-sky-200 font-extrabold font-['JetBrains_Mono'] flex items-center gap-1">
+              <span className="text-[11px] text-sky-100 font-extrabold font-['JetBrains_Mono'] flex items-center gap-1">
                 <Target className="w-3.5 h-3.5 text-amber-400" />
                 Target 1500+ Architecture
               </span>
@@ -240,33 +327,33 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               <Trophy className="w-7 h-7 text-amber-400" />
               <span>Mock Test Score Target & Gap Calculator</span>
             </h2>
-            <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-sky-100/95 max-w-2xl leading-relaxed font-medium">
               Validate your Bluebook practice scores against your target. If your score doesn't match your goal, the system instructs you to retake Test #{currentTestIdx + 1} again until mastered before shifting to the next test.
             </p>
           </div>
 
           {/* Quick Target Summary Card */}
-          <div className="bg-[#041321]/85 border border-sky-400/35 rounded-2xl p-4 min-w-[220px] space-y-1 shadow-inner">
-            <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-300">
+          <div className="bg-[#0f3456]/80 border border-[#6ba4cf]/40 rounded-2xl p-4 min-w-[220px] space-y-1 shadow-inner backdrop-blur-sm">
+            <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-200">
               Active Test Target
             </span>
             <div className="text-2xl font-bold text-amber-300 font-['JetBrains_Mono']">
               {totalScore} <span className="text-xs text-sky-200 font-normal">/ {targetTotal} Goal</span>
             </div>
             <div className="text-[11px] font-bold font-['JetBrains_Mono']">
-              Gap: <span className={scoreDelta >= 0 ? 'text-emerald-400' : 'text-amber-400'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span>
+              Gap: <span className={scoreDelta >= 0 ? 'text-emerald-300' : 'text-amber-300'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 1. Test Selector Tabs with Strict Prerequisite Indicators */}
-      <div className="bg-[#082238]/90 backdrop-blur-md p-3.5 rounded-2xl border-2 border-sky-400/30 shadow-grave space-y-2.5">
+      {/* 1. Test Selector Tabs Bar - Smooth Soft Light Blue Palette */}
+      <div className="bg-[#dbeaf5]/90 backdrop-blur-md p-3.5 rounded-2xl border-2 border-[#b0d2e8] shadow-xs space-y-2.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-1">
-          <span className="text-[11px] font-black uppercase tracking-wider text-sky-200 font-['JetBrains_Mono']">
+          <span className="text-[11px] font-black uppercase tracking-wider text-[#18486f] font-['JetBrains_Mono']">
             Select Practice Test Benchmark:
           </span>
-          <span className="text-[11px] text-sky-300/80 font-['JetBrains_Mono']">
+          <span className="text-[11px] text-[#296494] font-['JetBrains_Mono']">
             Must hit target on previous test to clear sequence
           </span>
         </div>
@@ -284,20 +371,22 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 onClick={() => handleSelectTest(t.id)}
                 className={`p-3 rounded-xl border-2 text-left transition min-h-[58px] cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-gradient-to-br from-sky-600 to-blue-700 text-white border-sky-300 shadow-md ring-2 ring-sky-400/50'
+                    ? 'bg-gradient-to-br from-[#2563eb] to-[#1d4ed8] text-white border-[#1e40af] shadow-md ring-2 ring-blue-300'
                     : unlocked
-                    ? 'bg-[#051624]/80 text-sky-100 border-sky-500/25 hover:bg-[#0b2d49] hover:border-sky-400/40'
-                    : 'bg-[#030e18]/80 text-sky-300/50 border-sky-950 hover:border-sky-500/30'
+                    ? 'bg-white/80 text-[#1b4366] border-[#c2ddf0] hover:bg-white hover:border-[#86bde2] hover:shadow-xs'
+                    : 'bg-[#edf4f9]/70 text-[#6487a3] border-[#d4e4f0] hover:border-[#b0d2e8]'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span className={`text-[10px] font-black uppercase font-['JetBrains_Mono'] flex items-center gap-1 ${
-                    isSelected ? 'text-sky-100' : unlocked ? 'text-sky-300/80' : 'text-slate-400'
+                    isSelected ? 'text-white' : unlocked ? 'text-[#1c4d75]' : 'text-[#7a9bb3]'
                   }`}>
-                    {!unlocked && <Lock className="w-2.5 h-2.5 text-amber-400 shrink-0" />}
+                    {!unlocked && <Lock className="w-2.5 h-2.5 text-amber-600 shrink-0" />}
                     Test #{idx + 1}
                   </span>
-                  <span className={`text-[10px] font-bold font-['JetBrains_Mono'] ${isSelected ? 'text-amber-300' : 'text-amber-300/80'}`}>
+                  <span className={`text-[10px] font-bold font-['JetBrains_Mono'] ${
+                    isSelected ? 'text-amber-200' : 'text-[#386d99]'
+                  }`}>
                     {t.date}
                   </span>
                 </div>
@@ -306,12 +395,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 </div>
                 {hasRecord ? (
                   <div className={`text-[10px] font-extrabold font-['JetBrains_Mono'] mt-0.5 ${
-                    isSelected ? 'text-emerald-200' : 'text-emerald-300'
+                    isSelected ? 'text-emerald-200' : 'text-emerald-700'
                   }`}>
                     Score: {testTotal}
                   </div>
                 ) : (
-                  <div className="text-[10px] text-sky-300/60 font-['JetBrains_Mono'] mt-0.5">
+                  <div className="text-[10px] text-[#5582a4] font-['JetBrains_Mono'] mt-0.5">
                     {unlocked ? 'Pending' : `Requires Test #${idx}`}
                   </div>
                 )}
@@ -321,13 +410,13 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         </div>
       </div>
 
-      {/* 2. Main Calculator Form Stage */}
-      <div className="bg-gradient-to-b from-[#082136] via-[#092942] to-[#061e31] rounded-3xl border-2 border-sky-400/35 shadow-grave p-6 sm:p-8 space-y-7 text-white backdrop-blur-xl">
+      {/* 2. Main Calculator Form Stage - Soothing Smooth Light Blue Surface */}
+      <div className="bg-[#e8f2f9]/95 rounded-3xl border-2 border-[#b5d5eb] shadow-grave p-6 sm:p-8 space-y-7 text-[#0f2d4a] backdrop-blur-xl">
         
         {/* Prerequisite Alert if user clicked on a later test before clearing previous */}
         {!isTestUnlocked(currentTestIdx) && (
-          <div className="p-4 rounded-2xl bg-amber-950/70 border-2 border-amber-400/50 text-amber-200 flex items-center gap-3">
-            <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0" />
+          <div className="p-4 rounded-2xl bg-[#fef3c7] border-2 border-[#f59e0b] text-[#92400e] flex items-center gap-3 shadow-xs">
+            <ShieldAlert className="w-5 h-5 text-[#d97706] shrink-0" />
             <div className="text-xs font-['JetBrains_Mono'] leading-relaxed">
               <strong>Sequence Warning:</strong> Test #{currentTestIdx} target has not been met yet!
               You can still input benchmarks here, but the Rulebook recommends giving Test #{currentTestIdx} again before taking this exam.
@@ -337,114 +426,116 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
         {/* Target vs Actual Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Target Score Card */}
-          <div className="bg-[#051828]/85 p-5 rounded-2xl border-2 border-sky-400/30 space-y-4 shadow-inner">
-            <div className="flex items-center justify-between border-b border-sky-400/20 pb-2.5">
-              <span className="text-xs font-black uppercase text-sky-200 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                <Target className="w-4 h-4 text-sky-400" />
+          {/* Target Score Card - Soft Light Blue */}
+          <div className="bg-[#d9ecf8]/85 p-5 rounded-2xl border-2 border-[#a8cee7] space-y-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-[#bad7eb] pb-2.5">
+              <span className="text-xs font-black uppercase text-[#12395d] font-['JetBrains_Mono'] flex items-center gap-1.5">
+                <Target className="w-4 h-4 text-[#2563eb]" />
                 Target Score Setup
               </span>
-              <span className="text-xs font-bold text-sky-300 font-['JetBrains_Mono']">Goal</span>
+              <span className="text-xs font-bold text-[#20517d] font-['JetBrains_Mono']">Goal</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3.5">
               <div>
-                <label className="text-xs font-bold text-sky-200/90 block mb-1">Target Math (Max 800)</label>
-                <input
-                  type="number"
-                  min={200}
-                  max={800}
-                  step={10}
+                <label className="text-xs font-bold text-[#1b456d] block mb-1.5">Target Math (Max 800)</label>
+                <ScoreInputStepper
+                  id="input-target-math"
+                  ariaLabel="Target Math Score"
                   value={targetMath}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value) || 0;
+                  onChange={(val) => {
                     setTargetMath(val);
                     setTargetTotal(val + targetRW);
                   }}
-                  className="w-full p-3 rounded-xl border-2 border-sky-400/40 font-bold text-white text-center text-lg bg-[#030f1a] focus:outline-none focus:border-sky-300 focus:ring-2 focus:ring-sky-400/20 font-['JetBrains_Mono'] transition"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold text-sky-200/90 block mb-1">Target R&W (Max 800)</label>
-                <input
-                  type="number"
                   min={200}
                   max={800}
                   step={10}
+                  colorScheme="blue"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold text-[#1b456d] block mb-1.5">Target R&W (Max 800)</label>
+                <ScoreInputStepper
+                  id="input-target-rw"
+                  ariaLabel="Target Reading and Writing Score"
                   value={targetRW}
-                  onChange={(e) => {
-                    const val = parseInt(e.target.value) || 0;
+                  onChange={(val) => {
                     setTargetRW(val);
                     setTargetTotal(targetMath + val);
                   }}
-                  className="w-full p-3 rounded-xl border-2 border-sky-400/40 font-bold text-white text-center text-lg bg-[#030f1a] focus:outline-none focus:border-sky-300 focus:ring-2 focus:ring-sky-400/20 font-['JetBrains_Mono'] transition"
+                  min={200}
+                  max={800}
+                  step={10}
+                  colorScheme="blue"
                 />
               </div>
             </div>
 
-            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-sky-300 pt-1">
-              Combined Target Goal: <strong className="text-amber-300 text-lg font-black">{targetTotal}</strong>
+            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-[#194368] pt-1">
+              Combined Target Goal: <strong className="text-[#1e40af] text-xl font-black">{targetTotal}</strong>
             </div>
           </div>
 
-          {/* Actual Score Card */}
-          <div className="bg-[#051e2f]/85 p-5 rounded-2xl border-2 border-emerald-400/30 space-y-4 shadow-inner">
-            <div className="flex items-center justify-between border-b border-emerald-400/20 pb-2.5">
-              <span className="text-xs font-black uppercase text-emerald-300 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                <TrendingUp className="w-4 h-4 text-emerald-400" />
+          {/* Actual Score Card - Soft Calming Light Mint / Emerald */}
+          <div className="bg-[#e2f3ec]/85 p-5 rounded-2xl border-2 border-[#a2d8c3] space-y-4 shadow-xs">
+            <div className="flex items-center justify-between border-b border-[#b7e2d1] pb-2.5">
+              <span className="text-xs font-black uppercase text-[#104230] font-['JetBrains_Mono'] flex items-center gap-1.5">
+                <TrendingUp className="w-4 h-4 text-[#059669]" />
                 Actual Bluebook Score
               </span>
-              <span className="text-xs font-bold text-emerald-300 font-['JetBrains_Mono']">Score Report</span>
+              <span className="text-xs font-bold text-[#1a5a43] font-['JetBrains_Mono']">Score Report</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3.5">
               <div>
-                <label className="text-xs font-bold text-emerald-200/90 block mb-1">Actual Math Score</label>
-                <input
-                  type="number"
+                <label className="text-xs font-bold text-[#184c39] block mb-1.5">Actual Math Score</label>
+                <ScoreInputStepper
+                  id="input-actual-math"
+                  ariaLabel="Actual Math Score"
+                  value={mathScore}
+                  onChange={(val) => setMathScore(val)}
                   min={200}
                   max={800}
                   step={10}
-                  value={mathScore}
-                  onChange={(e) => setMathScore(parseInt(e.target.value) || 0)}
-                  className="w-full p-3 rounded-xl border-2 border-emerald-400/40 font-bold text-white text-center text-lg bg-[#030f1a] focus:outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-400/20 font-['JetBrains_Mono'] transition"
+                  colorScheme="emerald"
                 />
               </div>
               <div>
-                <label className="text-xs font-bold text-emerald-200/90 block mb-1">Actual R&W Score</label>
-                <input
-                  type="number"
+                <label className="text-xs font-bold text-[#184c39] block mb-1.5">Actual R&W Score</label>
+                <ScoreInputStepper
+                  id="input-actual-rw"
+                  ariaLabel="Actual Reading and Writing Score"
+                  value={rwScore}
+                  onChange={(val) => setRwScore(val)}
                   min={200}
                   max={800}
                   step={10}
-                  value={rwScore}
-                  onChange={(e) => setRwScore(parseInt(e.target.value) || 0)}
-                  className="w-full p-3 rounded-xl border-2 border-emerald-400/40 font-bold text-white text-center text-lg bg-[#030f1a] focus:outline-none focus:border-emerald-300 focus:ring-2 focus:ring-emerald-400/20 font-['JetBrains_Mono'] transition"
+                  colorScheme="emerald"
                 />
               </div>
             </div>
 
-            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-emerald-200 pt-1">
-              Combined Achieved Score: <strong className="text-emerald-400 text-lg font-black">{totalScore}</strong>
+            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-[#104230] pt-1">
+              Combined Achieved Score: <strong className="text-[#047857] text-xl font-black">{totalScore}</strong>
             </div>
           </div>
         </div>
 
-        {/* 3. Real-Time Score Gap Metrics Banner */}
-        <div className={`p-5 rounded-2xl border-2 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-inner backdrop-blur-sm ${
+        {/* 3. Real-Time Score Gap Metrics Banner - Light Calming Theme */}
+        <div className={`p-5 rounded-2xl border-2 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs backdrop-blur-sm ${
           isGoalAchieved 
-            ? 'bg-emerald-950/80 border-emerald-400/50 text-emerald-100'
+            ? 'bg-[#def5e9] border-[#76ce9e] text-[#0d4f30]'
             : isNearGoal
-            ? 'bg-sky-950/80 border-sky-400/50 text-sky-100'
-            : 'bg-rose-950/80 border-rose-500/50 text-rose-100'
+            ? 'bg-[#e0f1fb] border-[#8ec7ed] text-[#0e446d]'
+            : 'bg-[#fae7eb] border-[#f09aab] text-[#7a182b]'
         }`}>
           <div className="flex items-center gap-3.5">
             {isGoalAchieved ? (
-              <CheckCircle2 className="w-9 h-9 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-9 h-9 text-[#059669] shrink-0" />
             ) : isNearGoal ? (
-              <Sparkles className="w-9 h-9 text-sky-400 shrink-0" />
+              <Sparkles className="w-9 h-9 text-[#0284c7] shrink-0" />
             ) : (
-              <AlertTriangle className="w-9 h-9 text-rose-400 shrink-0" />
+              <AlertTriangle className="w-9 h-9 text-[#e11d48] shrink-0" />
             )}
             <div>
               <h4 className="text-lg font-bold font-luxury">
@@ -455,45 +546,44 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                   : `Target Not Met: ${Math.abs(scoreDelta)} Points Below Goal`}
               </h4>
               <p className="text-xs sm:text-sm font-medium mt-0.5">
-                Math Gap: <strong className={mathDelta >= 0 ? 'text-emerald-300' : 'text-amber-300'}>{mathDelta > 0 ? `+${mathDelta}` : mathDelta} pts</strong> • 
-                R&W Gap: <strong className={rwDelta >= 0 ? 'text-emerald-300' : 'text-amber-300'}>{rwDelta > 0 ? `+${rwDelta}` : rwDelta} pts</strong>
+                Math Gap: <strong className={mathDelta >= 0 ? 'text-[#047857]' : 'text-[#b45309]'}>{mathDelta > 0 ? `+${mathDelta}` : mathDelta} pts</strong> • 
+                R&W Gap: <strong className={rwDelta >= 0 ? 'text-[#047857]' : 'text-[#b45309]'}>{rwDelta > 0 ? `+${rwDelta}` : rwDelta} pts</strong>
               </p>
             </div>
           </div>
 
           <div className="text-center sm:text-right">
-            <span className="text-3xl font-black font-['JetBrains_Mono'] text-white">
-              {totalScore} <span className="text-sm font-normal text-sky-300/70">/ {targetTotal}</span>
+            <span className="text-3xl font-black font-['JetBrains_Mono']">
+              {totalScore} <span className="text-sm font-normal text-slate-500">/ {targetTotal}</span>
             </span>
           </div>
         </div>
 
-        {/* 4. DYNAMIC TARGET PROGRESSION & RETAKE DECISION ENGINE */}
-        {/* Replaces the old question autopsy section completely */}
+        {/* 4. DYNAMIC TARGET PROGRESSION & RETAKE DECISION ENGINE - Light Smooth Theme */}
         {isGoalAchieved ? (
           /* STATE A: GOAL FULLY MET */
-          <div className="bg-[#052418]/90 p-5 sm:p-6 rounded-2xl border-2 border-emerald-400/60 shadow-grave space-y-4">
+          <div className="bg-[#e4f7ed] p-5 sm:p-6 rounded-2xl border-2 border-[#6ece99] shadow-xs space-y-4 text-[#0c4a2c]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center shrink-0">
-                  <Trophy className="w-6 h-6 text-emerald-400" />
+                <div className="w-12 h-12 rounded-2xl bg-white/90 border border-[#72ce9b] flex items-center justify-center shrink-0 shadow-2xs">
+                  <Trophy className="w-6 h-6 text-[#059669]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/40">
+                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-[#c5eed9] text-[#0b5431] border border-[#7ed3a5]">
                     Target Cleared • Advancement Approved
                   </span>
-                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-white mt-0.5">
+                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-[#0a4528] mt-0.5">
                     Goal Achieved! You Are Cleared to Proceed
                   </h3>
                 </div>
               </div>
               <div className="text-left sm:text-right font-['JetBrains_Mono']">
-                <div className="text-2xl font-black text-emerald-300">+{scoreDelta} pts</div>
-                <div className="text-[11px] text-emerald-200/80">above target ({targetTotal})</div>
+                <div className="text-2xl font-black text-[#047857]">+{scoreDelta} pts</div>
+                <div className="text-[11px] text-[#1b5e3d]">above target ({targetTotal})</div>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-[#145233] leading-relaxed font-medium">
               Sensational execution! Your actual score of <strong>{totalScore}</strong> meets or exceeds your <strong>{targetTotal}</strong> goal. 
               You have conquered this benchmark and are officially qualified to advance to the next official Bluebook exam.
             </p>
@@ -503,46 +593,46 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSelectTest(nextTest.id)}
-                  className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
+                  className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-[#059669] hover:bg-[#047857] transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
                 >
-                  <Unlock className="w-4 h-4 text-slate-950" />
+                  <Unlock className="w-4 h-4 text-white" />
                   <span>Shift to Bluebook Test #{currentTestIdx + 2} ({nextTest.date}) →</span>
                 </button>
-                <span className="text-xs text-emerald-300/90 font-['JetBrains_Mono']">
+                <span className="text-xs text-[#135936] font-['JetBrains_Mono']">
                   ✓ Next mock benchmark unlocked
                 </span>
               </div>
             ) : (
-              <div className="text-xs font-bold text-emerald-300 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-amber-400" />
+              <div className="text-xs font-bold text-[#059669] font-['JetBrains_Mono'] flex items-center gap-1.5">
+                <Award className="w-4 h-4 text-[#d97706]" />
                 <span>All 5 Official Benchmarks Cleared! You are primed for Test Day execution.</span>
               </div>
             )}
           </div>
         ) : isNearGoal ? (
           /* STATE B: NEAR GOAL (STRIKING DISTANCE) */
-          <div className="bg-[#082236]/90 p-5 sm:p-6 rounded-2xl border-2 border-sky-400/60 shadow-grave space-y-4">
+          <div className="bg-[#e3f2fb] p-5 sm:p-6 rounded-2xl border-2 border-[#8bc3eb] shadow-xs space-y-4 text-[#0d3f66]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6 text-sky-400" />
+                <div className="w-12 h-12 rounded-2xl bg-white/90 border border-[#8ec7ed] flex items-center justify-center shrink-0 shadow-2xs">
+                  <Sparkles className="w-6 h-6 text-[#0284c7]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-sky-400/20 text-sky-200 border border-sky-400/40">
+                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-[#c8e5f7] text-[#0e4875] border border-[#8bc4ec]">
                     Within Striking Range • Gap: {Math.abs(scoreDelta)} pts
                   </span>
-                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-white mt-0.5">
+                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-[#0e3b5e] mt-0.5">
                     Near Goal! You Can Shift to Next Test or Retake
                   </h3>
                 </div>
               </div>
               <div className="text-left sm:text-right font-['JetBrains_Mono']">
-                <div className="text-2xl font-black text-sky-300">{scoreDelta} pts</div>
-                <div className="text-[11px] text-sky-200/80">near {targetTotal} target</div>
+                <div className="text-2xl font-black text-[#0284c7]">{scoreDelta} pts</div>
+                <div className="text-[11px] text-[#245880]">near {targetTotal} target</div>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-sky-100/90 leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-[#194c73] leading-relaxed font-medium">
               You scored <strong>{totalScore}</strong>, which is within striking distance of your <strong>{targetTotal}</strong> goal ({Math.abs(scoreDelta)} pts gap). 
               Because you are close to the threshold, you may either give Test #{currentTestIdx + 1} a quick retake to hit the exact target, or shift forward to <strong>Bluebook Test #{currentTestIdx + 2}</strong>.
             </p>
@@ -552,46 +642,46 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSelectTest(nextTest.id)}
-                  className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-sky-300 hover:bg-sky-200 transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
+                  className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-[#0284c7] hover:bg-[#0369a1] transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
                 >
-                  <ArrowRight className="w-4 h-4 text-slate-950" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                   <span>Shift to Bluebook Test #{currentTestIdx + 2} →</span>
                 </button>
               )}
               <button
                 type="button"
                 onClick={handleRetakeCurrentTest}
-                className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-sky-200 bg-[#061828] hover:bg-[#0c2e4d] border-2 border-sky-400/40 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
+                className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-[#0d3f66] bg-white hover:bg-[#f0f8fd] border-2 border-[#96c8eb] transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono'] shadow-2xs"
               >
-                <RotateCcw className="w-4 h-4 text-sky-300" />
+                <RotateCcw className="w-4 h-4 text-[#0284c7]" />
                 <span>Retake Test #{currentTestIdx + 1} to Hit Exact {targetTotal}</span>
               </button>
             </div>
           </div>
         ) : (
           /* STATE C: GOAL NOT MET — RETAKE MANDATORY */
-          <div className="bg-[#240e14]/95 p-5 sm:p-6 rounded-2xl border-2 border-rose-500/70 shadow-grave space-y-4">
+          <div className="bg-[#fcedf0] p-5 sm:p-6 rounded-2xl border-2 border-[#f294a7] shadow-xs space-y-4 text-[#6e1324]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center shrink-0">
-                  <AlertTriangle className="w-6 h-6 text-rose-400" />
+                <div className="w-12 h-12 rounded-2xl bg-white/90 border border-[#f49bb0] flex items-center justify-center shrink-0 shadow-2xs">
+                  <AlertTriangle className="w-6 h-6 text-[#e11d48]" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40">
+                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-[#fbd4dd] text-[#88172e] border border-[#f49cb1]">
                     Target Not Met • Retake Required
                   </span>
-                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-white mt-0.5">
+                  <h3 className="text-lg sm:text-xl font-bold font-luxury text-[#6e1324] mt-0.5">
                     Give Test #{currentTestIdx + 1} Again Before Moving On!
                   </h3>
                 </div>
               </div>
               <div className="text-left sm:text-right font-['JetBrains_Mono']">
-                <div className="text-2xl font-black text-rose-300">-{Math.abs(scoreDelta)} pts</div>
-                <div className="text-[11px] text-rose-200/80">below target ({targetTotal})</div>
+                <div className="text-2xl font-black text-[#be123c]">-{Math.abs(scoreDelta)} pts</div>
+                <div className="text-[11px] text-[#862035]">below target ({targetTotal})</div>
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-rose-100/90 leading-relaxed font-medium">
+            <p className="text-xs sm:text-sm text-[#7e1c30] leading-relaxed font-medium">
               Your actual score of <strong>{totalScore}</strong> is <strong>{Math.abs(scoreDelta)} points below</strong> your goal of <strong>{targetTotal}</strong> (Math: {mathScore} / {targetMath}, R&amp;W: {rwScore} / {targetRW}). 
               According to the Anti-Burnout Rulebook, do <strong>NOT</strong> waste the next practice test until you address these leaked points. 
               Review your missed questions in the Error Log, drill the weak concepts on Khan Academy, and <strong>give Test #{currentTestIdx + 1} again and again until you achieve that goal!</strong>
@@ -601,7 +691,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               <button
                 type="button"
                 onClick={handleRetakeCurrentTest}
-                className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-rose-600 hover:bg-rose-500 transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-[#e11d48] hover:bg-[#be123c] transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
               >
                 <RotateCcw className="w-4 h-4 text-white" />
                 <span>Give Test #{currentTestIdx + 1} Again (Retake Test)</span>
@@ -611,16 +701,16 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateToErrorLog}
-                  className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-rose-200 bg-[#16070a] hover:bg-[#2c0f16] border-2 border-rose-500/40 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
+                  className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-[#88172e] bg-white hover:bg-[#fff1f2] border-2 border-[#f49bb0] transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono'] shadow-2xs"
                 >
-                  <BookOpen className="w-4 h-4 text-rose-300" />
+                  <BookOpen className="w-4 h-4 text-[#e11d48]" />
                   <span>Review Weak Questions in Error Log</span>
                 </button>
               )}
 
               {nextTest && (
-                <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#140609]/80 border border-rose-500/25 text-rose-300/60 text-xs font-['JetBrains_Mono'] cursor-not-allowed">
-                  <Lock className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/90 border border-[#f0a6b5] text-[#912439] text-xs font-['JetBrains_Mono'] cursor-not-allowed shadow-2xs">
+                  <Lock className="w-3.5 h-3.5 text-[#e11d48]" />
                   <span>Test #{currentTestIdx + 2} Locked (Requires score ≥ {targetTotal - 40})</span>
                 </div>
               )}
@@ -630,15 +720,15 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
         {/* Retake feedback toast */}
         {retakeToast && (
-          <div className="p-3.5 rounded-xl bg-sky-900/90 border border-sky-400 text-sky-100 text-xs font-['JetBrains_Mono'] flex items-center gap-2">
-            <RotateCcw className="w-4 h-4 text-sky-300 animate-spin" />
+          <div className="p-3.5 rounded-xl bg-[#e0f2fe] border border-[#7dd3fc] text-[#0369a1] text-xs font-['JetBrains_Mono'] flex items-center gap-2 shadow-xs">
+            <RotateCcw className="w-4 h-4 text-[#0284c7] animate-spin" />
             <span>Retake initiated! Retest on Bluebook, then input your updated scores above.</span>
           </div>
         )}
 
         {/* 5. Qualitative Reflection Notes */}
         <div className="space-y-2">
-          <label className="text-xs font-black uppercase text-sky-200 tracking-wider font-['JetBrains_Mono'] block">
+          <label className="text-xs font-black uppercase text-[#143c61] tracking-wider font-['JetBrains_Mono'] block">
             Test Reflection & Specific Skills to Review Before Retaking
           </label>
           <textarea
@@ -646,20 +736,20 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             onChange={(e) => setNotes(e.target.value)}
             placeholder="e.g. Struggled with circle geometry on Question 19, punctuation was clean, need to practice Desmos table regressions..."
             rows={3}
-            className="w-full p-3.5 rounded-xl border-2 border-sky-400/30 text-xs sm:text-sm text-sky-100 placeholder:text-sky-300/40 bg-[#04121e] focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/20 font-sans leading-relaxed"
+            className="w-full p-3.5 rounded-xl border-2 border-[#b0d2e8] text-xs sm:text-sm text-[#0f2d4a] placeholder:text-[#648aa9] bg-white/90 focus:border-[#2563eb] focus:outline-none focus:ring-2 focus:ring-blue-300/40 font-sans leading-relaxed shadow-xs"
           />
         </div>
 
         {/* 6. Action Buttons Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-sky-500/25">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#bad7eb]">
           <div>
             {onNavigateToErrorLog && (
               <button
                 type="button"
                 onClick={onNavigateToErrorLog}
-                className="px-4 py-2.5 rounded-xl text-xs font-bold text-rose-200 bg-rose-950/70 hover:bg-rose-900/80 border-2 border-rose-500/40 transition flex items-center gap-1.5 min-h-[44px] cursor-pointer shadow-xs active:scale-[0.98]"
+                className="px-4 py-2.5 rounded-xl text-xs font-bold text-rose-800 bg-rose-100/90 hover:bg-rose-200/90 border-2 border-rose-300 transition flex items-center gap-1.5 min-h-[44px] cursor-pointer shadow-xs active:scale-[0.98]"
               >
-                <BookOpen className="w-4 h-4 text-rose-400" />
+                <BookOpen className="w-4 h-4 text-rose-600" />
                 <span>Log Questions in Mistake Autopsy</span>
               </button>
             )}
@@ -669,7 +759,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             <button
               type="button"
               onClick={handleSave}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 transition flex items-center justify-center gap-2 min-h-[44px] cursor-pointer shadow-md hover:shadow-lg active:scale-[0.98] border border-emerald-300 font-['JetBrains_Mono']"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-[#059669] hover:bg-[#047857] transition flex items-center justify-center gap-2 min-h-[44px] cursor-pointer shadow-md hover:shadow-lg active:scale-[0.98] border border-[#047857] font-['JetBrains_Mono']"
             >
               <Save className="w-4 h-4" />
               <span>{saveToast ? '✓ Saved to Profile!' : 'Save Test Score & Gap'}</span>
@@ -678,14 +768,14 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         </div>
       </div>
 
-      {/* 7. Score Progression History Across All Tests */}
+      {/* 7. Score Progression History Across All Tests - Soft Light Blue Frame */}
       {Object.keys(allSavedRecords).length > 0 && (
-        <div className="bg-[#051829]/95 text-white rounded-3xl p-6 border-2 border-sky-500/35 space-y-4 shadow-grave">
+        <div className="bg-[#dbeaf5]/90 rounded-3xl p-6 border-2 border-[#b0d2e8] space-y-4 shadow-xs text-[#0f2d4a]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-sky-400 font-['JetBrains_Mono']">
+            <span className="text-xs font-black uppercase tracking-wider text-[#14436b] font-['JetBrains_Mono']">
               Score Progression History
             </span>
-            <span className="text-xs text-sky-300 font-['JetBrains_Mono']">
+            <span className="text-xs text-[#2b6491] font-['JetBrains_Mono']">
               {Object.keys(allSavedRecords).length} of 5 Mocks Logged
             </span>
           </div>
@@ -697,17 +787,17 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               const d = rec.totalScore - rec.targetTotal;
 
               return (
-                <div key={t.id} className="p-3.5 rounded-xl bg-[#082238]/90 border border-sky-400/30 space-y-1 font-['JetBrains_Mono']">
-                  <div className="text-[11px] text-sky-300 font-bold">{rec.testName.split('(')[0]}</div>
+                <div key={t.id} className="p-3.5 rounded-xl bg-white/90 border-2 border-[#c2ddf0] space-y-1 font-['JetBrains_Mono'] shadow-2xs">
+                  <div className="text-[11px] text-[#2c5f88] font-bold">{rec.testName.split('(')[0]}</div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-white">{rec.totalScore}</span>
+                    <span className="text-lg font-bold text-[#0c2a44]">{rec.totalScore}</span>
                     <span className={`text-xs font-black px-1.5 py-0.5 rounded ${
-                      d >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
+                      d >= 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
                     }`}>
                       {d >= 0 ? `+${d}` : d} vs Goal
                     </span>
                   </div>
-                  <div className="text-[10px] text-sky-200/80">
+                  <div className="text-[10px] text-[#4a7a9e]">
                     Math: {rec.mathScore} • R&W: {rec.rwScore}
                   </div>
                 </div>
