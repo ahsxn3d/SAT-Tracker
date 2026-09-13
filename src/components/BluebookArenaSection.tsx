@@ -244,7 +244,6 @@ interface BluebookArenaSectionProps {
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
   onLaunchTimer: (title?: string) => void;
-  onOpenFlashcards?: () => void;
 }
 
 export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
@@ -254,7 +253,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onOpenDesmos,
   onOpenErrorLog,
   onLaunchTimer,
-  onOpenFlashcards,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
   const [scoreModalOpen, setScoreModalOpen] = useState(false);
@@ -355,16 +353,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
           >
             <Target className="w-4 h-4 text-slate-950" />
             <span>Score & Gap Calculator</span>
-          </button>
-          <button
-            onClick={() => {
-              if (onOpenFlashcards) onOpenFlashcards();
-              else window.location.href = '/flashcards';
-            }}
-            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>Flashcards Deck</span>
           </button>
           <button
             onClick={onOpenErrorLog}

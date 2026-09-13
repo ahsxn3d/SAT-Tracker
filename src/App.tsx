@@ -34,7 +34,6 @@ import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
 import { StopwatchSection } from './components/StopwatchSection';
 import { ExamPrepSection } from './components/ExamPrepSection';
-import { FlashcardsSection } from './components/FlashcardsSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -67,7 +66,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'flashcards';
+type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -531,7 +530,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'rules': '/rules',
       'timer': '/timer',
       'exam-prep': '/exam-prep',
-      'flashcards': '/flashcards',
     };
     const targetHref = hrefMap[section] || '/';
     if (typeof window !== 'undefined' && window.location.pathname !== targetHref) {
@@ -989,7 +987,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onOpenDesmos={() => handleSelectSection('cheat-codes')}
                 onOpenErrorLog={() => handleSelectSection('error-log')}
                 onLaunchTimer={handleLaunchTimer}
-                onOpenFlashcards={() => handleSelectSection('flashcards')}
               />
             </div>
           </ScrollReveal>
@@ -1078,31 +1075,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onToggleItem={handleTogglePackingItem}
                 onAddItem={handleAddPackingItem}
               />
-            </div>
-          </ScrollReveal>
-        )}
-
-        {/* ============================================================ */}
-        {/* SECTION: ACTIVE RECALL FORMULA & GRAMMAR FLASHCARDS          */}
-        {/* ============================================================ */}
-        {(activeSection === 'all' || activeSection === 'flashcards') && (
-          <ScrollReveal id="section-flashcards">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Active Recall Formula &amp; Grammar Flashcard Deck</span>
-                </span>
-                {activeSection !== 'all' && (
-                  <button
-                    onClick={() => setActiveSection('all')}
-                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
-                  >
-                    View Full Dashboard &rarr;
-                  </button>
-                )}
-              </div>
-              <FlashcardsSection />
             </div>
           </ScrollReveal>
         )}
