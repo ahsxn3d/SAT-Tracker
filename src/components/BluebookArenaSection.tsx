@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { 
   Trophy, 
@@ -16,9 +16,12 @@ import {
   Filter,
   Coffee,
   CheckCheck,
-  AlertCircle
+  AlertCircle,
+  Target,
+  Flame
 } from 'lucide-react';
 import { WeekPlan } from '../types';
+import { MockScoreModal, MockTestScoreRecord } from './MockScoreModal';
 
 interface Phase2DaySchedule {
   dateStr: string;
@@ -241,6 +244,8 @@ interface BluebookArenaSectionProps {
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
   onLaunchTimer: (title?: string) => void;
+  onOpenPacing?: () => void;
+  onOpenFlashcards?: () => void;
 }
 
 export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
@@ -250,8 +255,28 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onOpenDesmos,
   onOpenErrorLog,
   onLaunchTimer,
+  onOpenPacing,
+  onOpenFlashcards,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
+  const [scoreModalOpen, setScoreModalOpen] = useState(false);
+  const [selectedMockForScore, setSelectedMockForScore] = useState<string>('p2-test-2');
+  const [savedScores, setSavedScores] = useState<Record<string, MockTestScoreRecord>>({});
+
+  const loadSavedScores = () => {
+    try {
+      const savedStr = localStorage.getItem('anti_burnout_mock_scores_v1');
+      if (savedStr) {
+        setSavedScores(JSON.parse(savedStr));
+      }
+    } catch {
+      // ignore
+    }
+  };
+
+  useEffect(() => {
+    loadSavedScores();
+  }, []);
 
   const mockTests = [
     { name: 'Bluebook Practice Test #1', date: 'Sun Sep 20', time: '8:30 AM', dayId: '2026-09-20', taskId: 'w2-diag-1', tag: '★ Early Diagnostic' },
@@ -322,20 +347,43 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={onOpenDesmos}
-            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
+            onClick={() => {
+              setSelectedMockForScore('p2-test-2');
+              setScoreModalOpen(true);
+            }}
+            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-amber-400 hover:bg-amber-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
           >
-            <Zap className="w-4 h-4" />
-            <span>Desmos Speed Drills</span>
+            <Target className="w-4 h-4 text-slate-950" />
+            <span>Score & Gap Calculator</span>
+          </button>
+          <button
+            onClick={() => {
+              if (onOpenPacing) onOpenPacing();
+              else window.location.href = '/pacing';
+            }}
+            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-sky-600 hover:bg-sky-500 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer border border-sky-400/40"
+          >
+            <Clock className="w-4 h-4" />
+            <span>Pacing Trainer</span>
+          </button>
+          <button
+            onClick={() => {
+              if (onOpenFlashcards) onOpenFlashcards();
+              else window.location.href = '/flashcards';
+            }}
+            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
+          >
+            <Sparkles className="w-4 h-4" />
+            <span>Flashcards Deck</span>
           </button>
           <button
             onClick={onOpenErrorLog}
-            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-sky-600 hover:bg-sky-500 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer border border-sky-400/40"
+            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-indigo-600 hover:bg-indigo-500 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer border border-indigo-400/40"
           >
             <BookOpen className="w-4 h-4" />
-            <span>Mistake Autopsy Log</span>
+            <span>Error Log</span>
           </button>
         </div>
       </div>
@@ -354,6 +402,9 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {mockTests.map((mock, idx) => {
             const isDone = !!completedTaskIds[mock.taskId];
+            const testScore = savedScores[mock.taskId];
+            const delta = testScore ? testScore.totalScore - testScore.targetTotal : 0;
+
             return (
               <motion.div
                 key={mock.taskId}
@@ -380,9 +431,24 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                   <p className="mt-1 text-xs text-sky-200 font-semibold">
                     Timing: <span className="text-white font-extrabold">{mock.time}</span>
                   </p>
-                  <span className="mt-2.5 inline-block text-[10px] font-black text-sky-100 bg-[#061e36]/90 px-2.5 py-1 rounded-lg border border-sky-400/30 font-['JetBrains_Mono']">
-                    {mock.tag}
-                  </span>
+
+                  {/* Score & Gap pill if logged */}
+                  {testScore ? (
+                    <div className="mt-2 p-2 rounded-xl bg-slate-900/90 border border-sky-400/40 text-xs flex items-center justify-between font-['JetBrains_Mono']">
+                      <span className="font-bold text-white">
+                        Score: <strong className="text-amber-300">{testScore.totalScore}</strong> (M:{testScore.mathScore} R:{testScore.rwScore})
+                      </span>
+                      <span className={`font-black text-[10px] px-1.5 py-0.5 rounded ${
+                        delta >= 0 ? 'bg-emerald-500/30 text-emerald-300' : 'bg-amber-500/30 text-amber-300'
+                      }`}>
+                        {delta >= 0 ? `+${delta}` : delta}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="mt-2.5 inline-block text-[10px] font-black text-sky-100 bg-[#061e36]/90 px-2.5 py-1 rounded-lg border border-sky-400/30 font-['JetBrains_Mono']">
+                      {mock.tag}
+                    </span>
+                  )}
                 </div>
 
                 <div className="pt-2.5 border-t border-sky-500/25 flex items-center justify-between gap-2">
@@ -406,6 +472,19 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                       </>
                     )}
                   </button>
+
+                  {/* Score & Gap Button */}
+                  <button
+                    onClick={() => {
+                      setSelectedMockForScore(mock.taskId);
+                      setScoreModalOpen(true);
+                    }}
+                    title="Calculate Score & Gap Analysis"
+                    className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 transition border border-amber-300 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
+                  >
+                    <Target className="w-4 h-4" />
+                  </button>
+
                   <button
                     onClick={onOpenErrorLog}
                     title="Log mistakes from this test"
@@ -630,6 +709,18 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
           </p>
         </motion.div>
       </div>
+
+      {/* Mock Score Target & Gap Modal */}
+      <MockScoreModal
+        isOpen={scoreModalOpen}
+        onClose={() => {
+          setScoreModalOpen(false);
+          loadSavedScores();
+        }}
+        defaultTestId={selectedMockForScore}
+        onOpenErrorLog={onOpenErrorLog}
+        onOpenPacing={onOpenPacing}
+      />
     </motion.section>
   );
 };
