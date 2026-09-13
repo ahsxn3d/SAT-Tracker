@@ -13,7 +13,8 @@ import {
   DayPlan, 
   ErrorLogEntry, 
   PackingItem,
-  DaySessionTiming
+  DaySessionTiming,
+  TaskTimingRecord
 } from './types';
 import { AntiBurnoutHeader } from './components/AntiBurnoutHeader';
 import { TomorrowFocusCard } from './components/TomorrowFocusCard';
@@ -60,6 +61,7 @@ const STORAGE_KEYS = {
   DAY_NOTES: 'anti_burnout_notes_clean_v3',
   SESSION_TIMINGS: 'anti_burnout_session_timings_clean_v3',
   TASK_COMPLETION_DAYS: 'anti_burnout_task_completion_days_v3',
+  TASK_TIMINGS: 'anti_burnout_task_timings_clean_v3',
 };
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
@@ -89,6 +91,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [packingList, setPackingList] = useState<PackingItem[]>(() => mergePackingListWithDefaults(INITIAL_PACKING_LIST));
   const [dayNotes, setDayNotes] = useState<Record<string, string>>({});
   const [sessionTimings, setSessionTimings] = useState<Record<string, DaySessionTiming>>(DEFAULT_SESSION_TIMINGS);
+  const [taskTimings, setTaskTimings] = useState<Record<string, TaskTimingRecord>>({});
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
   // Load saved data from localStorage after client mounts to avoid hydration mismatch
@@ -115,6 +118,9 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
       const savedTimings = localStorage.getItem(STORAGE_KEYS.SESSION_TIMINGS);
       if (savedTimings) setSessionTimings(JSON.parse(savedTimings));
+
+      const savedTaskTimings = localStorage.getItem(STORAGE_KEYS.TASK_TIMINGS);
+      if (savedTaskTimings) setTaskTimings(JSON.parse(savedTaskTimings));
     } catch (e) {
       console.error('Error loading saved progress from localStorage', e);
     }
@@ -397,6 +403,26 @@ export default function App({ initialSection = 'all' }: AppProps) {
     });
   };
 
+  const handleSaveTaskTiming = (taskId: string, seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    const formatted = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+    const record: TaskTimingRecord = {
+      seconds,
+      formatted,
+      completedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    setTaskTimings((prev) => {
+      const next = { ...prev, [taskId]: record };
+      try {
+        localStorage.setItem(STORAGE_KEYS.TASK_TIMINGS, JSON.stringify(next));
+      } catch (e) {
+        console.error('Failed to save task timing', e);
+      }
+      return next;
+    });
+  };
+
   const handleAddErrorLog = (entry: Omit<ErrorLogEntry, 'id' | 'createdAt'>) => {
     const newEntry: ErrorLogEntry = {
       ...entry,
@@ -521,8 +547,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
         examDateStr="Nov 7, 2026"
         onOpenTimer={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
         onOpenCalendar={() => handleSelectSection('calendar')}
-        onOpenPacking={() => setPackingModalOpen(true)}
-        onOpenCheatCodes={() => setDesmosModalOpen(true)}
+        onOpenPacking={() => handleSelectSection('exam-prep')}
+        onOpenCheatCodes={() => handleSelectSection('cheat-codes')}
         activeSection={activeSection}
         onSelectSection={handleSelectSection}
       />
@@ -547,7 +573,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
             setErrorLogModalOpen(true);
           }}
           onOpenDesmosModal={() => handleSelectSection('cheat-codes')}
-          onOpenPackingModal={() => setPackingModalOpen(true)}
+          onOpenPackingModal={() => handleSelectSection('exam-prep')}
+          taskTimings={taskTimings}
         />
       ) : (
         /* Main Container */
@@ -613,6 +640,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 existingTiming={sessionTimings[selectedTimerDateStr]}
                 completedTaskIds={completedTaskIds}
                 onToggleTask={handleToggleTask}
+                taskTimings={taskTimings}
+                onSaveTaskTiming={handleSaveTaskTiming}
               />
             </div>
           </ScrollReveal>
@@ -716,6 +745,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 sessionTimings={sessionTimings}
                 onDeleteSessionTiming={handleDeleteSessionTiming}
                 onSelectDay={(dateStr) => setDedicatedDayDateStr(dateStr)}
+                taskTimings={taskTimings}
               />
             </div>
           </ScrollReveal>

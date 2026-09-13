@@ -38,6 +38,8 @@ interface StopwatchSectionProps {
   existingTiming?: DaySessionTiming;
   completedTaskIds?: Record<string, boolean>;
   onToggleTask?: (dayId: string, taskId: string) => void;
+  taskTimings?: Record<string, import('@/types').TaskTimingRecord>;
+  onSaveTaskTiming?: (taskId: string, seconds: number) => void;
 }
 
 type TimerMode = 'lesson' | 'break';
@@ -49,9 +51,10 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
   onSelectDateStr,
   onSelectTaskId,
   onSaveTiming,
-  existingTiming,
   completedTaskIds = {},
   onToggleTask,
+  taskTimings = {},
+  onSaveTaskTiming,
 }) => {
   const [currentDateStr, setCurrentDateStr] = useState<string>(selectedDateStr || '2026-09-12');
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(initialSelectedTaskId || null);
@@ -206,8 +209,14 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
 
   // Complete current lesson and advance to next
   const handleMarkCompleteAndAdvance = () => {
-    if (activeTask && onToggleTask && !completedTaskIds[activeTask.id]) {
-      onToggleTask(activeDay.id, activeTask.id);
+    if (activeTask) {
+      if (onToggleTask && !completedTaskIds[activeTask.id]) {
+        onToggleTask(activeDay.id, activeTask.id);
+      }
+      if (onSaveTaskTiming) {
+        const elapsed = stageElapsedSeconds > 0 ? stageElapsedSeconds : stageTargetSeconds;
+        onSaveTaskTiming(activeTask.id, elapsed);
+      }
     }
     if (soundEnabled) playChime('done');
     handleNextLesson();
@@ -434,58 +443,68 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
           </span>
         </div>
 
-        {/* Scrollable Horizontal Task / Lesson Cards with uncropped edge padding */}
-        <div className="flex items-center gap-3 overflow-x-auto py-2.5 px-3 sm:px-4 -mx-2 sm:-mx-3 scrollbar-thin">
+        {/* Multi-Row Scheduled Lesson Cards Grid (Fits cleanly into 2 rows, never cropped) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 pt-1">
           {activeDay.tasks.map((task, idx) => {
             const isSelected = timerMode === 'lesson' && activeTask?.id === task.id;
             const isDone = !!completedTaskIds[task.id];
             const taskMins = task.durationMinutes || (task.subject === 'math' ? 25 : 20);
+            const recordedTiming = taskTimings[task.id];
 
             return (
               <button
                 key={task.id}
                 onClick={() => handleSelectTask(task)}
-                className={`task-check-card calendar-date-neon-hover shrink-0 text-left p-3.5 rounded-2xl border-2 transition-all cursor-pointer min-w-[210px] sm:min-w-[230px] max-w-[270px] select-none ${
+                className={`task-check-card calendar-date-neon-hover w-full text-left p-3.5 rounded-2xl border-2 transition-all cursor-pointer select-none flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-white border-emerald-500 shadow-md ring-2 ring-emerald-500/30'
+                    ? 'bg-white border-emerald-500 shadow-md ring-2 ring-emerald-500/30 -translate-y-0.5'
                     : isDone
                     ? 'bg-emerald-50/70 border-emerald-300/80 text-slate-700'
-                    : 'bg-white/80 border-[#a6c4a1] hover:bg-white text-slate-900'
+                    : 'bg-white/85 border-[#a6c4a1] hover:bg-white text-slate-900'
                 }`}
               >
-                <div className="flex items-center justify-between gap-1 mb-1.5">
-                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md font-['JetBrains_Mono'] ${
-                    task.subject === 'math'
-                      ? 'bg-emerald-100 text-emerald-900'
-                      : task.subject === 'rw'
-                      ? 'bg-indigo-100 text-indigo-900'
-                      : 'bg-amber-100 text-amber-900'
-                  }`}>
-                    {task.code || `Unit ${idx + 1}`} • {taskMins}m
-                  </span>
-                  
-                  {isDone ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                  ) : (
-                    <Circle className="w-4 h-4 text-slate-400 shrink-0" />
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                    <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md font-['JetBrains_Mono'] ${
+                      task.subject === 'math'
+                        ? 'bg-emerald-100 text-emerald-900'
+                        : task.subject === 'rw'
+                        ? 'bg-indigo-100 text-indigo-900'
+                        : 'bg-amber-100 text-amber-900'
+                    }`}>
+                      {task.code || `Unit ${idx + 1}`} • {taskMins}m
+                    </span>
+                    
+                    {isDone ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    ) : (
+                      <Circle className="w-4 h-4 text-slate-400 shrink-0" />
+                    )}
+                  </div>
+
+                  <div className="font-bold text-xs text-slate-950 font-['Space_Grotesk'] line-clamp-2 mb-1">
+                    {task.topic || task.label}
+                  </div>
+                </div>
+
+                <div className="space-y-1 mt-2 pt-1 border-t border-slate-200/50">
+                  {task.timeSlot && (
+                    <div className="text-[10px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                      <span className="truncate">{task.timeSlot}</span>
+                    </div>
+                  )}
+
+                  {recordedTiming && (
+                    <div className="text-[10px] font-black text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1 bg-emerald-100/90 border border-emerald-300/60 px-1.5 py-0.5 rounded shadow-2xs">
+                      <Sparkles className="w-3 h-3 text-emerald-600 shrink-0" />
+                      <span>Exact Time: {recordedTiming.formatted}</span>
+                    </div>
                   )}
                 </div>
-
-                <div className="font-bold text-xs text-slate-950 font-['Space_Grotesk'] line-clamp-1">
-                  {task.topic || task.label}
-                </div>
-
-                {task.timeSlot && (
-                  <div className="mt-1.5 text-[10px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-slate-400" />
-                    <span>{task.timeSlot}</span>
-                  </div>
-                )}
               </button>
             );
           })}
-          {/* End spacer so the last card has breathing room and right edge is never cropped */}
-          <div className="shrink-0 w-3 sm:w-4 h-1 pointer-events-none" aria-hidden="true" />
         </div>
       </div>
 

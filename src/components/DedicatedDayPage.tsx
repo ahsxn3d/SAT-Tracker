@@ -43,6 +43,7 @@ interface DedicatedDayPageProps {
   onOpenErrorLogModal: (preselectedDate?: string) => void;
   onOpenDesmosModal: () => void;
   onOpenPackingModal: () => void;
+  taskTimings?: Record<string, import('../types').TaskTimingRecord>;
 }
 
 export function DedicatedDayPage({
@@ -61,6 +62,7 @@ export function DedicatedDayPage({
   onOpenErrorLogModal,
   onOpenDesmosModal,
   onOpenPackingModal,
+  taskTimings = {},
 }: DedicatedDayPageProps) {
   // Local notes editing state
   const [currentNotes, setCurrentNotes] = useState(notes || '');
@@ -677,6 +679,11 @@ export function DedicatedDayPage({
                               <span>Rollover from {task.originalFormattedDate}</span>
                             </span>
                           )}
+                          {taskTimings && taskTimings[task.id] && (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1 shadow-2xs">
+                              <span>⏱️ Exact Time: {taskTimings[task.id].formatted}</span>
+                            </span>
+                          )}
                           <span className={`text-xs font-bold leading-snug ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
                             {task.label}
                           </span>
@@ -782,6 +789,11 @@ export function DedicatedDayPage({
                             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
                               <span>Rollover from {task.originalFormattedDate}</span>
+                            </span>
+                          )}
+                          {taskTimings && taskTimings[task.id] && (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1 shadow-2xs">
+                              <span>⏱️ Exact Time: {taskTimings[task.id].formatted}</span>
                             </span>
                           )}
                           <span className={`text-xs font-bold leading-snug ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>

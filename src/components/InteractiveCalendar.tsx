@@ -19,9 +19,10 @@ import {
   ArrowUpRight,
   Zap,
   BookOpen,
-  RotateCcw
+  RotateCcw,
+  Timer
 } from 'lucide-react';
-import { DayPlan, TaskItem, DaySessionTiming } from '../types';
+import { DayPlan, TaskItem, DaySessionTiming, TaskTimingRecord } from '../types';
 import { getDayLoadDifficulty, DayLoadDifficulty, DIFFICULTY_CONFIGS } from '../utils/difficulty';
 
 interface InteractiveCalendarProps {
@@ -34,6 +35,7 @@ interface InteractiveCalendarProps {
   sessionTimings?: Record<string, DaySessionTiming>;
   onDeleteSessionTiming?: (dateStr: string) => void;
   onSelectDay?: (dateStr: string) => void;
+  taskTimings?: Record<string, TaskTimingRecord>;
 }
 
 type CalendarMonth = 'all' | '2026-09' | '2026-10' | '2026-11';
@@ -48,6 +50,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
   sessionTimings = {},
   onDeleteSessionTiming,
   onSelectDay,
+  taskTimings = {},
 }) => {
   const [selectedMonth, setSelectedMonth] = useState<CalendarMonth>('2026-09');
   const [activeInspectDayId, setActiveInspectDayId] = useState<string | null>(null);
@@ -1110,6 +1113,27 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                           >
                             {task.label}
                           </span>
+                        </div>
+
+                        {/* Exact Lesson Time Taken or Allocated Schedule */}
+                        <div className="mt-1.5 flex items-center gap-2 flex-wrap text-[10px] font-['JetBrains_Mono']">
+                          {task.timeSlot && (
+                            <span className="text-slate-600 font-bold flex items-center gap-1">
+                              <Clock className="w-3 h-3 text-slate-400 shrink-0" />
+                              <span>{task.timeSlot}</span>
+                            </span>
+                          )}
+                          {task.durationMinutes && (
+                            <span className="text-slate-500 font-semibold">
+                              ({task.durationMinutes}m target)
+                            </span>
+                          )}
+                          {taskTimings && taskTimings[task.id] && (
+                            <span className="font-black px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1 shadow-2xs">
+                              <Timer className="w-3 h-3 text-emerald-700 shrink-0" />
+                              <span>Exact Time: {taskTimings[task.id].formatted}</span>
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>

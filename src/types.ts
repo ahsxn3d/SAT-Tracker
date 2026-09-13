@@ -84,6 +84,12 @@ export interface DaySessionTiming {
   overallRating: PaceRating;
 }
 
+export interface TaskTimingRecord {
+  seconds: number;
+  formatted: string;
+  completedAt: string;
+}
+
 export interface PackingItem {
   id: string;
   item: string;
