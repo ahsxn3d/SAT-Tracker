@@ -1056,7 +1056,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                     <div
                       key={task.id}
                       onClick={() => onToggleTask(inspectedDay.id, task.id)}
-                      className={`group task-check-card p-3 rounded-xl border-2 flex items-center gap-3 select-none cursor-pointer ${
+                      className={`group task-check-card calendar-date-neon-hover p-3 rounded-xl border-2 flex items-center gap-3 select-none cursor-pointer ${
                         isChecked
                           ? 'bg-emerald-50/70 border-emerald-300 text-slate-700'
                           : 'bg-matcha-input border-[#a6c4a1]/60 text-slate-900 shadow-xs'

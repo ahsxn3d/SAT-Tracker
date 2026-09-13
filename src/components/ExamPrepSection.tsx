@@ -503,7 +503,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                     <div
                       key={item.id}
                       onClick={() => onToggleItem(item.id)}
-                      className={`p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer flex items-start justify-between gap-3 group select-none ${
+                      className={`task-check-card calendar-date-neon-hover p-4 rounded-2xl border-2 cursor-pointer flex items-start justify-between gap-3 group select-none ${
                         item.packed
                           ? 'bg-emerald-100/70 border-emerald-400/80 shadow-2xs'
                           : 'bg-white/90 border-[#a6c4a1]/80 hover:border-slate-400 shadow-xs'
@@ -511,7 +511,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                     >
                       <div className="flex items-start gap-3 min-w-0 flex-1">
                         <div
-                          className={`w-6 h-6 mt-0.5 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                          className={`task-check-dot w-6 h-6 mt-0.5 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                             item.packed
                               ? 'bg-emerald-600 text-white shadow-xs'
                               : 'border-2 border-slate-400 group-hover:border-emerald-600 text-transparent'

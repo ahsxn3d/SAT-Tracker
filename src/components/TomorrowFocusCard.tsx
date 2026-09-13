@@ -297,7 +297,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-20px' }}
                     transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className={`task-check-card p-4 rounded-2xl border-2 shadow-grave-card hover:shadow-grave-card-hover smooth-card-hover flex flex-col justify-between cursor-default ${cardTheme}`}
+                    className={`task-check-card calendar-date-neon-hover p-4 rounded-2xl border-2 shadow-grave-card hover:shadow-grave-card-hover smooth-card-hover flex flex-col justify-between cursor-default ${cardTheme}`}
                   >
                     <div>
                       <div className="flex items-center justify-between gap-1 flex-wrap">

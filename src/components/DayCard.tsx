@@ -191,7 +191,7 @@ export const DayCard: React.FC<DayCardProps> = ({
           <div
             key={task.id}
             onClick={() => onToggleTask(day.id, task.id)}
-            className={`group task-check-card flex items-start gap-3 p-2.5 rounded-xl border-2 cursor-pointer select-none min-h-[44px] ${
+            className={`group task-check-card calendar-date-neon-hover flex items-start gap-3 p-2.5 rounded-xl border-2 cursor-pointer select-none min-h-[44px] ${
               task.completed
                 ? 'bg-emerald-50/60 border-emerald-300 text-slate-600'
                 : 'bg-matcha-input border-[#a6c4a1]/60 text-slate-900 shadow-xs'

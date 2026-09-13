@@ -638,7 +638,7 @@ export function DedicatedDayPage({
                       onClick={() => onToggleTask(task.id)}
                       role="button"
                       tabIndex={0}
-                      className={`task-check-card p-3.5 rounded-2xl border-2 flex items-start gap-3 cursor-pointer select-none ${
+                      className={`task-check-card calendar-date-neon-hover p-3.5 rounded-2xl border-2 flex items-start gap-3 cursor-pointer select-none ${
                         isDone
                           ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950'
                           : 'bg-matcha-sub border-[#a6c4a1]/60'
@@ -721,7 +721,7 @@ export function DedicatedDayPage({
                       onClick={() => onToggleTask(task.id)}
                       role="button"
                       tabIndex={0}
-                      className={`task-check-card p-3.5 rounded-2xl border-2 flex items-start gap-3 cursor-pointer select-none ${
+                      className={`task-check-card calendar-date-neon-hover p-3.5 rounded-2xl border-2 flex items-start gap-3 cursor-pointer select-none ${
                         isDone
                           ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950'
                           : 'bg-matcha-sub border-[#a6c4a1]/60'

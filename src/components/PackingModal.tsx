@@ -90,8 +90,8 @@ export const PackingModal: React.FC<PackingModalProps> = ({
           {items.map((item) => (
             <label
               key={item.id}
-              className={`flex items-start gap-3 p-3 rounded-xl border transition cursor-pointer ${
-                item.packed ? 'bg-matcha-sub border-slate-200 opacity-70' : 'bg-matcha-input border-slate-200 shadow-xs hover:border-amber-300'
+              className={`task-check-card calendar-date-neon-hover flex items-start gap-3 p-3 rounded-xl border transition cursor-pointer ${
+                item.packed ? 'bg-matcha-sub border-slate-200 opacity-70' : 'bg-matcha-input border-[#a6c4a1]/60 shadow-xs'
               }`}
             >
               <input

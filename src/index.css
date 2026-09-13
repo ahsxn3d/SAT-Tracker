@@ -203,21 +203,25 @@ html.lenis, html.lenis body {
 }
 
 /* ==============================================================================
-   TASK CHECKLIST GLOWING OUTLINE & CIRCULAR DOT HOVER ANIMATIONS
-   Specific hover animation on the circular dot that glows the entire task outline
+   TASK CHECKLIST & CALENDAR DATE GLOWING NEON-ISH MATCHA OUTLINE HOVER EFFECT
+   Ultra-refined, buttery-smooth floating lift with signature dark-green neon glow
    ============================================================================== */
-.task-check-card {
+.task-check-card,
+.calendar-date-neon-hover {
   position: relative;
-  transition: border-color 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform, box-shadow;
+  transition-property: transform, box-shadow, border-color, background-color !important;
+  transition-duration: 380ms !important;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: transform, box-shadow, border-color;
+  outline: none !important;
 }
 
-.task-check-card:hover {
-  border-color: #10b981 !important;
-  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.50), 0 0 24px rgba(16, 185, 129, 0.32), inset 0 1px 1.5px rgba(255, 255, 255, 0.9) !important;
-  transform: translateY(-2px);
+.task-check-card:hover,
+.calendar-date-neon-hover:hover {
+  border-color: #166534 !important;
+  box-shadow: 0 0 0 1.5px rgba(22, 101, 52, 0.50), 0 6px 18px -2px rgba(22, 101, 52, 0.18), 0 0 10px rgba(34, 197, 94, 0.28) !important;
+  transform: translateY(-2.5px) !important;
+  z-index: 20 !important;
 }
 
 .task-check-dot {
@@ -225,36 +229,14 @@ html.lenis, html.lenis body {
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .task-check-card:hover .task-check-dot,
 .task-check-dot:hover {
-  transform: scale(1.18);
-  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.85));
-}
-
-/* ==============================================================================
-   CALENDAR DATE NEON-ISH DARK GREEN MATCHA OUTLINE HOVER EFFECT
-   Ultra-thin (1px), refined, buttery-smooth floating lift with sleek outline
-   ============================================================================== */
-.calendar-date-neon-hover {
-  border-width: 1px !important;
-  transition-property: transform, box-shadow, border-color, background-color !important;
-  transition-duration: 400ms !important;
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
-  will-change: transform, box-shadow, border-color;
-  outline: none !important;
-}
-
-.calendar-date-neon-hover:hover {
-  border-width: 1px !important;
-  border-color: #166534 !important;
-  outline: none !important;
-  box-shadow: 0 4px 14px -2px rgba(22, 101, 52, 0.12), 0 0 5px rgba(34, 197, 94, 0.22) !important;
-  transform: translateY(-2.5px) !important;
-  z-index: 25 !important;
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 8px rgba(22, 101, 52, 0.75));
 }
 
 /* ==============================================================================

@@ -200,13 +200,13 @@ export const CrescentModelSection: React.FC<CrescentModelSectionProps> = ({
             <button
               key={item.id}
               onClick={() => onToggleItem(item.id)}
-              className={`p-3.5 rounded-2xl border-2 text-left flex items-start gap-3 transition-all duration-200 min-h-[44px] cursor-pointer shadow-grave-card hover:shadow-grave-card-hover active:scale-[0.98] ${
+              className={`task-check-card calendar-date-neon-hover p-3.5 rounded-2xl border-2 text-left flex items-start gap-3 min-h-[44px] cursor-pointer shadow-grave-card hover:shadow-grave-card-hover active:scale-[0.98] ${
                 item.packed
                   ? 'bg-emerald-50/70 border-emerald-300 text-slate-600'
-                  : 'bg-matcha-input border-[#a6c4a1]/60 hover:border-indigo-400 text-slate-950'
+                  : 'bg-matcha-input border-[#a6c4a1]/60 text-slate-950'
               }`}
             >
-              <span className="mt-0.5 shrink-0">
+              <span className="task-check-dot mt-0.5 shrink-0">
                 {item.packed ? (
                   <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                 ) : (
