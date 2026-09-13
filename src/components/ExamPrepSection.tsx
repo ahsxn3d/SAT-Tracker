@@ -26,14 +26,16 @@ import {
   TrendingDown,
   Compass,
   AlertOctagon,
-  Target
+  Target,
+  RotateCcw
 } from 'lucide-react';
 import { PackingItem } from '@/types';
+import { mergePackingListWithDefaults } from '@/data/studyPlan';
 
 interface ExamPrepSectionProps {
   items: PackingItem[];
   onToggleItem: (id: string) => void;
-  onAddItem: (itemText: string, category?: string) => void;
+  onAddItem: (itemText: string, category?: string, rank?: number) => void;
   onDeleteItem?: (id: string) => void;
   onMarkAll?: (packed: boolean) => void;
   onResetDefault?: () => void;
@@ -46,6 +48,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
   onToggleItem,
   onAddItem,
   onDeleteItem,
+  onResetDefault,
 }) => {
   const [newItemText, setNewItemText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('essential');
@@ -53,22 +56,27 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
   const [activeRankFilter, setActiveRankFilter] = useState<FilterRank>('all');
   const [activeTimelineTab, setActiveTimelineTab] = useState<'48h' | '24h'>('48h');
 
-  // Completed items count & percentage
-  const packedCount = items.filter((i) => i.packed).length;
-  const totalCount = items.length;
+  // Intelligent merge ensures all 5 Ranks and 16 canonical items are ALWAYS present
+  const canonicalItems = useMemo(() => {
+    return mergePackingListWithDefaults(items);
+  }, [items]);
+
+  // Completed items count & percentage from guaranteed complete list
+  const packedCount = canonicalItems.filter((i) => i.packed).length;
+  const totalCount = canonicalItems.length;
   const percentage = totalCount > 0 ? Math.round((packedCount / totalCount) * 100) : 0;
 
   const handleAddCustom = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newItemText.trim()) return;
-    onAddItem(newItemText.trim(), selectedCategory);
+    onAddItem(newItemText.trim(), selectedCategory, selectedRank);
     setNewItemText('');
   };
 
   const filteredItems = useMemo(() => {
-    if (activeRankFilter === 'all') return items;
-    return items.filter((item) => item.rank === activeRankFilter);
-  }, [items, activeRankFilter]);
+    if (activeRankFilter === 'all') return canonicalItems;
+    return canonicalItems.filter((item) => item.rank === activeRankFilter);
+  }, [canonicalItems, activeRankFilter]);
 
   // Group items by Rank for structured rendering when viewing 'all'
   const rankGroups = useMemo(() => {
@@ -115,7 +123,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
       }
     };
 
-    items.forEach((item) => {
+    canonicalItems.forEach((item) => {
       const r = item.rank || 1;
       if (groups[r]) {
         groups[r].items.push(item);
@@ -125,7 +133,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
     });
 
     return groups;
-  }, [items]);
+  }, [canonicalItems]);
 
   const getRankBadge = (rank?: number) => {
     switch (rank) {
@@ -298,7 +306,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
         {/* Tab 1: 48 Hours (Thursday Nov 5) Protocol */}
         {activeTimelineTab === '48h' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-            <div className="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-indigo-900 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <Laptop className="w-4 h-4 text-indigo-700" />
                 <span>1. Bluebook &amp; Device Setup</span>
@@ -311,7 +319,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-rose-50/80 border border-rose-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-rose-50/80 border border-rose-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-rose-900 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <Printer className="w-4 h-4 text-rose-700" />
                 <span>2. Print 2 Copies of Admission Ticket</span>
@@ -324,7 +332,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-emerald-950 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <Luggage className="w-4 h-4 text-emerald-700" />
                 <span>3. Pack Bag by 8:00 PM Thursday</span>
@@ -342,7 +350,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
         {/* Tab 2: 24 Hours (Friday Nov 6) Zero-Study Protocol */}
         {activeTimelineTab === '24h' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-            <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-amber-50/90 border border-amber-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-amber-950 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <ShieldCheck className="w-4 h-4 text-amber-700" />
                 <span>1. Zero Study Rule (Absolute Buffer)</span>
@@ -355,7 +363,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-sky-50/80 border border-sky-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-sky-50/80 border border-sky-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-sky-950 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <Sun className="w-4 h-4 text-sky-700" />
                 <span>2. Clean Fuel &amp; Hydration</span>
@@ -368,7 +376,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-purple-50/80 border border-purple-200 shadow-2xs space-y-2">
+            <div className="task-check-card calendar-date-neon-hover p-4 rounded-2xl bg-purple-50/80 border border-purple-200 shadow-2xs space-y-2 cursor-default">
               <div className="flex items-center gap-2 text-purple-950 font-black text-xs uppercase font-['JetBrains_Mono']">
                 <Moon className="w-4 h-4 text-purple-700" />
                 <span>3. 10:00 PM Sleep Curfew</span>
@@ -397,7 +405,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
             </p>
           </div>
 
-          {/* Filter Rank Pills */}
+          {/* Filter Rank Pills & Action Controls */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <button
               onClick={() => setActiveRankFilter('all')}
@@ -407,7 +415,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              All ({items.length})
+              All ({canonicalItems.length})
             </button>
             <button
               onClick={() => setActiveRankFilter(1)}
@@ -417,7 +425,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Rank 1: Gatekeeper
+              Rank 1 ({rankGroups[1]?.items.length || 0})
             </button>
             <button
               onClick={() => setActiveRankFilter(2)}
@@ -427,7 +435,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Rank 2: Core
+              Rank 2 ({rankGroups[2]?.items.length || 0})
             </button>
             <button
               onClick={() => setActiveRankFilter(3)}
@@ -437,7 +445,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Rank 3: Tactical
+              Rank 3 ({rankGroups[3]?.items.length || 0})
             </button>
             <button
               onClick={() => setActiveRankFilter(4)}
@@ -447,7 +455,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Rank 4: Bio-Fuel
+              Rank 4 ({rankGroups[4]?.items.length || 0})
             </button>
             <button
               onClick={() => setActiveRankFilter(5)}
@@ -457,8 +465,20 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Rank 5: Avoid
+              Rank 5 ({rankGroups[5]?.items.length || 0})
             </button>
+
+            {onResetDefault && (
+              <button
+                type="button"
+                onClick={onResetDefault}
+                title="Reset all checklist items to pristine 16 official items"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-white/80 hover:bg-white hover:text-slate-950 border border-[#a6c4a1] transition cursor-pointer shadow-2xs ml-auto sm:ml-1"
+              >
+                <RotateCcw className="w-3 h-3 text-slate-500" />
+                <span>Reset Defaults</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -506,7 +526,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                       className={`task-check-card calendar-date-neon-hover p-4 rounded-2xl border-2 cursor-pointer flex items-start justify-between gap-3 group select-none ${
                         item.packed
                           ? 'bg-emerald-100/70 border-emerald-400/80 shadow-2xs'
-                          : 'bg-white/90 border-[#a6c4a1]/80 hover:border-slate-400 shadow-xs'
+                          : 'bg-white/90 border-[#a6c4a1]/80 shadow-xs'
                       }`}
                     >
                       <div className="flex items-start gap-3 min-w-0 flex-1">
@@ -555,7 +575,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
                       </div>
 
                       {/* Delete button if item is custom */}
-                      {item.id.startsWith('pack-custom-') && onDeleteItem && (
+                      {(item.id.startsWith('custom-') || item.id.startsWith('pack-custom-')) && onDeleteItem && (
                         <button
                           onClick={(e) => {
                             e.stopPropagation();

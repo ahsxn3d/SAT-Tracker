@@ -5,7 +5,8 @@ import { motion } from 'motion/react';
 import { useSession } from 'next-auth/react';
 import { 
   STUDY_PLAN_WEEKS, 
-  INITIAL_PACKING_LIST 
+  INITIAL_PACKING_LIST,
+  mergePackingListWithDefaults
 } from './data/studyPlan';
 import { 
   WeekPlan, 
@@ -85,7 +86,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [completedTaskIds, setCompletedTaskIds] = useState<Record<string, boolean>>({});
   const [taskCompletionDay, setTaskCompletionDay] = useState<Record<string, string>>({});
   const [errorLogs, setErrorLogs] = useState<ErrorLogEntry[]>([]);
-  const [packingList, setPackingList] = useState<PackingItem[]>(INITIAL_PACKING_LIST);
+  const [packingList, setPackingList] = useState<PackingItem[]>(() => mergePackingListWithDefaults(INITIAL_PACKING_LIST));
   const [dayNotes, setDayNotes] = useState<Record<string, string>>({});
   const [sessionTimings, setSessionTimings] = useState<Record<string, DaySessionTiming>>(DEFAULT_SESSION_TIMINGS);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
@@ -103,7 +104,11 @@ export default function App({ initialSection = 'all' }: AppProps) {
       if (savedLogs) setErrorLogs(JSON.parse(savedLogs));
 
       const savedPacking = localStorage.getItem(STORAGE_KEYS.PACKING_LIST);
-      if (savedPacking) setPackingList(JSON.parse(savedPacking));
+      if (savedPacking) {
+        const merged = mergePackingListWithDefaults(JSON.parse(savedPacking));
+        setPackingList(merged);
+        localStorage.setItem(STORAGE_KEYS.PACKING_LIST, JSON.stringify(merged));
+      }
 
       const savedNotes = localStorage.getItem(STORAGE_KEYS.DAY_NOTES);
       if (savedNotes) setDayNotes(JSON.parse(savedNotes));
@@ -151,7 +156,9 @@ export default function App({ initialSection = 'all' }: AppProps) {
               setSessionTimings((prev) => ({ ...prev, ...data.sessionTimings }));
             }
             if (data.packingList && data.packingList.length > 0) {
-              setPackingList(data.packingList);
+              const merged = mergePackingListWithDefaults(data.packingList);
+              setPackingList(merged);
+              localStorage.setItem(STORAGE_KEYS.PACKING_LIST, JSON.stringify(merged));
             }
           }
         })
@@ -413,15 +420,25 @@ export default function App({ initialSection = 'all' }: AppProps) {
     );
   };
 
-  const handleAddPackingItem = (itemText: string) => {
+  const handleAddPackingItem = (itemText: string, category?: string, rank?: number) => {
     const newItem: PackingItem = {
       id: `custom-${Date.now()}`,
-      category: 'custom',
+      category: (category as any) || 'custom',
       item: itemText,
+      rank: (rank as 1 | 2 | 3 | 4 | 5) || 1,
       required: false,
       packed: false,
     };
     setPackingList((prev) => [...prev, newItem]);
+  };
+
+  const handleResetPackingList = () => {
+    setPackingList(INITIAL_PACKING_LIST);
+    try {
+      localStorage.setItem(STORAGE_KEYS.PACKING_LIST, JSON.stringify(INITIAL_PACKING_LIST));
+    } catch (e) {
+      console.error('Failed to reset packing list', e);
+    }
   };
 
   const handleResetProgress = () => {
@@ -620,6 +637,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onToggleItem={handleTogglePackingItem}
                 onAddItem={handleAddPackingItem}
                 onDeleteItem={(id) => setPackingList((prev) => prev.filter((item) => item.id !== id))}
+                onResetDefault={handleResetPackingList}
               />
             </div>
           </ScrollReveal>

@@ -200,7 +200,7 @@ export const CrescentModelSection: React.FC<CrescentModelSectionProps> = ({
             <button
               key={item.id}
               onClick={() => onToggleItem(item.id)}
-              className={`task-check-card calendar-date-neon-hover p-3.5 rounded-2xl border-2 text-left flex items-start gap-3 min-h-[44px] cursor-pointer shadow-grave-card hover:shadow-grave-card-hover active:scale-[0.98] ${
+              className={`task-check-card calendar-date-neon-hover p-3.5 rounded-2xl border-2 text-left flex items-start gap-3 min-h-[44px] cursor-pointer shadow-grave-card ${
                 item.packed
                   ? 'bg-emerald-50/70 border-emerald-300 text-slate-600'
                   : 'bg-matcha-input border-[#a6c4a1]/60 text-slate-950'

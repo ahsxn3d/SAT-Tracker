@@ -94,12 +94,14 @@ export const PackingModal: React.FC<PackingModalProps> = ({
                 item.packed ? 'bg-matcha-sub border-slate-200 opacity-70' : 'bg-matcha-input border-[#a6c4a1]/60 shadow-xs'
               }`}
             >
-              <input
-                type="checkbox"
-                checked={item.packed}
-                onChange={() => onToggleItem(item.id)}
-                className="w-4 h-4 mt-0.5 text-amber-600 rounded border-slate-300 focus:ring-amber-500"
-              />
+              <span className="task-check-dot mt-0.5 shrink-0">
+                <input
+                  type="checkbox"
+                  checked={item.packed}
+                  onChange={() => onToggleItem(item.id)}
+                  className="w-4 h-4 text-emerald-700 rounded border-slate-300 focus:ring-emerald-600 cursor-pointer"
+                />
+              </span>
               <div className="flex-1 text-xs">
                 <span className={`font-semibold ${item.packed ? 'line-through text-slate-500' : 'text-slate-800'}`}>
                   {item.item}

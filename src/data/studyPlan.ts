@@ -182,6 +182,57 @@ export const INITIAL_PACKING_LIST: PackingItem[] = [
   },
 ];
 
+/**
+ * Intelligent merge helper that guarantees all 16 canonical items from
+ * INITIAL_PACKING_LIST (covering all 5 Ranks) are ALWAYS present, while
+ * preserving any packed status or custom items the user has saved.
+ */
+export function mergePackingListWithDefaults(savedList?: PackingItem[] | null): PackingItem[] {
+  if (!savedList || !Array.isArray(savedList) || savedList.length === 0) {
+    return INITIAL_PACKING_LIST;
+  }
+
+  const packedStatusById = new Map<string, boolean>();
+  const packedStatusByName = new Map<string, boolean>();
+  const customItems: PackingItem[] = [];
+
+  savedList.forEach((item) => {
+    if (!item) return;
+    if (item.id) {
+      packedStatusById.set(item.id, !!item.packed);
+    }
+    if (item.item) {
+      packedStatusByName.set(item.item.trim().toLowerCase(), !!item.packed);
+    }
+
+    // Retain user-added custom items that don't collide with canonical IDs
+    const isCanonical = INITIAL_PACKING_LIST.some((canonical) => canonical.id === item.id);
+    if (!isCanonical && item.id && (item.id.startsWith('custom-') || !item.id.startsWith('pack-'))) {
+      customItems.push({
+        ...item,
+        rank: item.rank || 1,
+        packed: !!item.packed,
+      });
+    }
+  });
+
+  // Always output all 16 canonical items with canonical metadata and user packed state
+  const mergedCanonical = INITIAL_PACKING_LIST.map((canonical) => {
+    let isPacked = false;
+    if (packedStatusById.has(canonical.id)) {
+      isPacked = packedStatusById.get(canonical.id)!;
+    } else if (packedStatusByName.has(canonical.item.trim().toLowerCase())) {
+      isPacked = packedStatusByName.get(canonical.item.trim().toLowerCase())!;
+    }
+    return {
+      ...canonical,
+      packed: isPacked,
+    };
+  });
+
+  return [...mergedCanonical, ...customItems];
+}
+
 export const STUDY_PLAN_WEEKS: WeekPlan[] = [
   // ==========================================================================
   // WEEK 1: Sep 12 to Sep 18 (Days 1 to 6 + Buffer Sunday)
