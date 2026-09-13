@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { BookOpen, Plus, AlertTriangle, CheckCircle2, Trash2, Download } from 'lucide-react';
 import { ErrorLogEntry } from '../types';
+import { MatchaSelect } from './MatchaSelect';
 
 interface ErrorLogSectionProps {
   entries: ErrorLogEntry[];
@@ -128,15 +129,18 @@ export const ErrorLogSection: React.FC<ErrorLogSectionProps> = ({
               />
             </div>
             <div>
-              <label className="text-[11px] font-black text-slate-800 font-['JetBrains_Mono']">Subject</label>
-              <select
+              <label className="text-[11px] font-black text-slate-800 font-['JetBrains_Mono'] block mb-1">Subject</label>
+              <MatchaSelect
                 value={domain}
-                onChange={(e) => setDomain(e.target.value as 'Math' | 'Reading/Writing')}
-                className="mt-1 w-full text-xs p-2.5 rounded-xl bg-matcha-input border border-[#a6c4a1]/70 text-slate-900 font-bold focus:ring-2 focus:ring-indigo-600 min-h-[44px]"
-              >
-                <option value="Math">Math</option>
-                <option value="Reading/Writing">Reading/Writing</option>
-              </select>
+                onChange={(val) => setDomain(val as 'Math' | 'Reading/Writing')}
+                options={[
+                  { value: 'Math', label: 'Math', badge: 'Math' },
+                  { value: 'Reading/Writing', label: 'Reading/Writing', badge: 'R&W' },
+                ]}
+                variant="white"
+                size="md"
+                fullWidth
+              />
             </div>
           </div>
 

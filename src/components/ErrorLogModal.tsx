@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Plus, Trash2, CheckCircle, BookOpen, AlertTriangle, Filter, Download } from 'lucide-react';
 import { ErrorLogEntry } from '../types';
+import { MatchaSelect } from './MatchaSelect';
 
 interface ErrorLogModalProps {
   isOpen: boolean;
@@ -149,19 +150,22 @@ export const ErrorLogModal: React.FC<ErrorLogModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="block text-xs font-medium text-slate-700 mb-1">Source / Test</label>
-                <select
+                <MatchaSelect
                   value={testOrSection}
-                  onChange={(e) => setTestOrSection(e.target.value)}
-                  className="w-full text-xs bg-matcha-input border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                >
-                  <option value="Bluebook Practice Test #1">Bluebook Test #1</option>
-                  <option value="Bluebook Practice Test #2">Bluebook Test #2</option>
-                  <option value="Bluebook Practice Test #3">Bluebook Test #3</option>
-                  <option value="Bluebook Practice Test #4">Bluebook Test #4</option>
-                  <option value="Bluebook Practice Test #5">Bluebook Test #5</option>
-                  <option value="Khan Academy Drill">Khan Academy Drill</option>
-                  <option value="Unit Test / Quiz">Unit Test / Quiz</option>
-                </select>
+                  onChange={(val) => setTestOrSection(val)}
+                  options={[
+                    { value: 'Bluebook Practice Test #1', label: 'Bluebook Test #1', badge: 'Mock #1' },
+                    { value: 'Bluebook Practice Test #2', label: 'Bluebook Test #2', badge: 'Mock #2' },
+                    { value: 'Bluebook Practice Test #3', label: 'Bluebook Test #3', badge: 'Mock #3' },
+                    { value: 'Bluebook Practice Test #4', label: 'Bluebook Test #4', badge: 'Mock #4' },
+                    { value: 'Bluebook Practice Test #5', label: 'Bluebook Test #5', badge: 'Mock #5' },
+                    { value: 'Khan Academy Drill', label: 'Khan Academy Drill', badge: 'Drill' },
+                    { value: 'Unit Test / Quiz', label: 'Unit Test / Quiz', badge: 'Quiz' },
+                  ]}
+                  variant="white"
+                  size="sm"
+                  fullWidth
+                />
               </div>
 
               <div>

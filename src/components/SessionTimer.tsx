@@ -26,6 +26,7 @@ import {
 import { playChime } from '../utils/audio';
 import { DayPlan, DaySessionTiming, SectionPacingResult, PaceRating } from '../types';
 import { evaluatePacing, MATH_PACING_BENCHMARKS } from '../utils/pacing';
+import { MatchaSelect } from './MatchaSelect';
 
 interface SessionTimerProps {
   isOpen: boolean;
@@ -340,20 +341,20 @@ export const SessionTimer: React.FC<SessionTimerProps> = ({
               <div className="flex items-center gap-1.5 text-xs text-slate-300 mt-1">
                 <CalendarIcon className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span className="font-semibold text-amber-300">Timing for:</span>
-                <select
+                <MatchaSelect
                   value={currentDateStr}
-                  onChange={(e) => {
-                    setCurrentDateStr(e.target.value);
-                    if (onSelectDateStr) onSelectDateStr(e.target.value);
+                  onChange={(val) => {
+                    setCurrentDateStr(val);
+                    if (onSelectDateStr) onSelectDateStr(val);
                   }}
-                  className="bg-slate-800 text-white font-bold rounded-lg px-2 py-1 text-xs border border-slate-700 hover:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
-                >
-                  {allDays.slice(0, 30).map((d) => (
-                    <option key={d.dateStr} value={d.dateStr}>
-                      {d.formattedDate} {d.dateStr === '2026-09-12' ? '(Kickoff Day 1)' : d.isBuffer ? '(Buffer Rest)' : ''}
-                    </option>
-                  ))}
-                </select>
+                  options={allDays.slice(0, 30).map((d) => ({
+                    value: d.dateStr,
+                    label: d.formattedDate,
+                    badge: d.dateStr === '2026-09-12' ? 'Kickoff' : d.isBuffer ? 'Rest' : undefined,
+                  }))}
+                  variant="dark"
+                  size="sm"
+                />
               </div>
             </div>
           </div>

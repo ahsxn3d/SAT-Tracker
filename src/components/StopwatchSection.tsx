@@ -26,6 +26,7 @@ import {
 import { playChime } from '@/utils/audio';
 import { DayPlan, DaySessionTiming, SectionPacingResult, TaskItem } from '@/types';
 import { evaluatePacing } from '@/utils/pacing';
+import { MatchaSelect } from '@/components/MatchaSelect';
 
 interface StopwatchSectionProps {
   allDays: DayPlan[];
@@ -349,25 +350,22 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
 
         {/* Date Selector & Action Buttons */}
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Day Selector */}
-          <div className="flex items-center gap-1.5 p-1 bg-white/90 border border-[#a6c4a1] rounded-xl shadow-xs">
-            <CalendarIcon className="w-3.5 h-3.5 text-[#264e22] ml-1" />
-            <select
-              value={currentDateStr}
-              onChange={(e) => {
-                const newDate = e.target.value;
-                setCurrentDateStr(newDate);
-                onSelectDateStr?.(newDate);
-              }}
-              className="bg-transparent text-xs font-black text-[#122810] pr-2 py-0.5 focus:outline-none cursor-pointer font-['JetBrains_Mono']"
-            >
-              {allDays.slice(0, 35).map((d) => (
-                <option key={d.dateStr} value={d.dateStr}>
-                  {d.dayNumber ? `Day ${d.dayNumber} - ` : ''}{d.formattedDate} {d.isBuffer ? '(Rest)' : ''}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Day Selector with custom Matcha UI */}
+          <MatchaSelect
+            value={currentDateStr}
+            onChange={(newDate) => {
+              setCurrentDateStr(newDate);
+              onSelectDateStr?.(newDate);
+            }}
+            icon={<CalendarIcon className="w-3.5 h-3.5 text-[#264e22]" />}
+            options={allDays.slice(0, 35).map((d) => ({
+              value: d.dateStr,
+              label: `${d.dayNumber ? `Day ${d.dayNumber} - ` : ''}${d.formattedDate}`,
+              badge: d.isBuffer ? 'Rest' : undefined,
+            }))}
+            variant="matcha"
+            size="sm"
+          />
 
           {/* Break Quick-Launch Buttons */}
           <button

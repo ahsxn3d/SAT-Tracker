@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { PackingItem } from '@/types';
 import { mergePackingListWithDefaults } from '@/data/studyPlan';
+import { MatchaSelect } from './MatchaSelect';
 
 interface ExamPrepSectionProps {
   items: PackingItem[];
@@ -606,17 +607,19 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#a6c4a1] text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 shadow-2xs transition"
             />
 
-            <select
+            <MatchaSelect
               value={selectedRank}
-              onChange={(e) => setSelectedRank(Number(e.target.value))}
-              className="px-3 py-2.5 rounded-xl bg-white border border-[#a6c4a1] text-xs font-bold text-slate-800 focus:outline-none cursor-pointer shadow-2xs"
-            >
-              <option value={1}>Rank 1: Gatekeeper</option>
-              <option value={2}>Rank 2: Core Driver</option>
-              <option value={3}>Rank 3: Tactical</option>
-              <option value={4}>Rank 4: Bio-Fuel</option>
-              <option value={5}>Rank 5: Lowest Priority</option>
-            </select>
+              onChange={(val) => setSelectedRank(Number(val))}
+              options={[
+                { value: 1, label: 'Rank 1: Gatekeeper', badge: 'Life/Death' },
+                { value: 2, label: 'Rank 2: Core Driver', badge: '80/20' },
+                { value: 3, label: 'Rank 3: Tactical', badge: 'Defense' },
+                { value: 4, label: 'Rank 4: Bio-Fuel', badge: 'Energy' },
+                { value: 5, label: 'Rank 5: Lowest Priority', badge: 'Low' },
+              ]}
+              variant="white"
+              size="md"
+            />
 
             <button
               type="submit"
