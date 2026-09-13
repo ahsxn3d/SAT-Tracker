@@ -339,7 +339,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               </span>
               <span className="text-[11px] text-sky-200 font-extrabold font-['JetBrains_Mono'] flex items-center gap-1">
                 <Target className="w-3.5 h-3.5 text-amber-400" />
-                Target 1500+ Progression
+                Target 1500+ (1600 Total Points)
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold font-luxury tracking-tight flex items-center gap-2.5 text-white">
@@ -347,23 +347,28 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               <span>Mock Test Score Target & Gap Calculator</span>
             </h2>
             <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
-              Validate your real Bluebook practice scores against your goal. If your actual score does not match your target, the system locks advancement and prompts you to retake Test #{currentTestIdx + 1} until cleared.
+              Validate your real Bluebook practice scores against your goal. The exam has 1600 points total with 1500+ as the non-negotiable baseline. If your score doesn't reach your target, the system prompts you to retake Test #{currentTestIdx + 1} until cleared.
             </p>
           </div>
 
           {/* Quick Target Summary Card */}
-          <div className="bg-[#07192b]/90 border border-[#2b567d] rounded-2xl p-4 min-w-[220px] space-y-1 shadow-inner">
-            <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-300">
-              Active Benchmark
-            </span>
+          <div className="bg-[#07192b]/90 border border-[#2b567d] rounded-2xl p-4 min-w-[230px] space-y-1 shadow-inner">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-300">
+                Score / 1600 Total
+              </span>
+              <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 font-['JetBrains_Mono']">
+                {targetTotal}+ Target
+              </span>
+            </div>
             <div className="text-2xl font-bold text-amber-300 font-['JetBrains_Mono']">
-              {hasScore ? totalScore : '--'} <span className="text-xs text-sky-200 font-normal">/ {targetTotal} Goal</span>
+              {hasScore ? totalScore : '--'} <span className="text-sm text-sky-200 font-normal">/ 1600</span>
             </div>
             <div className="text-[11px] font-bold font-['JetBrains_Mono']">
               {hasScore ? (
-                <>Gap: <span className={scoreDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span></>
+                <>Gap vs {targetTotal}+: <span className={scoreDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span></>
               ) : (
-                <span className="text-slate-400">Score Not Entered</span>
+                <span className="text-slate-400">Score Not Entered Yet</span>
               )}
             </div>
           </div>
@@ -377,7 +382,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             Select Practice Test Benchmark:
           </span>
           <span className="text-[11px] text-sky-300/80 font-['JetBrains_Mono']">
-            Must achieve target on previous test to clear sequence
+            Must achieve 1500+ target on previous test to clear sequence
           </span>
         </div>
 
@@ -421,7 +426,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                   <div className={`text-[10px] font-extrabold font-['JetBrains_Mono'] mt-0.5 ${
                     isSelected ? 'text-emerald-200' : 'text-emerald-400'
                   }`}>
-                    Score: {testTotal}
+                    Score: {testTotal} / 1600
                   </div>
                 ) : (
                   <div className="text-[10px] text-slate-400 font-['JetBrains_Mono'] mt-0.5">
@@ -457,7 +462,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 <Target className="w-4 h-4 text-blue-400" />
                 Target Score Setup
               </span>
-              <span className="text-xs font-bold text-sky-300 font-['JetBrains_Mono']">Goal</span>
+              <span className="text-xs font-bold text-sky-300 font-['JetBrains_Mono']">Goal Baseline</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3.5">
@@ -496,7 +501,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             </div>
 
             <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-sky-300 pt-1">
-              Combined Target Goal: <strong className="text-amber-300 text-xl font-black">{targetTotal}</strong>
+              Combined Target Goal: <strong className="text-amber-300 text-xl font-black">{targetTotal} / 1600</strong> <span className="text-xs text-amber-200/80 font-normal">({targetTotal}+ Target)</span>
             </div>
           </div>
 
@@ -540,7 +545,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             </div>
 
             <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-emerald-200 pt-1">
-              Combined Achieved Score: <strong className="text-emerald-400 text-xl font-black">{hasScore ? totalScore : '--'}</strong>
+              Combined Achieved Score: <strong className="text-emerald-400 text-xl font-black">{hasScore ? `${totalScore} / 1600` : '-- / 1600'}</strong>
             </div>
           </div>
         </div>
@@ -572,7 +577,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                   : isGoalAchieved 
                   ? 'Goal Reached or Exceeded!' 
                   : isNearGoal
-                  ? `Near Goal! Within Striking Range (${Math.abs(scoreDelta)} pts below)`
+                  ? `Near Goal! Within Striking Range (${Math.abs(scoreDelta)} pts below 1500+)`
                   : `Target Not Met: ${Math.abs(scoreDelta)} Points Below Goal`}
               </h4>
               <p className="text-xs sm:text-sm font-medium mt-0.5">
@@ -582,7 +587,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                     R&amp;W Gap: <strong className={rwDelta >= 0 ? 'text-emerald-300' : 'text-amber-300'}>{rwDelta > 0 ? `+${rwDelta}` : rwDelta} pts</strong>
                   </>
                 ) : (
-                  'Type your Math and Reading/Writing scores above to see your point gap.'
+                  'Type your Math and Reading/Writing scores above to see your point gap against 1500+.'
                 )}
               </p>
             </div>
@@ -590,7 +595,10 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
           <div className="text-center sm:text-right">
             <span className="text-3xl font-black font-['JetBrains_Mono'] text-white">
-              {hasScore ? totalScore : '--'} <span className="text-sm font-normal text-sky-300/70">/ {targetTotal}</span>
+              {hasScore ? totalScore : '--'} <span className="text-lg font-bold text-sky-300">/ 1600</span>
+            </span>
+            <span className="text-[11px] font-black text-amber-300 block font-['JetBrains_Mono'] mt-0.5">
+              Goal: {targetTotal}+ (1500+ Bottom Line)
             </span>
           </div>
         </div>
@@ -608,7 +616,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                   Ready to Log Bluebook Test #{currentTestIdx + 1}
                 </h3>
                 <p className="text-xs text-sky-200 font-medium">
-                  Enter your raw scores from the Bluebook app above. The Rulebook will calculate your exact gap and determine if you are ready to advance to Test #{currentTestIdx + 2}.
+                  Enter your raw scores from the Bluebook app above (out of 1600 total points). The Rulebook will calculate your exact gap and determine if you are ready to advance to Test #{currentTestIdx + 2}.
                 </p>
               </div>
             </div>
@@ -632,12 +640,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               </div>
               <div className="text-left sm:text-right font-['JetBrains_Mono']">
                 <div className="text-2xl font-black text-emerald-300">+{scoreDelta} pts</div>
-                <div className="text-[11px] text-emerald-200/80">above target ({targetTotal})</div>
+                <div className="text-[11px] text-emerald-200/80">above target ({targetTotal}+ / 1600)</div>
               </div>
             </div>
 
             <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-medium">
-              Sensational execution! Your actual score of <strong>{totalScore}</strong> meets or exceeds your <strong>{targetTotal}</strong> goal. 
+              Sensational execution! Your actual score of <strong>{totalScore} / 1600</strong> meets or exceeds your <strong>{targetTotal}+</strong> goal ({scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} points over the 1500+ bottom line). 
               You have conquered this benchmark and are officially qualified to advance to the next official Bluebook exam.
             </p>
 
@@ -935,14 +943,14 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                   <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
                     <span className="text-[10px] text-slate-400 uppercase block">Total Score</span>
                     <span className="text-base font-black text-amber-300">
-                      {isLogged ? `${rec.totalScore} / 1600` : '--'}
+                      {isLogged ? `${rec.totalScore} / 1600` : '-- / 1600'}
                     </span>
                   </div>
 
                   <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
                     <span className="text-[10px] text-slate-400 uppercase block">Target Goal</span>
                     <span className="text-sm font-bold text-sky-200">
-                      {isLogged ? `${rec.targetTotal}` : targetTotal}
+                      {isLogged ? `${rec.targetTotal}+ / 1600` : `${targetTotal}+ / 1600`}
                     </span>
                   </div>
 

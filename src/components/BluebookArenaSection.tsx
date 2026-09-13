@@ -413,7 +413,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                   {testScore ? (
                     <div className="mt-2 p-2 rounded-xl bg-slate-900/90 border border-sky-400/40 text-xs flex items-center justify-between font-['JetBrains_Mono']">
                       <span className="font-bold text-white">
-                        Score: <strong className="text-amber-300">{testScore.totalScore}</strong> (M:{testScore.mathScore} R:{testScore.rwScore})
+                        Score: <strong className="text-amber-300">{testScore.totalScore} / 1600</strong> (Math: {testScore.mathScore} &bull; R&amp;W: {testScore.rwScore})
                       </span>
                       <span className={`font-black text-[10px] px-1.5 py-0.5 rounded ${
                         delta >= 0 ? 'bg-emerald-500/30 text-emerald-300' : 'bg-amber-500/30 text-amber-300'
@@ -613,7 +613,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                           {savedScores[item.taskId] && (
                             <div className="flex items-center gap-2 flex-wrap pt-1">
                               <span className="text-[11px] font-bold text-amber-300 font-['JetBrains_Mono'] bg-[#07243e] px-2.5 py-0.5 rounded-md border border-sky-400/40">
-                                Score: {savedScores[item.taskId].totalScore} (Math: {savedScores[item.taskId].mathScore} &bull; R&amp;W: {savedScores[item.taskId].rwScore})
+                                Score: {savedScores[item.taskId].totalScore} / 1600 (Math: {savedScores[item.taskId].mathScore} &bull; R&amp;W: {savedScores[item.taskId].rwScore})
                               </span>
                               <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
                                 savedScores[item.taskId].totalScore >= savedScores[item.taskId].targetTotal
@@ -621,8 +621,8 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                                   : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                               }`}>
                                 {savedScores[item.taskId].totalScore >= savedScores[item.taskId].targetTotal
-                                  ? `+${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs Goal`
-                                  : `${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs Goal`}
+                                  ? `+${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs 1500+ Goal`
+                                  : `${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs 1500+ Goal`}
                               </span>
                             </div>
                           )}
