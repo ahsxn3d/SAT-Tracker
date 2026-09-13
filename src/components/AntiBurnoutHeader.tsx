@@ -205,12 +205,23 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
         {/* TOP FULL HEADING ON THE WEBSITE: SAT Tracker                 */}
         {/* ============================================================ */}
         <div className="text-center pt-2 pb-1 space-y-1.5">
-          <div className="inline-flex items-center gap-2.5 sm:gap-3">
-            <span className="text-2xl sm:text-3xl" role="img" aria-label="target">🎯</span>
+          <div className="inline-flex items-center gap-3 sm:gap-4 justify-center">
+            <motion.div
+              whileHover={{ scale: 1.08, rotate: 3 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+              className="relative w-11 h-11 sm:w-14 sm:h-14 shrink-0 rounded-2xl overflow-hidden shadow-grave border-2 border-emerald-600/50 bg-gradient-to-br from-[#1b3d18] to-[#0c1f0a] p-0.5"
+            >
+              <img
+                src="/logo.png"
+                alt="SAT Tracker Logo"
+                className="w-full h-full object-cover rounded-[14px]"
+              />
+              <div className="absolute inset-0 rounded-[14px] ring-1 ring-inset ring-amber-400/30 pointer-events-none" />
+            </motion.div>
+
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#122810] font-['Space_Grotesk']">
               SAT Tracker
             </h1>
-            <span className="text-2xl sm:text-3xl" role="img" aria-label="rocket">🚀</span>
           </div>
           
           <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap text-xs sm:text-sm font-semibold text-[#274624]">
