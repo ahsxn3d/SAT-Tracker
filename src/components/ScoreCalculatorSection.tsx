@@ -110,31 +110,31 @@ const ScoreInputStepper: React.FC<ScoreInputStepperProps> = ({
             onChange(v);
           }
         }}
-        className={`w-full py-3 pl-4 pr-11 rounded-xl border-2 font-black text-center text-xl transition font-['JetBrains_Mono'] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-slate-500 placeholder:font-normal ${
+        className={`w-full py-3 pl-4 pr-11 rounded-xl border-2 font-black text-center text-xl transition font-['JetBrains_Mono'] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none placeholder:text-sky-300/40 placeholder:font-normal ${
           isBlue
-            ? 'bg-[#081b2e] text-white border-[#27537b] focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 shadow-inner'
-            : 'bg-[#071f21] text-white border-[#1c5d57] focus:border-emerald-400 focus:ring-2 focus:ring-emerald-500/20 shadow-inner'
+            ? 'bg-[#07243f]/90 text-white border-sky-400/35 focus:border-sky-300 focus:ring-2 focus:ring-sky-400/25 shadow-inner'
+            : 'bg-[#062629]/90 text-white border-emerald-400/35 focus:border-emerald-300 focus:ring-2 focus:ring-emerald-400/25 shadow-inner'
         }`}
       />
       
       {/* Custom styled stepper controls */}
-      <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center bg-[#0d2740] group-hover:bg-[#133758] rounded-lg border border-[#27537b] shadow-2xs overflow-hidden transition-all duration-150">
+      <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center bg-[#0c355e] group-hover:bg-[#13497d] rounded-lg border border-sky-400/35 shadow-2xs overflow-hidden transition-all duration-150">
         <button
           type="button"
           tabIndex={-1}
           onClick={handleIncrement}
-          className="w-7 h-4 flex items-center justify-center text-sky-300 hover:text-white hover:bg-sky-600/40 active:bg-sky-600/60 transition cursor-pointer"
+          className="w-7 h-4 flex items-center justify-center text-sky-200 hover:text-white hover:bg-sky-500/50 active:bg-sky-500/70 transition cursor-pointer"
           title="Increase (+10)"
           aria-label="Increase by 10"
         >
           <ChevronUp className="w-3.5 h-3.5 stroke-[3]" />
         </button>
-        <div className="w-full h-[1px] bg-[#27537b]" />
+        <div className="w-full h-[1px] bg-sky-400/30" />
         <button
           type="button"
           tabIndex={-1}
           onClick={handleDecrement}
-          className="w-7 h-4 flex items-center justify-center text-sky-300 hover:text-white hover:bg-sky-600/40 active:bg-sky-600/60 transition cursor-pointer"
+          className="w-7 h-4 flex items-center justify-center text-sky-200 hover:text-white hover:bg-sky-500/50 active:bg-sky-500/70 transition cursor-pointer"
           title="Decrease (-10)"
           aria-label="Decrease by 10"
         >
@@ -329,15 +329,15 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
   return (
     <section id="section-score-calculator" className="space-y-6">
-      {/* Top Banner - Executive Midnight Navy & Gold Palette */}
-      <div className="bg-gradient-to-br from-[#0c243c] via-[#113150] to-[#0a1e33] border-2 border-[#2b567d] rounded-3xl p-6 sm:p-8 shadow-grave text-white relative overflow-hidden">
+      {/* Top Banner - Harmonized Luminous Bluebook Gradient */}
+      <div className="bg-gradient-to-br from-[#06243f]/95 via-[#0b3b64]/90 to-[#026aa2]/85 border-2 border-sky-400/40 rounded-3xl p-6 sm:p-8 shadow-grave hover:shadow-grave-hover text-white relative overflow-hidden backdrop-blur-xl transition-all duration-300">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[11px] font-black uppercase px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/35 font-['JetBrains_Mono']">
+              <span className="text-[11px] font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
                 Official Bluebook Scoring Engine
               </span>
-              <span className="text-[11px] text-sky-200 font-extrabold font-['JetBrains_Mono'] flex items-center gap-1">
+              <span className="text-[11px] text-amber-300 font-extrabold font-['JetBrains_Mono'] flex items-center gap-1">
                 <Target className="w-3.5 h-3.5 text-amber-400" />
                 Target 1500+ (1600 Total Points)
               </span>
@@ -352,12 +352,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
           </div>
 
           {/* Real-time score indicator */}
-          <div className="bg-[#07192b]/90 border border-[#2b567d] rounded-2xl p-4 min-w-[230px] space-y-1 shadow-inner">
+          <div className="bg-[#082a4a]/85 border border-sky-400/40 rounded-2xl p-4 min-w-[230px] space-y-1 shadow-md backdrop-blur-md">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-300">
+              <span className="text-[10px] font-black uppercase font-['JetBrains_Mono'] text-sky-200">
                 Score vs Goal
               </span>
-              <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 font-['JetBrains_Mono']">
+              <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/30 font-['JetBrains_Mono']">
                 {targetTotal} Goal
               </span>
             </div>
@@ -366,22 +366,22 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             </div>
             <div className="text-[11px] font-bold font-['JetBrains_Mono']">
               {hasScore ? (
-                <>Gap vs {targetTotal}: <span className={scoreDelta >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span></>
+                <>Gap vs {targetTotal}: <span className={scoreDelta >= 0 ? 'text-emerald-300' : 'text-rose-300'}>{scoreDelta >= 0 ? `+${scoreDelta}` : scoreDelta} pts</span></>
               ) : (
-                <span className="text-slate-400">Score Not Entered Yet</span>
+                <span className="text-sky-200/60">Score Not Entered Yet</span>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* 1. Test Selector Tabs Bar - Soothing Deep Executive Blue */}
-      <div className="bg-[#081d33] p-3.5 rounded-2xl border-2 border-[#20496f] shadow-grave space-y-2.5">
+      {/* 1. Test Selector Tabs Bar - Luminous Executive Blue */}
+      <div className="bg-[#082a4a]/80 p-3.5 rounded-2xl border-2 border-sky-400/35 shadow-grave space-y-2.5 backdrop-blur-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-1">
           <span className="text-[11px] font-black uppercase tracking-wider text-sky-200 font-['JetBrains_Mono']">
             Select Practice Test Benchmark:
           </span>
-          <span className="text-[11px] text-sky-300/80 font-['JetBrains_Mono']">
+          <span className="text-[11px] text-sky-200/90 font-['JetBrains_Mono']">
             Must achieve 1500+ target on previous test to clear sequence
           </span>
         </div>
@@ -400,10 +400,10 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 onClick={() => handleSelectTest(t.id)}
                 className={`p-3 rounded-xl border-2 text-left transition min-h-[58px] cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-400 shadow-md ring-2 ring-blue-400/40'
+                    ? 'bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 text-white border-sky-300 shadow-md ring-2 ring-sky-300/40'
                     : unlocked
-                    ? 'bg-[#0d2a47] text-sky-100 border-[#254d73] hover:bg-[#13375b] hover:border-[#386d99]'
-                    : 'bg-[#061626] text-slate-400 border-[#152e46] hover:border-[#20496f]'
+                    ? 'bg-[#0c3863]/85 text-sky-100 border-sky-400/30 hover:bg-[#13497d] hover:border-sky-300 shadow-xs'
+                    : 'bg-[#071f36]/70 text-slate-400 border-sky-900/30 hover:border-sky-800/50'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -439,12 +439,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         </div>
       </div>
 
-      {/* 2. Main Calculator Form Stage - Deep Executive Navy Canvas */}
-      <div className="bg-[#0b243d] rounded-3xl border-2 border-[#2b567d] shadow-grave p-6 sm:p-8 space-y-7 text-white">
+      {/* 2. Main Calculator Form Stage - Beautiful Bluebook Oceanic Canvas */}
+      <div className="bg-gradient-to-br from-[#072744]/95 via-[#0c3c66]/90 to-[#0b355a]/95 rounded-3xl border-2 border-sky-400/40 shadow-grave p-6 sm:p-8 space-y-7 text-white backdrop-blur-xl">
         
         {/* Prerequisite Alert if user clicked on a later test before clearing previous */}
         {!isTestUnlocked(currentTestIdx) && (
-          <div className="p-4 rounded-2xl bg-[#2d1b08] border-2 border-[#f59e0b]/60 text-amber-200 flex items-center gap-3">
+          <div className="p-4 rounded-2xl bg-amber-950/40 border-2 border-amber-400/40 text-amber-100 flex items-center gap-3">
             <ShieldAlert className="w-5 h-5 text-amber-400 shrink-0" />
             <div className="text-xs font-['JetBrains_Mono'] leading-relaxed">
               <strong>Sequence Warning:</strong> Test #{currentTestIdx} target has not been met yet!
@@ -456,13 +456,13 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         {/* Target vs Actual Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* Target Score Card */}
-          <div className="bg-[#0f2d4a]/90 p-5 rounded-2xl border-2 border-[#27537b] space-y-4 shadow-sm">
-            <div className="flex items-center justify-between border-b border-[#234c70] pb-2.5">
+          <div className="bg-[#0c3863]/85 p-5 rounded-2xl border-2 border-sky-400/35 space-y-4 shadow-md backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-sky-400/30 pb-2.5">
               <span className="text-xs font-black uppercase text-sky-200 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                <Target className="w-4 h-4 text-blue-400" />
+                <Target className="w-4 h-4 text-sky-300" />
                 Target Score Setup
               </span>
-              <span className="text-xs font-bold text-sky-300 font-['JetBrains_Mono']">Goal Baseline</span>
+              <span className="text-xs font-bold text-amber-300 font-['JetBrains_Mono']">Goal Baseline</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3.5">
@@ -500,14 +500,14 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               </div>
             </div>
 
-            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-sky-300 pt-1">
+            <div className="text-right text-xs font-black font-['JetBrains_Mono'] text-sky-200 pt-1">
               Combined Target Goal: <strong className="text-amber-300 text-xl font-black">{targetTotal}</strong> <span className="text-xs text-amber-200/80 font-normal">({targetTotal} Goal &bull; 1600 Total Points)</span>
             </div>
           </div>
 
           {/* Actual Score Card - Deep Matcha Emerald Undertone */}
-          <div className="bg-[#0f3238]/90 p-5 rounded-2xl border-2 border-[#1c5f59] space-y-4 shadow-sm">
-            <div className="flex items-center justify-between border-b border-[#18534e] pb-2.5">
+          <div className="bg-[#093c3e]/85 p-5 rounded-2xl border-2 border-emerald-400/40 space-y-4 shadow-md backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-emerald-400/30 pb-2.5">
               <span className="text-xs font-black uppercase text-emerald-300 font-['JetBrains_Mono'] flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4 text-emerald-400" />
                 Actual Bluebook Score
@@ -551,24 +551,24 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         </div>
 
         {/* 3. Real-Time Score Gap Metrics Banner */}
-        <div className={`p-5 rounded-2xl border-2 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm ${
+        <div className={`p-5 rounded-2xl border-2 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md backdrop-blur-md ${
           !hasScore
-            ? 'bg-[#102942] border-[#244c70] text-sky-200'
+            ? 'bg-[#0c3863]/85 border-sky-400/40 text-sky-100'
             : isGoalAchieved 
-            ? 'bg-[#063321] border-emerald-400/60 text-emerald-100'
+            ? 'bg-gradient-to-r from-[#063b28]/95 to-[#0a4d35]/90 border-emerald-400/60 text-emerald-100'
             : isNearGoal
-            ? 'bg-[#0c3354] border-sky-400/60 text-sky-100'
-            : 'bg-[#381119] border-rose-500/60 text-rose-100'
+            ? 'bg-gradient-to-r from-[#0c3d6c]/95 to-[#124d85]/90 border-sky-400/60 text-sky-100'
+            : 'bg-gradient-to-r from-[#3e1422]/95 via-[#4a1728]/90 to-[#35121c]/95 border-rose-400/40 text-rose-100'
         }`}>
           <div className="flex items-center gap-3.5">
             {!hasScore ? (
-              <Clock className="w-9 h-9 text-sky-400 shrink-0" />
+              <Clock className="w-9 h-9 text-sky-300 shrink-0" />
             ) : isGoalAchieved ? (
               <CheckCircle2 className="w-9 h-9 text-emerald-400 shrink-0" />
             ) : isNearGoal ? (
-              <Sparkles className="w-9 h-9 text-sky-400 shrink-0" />
+              <Sparkles className="w-9 h-9 text-sky-300 shrink-0" />
             ) : (
-              <AlertTriangle className="w-9 h-9 text-rose-400 shrink-0" />
+              <AlertTriangle className="w-9 h-9 text-rose-300 shrink-0" />
             )}
             <div>
               <h4 className="text-lg font-bold font-luxury">
@@ -606,10 +606,10 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         {/* 4. DYNAMIC TARGET PROGRESSION & RETAKE DECISION ENGINE */}
         {!hasScore ? (
           /* STATE 0: AWAITING INPUT (NO DUMMY DATA) */
-          <div className="bg-[#0e2740]/90 p-5 sm:p-6 rounded-2xl border-2 border-[#20496f] space-y-3 text-sky-200">
+          <div className="bg-[#0c3863]/85 p-5 sm:p-6 rounded-2xl border-2 border-sky-400/35 space-y-3 text-sky-100 backdrop-blur-md">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center shrink-0">
-                <Target className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center shrink-0">
+                <Target className="w-5 h-5 text-sky-300" />
               </div>
               <div>
                 <h3 className="text-base sm:text-lg font-bold font-luxury text-white">
@@ -623,7 +623,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
           </div>
         ) : isGoalAchieved ? (
           /* STATE A: GOAL FULLY MET */
-          <div className="bg-[#052b1d] p-5 sm:p-6 rounded-2xl border-2 border-emerald-400/70 shadow-grave space-y-4 text-emerald-100">
+          <div className="bg-gradient-to-br from-[#063b28]/95 to-[#0a4d35]/90 p-5 sm:p-6 rounded-2xl border-2 border-emerald-400/60 shadow-grave space-y-4 text-emerald-100 backdrop-blur-md">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center shrink-0">
@@ -672,11 +672,11 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
           </div>
         ) : isNearGoal ? (
           /* STATE B: NEAR GOAL (STRIKING DISTANCE) */
-          <div className="bg-[#0b2f4f] p-5 sm:p-6 rounded-2xl border-2 border-sky-400/70 shadow-grave space-y-4 text-sky-100">
+          <div className="bg-gradient-to-br from-[#0c3d6c]/95 to-[#124d85]/90 p-5 sm:p-6 rounded-2xl border-2 border-sky-400/60 shadow-grave space-y-4 text-sky-100 backdrop-blur-md">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center shrink-0">
-                  <Sparkles className="w-6 h-6 text-sky-400" />
+                  <Sparkles className="w-6 h-6 text-sky-300" />
                 </div>
                 <div>
                   <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40">
@@ -712,7 +712,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               <button
                 type="button"
                 onClick={handleRetakeCurrentTest}
-                className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-sky-200 bg-[#07192b] hover:bg-[#0e2d4d] border-2 border-sky-400/40 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
+                className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-sky-100 bg-[#082a4a] hover:bg-[#0d3b66] border-2 border-sky-400/40 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
               >
                 <RotateCcw className="w-4 h-4 text-sky-300" />
                 <span>Retake Test #{currentTestIdx + 1} to Hit Exact {targetTotal}</span>
@@ -720,15 +720,15 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             </div>
           </div>
         ) : (
-          /* STATE C: GOAL NOT MET — RETAKE MANDATORY */
-          <div className="bg-[#300e16] p-5 sm:p-6 rounded-2xl border-2 border-rose-500/80 shadow-grave space-y-4 text-rose-100">
+          /* STATE C: GOAL NOT MET — RETAKE MANDATORY (Smooth, Elegant Red - NOT Neon) */
+          <div className="bg-gradient-to-br from-[#38131f]/95 via-[#461726]/90 to-[#2c0f18]/95 p-5 sm:p-6 rounded-2xl border-2 border-rose-400/40 shadow-grave space-y-4 text-rose-100 backdrop-blur-md">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-400/40 flex items-center justify-center shrink-0">
-                  <AlertTriangle className="w-6 h-6 text-rose-400" />
+                <div className="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-300/30 flex items-center justify-center shrink-0">
+                  <AlertTriangle className="w-6 h-6 text-rose-300" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40">
+                  <span className="text-[11px] font-black uppercase font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-200 border border-rose-400/30">
                     Target Not Met &bull; Retake Required
                   </span>
                   <h3 className="text-lg sm:text-xl font-bold font-luxury text-white mt-0.5">
@@ -752,7 +752,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               <button
                 type="button"
                 onClick={handleRetakeCurrentTest}
-                className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-rose-600 hover:bg-rose-500 transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono']"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-[#b91c1c] via-[#be123c] to-[#9f1239] hover:from-[#dc2626] hover:via-[#e11d48] hover:to-[#be123c] transition-all duration-150 flex items-center justify-center gap-2 shadow-md hover:shadow-lg active:scale-[0.98] cursor-pointer font-['JetBrains_Mono'] border border-rose-300/30"
               >
                 <RotateCcw className="w-4 h-4 text-white" />
                 <span>Give Test #{currentTestIdx + 1} Again (Retake Test)</span>
@@ -762,7 +762,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 <button
                   type="button"
                   onClick={onNavigateToErrorLog}
-                  className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-rose-200 bg-[#16070a] hover:bg-[#2c0f16] border-2 border-rose-500/40 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
+                  className="w-full sm:w-auto px-4 py-3 rounded-xl text-xs sm:text-sm font-bold text-rose-100 bg-[#280f18]/80 hover:bg-[#3d1624] border-2 border-rose-400/30 transition flex items-center justify-center gap-2 cursor-pointer font-['JetBrains_Mono']"
                 >
                   <BookOpen className="w-4 h-4 text-rose-300" />
                   <span>Review Weak Questions in Error Log</span>
@@ -770,8 +770,8 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
               )}
 
               {nextTest && (
-                <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#140609] border border-rose-500/40 text-rose-300/70 text-xs font-['JetBrains_Mono'] cursor-not-allowed">
-                  <Lock className="w-3.5 h-3.5 text-rose-400" />
+                <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-[#200b13]/80 border border-rose-400/25 text-rose-200/70 text-xs font-['JetBrains_Mono'] cursor-not-allowed">
+                  <Lock className="w-3.5 h-3.5 text-rose-300" />
                   <span>Test #{currentTestIdx + 2} Locked (Requires score &ge; {targetTotal - 40})</span>
                 </div>
               )}
@@ -781,7 +781,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
         {/* Retake feedback toast */}
         {retakeToast && (
-          <div className="p-3.5 rounded-xl bg-sky-900/90 border border-sky-400 text-sky-100 text-xs font-['JetBrains_Mono'] flex items-center gap-2">
+          <div className="p-3.5 rounded-xl bg-[#0c3863] border border-sky-400 text-sky-100 text-xs font-['JetBrains_Mono'] flex items-center gap-2">
             <RotateCcw className="w-4 h-4 text-sky-300 animate-spin" />
             <span>Retake initiated! Retest on Bluebook, then input your updated scores above.</span>
           </div>
@@ -797,20 +797,20 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             onChange={(e) => setNotes(e.target.value)}
             placeholder="e.g. Struggled with circle geometry on Question 19, punctuation was clean, need to practice Desmos table regressions..."
             rows={3}
-            className="w-full p-3.5 rounded-xl border-2 border-[#2b567d] text-xs sm:text-sm text-sky-100 placeholder:text-slate-400 bg-[#07192b] focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/20 font-sans leading-relaxed"
+            className="w-full p-3.5 rounded-xl border-2 border-sky-400/35 text-xs sm:text-sm text-sky-100 placeholder:text-sky-300/40 bg-[#07243f] focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/20 font-sans leading-relaxed"
           />
         </div>
 
         {/* 6. Action Buttons Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#1d4368]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-sky-400/25">
           <div>
             {onNavigateToErrorLog && (
               <button
                 type="button"
                 onClick={onNavigateToErrorLog}
-                className="px-4 py-2.5 rounded-xl text-xs font-bold text-rose-200 bg-rose-950/70 hover:bg-rose-900/80 border-2 border-rose-500/40 transition flex items-center gap-1.5 min-h-[44px] cursor-pointer shadow-xs active:scale-[0.98]"
+                className="px-4 py-2.5 rounded-xl text-xs font-bold text-rose-100 bg-[#341420]/80 hover:bg-[#461a2b] border-2 border-rose-400/30 transition flex items-center gap-1.5 min-h-[44px] cursor-pointer shadow-xs active:scale-[0.98]"
               >
-                <BookOpen className="w-4 h-4 text-rose-400" />
+                <BookOpen className="w-4 h-4 text-rose-300" />
                 <span>Log Questions in Mistake Autopsy</span>
               </button>
             )}
@@ -833,11 +833,11 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
       {/* 7. DEDICATED BLUEBOOK PRACTICE TEST SCORES & PERFORMANCE RECORD LIST      */}
       {/* Every test has a heading, and under it the exact numbering!              */}
       {/* ========================================================================= */}
-      <div className="bg-[#081d33] rounded-3xl p-6 border-2 border-[#20496f] shadow-grave space-y-5 text-white">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#1d4368] pb-4">
+      <div className="bg-gradient-to-br from-[#06243f]/95 via-[#0b3b64]/90 to-[#026aa2]/80 rounded-3xl p-6 sm:p-8 border-2 border-sky-400/40 shadow-grave space-y-5 text-white backdrop-blur-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-sky-400/30 pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-black uppercase px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30 font-['JetBrains_Mono']">
+              <span className="text-[11px] font-black uppercase px-2.5 py-0.5 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono']">
                 Complete Exam Log
               </span>
               <span className="text-xs text-amber-300 font-black font-['JetBrains_Mono']">
@@ -847,12 +847,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
             <h3 className="text-lg sm:text-xl font-bold font-luxury text-white mt-1">
               Official Bluebook Practice Test Scores & Performance Record
             </h3>
-            <p className="text-xs text-sky-200 mt-0.5 font-medium">
+            <p className="text-xs text-sky-100/90 mt-0.5 font-medium">
               Every practice test benchmark listed with its exact score numbering, target goal, and qualification status.
             </p>
           </div>
 
-          <span className="text-xs text-sky-300 font-['JetBrains_Mono'] bg-[#0b2745] px-3 py-1.5 rounded-xl border border-[#2b567d] shrink-0">
+          <span className="text-xs text-sky-200 font-['JetBrains_Mono'] bg-[#072540]/90 px-3 py-1.5 rounded-xl border border-sky-400/35 shrink-0">
             {Object.values(allSavedRecords).filter((r) => r.totalScore > 0).length} of 5 Logged
           </span>
         </div>
@@ -870,21 +870,21 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                 key={test.id}
                 className={`p-4 sm:p-5 rounded-2xl border-2 transition-all duration-200 ${
                   isSelected 
-                    ? 'bg-[#0f2e4d] border-sky-400/80 shadow-md ring-1 ring-sky-400/40' 
-                    : 'bg-[#0b243d] border-[#1d4368] hover:border-[#2b567d]'
+                    ? 'bg-[#0c3863] border-sky-300 shadow-md ring-2 ring-sky-400/40' 
+                    : 'bg-[#082a4a]/85 border-sky-400/30 hover:border-sky-300/60 shadow-xs'
                 }`}
               >
                 {/* Heading: Exact Test Title, Numbering & Date */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#183a5c] pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-sky-400/25 pb-3">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-8 h-8 rounded-lg bg-sky-600/30 border border-sky-400/30 flex items-center justify-center text-xs font-black text-sky-300 font-['JetBrains_Mono'] shrink-0">
+                    <span className="w-8 h-8 rounded-lg bg-sky-500/25 border border-sky-400/30 flex items-center justify-center text-xs font-black text-sky-200 font-['JetBrains_Mono'] shrink-0">
                       #{idx + 1}
                     </span>
                     <div>
                       <h4 className="text-sm sm:text-base font-bold text-white font-luxury flex items-center gap-2">
                         <span>{test.name}</span>
                         {isSelected && (
-                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-500/30 text-blue-300 border border-blue-400/40 font-['JetBrains_Mono']">
+                          <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-500/30 text-blue-200 border border-blue-400/40 font-['JetBrains_Mono']">
                             Currently Active
                           </span>
                         )}
@@ -904,12 +904,12 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                           ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' 
                           : delta >= -40
                           ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                          : 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+                          : 'bg-rose-500/15 text-rose-200 border-rose-400/30'
                       }`}>
                         {delta >= 0 ? '✓ Goal Cleared' : delta >= -40 ? '⚡ Striking Distance' : '🚫 Retake Required'}
                       </span>
                     ) : (
-                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-400 border border-slate-700 font-['JetBrains_Mono']">
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#071f36]/80 text-slate-400 border border-sky-900/40 font-['JetBrains_Mono']">
                         ⏳ Awaiting Score
                       </span>
                     )}
@@ -917,7 +917,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
                     <button
                       type="button"
                       onClick={() => handleSelectTest(test.id)}
-                      className="px-3 py-1 rounded-lg text-xs font-bold text-sky-200 bg-[#133758] hover:bg-sky-600 hover:text-white transition cursor-pointer border border-[#2b567d]"
+                      className="px-3 py-1 rounded-lg text-xs font-bold text-sky-100 bg-[#0c3863] hover:bg-sky-600 hover:text-white transition cursor-pointer border border-sky-400/35"
                     >
                       {isSelected ? 'Editing' : 'Load in Form'}
                     </button>
@@ -926,42 +926,42 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
                 {/* Under the Heading: Exact Numbering Breakdown */}
                 <div className="pt-3 grid grid-cols-2 sm:grid-cols-5 gap-2.5 font-['JetBrains_Mono'] text-center sm:text-left">
-                  <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
-                    <span className="text-[10px] text-slate-400 uppercase block">Math Score</span>
+                  <div className="p-2 rounded-xl bg-[#062038]/90 border border-sky-400/30">
+                    <span className="text-[10px] text-sky-200/70 uppercase block">Math Score</span>
                     <span className="text-sm font-black text-white">
                       {isLogged ? `${rec.mathScore} / 800` : '--'}
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
-                    <span className="text-[10px] text-slate-400 uppercase block">R&amp;W Score</span>
+                  <div className="p-2 rounded-xl bg-[#062038]/90 border border-sky-400/30">
+                    <span className="text-[10px] text-sky-200/70 uppercase block">R&amp;W Score</span>
                     <span className="text-sm font-black text-white">
                       {isLogged ? `${rec.rwScore} / 800` : '--'}
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
-                    <span className="text-[10px] text-slate-400 uppercase block">Total Score</span>
+                  <div className="p-2 rounded-xl bg-[#062038]/90 border border-sky-400/30">
+                    <span className="text-[10px] text-sky-200/70 uppercase block">Total Score</span>
                     <span className="text-base font-black text-amber-300">
                       {isLogged ? `${rec.totalScore} / 1600` : '-- / 1600'}
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e]">
-                    <span className="text-[10px] text-slate-400 uppercase block">Target Goal</span>
+                  <div className="p-2 rounded-xl bg-[#062038]/90 border border-sky-400/30">
+                    <span className="text-[10px] text-sky-200/70 uppercase block">Target Goal</span>
                     <span className="text-sm font-bold text-sky-200">
                       {isLogged ? `${rec.targetTotal} Goal` : `${targetTotal} Goal`}
                     </span>
                   </div>
 
-                  <div className="p-2 rounded-xl bg-[#071b2d] border border-[#1b3d5e] col-span-2 sm:col-span-1">
-                    <span className="text-[10px] text-slate-400 uppercase block">Goal Delta</span>
+                  <div className="p-2 rounded-xl bg-[#062038]/90 border border-sky-400/30 col-span-2 sm:col-span-1">
+                    <span className="text-[10px] text-sky-200/70 uppercase block">Goal Delta</span>
                     <span className={`text-sm font-black ${
                       !isLogged 
                         ? 'text-slate-400' 
                         : delta >= 0 
                         ? 'text-emerald-400' 
-                        : 'text-rose-400'
+                        : 'text-rose-300'
                     }`}>
                       {isLogged ? (delta >= 0 ? `+${delta} pts` : `${delta} pts`) : '--'}
                     </span>
@@ -970,7 +970,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
 
                 {/* Notes if recorded */}
                 {isLogged && rec.notes && (
-                  <div className="mt-2.5 text-xs text-sky-100/80 bg-[#061828] p-2.5 rounded-xl border border-[#163654] font-sans">
+                  <div className="mt-2.5 text-xs text-sky-100/90 bg-[#072542]/90 p-2.5 rounded-xl border border-sky-400/25 font-sans">
                     <strong className="text-sky-300 font-semibold font-['JetBrains_Mono']">Notes: </strong> 
                     {rec.notes}
                   </div>
