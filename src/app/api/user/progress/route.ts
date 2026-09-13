@@ -72,6 +72,34 @@ export async function GET(req: NextRequest) {
           createdAt: e.createdAt.getTime(),
         })) || [];
 
+        const testScoresMap: Record<string, any> = {};
+        user.testScores?.forEach((ts) => {
+          const idMap: Record<number, string> = {
+            1: 'w2-diag-1',
+            2: 'p2-test-2',
+            3: 'p2-test-3',
+            4: 'p2-test-4',
+            5: 'w9-d1-2',
+          };
+          const testId = idMap[ts.testNumber] || `test-${ts.testNumber}`;
+          testScoresMap[testId] = {
+            testId,
+            testName: ts.testName,
+            date: ts.dateTaken,
+            targetTotal: 1500,
+            targetMath: 780,
+            targetRW: 720,
+            mathScore: ts.mathScore || 0,
+            rwScore: ts.rwScore || 0,
+            totalScore: ts.totalScore || 0,
+            contentMistakes: 0,
+            carelessMistakes: 0,
+            timeMistakes: 0,
+            notes: ts.notes || '',
+            updatedAt: ts.updatedAt.toISOString(),
+          };
+        });
+
         return NextResponse.json({
           source: 'database',
           completedTaskIds: user.progress?.completedTaskIds || {},
@@ -81,6 +109,7 @@ export async function GET(req: NextRequest) {
           dayNotes: dayNotesMap,
           errorLogs: formattedErrorLogs,
           sessionTimings: sessionTimingsMap,
+          mockTestScores: testScoresMap,
           targetScore: user.progress?.targetScore || 1550,
           examDate: user.progress?.examDate || '2026-11-07',
         });
@@ -126,6 +155,7 @@ export async function POST(req: NextRequest) {
       dayNotes,
       errorLogs,
       sessionTimings,
+      mockTestScores,
       lastActiveDate,
       targetScore,
       examDate,
@@ -140,6 +170,7 @@ export async function POST(req: NextRequest) {
       dayNotes: dayNotes || {},
       errorLogs: errorLogs || [],
       sessionTimings: sessionTimings || {},
+      mockTestScores: mockTestScores || inMemoryProgressStore[email]?.mockTestScores || {},
       lastActiveDate: lastActiveDate || new Date().toISOString().split('T')[0],
       targetScore: targetScore || 1550,
       examDate: examDate || '2026-11-07',
@@ -305,6 +336,55 @@ export async function POST(req: NextRequest) {
                 completedAt: timing.completedAt ? new Date(timing.completedAt) : new Date(),
               },
             });
+          }
+        }
+      }
+
+      // 5. Persist Mock Test Scores
+      if (mockTestScores && typeof mockTestScores === 'object') {
+        const numberMap: Record<string, number> = {
+          'w2-diag-1': 1,
+          'p2-test-2': 2,
+          'p2-test-3': 3,
+          'p2-test-4': 4,
+          'w9-d1-2': 5,
+        };
+
+        for (const [testId, scoreData] of Object.entries(mockTestScores as Record<string, any>)) {
+          const testNum = numberMap[testId] || 1;
+          if (scoreData && typeof scoreData === 'object') {
+            try {
+              await prisma.bluebookTestScore.upsert({
+                where: {
+                  userId_testNumber: {
+                    userId: user.id,
+                    testNumber: testNum,
+                  },
+                },
+                update: {
+                  testName: scoreData.testName || `Practice Test #${testNum}`,
+                  dateTaken: scoreData.date || new Date().toISOString().split('T')[0],
+                  mathScore: scoreData.mathScore ?? undefined,
+                  rwScore: scoreData.rwScore ?? undefined,
+                  totalScore: scoreData.totalScore ?? undefined,
+                  notes: scoreData.notes ?? undefined,
+                  completed: true,
+                },
+                create: {
+                  userId: user.id,
+                  testNumber: testNum,
+                  testName: scoreData.testName || `Practice Test #${testNum}`,
+                  dateTaken: scoreData.date || new Date().toISOString().split('T')[0],
+                  mathScore: scoreData.mathScore ?? null,
+                  rwScore: scoreData.rwScore ?? null,
+                  totalScore: scoreData.totalScore ?? null,
+                  notes: scoreData.notes ?? null,
+                  completed: true,
+                },
+              });
+            } catch (tsErr) {
+              console.warn(`Failed to upsert test score #${testNum}:`, tsErr);
+            }
           }
         }
       }

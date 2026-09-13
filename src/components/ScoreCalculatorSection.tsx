@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { motion } from 'motion/react';
 import { 
   Trophy, 
@@ -56,6 +57,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
   initialTestId = 'p2-test-2',
   onNavigateToErrorLog
 }) => {
+  const { data: session, status } = useSession();
   const [selectedTestId, setSelectedTestId] = useState<string>(initialTestId);
   const [allSavedRecords, setAllSavedRecords] = useState<Record<string, MockTestScoreRecord>>({});
 
@@ -71,7 +73,7 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
   const [notes, setNotes] = useState<string>('');
   const [saveToast, setSaveToast] = useState(false);
 
-  // Load all records on mount
+  // Load all records on mount from local storage immediately
   const loadSavedRecords = () => {
     try {
       const savedStr = localStorage.getItem(STORAGE_KEY);
@@ -99,6 +101,38 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
   useEffect(() => {
     loadSavedRecords();
   }, [selectedTestId]);
+
+  // Cloud database sync restoration if signed in
+  useEffect(() => {
+    if (status === 'authenticated') {
+      fetch('/api/user/progress')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.mockTestScores && Object.keys(data.mockTestScores).length > 0) {
+            setAllSavedRecords((prev) => {
+              const merged = { ...data.mockTestScores, ...prev };
+              try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+              } catch {}
+              if (merged[selectedTestId]) {
+                const rec = merged[selectedTestId];
+                setTargetTotal(rec.targetTotal || 1500);
+                setTargetMath(rec.targetMath || 780);
+                setTargetRW(rec.targetRW || 720);
+                setMathScore(rec.mathScore || 740);
+                setRwScore(rec.rwScore || 690);
+                setContentMistakes(rec.contentMistakes || 0);
+                setCarelessMistakes(rec.carelessMistakes || 0);
+                setTimeMistakes(rec.timeMistakes || 0);
+                setNotes(rec.notes || '');
+              }
+              return merged;
+            });
+          }
+        })
+        .catch((err) => console.warn('Mock score cloud sync fetch error:', err));
+    }
+  }, [status, selectedTestId]);
 
   // Handle switching tests
   const handleSelectTest = (testId: string) => {
@@ -153,8 +187,19 @@ export const ScoreCalculatorSection: React.FC<ScoreCalculatorSectionProps> = ({
         }
       };
 
+      // 1. Permanent Local Storage persistence
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords));
       setAllSavedRecords(updatedRecords);
+
+      // 2. Cloud Database sync (Prisma BluebookTestScore table)
+      fetch('/api/user/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          mockTestScores: updatedRecords,
+        }),
+      }).catch((err) => console.warn('Mock score cloud sync push error:', err));
+
       setSaveToast(true);
       setTimeout(() => setSaveToast(false), 2500);
     } catch (e) {
