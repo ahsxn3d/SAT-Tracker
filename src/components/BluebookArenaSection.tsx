@@ -609,6 +609,23 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                               {item.taskTitle}
                             </span>
                           </div>
+                          {/* Heading Score Numbering under the Bluebook Test Day */}
+                          {savedScores[item.taskId] && (
+                            <div className="flex items-center gap-2 flex-wrap pt-1">
+                              <span className="text-[11px] font-bold text-amber-300 font-['JetBrains_Mono'] bg-[#07243e] px-2.5 py-0.5 rounded-md border border-sky-400/40">
+                                Score: {savedScores[item.taskId].totalScore} (Math: {savedScores[item.taskId].mathScore} &bull; R&amp;W: {savedScores[item.taskId].rwScore})
+                              </span>
+                              <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
+                                savedScores[item.taskId].totalScore >= savedScores[item.taskId].targetTotal
+                                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                                  : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                              }`}>
+                                {savedScores[item.taskId].totalScore >= savedScores[item.taskId].targetTotal
+                                  ? `+${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs Goal`
+                                  : `${savedScores[item.taskId].totalScore - savedScores[item.taskId].targetTotal} vs Goal`}
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </td>
 
