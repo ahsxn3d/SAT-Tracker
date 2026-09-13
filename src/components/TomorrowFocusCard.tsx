@@ -12,7 +12,8 @@ import {
   Zap,
   RotateCcw,
   Calendar,
-  AlertCircle
+  AlertCircle,
+  ArrowRight
 } from 'lucide-react';
 import { DayPlan, TaskItem } from '../types';
 
@@ -438,21 +439,58 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                 Shortcuts and mistake tracking for {tomorrowDay.formattedDate}:
               </p>
             </div>
-            <div className="mt-3 flex items-center gap-2">
-              <button
-                onClick={onOpenDesmos}
-                className="flex-1 py-2.5 px-2.5 rounded-xl text-xs font-black text-slate-900 bg-matcha-input border border-[#a6c4a1]/70 hover:bg-matcha-sub-dark hover:border-emerald-600 hover:shadow-sm active:scale-[0.98] flex items-center justify-center gap-1.5 transition-all duration-150 min-h-[44px] cursor-pointer"
+            <div className="mt-3 flex items-center gap-2.5">
+              <a
+                href="/cheat-codes"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onOpenDesmos) onOpenDesmos();
+                  else if (typeof window !== 'undefined') window.location.href = '/cheat-codes';
+                }}
+                className="task-check-card calendar-date-neon-hover group flex-1 p-2.5 sm:px-3 sm:py-3 rounded-2xl border-2 bg-white/95 border-[#a6c4a1] flex items-center justify-between gap-2 transition-all duration-200 cursor-pointer shadow-xs select-none active:scale-95"
+                title="Go directly to Tactical Cheat Codes & Desmos area"
               >
-                <Zap className="w-4 h-4 text-emerald-600" />
-                <span>Desmos Speed</span>
-              </button>
-              <button
-                onClick={onOpenErrorLog}
-                className="flex-1 py-2.5 px-2.5 rounded-xl text-xs font-black text-slate-900 bg-matcha-input border border-[#a6c4a1]/70 hover:bg-matcha-sub-dark hover:border-indigo-500 hover:shadow-sm active:scale-[0.98] flex items-center justify-center gap-1.5 transition-all duration-150 min-h-[44px] cursor-pointer"
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-700 border border-emerald-300 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-200 shadow-2xs">
+                    <Zap className="w-4 h-4 fill-current" />
+                  </div>
+                  <div className="min-w-0 text-left">
+                    <span className="block text-xs font-black text-slate-900 group-hover:text-emerald-950 truncate font-['Space_Grotesk']">
+                      Desmos Speed
+                    </span>
+                    <span className="block text-[10px] font-bold text-slate-500 group-hover:text-emerald-800 truncate font-['JetBrains_Mono']">
+                      Cheat Codes &rarr;
+                    </span>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-700 group-hover:translate-x-0.5 transition-all duration-200 shrink-0" />
+              </a>
+
+              <a
+                href="/error-log"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onOpenErrorLog) onOpenErrorLog();
+                  else if (typeof window !== 'undefined') window.location.href = '/error-log';
+                }}
+                className="task-check-card calendar-date-neon-hover group flex-1 p-2.5 sm:px-3 sm:py-3 rounded-2xl border-2 bg-white/95 border-[#a6c4a1] flex items-center justify-between gap-2 transition-all duration-200 cursor-pointer shadow-xs select-none active:scale-95"
+                title="Go directly to Mistake Autopsy & Error Log area"
               >
-                <BookOpen className="w-4 h-4 text-indigo-600" />
-                <span>Error Log</span>
-              </button>
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-7 h-7 rounded-xl bg-indigo-100 text-indigo-700 border border-indigo-300 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200 shadow-2xs">
+                    <BookOpen className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0 text-left">
+                    <span className="block text-xs font-black text-slate-900 group-hover:text-indigo-950 truncate font-['Space_Grotesk']">
+                      Error Log
+                    </span>
+                    <span className="block text-[10px] font-bold text-slate-500 group-hover:text-indigo-800 truncate font-['JetBrains_Mono']">
+                      Autopsy &rarr;
+                    </span>
+                  </div>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-indigo-700 group-hover:translate-x-0.5 transition-all duration-200 shrink-0" />
+              </a>
             </div>
           </motion.div>
 

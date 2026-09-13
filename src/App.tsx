@@ -544,7 +544,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
             setSelectedTimerDateStr(preDate || dedicatedDay.dateStr);
             setErrorLogModalOpen(true);
           }}
-          onOpenDesmosModal={() => setDesmosModalOpen(true)}
+          onOpenDesmosModal={() => handleSelectSection('cheat-codes')}
           onOpenPackingModal={() => setPackingModalOpen(true)}
         />
       ) : (
@@ -668,8 +668,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 completedTaskIds={completedTaskIds}
                 onToggleTask={handleToggleTask}
                 onLaunchTimer={handleLaunchTimer}
-                onOpenDesmos={() => setDesmosModalOpen(true)}
-                onOpenErrorLog={() => setErrorLogModalOpen(true)}
+                onOpenDesmos={() => handleSelectSection('cheat-codes')}
+                onOpenErrorLog={() => handleSelectSection('error-log')}
                 onSaveNotes={handleSaveNotes}
                 notes={dayNotes[tomorrowDay.id] || ''}
                 onOpenDedicatedDay={(dateStr) => setDedicatedDayDateStr(dateStr)}
@@ -950,8 +950,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 weeks={weeks}
                 completedTaskIds={completedTaskIds}
                 onToggleTask={handleToggleTask}
-                onOpenDesmos={() => setDesmosModalOpen(true)}
-                onOpenErrorLog={() => setErrorLogModalOpen(true)}
+                onOpenDesmos={() => handleSelectSection('cheat-codes')}
+                onOpenErrorLog={() => handleSelectSection('error-log')}
                 onLaunchTimer={handleLaunchTimer}
               />
             </div>
@@ -1051,8 +1051,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
             <span className="font-extrabold text-slate-900 font-['JetBrains_Mono']">The Anti-Burnout SAT System</span>
             <span>&bull;</span>
             <button
-              onClick={() => setDesmosModalOpen(true)}
-              className="text-indigo-700 hover:underline font-bold"
+              onClick={() => handleSelectSection('cheat-codes')}
+              className="text-indigo-700 hover:underline font-bold cursor-pointer"
             >
               Tactical Cheat Codes (Desmos & R&W)
             </button>
