@@ -91,16 +91,6 @@ const NAV_PAGES: NavPageItem[] = [
     activeIconColor: 'text-white'
   },
   { 
-    id: 'pacing', 
-    label: 'Pacing', 
-    href: '/pacing', 
-    icon: Clock,
-    activeClass: 'bg-sky-600 text-white shadow-sm ring-2 ring-sky-400 border-sky-500 font-bold',
-    inactiveClass: 'text-sky-950 bg-sky-100/80 border-sky-300 hover:bg-sky-200/90',
-    iconColor: 'text-sky-600',
-    activeIconColor: 'text-white'
-  },
-  { 
     id: 'cheat-codes', 
     label: 'Cheat Codes', 
     href: '/cheat-codes', 

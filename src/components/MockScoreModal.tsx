@@ -42,7 +42,6 @@ interface MockScoreModalProps {
   onClose: () => void;
   defaultTestId?: string;
   onOpenErrorLog?: () => void;
-  onOpenPacing?: () => void;
 }
 
 export const MOCK_TEST_LIST = [
@@ -58,7 +57,6 @@ export const MockScoreModal: React.FC<MockScoreModalProps> = ({
   onClose,
   defaultTestId = 'p2-test-2',
   onOpenErrorLog,
-  onOpenPacing
 }) => {
   const [selectedTestId, setSelectedTestId] = useState<string>(defaultTestId);
   const [targetTotal, setTargetTotal] = useState<number>(1500);
@@ -433,17 +431,6 @@ export const MockScoreModal: React.FC<MockScoreModalProps> = ({
                 >
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>Log Specific Mistakes</span>
-                </button>
-              )}
-
-              {onOpenPacing && (
-                <button
-                  type="button"
-                  onClick={() => { onClose(); onOpenPacing(); }}
-                  className="px-3 py-2 rounded-xl text-xs font-bold text-sky-800 bg-sky-100 hover:bg-sky-200 transition flex items-center gap-1.5 min-h-[38px] cursor-pointer"
-                >
-                  <Clock className="w-3.5 h-3.5" />
-                  <span>Review Pacing</span>
                 </button>
               )}
             </div>

@@ -244,7 +244,6 @@ interface BluebookArenaSectionProps {
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
   onLaunchTimer: (title?: string) => void;
-  onOpenPacing?: () => void;
   onOpenFlashcards?: () => void;
 }
 
@@ -255,7 +254,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onOpenDesmos,
   onOpenErrorLog,
   onLaunchTimer,
-  onOpenPacing,
   onOpenFlashcards,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
@@ -357,16 +355,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
           >
             <Target className="w-4 h-4 text-slate-950" />
             <span>Score & Gap Calculator</span>
-          </button>
-          <button
-            onClick={() => {
-              if (onOpenPacing) onOpenPacing();
-              else window.location.href = '/pacing';
-            }}
-            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-sky-600 hover:bg-sky-500 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer border border-sky-400/40"
-          >
-            <Clock className="w-4 h-4" />
-            <span>Pacing Trainer</span>
           </button>
           <button
             onClick={() => {
@@ -719,7 +707,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         }}
         defaultTestId={selectedMockForScore}
         onOpenErrorLog={onOpenErrorLog}
-        onOpenPacing={onOpenPacing}
       />
     </motion.section>
   );

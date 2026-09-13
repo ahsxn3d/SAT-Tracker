@@ -34,7 +34,6 @@ import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
 import { StopwatchSection } from './components/StopwatchSection';
 import { ExamPrepSection } from './components/ExamPrepSection';
-import { PacingTrainerSection } from './components/PacingTrainerSection';
 import { FlashcardsSection } from './components/FlashcardsSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
@@ -68,7 +67,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'pacing' | 'flashcards';
+type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'flashcards';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -532,7 +531,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'rules': '/rules',
       'timer': '/timer',
       'exam-prep': '/exam-prep',
-      'pacing': '/pacing',
       'flashcards': '/flashcards',
     };
     const targetHref = hrefMap[section] || '/';
@@ -991,7 +989,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onOpenDesmos={() => handleSelectSection('cheat-codes')}
                 onOpenErrorLog={() => handleSelectSection('error-log')}
                 onLaunchTimer={handleLaunchTimer}
-                onOpenPacing={() => handleSelectSection('pacing')}
                 onOpenFlashcards={() => handleSelectSection('flashcards')}
               />
             </div>
@@ -1081,31 +1078,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onToggleItem={handleTogglePackingItem}
                 onAddItem={handleAddPackingItem}
               />
-            </div>
-          </ScrollReveal>
-        )}
-
-        {/* ============================================================ */}
-        {/* SECTION: DIGITAL SAT PACING & SEQUENCING TRAINER             */}
-        {/* ============================================================ */}
-        {(activeSection === 'all' || activeSection === 'pacing') && (
-          <ScrollReveal id="section-pacing">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-black uppercase tracking-wider text-sky-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-sky-600" />
-                  <span>Digital SAT Pacing &amp; Sequencing Trainer</span>
-                </span>
-                {activeSection !== 'all' && (
-                  <button
-                    onClick={() => setActiveSection('all')}
-                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
-                  >
-                    View Full Dashboard &rarr;
-                  </button>
-                )}
-              </div>
-              <PacingTrainerSection />
             </div>
           </ScrollReveal>
         )}
