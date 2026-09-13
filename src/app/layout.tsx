@@ -5,11 +5,11 @@ import { ZenBotanicalsBackground } from '@/components/ZenBotanicalsBackground';
 import '../index.css';
 
 export const metadata: Metadata = {
-  title: 'The Anti-Burnout Rulebook | SAT Preparation System',
+  title: 'SAT Tracker | The Anti-Burnout Rulebook',
   description:
     'Structured anti-burnout SAT study plan with 90-minute daily cap timer, weekly pacing, mistake autopsy, and Bluebook arena tracker.',
   openGraph: {
-    title: 'The Anti-Burnout Rulebook',
+    title: 'SAT Tracker — The Anti-Burnout Rulebook',
     description:
       'Structured anti-burnout SAT study plan with 90-minute daily cap timer, weekly pacing, mistake autopsy, and Bluebook arena tracker.',
     type: 'website',
