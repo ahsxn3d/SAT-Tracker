@@ -122,7 +122,7 @@ const NAV_PAGES: NavPageItem[] = [
   },
   { 
     id: 'rules', 
-    label: '3 Rules', 
+    label: 'Core Rules', 
     href: '/rules', 
     icon: ShieldCheck,
     activeClass: 'bg-teal-700 text-white shadow-sm ring-2 ring-teal-400 border-teal-600',
@@ -348,7 +348,7 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#d2e4cd]/90 border border-[#a6c4a1] shadow-inner text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3.5 sm:p-4 rounded-2xl bg-[#d2e4cd]/90 border border-[#a6c4a1] shadow-inner text-xs">
               <div className="p-2.5 rounded-xl bg-matcha-sub/90 border border-[#a6c4a1]/70 flex items-start gap-2">
                 <span className="font-mono font-black text-emerald-800 text-sm">#1</span>
                 <div>
@@ -365,16 +365,6 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
                   <span className="font-black text-[#122810] block">Rule 2: Buffer Sundays</span>
                   <span className="text-slate-700 text-[11px] font-medium leading-tight block mt-0.5">
                     Zero assigned lessons. 100% guilt-free rest or emergency buffer.
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-matcha-sub/90 border border-[#a6c4a1]/70 flex items-start gap-2">
-                <span className="font-mono font-black text-indigo-800 text-sm">#3</span>
-                <div>
-                  <span className="font-black text-[#122810] block">Rule 3: Pacing Guardrail</span>
-                  <span className="text-slate-700 text-[11px] font-medium leading-tight block mt-0.5">
-                    Max 2 Math + 1 RW daily. Consistency over unsustainable cramming.
                   </span>
                 </div>
               </div>

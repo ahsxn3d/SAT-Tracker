@@ -570,7 +570,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'cheat-codes' && '⚡ Tactical Cheat Codes (Desmos & R&W)'}
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
-                {activeSection === 'rules' && '🛡️ The 3 Anti-Burnout Core Rules'}
+                {activeSection === 'rules' && '🛡️ The Core Anti-Burnout Rules'}
                 {activeSection === 'timer' && '⏱️ 90-Minute Anti-Burnout Stopwatch & Process Station'}
                 {activeSection === 'exam-prep' && '🎒 48h & 24h Pre-Exam Preparation & Device Packout'}
               </span>

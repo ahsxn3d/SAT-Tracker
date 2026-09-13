@@ -218,7 +218,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                 <span>Zero Work Required Tomorrow ({tomorrowDay.formattedDate})</span>
               </h4>
               <p className="text-xs sm:text-sm text-slate-700 font-medium max-w-2xl leading-relaxed">
-                Rule #3: Rest is a productive weapon. Sleep in, take screen breaks, eat nutritious meals, and let your brain consolidate learned math and reading rules into long-term memory.
+                Rest is a productive weapon. Sleep in, take screen breaks, eat nutritious meals, and let your brain consolidate learned math and reading rules into long-term memory.
               </p>
             </div>
 
