@@ -436,8 +436,8 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
           </span>
         </div>
 
-        {/* Scrollable Horizontal Task / Lesson Cards */}
-        <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-thin pt-1">
+        {/* Scrollable Horizontal Task / Lesson Cards with uncropped edge padding */}
+        <div className="flex items-center gap-3 overflow-x-auto py-2.5 px-3 sm:px-4 -mx-2 sm:-mx-3 scrollbar-thin">
           {activeDay.tasks.map((task, idx) => {
             const isSelected = timerMode === 'lesson' && activeTask?.id === task.id;
             const isDone = !!completedTaskIds[task.id];
@@ -447,7 +447,7 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
               <button
                 key={task.id}
                 onClick={() => handleSelectTask(task)}
-                className={`task-check-card calendar-date-neon-hover shrink-0 text-left p-3 rounded-2xl border-2 transition-all cursor-pointer min-w-[200px] sm:min-w-[220px] max-w-[260px] select-none ${
+                className={`task-check-card calendar-date-neon-hover shrink-0 text-left p-3.5 rounded-2xl border-2 transition-all cursor-pointer min-w-[210px] sm:min-w-[230px] max-w-[270px] select-none ${
                   isSelected
                     ? 'bg-white border-emerald-500 shadow-md ring-2 ring-emerald-500/30'
                     : isDone
@@ -455,7 +455,7 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
                     : 'bg-white/80 border-[#a6c4a1] hover:bg-white text-slate-900'
                 }`}
               >
-                <div className="flex items-center justify-between gap-1 mb-1">
+                <div className="flex items-center justify-between gap-1 mb-1.5">
                   <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md font-['JetBrains_Mono'] ${
                     task.subject === 'math'
                       ? 'bg-emerald-100 text-emerald-900'
@@ -478,7 +478,7 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
                 </div>
 
                 {task.timeSlot && (
-                  <div className="mt-1 text-[10px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
+                  <div className="mt-1.5 text-[10px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
                     <Clock className="w-3 h-3 text-slate-400" />
                     <span>{task.timeSlot}</span>
                   </div>
@@ -486,6 +486,8 @@ export const StopwatchSection: React.FC<StopwatchSectionProps> = ({
               </button>
             );
           })}
+          {/* End spacer so the last card has breathing room and right edge is never cropped */}
+          <div className="shrink-0 w-3 sm:w-4 h-1 pointer-events-none" aria-hidden="true" />
         </div>
       </div>
 
