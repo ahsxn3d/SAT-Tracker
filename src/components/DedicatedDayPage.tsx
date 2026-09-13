@@ -34,7 +34,7 @@ interface DedicatedDayPageProps {
   sessionTiming?: DaySessionTiming;
   onSaveSessionTiming: (timing: DaySessionTiming) => void;
   onDeleteSessionTiming: (dateStr: string) => void;
-  onLaunchTimerModal: (dayTitle: string, dateStr: string) => void;
+  onLaunchTimerModal: (dayTitle: string, dateStr: string, taskId?: string) => void;
   notes: string;
   onSaveNotes: (dateStr: string, text: string) => void;
   onBack: () => void;
@@ -666,6 +666,11 @@ export function DedicatedDayPage({
                               {task.code}
                             </span>
                           )}
+                          {task.durationMinutes && (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300">
+                              {task.durationMinutes}m
+                            </span>
+                          )}
                           {task.isCarriedOver && (
                             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
@@ -676,12 +681,31 @@ export function DedicatedDayPage({
                             {task.label}
                           </span>
                         </div>
+                        {task.timeSlot && (
+                          <div className="text-[11px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-slate-500" />
+                            <span>{task.timeSlot}</span>
+                          </div>
+                        )}
                         {task.topic && (
                           <div className="text-[11px] text-slate-500 font-medium">
                             Unit Topic: <span className="font-semibold text-slate-700">{task.topic}</span>
                           </div>
                         )}
                       </div>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onLaunchTimerModal(`${day.formattedDate} - ${task.code || task.label}`, day.dateStr, task.id);
+                        }}
+                        className="py-1 px-2.5 rounded-lg border border-indigo-300 bg-white hover:bg-indigo-50 text-indigo-900 text-[11px] font-bold flex items-center gap-1 transition shrink-0 cursor-pointer shadow-2xs"
+                        title={`Launch ${task.durationMinutes || 25}m timer for this lesson`}
+                      >
+                        <Clock className="w-3 h-3 text-indigo-600" />
+                        <span>Timer</span>
+                      </button>
                     </div>
                   );
                 })}
@@ -749,6 +773,11 @@ export function DedicatedDayPage({
                               {task.code}
                             </span>
                           )}
+                          {task.durationMinutes && (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-950 border border-indigo-300">
+                              {task.durationMinutes}m
+                            </span>
+                          )}
                           {task.isCarriedOver && (
                             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
@@ -759,12 +788,31 @@ export function DedicatedDayPage({
                             {task.label}
                           </span>
                         </div>
+                        {task.timeSlot && (
+                          <div className="text-[11px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-slate-500" />
+                            <span>{task.timeSlot}</span>
+                          </div>
+                        )}
                         {task.topic && (
                           <div className="text-[11px] text-slate-500 font-medium">
                             Passage Focus: <span className="font-semibold text-slate-700">{task.topic}</span>
                           </div>
                         )}
                       </div>
+
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onLaunchTimerModal(`${day.formattedDate} - ${task.code || task.label}`, day.dateStr, task.id);
+                        }}
+                        className="py-1 px-2.5 rounded-lg border border-amber-300 bg-white hover:bg-amber-50 text-amber-950 text-[11px] font-bold flex items-center gap-1 transition shrink-0 cursor-pointer shadow-2xs"
+                        title={`Launch ${task.durationMinutes || 20}m timer for this lesson`}
+                      >
+                        <Clock className="w-3 h-3 text-amber-600" />
+                        <span>Timer</span>
+                      </button>
                     </div>
                   );
                 })}

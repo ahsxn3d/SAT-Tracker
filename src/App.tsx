@@ -370,11 +370,13 @@ export default function App({ initialSection = 'all' }: AppProps) {
     }));
   };
 
-  const handleLaunchTimer = (dayTitle?: string, dateStr?: string) => {
+  const handleLaunchTimer = (dayTitle?: string, dateStr?: string, taskId?: string) => {
+    if (dateStr) setSelectedTimerDateStr(dateStr);
     if (typeof window !== 'undefined') {
       const query = new URLSearchParams();
       if (dateStr) query.set('date', dateStr);
       if (dayTitle) query.set('title', dayTitle);
+      if (taskId) query.set('taskId', taskId);
       const qs = query.toString();
       window.location.href = `/timer${qs ? `?${qs}` : ''}`;
     }
@@ -609,6 +611,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onSelectDateStr={(d) => setSelectedTimerDateStr(d)}
                 onSaveTiming={handleSaveSessionTiming}
                 existingTiming={sessionTimings[selectedTimerDateStr]}
+                completedTaskIds={completedTaskIds}
+                onToggleTask={handleToggleTask}
               />
             </div>
           </ScrollReveal>

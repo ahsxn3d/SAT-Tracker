@@ -21,7 +21,7 @@ interface TomorrowFocusCardProps {
   tomorrowDay: DayPlan;
   completedTaskIds?: Record<string, boolean>;
   onToggleTask: (dayId: string, taskId: string) => void;
-  onLaunchTimer: (dayTitle?: string) => void;
+  onLaunchTimer: (dayTitle?: string, dateStr?: string, taskId?: string) => void;
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
   onSaveNotes: (dayId: string, notes: string) => void;
@@ -283,12 +283,14 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                   ? 'bg-rose-600 text-white'
                   : 'bg-emerald-600 text-white';
 
-                const estimatedTime = task.subject === 'math'
+                const estimatedTime = task.durationMinutes
+                  ? `${task.durationMinutes} Mins`
+                  : task.subject === 'math'
                   ? '25 Mins'
                   : task.subject === 'rw'
-                  ? '35–45 Mins'
+                  ? '20 Mins'
                   : task.subject === 'test'
-                  ? '134 Mins'
+                  ? '144 Mins'
                   : 'Recovery';
 
                 return (
@@ -322,31 +324,49 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                         {task.code ? `${task.code}: ${task.topic || task.label}` : task.label}
                       </h4>
 
+                      {task.timeSlot && (
+                        <div className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-black/5 px-2 py-0.5 rounded-lg font-['JetBrains_Mono']">
+                          <Clock className="w-3 h-3 text-slate-600" />
+                          <span>{task.timeSlot}</span>
+                        </div>
+                      )}
+
                       <p className="mt-1 text-xs text-slate-700 font-semibold leading-relaxed line-clamp-3">
                         {task.topic ? `Topic focus: ${task.topic}. Complete practice drill and log any questions missed.` : task.label}
                       </p>
                     </div>
 
-                    <button
-                      onClick={() => onToggleTask(tomorrowDay.id, task.id)}
-                      className={`mt-4 w-full py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all duration-150 min-h-[44px] cursor-pointer ${
-                        isDone
-                          ? 'bg-emerald-600 text-white shadow-xs hover:bg-emerald-700'
-                          : 'bg-matcha-input text-slate-900 border-2 border-slate-300 hover:bg-white hover:border-indigo-500'
-                      }`}
-                    >
-                      {isDone ? (
-                        <>
-                          <span className="task-check-dot"><CheckCircle2 className="w-4 h-4" /></span>
-                          <span>Completed</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="task-check-dot"><Circle className="w-4 h-4 text-slate-500" /></span>
-                          <span>Mark as Done</span>
-                        </>
-                      )}
-                    </button>
+                    <div className="mt-4 flex items-center gap-2">
+                      <button
+                        onClick={() => onToggleTask(tomorrowDay.id, task.id)}
+                        className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0.5 active:scale-95 transition-all duration-150 min-h-[44px] cursor-pointer ${
+                          isDone
+                            ? 'bg-emerald-600 text-white shadow-xs hover:bg-emerald-700'
+                            : 'bg-matcha-input text-slate-900 border-2 border-slate-300 hover:bg-white hover:border-indigo-500'
+                        }`}
+                      >
+                        {isDone ? (
+                          <>
+                            <span className="task-check-dot"><CheckCircle2 className="w-4 h-4" /></span>
+                            <span>Completed</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="task-check-dot"><Circle className="w-4 h-4 text-slate-500" /></span>
+                            <span>Mark as Done</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => onLaunchTimer(`${tomorrowDay.formattedDate} - ${task.code || task.label}`, tomorrowDay.dateStr, task.id)}
+                        className="py-2.5 px-3 rounded-xl border border-emerald-600/40 bg-white hover:bg-emerald-50 text-emerald-900 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 min-h-[44px] cursor-pointer shadow-xs"
+                        title={`Start ${task.durationMinutes || 20}-minute timer for this exact lesson`}
+                      >
+                        <Clock className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>{task.durationMinutes || 20}m</span>
+                      </button>
+                    </div>
                   </motion.div>
                 );
               })}

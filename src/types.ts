@@ -4,6 +4,8 @@ export interface TaskItem {
   subject: 'math' | 'rw' | 'test' | 'drill' | 'buffer' | 'review' | 'logistics';
   code?: string;
   topic?: string;
+  durationMinutes?: number;
+  timeSlot?: string;
   completed: boolean;
   isCarriedOver?: boolean;
   originalDayId?: string;
@@ -17,12 +19,14 @@ export interface DayPlan {
   dateStr: string; // '2026-09-12'
   dayOfWeek: string; // 'Sat', 'Sun', etc.
   formattedDate: string; // 'Sat Sep 12'
+  dayNumber?: number; // 1 to 31
   weekId: string;
   weekNumber: number | string;
   weekTitle: string;
   phase: 'foundations' | 'bluebook' | 'exam';
   isBuffer: boolean;
   isTestDay?: boolean;
+  studyTimeMinutes?: number;
   tasks: TaskItem[];
   specialInstructions?: string;
   userNotes?: string;
