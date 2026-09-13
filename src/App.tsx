@@ -55,7 +55,7 @@ import {
 const STORAGE_KEYS = {
   COMPLETED_TASKS: 'anti_burnout_tasks_clean_v3',
   ERROR_LOG: 'anti_burnout_error_log_clean_v3',
-  PACKING_LIST: 'anti_burnout_packing_clean_v3',
+  PACKING_LIST: 'anti_burnout_packing_ranked_v4',
   DAY_NOTES: 'anti_burnout_notes_clean_v3',
   SESSION_TIMINGS: 'anti_burnout_session_timings_clean_v3',
   TASK_COMPLETION_DAYS: 'anti_burnout_task_completion_days_v3',

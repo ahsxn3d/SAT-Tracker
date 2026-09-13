@@ -1,14 +1,185 @@
 import { WeekPlan, PackingItem } from '../types';
 
 export const INITIAL_PACKING_LIST: PackingItem[] = [
-  { id: 'pack-1', item: 'Passport or Smart CNIC (Original Valid ID)', category: 'essential', required: true, packed: false },
-  { id: 'pack-2', item: 'Fully charged testing device / Laptop', category: 'tech', required: true, packed: false },
-  { id: 'pack-3', item: 'Laptop charging cable & adapter', category: 'tech', required: true, packed: false },
-  { id: 'pack-4', item: 'Printed SAT Admission Ticket (from College Board)', category: 'essential', required: true, packed: false },
-  { id: 'pack-5', item: 'External mouse & mousepad (recommended for Desmos speed)', category: 'tech', required: false, packed: false },
-  { id: 'pack-6', item: 'Water bottle & energy snacks for break (nuts/granola/dates)', category: 'comfort', required: true, packed: false },
-  { id: 'pack-7', item: 'Backup pencils/pens & scratch paper (if permitted)', category: 'comfort', required: false, packed: false },
-  { id: 'pack-8', item: 'Bluebook App updated & Exam ticket downloaded offline', category: 'tech', required: true, packed: false },
+  // =========================================================================
+  // RANK 1: GATEKEEPER ESSENTIALS (LIFE OR DEATH) 🪪🚫
+  // =========================================================================
+  {
+    id: 'rank1-id',
+    item: 'Original Physical ID (Passport / Smart CNIC)',
+    description: 'Your non-expired Pakistani Passport or Smart CNIC. No color photocopies, no digital photos on your phone, and no school ID cards. The name on the document must match "Muhammad Ahsan Javed" letter for letter.',
+    rank: 1,
+    rankTitle: 'Rank 1: Gatekeeper Essentials (Life or Death) 🪪🚫',
+    category: 'essential',
+    required: true,
+    packed: false,
+  },
+  {
+    id: 'rank1-laptop',
+    item: 'Testing Laptop & Original Power Adapter',
+    description: 'Your laptop must boot reliably, hold a charge, and run the latest version of Bluebook. Pack the original power brick and charging cable in your bag.',
+    rank: 1,
+    rankTitle: 'Rank 1: Gatekeeper Essentials (Life or Death) 🪪🚫',
+    category: 'tech',
+    required: true,
+    packed: false,
+  },
+  {
+    id: 'rank1-ticket',
+    item: 'Official Printed Admission Ticket',
+    description: 'Generated inside the Bluebook application five days before exam day during Exam Setup. Print a physical paper copy to present at the door.',
+    rank: 1,
+    rankTitle: 'Rank 1: Gatekeeper Essentials (Life or Death) 🪪🚫',
+    category: 'essential',
+    required: true,
+    packed: false,
+  },
+  {
+    id: 'rank1-arrival',
+    item: 'Arriving Before the Gate Locks (7:15 AM Arrival)',
+    description: 'College Board enforces a zero-tolerance lockout policy. Doors close strictly around 7:45 AM. Arrive at Crescent Model by 7:15 AM so you can clear the entry line without panic.',
+    rank: 1,
+    rankTitle: 'Rank 1: Gatekeeper Essentials (Life or Death) 🪪🚫',
+    category: 'essential',
+    required: true,
+    packed: false,
+  },
+
+  // =========================================================================
+  // RANK 2: CORE SCORE DRIVERS (THE 80/20 RULE) 📚🧠
+  // =========================================================================
+  {
+    id: 'rank2-khan',
+    item: 'Daily Khan Academy Reps (90-Minute Cap)',
+    description: 'Consistent practice in two focused blocks: 45 minutes of Math, a 10-minute break, and 35 to 45 minutes of Reading and Writing. Active problem solving builds the intuition you need on test day.',
+    rank: 2,
+    rankTitle: 'Rank 2: Core Score Drivers (The 80/20 Rule) 📚🧠',
+    category: 'habit',
+    required: true,
+    packed: false,
+  },
+  {
+    id: 'rank2-error-log',
+    item: 'Mistake Autopsy Notebook (Error Log)',
+    description: 'Logging missed questions is where score gains happen. After every quiz or practice test, write down the root cause: did you misread the question, fall for a trap answer, or miss a math formula?',
+    rank: 2,
+    rankTitle: 'Rank 2: Core Score Drivers (The 80/20 Rule) 📚🧠',
+    category: 'habit',
+    required: true,
+    packed: false,
+  },
+  {
+    id: 'rank2-mocks',
+    item: 'Official Full-Length Bluebook Mocks',
+    description: 'Third-party PDFs cannot simulate adaptive testing. Taking official timed Bluebook tests trains your stamina for the 2-hour digital exam.',
+    rank: 2,
+    rankTitle: 'Rank 2: Core Score Drivers (The 80/20 Rule) 📚🧠',
+    category: 'habit',
+    required: true,
+    packed: false,
+  },
+
+  // =========================================================================
+  // RANK 3: TACTICAL MULTIPLIERS (SPEED & ACCURACY) ⚡💻
+  // =========================================================================
+  {
+    id: 'rank3-desmos',
+    item: 'Desmos Graphing Mastery',
+    description: 'Learning how to type equations directly into Desmos to find intersections, vertex points, and roots saves minutes of manual scratch work.',
+    rank: 3,
+    rankTitle: 'Rank 3: Tactical Multipliers (Speed & Accuracy) ⚡💻',
+    category: 'tech',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank3-mouse',
+    item: 'External Mouse & Mousepad',
+    description: 'Using a laptop trackpad to highlight text and drag graphs on Desmos is slow. A responsive external mouse gives you smoother control during timed modules.',
+    rank: 3,
+    rankTitle: 'Rank 3: Tactical Multipliers (Speed & Accuracy) ⚡💻',
+    category: 'tech',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank3-pens',
+    item: 'Reliable Writing Utensils (2 Pens/Pencils)',
+    description: 'Bring two working pens or pencils. The exam center supplies official blank scratch paper, but they do not guarantee pens for test takers.',
+    rank: 3,
+    rankTitle: 'Rank 3: Tactical Multipliers (Speed & Accuracy) ⚡💻',
+    category: 'comfort',
+    required: false,
+    packed: false,
+  },
+
+  // =========================================================================
+  // RANK 4: BIOLOGICAL OPTIMIZATION (TEST-DAY FUEL) 🥪🔋
+  // =========================================================================
+  {
+    id: 'rank4-sleep',
+    item: 'Sleep Schedule Alignment (10 PM Curfew)',
+    description: 'A full night of sleep before test day protects your working memory far more than late-night cramming.',
+    rank: 4,
+    rankTitle: 'Rank 4: Biological Optimization (Test-Day Fuel) 🥪🔋',
+    category: 'comfort',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank4-fuel',
+    item: 'Mid-Exam Fuel (Water Bottle & Dates/Almonds/Banana)',
+    description: 'A clear water bottle and a simple snack like dates, almonds, or a banana during the mandatory 10-minute break keeps your focus steady for Math Module 2.',
+    rank: 4,
+    rankTitle: 'Rank 4: Biological Optimization (Test-Day Fuel) 🥪🔋',
+    category: 'comfort',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank4-clothing',
+    item: 'Comfortable Layered Clothing',
+    description: 'Testing rooms can be drafty or warm depending on the hall. Wear layers so you can adjust comfortably.',
+    rank: 4,
+    rankTitle: 'Rank 4: Biological Optimization (Test-Day Fuel) 🥪🔋',
+    category: 'comfort',
+    required: false,
+    packed: false,
+  },
+
+  // =========================================================================
+  // RANK 5: LOWEST PRIORITY (THINGS STUDENTS WASTE TIME ON) 📉🛋️
+  // =========================================================================
+  {
+    id: 'rank5-books',
+    item: 'Avoid Third-Party Paper Prep Books',
+    description: "Paper prep books designed for the old paper SAT contain outdated question types and won't teach you digital interface mechanics.",
+    rank: 5,
+    rankTitle: 'Rank 5: Lowest Priority (Things Students Waste Time On) 📉🛋️',
+    category: 'lowest',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank5-flashcards',
+    item: 'Avoid Complex Note Formatting / Heavy Binders',
+    description: 'Color-coded flashcards and elaborate binders look neat, but doing practice questions on the screen is what actually raises your score.',
+    rank: 5,
+    rankTitle: 'Rank 5: Lowest Priority (Things Students Waste Time On) 📉🛋️',
+    category: 'lowest',
+    required: false,
+    packed: false,
+  },
+  {
+    id: 'rank5-localhost',
+    item: 'Avoid Over-Tweaking Web Trackers on Localhost 😂',
+    description: "Your React app looks great, but don't let perfecting CSS buttons pull time away from your daily Khan Academy reps! 😂",
+    rank: 5,
+    rankTitle: 'Rank 5: Lowest Priority (Things Students Waste Time On) 📉🛋️',
+    category: 'lowest',
+    required: false,
+    packed: false,
+  },
 ];
 
 export const STUDY_PLAN_WEEKS: WeekPlan[] = [

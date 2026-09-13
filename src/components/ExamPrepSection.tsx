@@ -7,24 +7,26 @@ import {
   Laptop, 
   IdCard, 
   CheckCircle2, 
-  Circle, 
   AlertTriangle, 
   Clock, 
   Sparkles, 
   Plus, 
   Trash2, 
-  RotateCcw, 
   ShieldCheck, 
   Coffee, 
   Moon, 
   Zap, 
   Printer, 
-  MousePointer, 
   Check,
   CreditCard,
-  Layers,
   Calendar as CalendarIcon,
-  Sun
+  Sun,
+  Flame,
+  MousePointer,
+  TrendingDown,
+  Compass,
+  AlertOctagon,
+  Target
 } from 'lucide-react';
 import { PackingItem } from '@/types';
 
@@ -37,17 +39,18 @@ interface ExamPrepSectionProps {
   onResetDefault?: () => void;
 }
 
+type FilterRank = 'all' | 1 | 2 | 3 | 4 | 5;
+
 export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
   items,
   onToggleItem,
   onAddItem,
   onDeleteItem,
-  onMarkAll,
-  onResetDefault,
 }) => {
   const [newItemText, setNewItemText] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('tech');
-  const [activeFilter, setActiveFilter] = useState<'all' | 'essential' | 'tech' | 'comfort' | 'custom'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('essential');
+  const [selectedRank, setSelectedRank] = useState<number>(1);
+  const [activeRankFilter, setActiveRankFilter] = useState<FilterRank>('all');
   const [activeTimelineTab, setActiveTimelineTab] = useState<'48h' | '24h'>('48h');
 
   // Completed items count & percentage
@@ -63,34 +66,103 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
   };
 
   const filteredItems = useMemo(() => {
-    if (activeFilter === 'all') return items;
-    return items.filter((item) => item.category === activeFilter);
-  }, [items, activeFilter]);
+    if (activeRankFilter === 'all') return items;
+    return items.filter((item) => item.rank === activeRankFilter);
+  }, [items, activeRankFilter]);
 
-  const getCategoryBadge = (category: string) => {
-    switch (category) {
-      case 'essential':
+  // Group items by Rank for structured rendering when viewing 'all'
+  const rankGroups = useMemo(() => {
+    const groups: Record<number, { title: string; subtitle: string; icon: any; color: string; badgeColor: string; items: PackingItem[] }> = {
+      1: {
+        title: 'Rank 1: Gatekeeper Essentials (Life or Death)',
+        subtitle: 'If you fail any of these, Crescent Model will turn you away at the gate, and your preparation becomes worthless.',
+        icon: AlertOctagon,
+        color: 'border-rose-300/80 bg-rose-50/40',
+        badgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
+        items: []
+      },
+      2: {
+        title: 'Rank 2: Core Score Drivers (The 80/20 Rule)',
+        subtitle: 'These three habits dictate 80% of your final score out of 1600. Non-negotiable daily execution.',
+        icon: Target,
+        color: 'border-indigo-300/80 bg-indigo-50/40',
+        badgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-300',
+        items: []
+      },
+      3: {
+        title: 'Rank 3: Tactical Multipliers (Speed & Accuracy)',
+        subtitle: 'These tools give you a decisive unfair edge on pacing, Desmos shortcuts, and question navigation.',
+        icon: Zap,
+        color: 'border-amber-300/80 bg-amber-50/40',
+        badgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+        items: []
+      },
+      4: {
+        title: 'Rank 4: Biological Optimization (Test-Day Fuel)',
+        subtitle: 'Neuro-fuel, deep REM sleep alignment, and physical stamina for peak cognitive firing speed.',
+        icon: Coffee,
+        color: 'border-emerald-300/80 bg-emerald-50/40',
+        badgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+        items: []
+      },
+      5: {
+        title: 'Rank 5: Lowest Priority (Things Students Waste Time On)',
+        subtitle: 'Energy drains and low-yield distractions. Avoid these so your stamina stays on real score gains.',
+        icon: TrendingDown,
+        color: 'border-slate-300/80 bg-slate-100/40',
+        badgeColor: 'bg-slate-200 text-slate-800 border-slate-300',
+        items: []
+      }
+    };
+
+    items.forEach((item) => {
+      const r = item.rank || 1;
+      if (groups[r]) {
+        groups[r].items.push(item);
+      } else {
+        groups[1].items.push(item);
+      }
+    });
+
+    return groups;
+  }, [items]);
+
+  const getRankBadge = (rank?: number) => {
+    switch (rank) {
+      case 1:
         return {
-          label: 'ID & Admission Pass',
+          label: 'Rank 1: Gatekeeper',
           color: 'bg-rose-100 text-rose-900 border-rose-300',
-          icon: CreditCard
+          icon: AlertOctagon
         };
-      case 'tech':
+      case 2:
         return {
-          label: 'Devices & Tech Gear',
+          label: 'Rank 2: Core Driver',
           color: 'bg-indigo-100 text-indigo-900 border-indigo-300',
-          icon: Laptop
+          icon: Target
         };
-      case 'comfort':
+      case 3:
         return {
-          label: 'Nutrition & Physical Comfort',
+          label: 'Rank 3: Multiplier',
           color: 'bg-amber-100 text-amber-900 border-amber-300',
+          icon: Zap
+        };
+      case 4:
+        return {
+          label: 'Rank 4: Bio-Fuel',
+          color: 'bg-emerald-100 text-emerald-900 border-emerald-300',
           icon: Coffee
+        };
+      case 5:
+        return {
+          label: 'Rank 5: Wasteful/Avoid',
+          color: 'bg-slate-200 text-slate-800 border-slate-300',
+          icon: TrendingDown
         };
       default:
         return {
-          label: 'Personal Custom Item',
-          color: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+          label: 'Custom Item',
+          color: 'bg-purple-100 text-purple-900 border-purple-300',
           icon: Sparkles
         };
     }
@@ -113,7 +185,7 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-slate-950 font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs">
                 <Luggage className="w-3.5 h-3.5 text-slate-950" />
-                <span>Pre-Exam Readiness Station</span>
+                <span>Ranked SAT Exam Readiness Station</span>
               </span>
               <span className="text-xs font-bold text-emerald-300 font-['JetBrains_Mono'] bg-white/10 px-2.5 py-0.5 rounded-lg border border-white/15">
                 T-48h &bull; Thursday Nov 5 &amp; T-24h &bull; Friday Nov 6
@@ -121,12 +193,12 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-black font-['Space_Grotesk'] tracking-tight text-white">
-              Pre-Exam Preparation &amp; Device Packout
+              Exam Prep &amp; Ranked Readiness Checklist
             </h2>
 
             <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-medium">
-              Do not leave packing to Friday night or Saturday morning! <strong>Pack your gear completely 48 hours before (Thursday Nov 5)</strong>. 
-              Friday Nov 6 is strictly a <em>Zero-Study Buffer Day</em> to allow your prefrontal cortex to recover peak firing speed.
+              Organized strictly from <strong>Rank 1 (Life-or-Death Gatekeeper Essentials)</strong> down to <strong>Rank 5 (Distractions to Avoid)</strong>. 
+              Complete your physical packout 48 hours before (Thursday Nov 5) so Friday remains a 100% guilt-free buffer day.
             </p>
           </div>
 
@@ -134,13 +206,13 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
           <div className="flex items-center gap-4 sm:gap-5 bg-black/40 backdrop-blur-md border border-white/20 p-4 sm:p-5 rounded-2xl shrink-0 shadow-inner self-start lg:self-auto">
             <div className="text-right">
               <div className="text-[10px] uppercase font-black tracking-wider text-emerald-300 font-['JetBrains_Mono']">
-                Gear Packed
+                Checklist Complete
               </div>
               <div className="text-2xl sm:text-3xl font-black text-white font-['JetBrains_Mono'] mt-0.5">
                 {packedCount} / {totalCount}
               </div>
               <div className="text-[11px] font-bold text-amber-300">
-                {percentage === 100 ? '✅ 100% Bag Ready by Door' : `${totalCount - packedCount} items remaining`}
+                {percentage === 100 ? '✅ 100% Ready for Test Day' : `${totalCount - packedCount} items remaining`}
               </div>
             </div>
 
@@ -312,133 +384,196 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
         )}
       </div>
 
-      {/* Interactive Gear Packing Checklist */}
-      <div className="space-y-4 pt-2">
+      {/* Interactive Ranked Prep Checklist */}
+      <div className="space-y-5 pt-2">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-[#d2e4cd]/60 p-4 rounded-2xl border border-[#a6c4a1]">
           <div>
             <h3 className="text-sm sm:text-base font-black text-[#122810] font-['Space_Grotesk'] flex items-center gap-2">
               <Luggage className="w-4 h-4 text-emerald-700" />
-              <span>Official SAT Hardware &amp; Gear Packout List</span>
+              <span>Official SAT Readiness &amp; Priority Checklist</span>
             </h3>
             <p className="text-xs text-slate-600 font-medium mt-0.5">
-              Check off each item as you pack it into your bag on Thursday Nov 5.
+              Ranked from life-or-death entry requirements down to time-wasters. Check off as you prepare.
             </p>
           </div>
 
-          {/* Filter Category Pills */}
+          {/* Filter Rank Pills */}
           <div className="flex items-center gap-1.5 flex-wrap">
             <button
-              onClick={() => setActiveFilter('all')}
+              onClick={() => setActiveRankFilter('all')}
               className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
-                activeFilter === 'all'
+                activeRankFilter === 'all'
                   ? 'bg-[#183615] text-white shadow-xs'
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              All Items ({items.length})
+              All ({items.length})
             </button>
             <button
-              onClick={() => setActiveFilter('tech')}
+              onClick={() => setActiveRankFilter(1)}
               className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
-                activeFilter === 'tech'
-                  ? 'bg-indigo-700 text-white shadow-xs'
-                  : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
-              }`}
-            >
-              Devices &amp; Tech
-            </button>
-            <button
-              onClick={() => setActiveFilter('essential')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
-                activeFilter === 'essential'
+                activeRankFilter === 1
                   ? 'bg-rose-700 text-white shadow-xs'
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              ID &amp; Admission Pass
+              Rank 1: Gatekeeper
             </button>
             <button
-              onClick={() => setActiveFilter('comfort')}
+              onClick={() => setActiveRankFilter(2)}
               className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
-                activeFilter === 'comfort'
-                  ? 'bg-amber-700 text-white shadow-xs'
+                activeRankFilter === 2
+                  ? 'bg-indigo-700 text-white shadow-xs'
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Comfort &amp; Snacks
+              Rank 2: Core
+            </button>
+            <button
+              onClick={() => setActiveRankFilter(3)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
+                activeRankFilter === 3
+                  ? 'bg-amber-600 text-white shadow-xs'
+                  : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
+              }`}
+            >
+              Rank 3: Tactical
+            </button>
+            <button
+              onClick={() => setActiveRankFilter(4)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
+                activeRankFilter === 4
+                  ? 'bg-emerald-700 text-white shadow-xs'
+                  : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
+              }`}
+            >
+              Rank 4: Bio-Fuel
+            </button>
+            <button
+              onClick={() => setActiveRankFilter(5)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer ${
+                activeRankFilter === 5
+                  ? 'bg-slate-700 text-white shadow-xs'
+                  : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
+              }`}
+            >
+              Rank 5: Avoid
             </button>
           </div>
         </div>
 
-        {/* Checklist Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {filteredItems.map((item) => {
-            const badge = getCategoryBadge(item.category);
-            const BadgeIcon = badge.icon;
+        {/* Structured Sections by Rank */}
+        {(activeRankFilter === 'all' ? [1, 2, 3, 4, 5] : [activeRankFilter]).map((rankNum) => {
+          const group = rankGroups[rankNum as number];
+          if (!group || group.items.length === 0) return null;
+          const GroupIcon = group.icon;
 
-            return (
-              <div
-                key={item.id}
-                onClick={() => onToggleItem(item.id)}
-                className={`p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 group select-none ${
-                  item.packed
-                    ? 'bg-emerald-100/70 border-emerald-400/80 shadow-2xs'
-                    : 'bg-white/90 border-[#a6c4a1]/80 hover:border-slate-400 shadow-xs'
-                }`}
-              >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div
-                    className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                      item.packed
-                        ? 'bg-emerald-600 text-white shadow-xs'
-                        : 'border-2 border-slate-400 group-hover:border-emerald-600 text-transparent'
-                    }`}
-                  >
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+          return (
+            <div key={rankNum} className="space-y-3 pt-1">
+              {/* Rank Group Header */}
+              <div className={`p-3.5 sm:p-4 rounded-2xl border-2 ${group.color} flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 shadow-2xs`}>
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-white/90 border border-slate-300 flex items-center justify-center shrink-0 shadow-xs">
+                    <GroupIcon className="w-4 h-4 text-slate-800" />
                   </div>
-
-                  <div className="min-w-0">
-                    <div
-                      className={`text-xs sm:text-sm font-bold tracking-tight transition-colors ${
-                        item.packed
-                          ? 'line-through text-slate-500 font-medium'
-                          : 'text-slate-900 group-hover:text-slate-950 font-bold'
-                      }`}
-                    >
-                      {item.item}
-                    </div>
-
-                    <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                      <span className={`inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded border font-['JetBrains_Mono'] ${badge.color}`}>
-                        <BadgeIcon className="w-3 h-3" />
-                        <span>{badge.label}</span>
-                      </span>
-                      {item.required && (
-                        <span className="text-[9px] font-black uppercase tracking-wider text-rose-800 bg-rose-100/80 border border-rose-300 px-1.5 py-0.5 rounded font-['JetBrains_Mono']">
-                          Strictly Required
-                        </span>
-                      )}
-                    </div>
+                  <div>
+                    <h4 className="text-sm font-black text-slate-900 font-['Space_Grotesk']">
+                      {group.title}
+                    </h4>
+                    <p className="text-xs text-slate-700 font-medium">
+                      {group.subtitle}
+                    </p>
                   </div>
                 </div>
 
-                {/* Delete button if item is custom */}
-                {item.id.startsWith('pack-custom-') && onDeleteItem && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onDeleteItem(item.id);
-                    }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer shrink-0"
-                    title="Delete item"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                )}
+                <div className="text-right shrink-0">
+                  <span className={`inline-block text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg border font-['JetBrains_Mono'] ${group.badgeColor}`}>
+                    {group.items.filter(i => i.packed).length} / {group.items.length} Ready
+                  </span>
+                </div>
               </div>
-            );
-          })}
-        </div>
+
+              {/* Items in this Rank */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {group.items.map((item) => {
+                  const badge = getRankBadge(item.rank);
+                  const BadgeIcon = badge.icon;
+
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => onToggleItem(item.id)}
+                      className={`p-4 rounded-2xl border-2 transition-all duration-200 cursor-pointer flex items-start justify-between gap-3 group select-none ${
+                        item.packed
+                          ? 'bg-emerald-100/70 border-emerald-400/80 shadow-2xs'
+                          : 'bg-white/90 border-[#a6c4a1]/80 hover:border-slate-400 shadow-xs'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3 min-w-0 flex-1">
+                        <div
+                          className={`w-6 h-6 mt-0.5 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                            item.packed
+                              ? 'bg-emerald-600 text-white shadow-xs'
+                              : 'border-2 border-slate-400 group-hover:border-emerald-600 text-transparent'
+                          }`}
+                        >
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        </div>
+
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className={`inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded border font-['JetBrains_Mono'] ${badge.color}`}>
+                              <BadgeIcon className="w-3 h-3" />
+                              <span>{badge.label}</span>
+                            </span>
+
+                            {item.required && (
+                              <span className="text-[9px] font-black uppercase tracking-wider text-rose-800 bg-rose-100/80 border border-rose-300 px-1.5 py-0.5 rounded font-['JetBrains_Mono']">
+                                Strictly Required
+                              </span>
+                            )}
+                          </div>
+
+                          <div
+                            className={`text-xs sm:text-sm font-bold tracking-tight transition-colors ${
+                              item.packed
+                                ? 'line-through text-slate-500 font-medium'
+                                : 'text-slate-900 group-hover:text-slate-950 font-bold'
+                            }`}
+                          >
+                            {item.item}
+                          </div>
+
+                          {item.description && (
+                            <p className={`text-xs leading-relaxed font-medium transition-colors ${
+                              item.packed ? 'text-slate-400' : 'text-slate-600'
+                            }`}>
+                              {item.description}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Delete button if item is custom */}
+                      {item.id.startsWith('pack-custom-') && onDeleteItem && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onDeleteItem(item.id);
+                          }}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer shrink-0"
+                          title="Delete item"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
 
         {/* Add Custom Item Input Card */}
         <div className="p-4 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/80 shadow-2xs">
@@ -447,19 +582,20 @@ export const ExamPrepSection: React.FC<ExamPrepSectionProps> = ({
               type="text"
               value={newItemText}
               onChange={(e) => setNewItemText(e.target.value)}
-              placeholder="Add custom packing item (e.g. Eyeglass cleaning cloth, Backup AA batteries, Blue sweater)..."
+              placeholder="Add personal checklist item (e.g. Eyeglass cleaning cloth, backup battery)..."
               className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-[#a6c4a1] text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 shadow-2xs transition"
             />
 
             <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedRank}
+              onChange={(e) => setSelectedRank(Number(e.target.value))}
               className="px-3 py-2.5 rounded-xl bg-white border border-[#a6c4a1] text-xs font-bold text-slate-800 focus:outline-none cursor-pointer shadow-2xs"
             >
-              <option value="tech">Devices &amp; Tech</option>
-              <option value="essential">ID &amp; Document</option>
-              <option value="comfort">Comfort &amp; Snacks</option>
-              <option value="custom">General Custom</option>
+              <option value={1}>Rank 1: Gatekeeper</option>
+              <option value={2}>Rank 2: Core Driver</option>
+              <option value={3}>Rank 3: Tactical</option>
+              <option value={4}>Rank 4: Bio-Fuel</option>
+              <option value={5}>Rank 5: Lowest Priority</option>
             </select>
 
             <button

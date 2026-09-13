@@ -81,7 +81,10 @@ export interface DaySessionTiming {
 export interface PackingItem {
   id: string;
   item: string;
-  category: 'essential' | 'tech' | 'comfort' | 'custom';
+  description?: string;
+  rank?: 1 | 2 | 3 | 4 | 5;
+  rankTitle?: string;
+  category: 'essential' | 'tech' | 'comfort' | 'custom' | 'habit' | 'lowest';
   required: boolean;
   packed: boolean;
 }
