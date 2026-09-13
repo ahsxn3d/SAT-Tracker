@@ -34,6 +34,7 @@ import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
 import { StopwatchSection } from './components/StopwatchSection';
 import { ExamPrepSection } from './components/ExamPrepSection';
+import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -66,7 +67,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep';
+type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -530,6 +531,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'rules': '/rules',
       'timer': '/timer',
       'exam-prep': '/exam-prep',
+      'score-calculator': '/score-calculator',
     };
     const targetHref = hrefMap[section] || '/';
     if (typeof window !== 'undefined' && window.location.pathname !== targetHref) {
@@ -1075,6 +1077,29 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onToggleItem={handleTogglePackingItem}
                 onAddItem={handleAddPackingItem}
               />
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* ============================================================ */}
+        {/* DEDICATED FULL PAGE VIEW: SCORE & GAP CALCULATOR             */}
+        {/* ============================================================ */}
+        {activeSection === 'score-calculator' && (
+          <ScrollReveal id="section-score-calculator-page">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-black uppercase tracking-wider text-sky-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                  <Target className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Dedicated Mock Test Score &amp; Gap Calculator</span>
+                </span>
+                <button
+                  onClick={() => handleSelectSection('phase-2')}
+                  className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
+                >
+                  &larr; Back to Phase 2 Schedule
+                </button>
+              </div>
+              <ScoreCalculatorSection onNavigateToErrorLog={() => handleSelectSection('error-log')} />
             </div>
           </ScrollReveal>
         )}

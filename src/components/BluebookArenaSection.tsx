@@ -21,7 +21,7 @@ import {
   Flame
 } from 'lucide-react';
 import { WeekPlan } from '../types';
-import { MockScoreModal, MockTestScoreRecord } from './MockScoreModal';
+import { ScoreCalculatorSection, MockTestScoreRecord } from './ScoreCalculatorSection';
 
 interface Phase2DaySchedule {
   dateStr: string;
@@ -255,7 +255,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onLaunchTimer,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
-  const [scoreModalOpen, setScoreModalOpen] = useState(false);
   const [selectedMockForScore, setSelectedMockForScore] = useState<string>('p2-test-2');
   const [savedScores, setSavedScores] = useState<Record<string, MockTestScoreRecord>>({});
 
@@ -346,8 +345,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => {
-              setSelectedMockForScore('p2-test-2');
-              setScoreModalOpen(true);
+              const el = document.getElementById('phase2-score-calculator');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
             }}
             className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-amber-400 hover:bg-amber-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
           >
@@ -453,7 +454,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                   <button
                     onClick={() => {
                       setSelectedMockForScore(mock.taskId);
-                      setScoreModalOpen(true);
+                      const el = document.getElementById('phase2-score-calculator');
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth' });
+                      }
                     }}
                     title="Calculate Score & Gap Analysis"
                     className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 transition border border-amber-300 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
@@ -686,16 +690,15 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         </motion.div>
       </div>
 
-      {/* Mock Score Target & Gap Modal */}
-      <MockScoreModal
-        isOpen={scoreModalOpen}
-        onClose={() => {
-          setScoreModalOpen(false);
-          loadSavedScores();
-        }}
-        defaultTestId={selectedMockForScore}
-        onOpenErrorLog={onOpenErrorLog}
-      />
+      {/* ============================================================ */}
+      {/* EMBEDDED INLINE SECTION: MOCK TEST SCORE & GAP CALCULATOR    */}
+      {/* ============================================================ */}
+      <div id="phase2-score-calculator" className="pt-6 border-t-2 border-sky-500/30">
+        <ScoreCalculatorSection
+          initialTestId={selectedMockForScore}
+          onNavigateToErrorLog={onOpenErrorLog}
+        />
+      </div>
     </motion.section>
   );
 };
