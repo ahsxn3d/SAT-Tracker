@@ -1,0 +1,635 @@
+'use client';
+
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
+import { 
+  Trophy, 
+  Calendar, 
+  CheckCircle2, 
+  Circle, 
+  Zap, 
+  BookOpen, 
+  Clock, 
+  ShieldAlert, 
+  Sparkles,
+  ArrowUpRight,
+  Filter,
+  Coffee,
+  CheckCheck,
+  AlertCircle
+} from 'lucide-react';
+import { WeekPlan } from '../types';
+
+interface Phase2DaySchedule {
+  dateStr: string;
+  displayDate: string;
+  dayOfWeek: string;
+  taskTitle: string;
+  whatItMeans: string;
+  category: 'test' | 'review' | 'drill' | 'buffer' | 'rest' | 'taper' | 'exam';
+  taskId: string;
+  dayId: string;
+}
+
+const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
+  {
+    dateStr: '2026-10-19',
+    displayDate: 'Mon Oct 19',
+    dayOfWeek: 'Mon',
+    taskTitle: 'Bluebook Test #2 (full, timed)',
+    whatItMeans: 'Real conditions, both sections, the 10-min break included',
+    category: 'test',
+    taskId: 'p2-test-2',
+    dayId: '2026-10-19',
+  },
+  {
+    dateStr: '2026-10-20',
+    displayDate: 'Tue Oct 20',
+    dayOfWeek: 'Tue',
+    taskTitle: 'Error-log review',
+    whatItMeans: "Open your score report, write down every wrong question: which skill, why you got it wrong (careless? didn't know the rule? ran out of time?)",
+    category: 'review',
+    taskId: 'w7-d2-1',
+    dayId: '2026-10-20',
+  },
+  {
+    dateStr: '2026-10-21',
+    displayDate: 'Wed Oct 21',
+    dayOfWeek: 'Wed',
+    taskTitle: 'Targeted Math drills + Desmos speed drills',
+    whatItMeans: "Go back to Khan Academy, redo the specific skills you missed. Practice using Desmos for systems/quadratics until it's automatic",
+    category: 'drill',
+    taskId: 'w7-d3-1',
+    dayId: '2026-10-21',
+  },
+  {
+    dateStr: '2026-10-22',
+    displayDate: 'Thu Oct 22',
+    dayOfWeek: 'Thu',
+    taskTitle: 'Targeted R&W drills',
+    whatItMeans: 'Redo missed R&W skills on Khan, review the grammar rule behind each punctuation/transition mistake',
+    category: 'drill',
+    taskId: 'w7-d4-1',
+    dayId: '2026-10-22',
+  },
+  {
+    dateStr: '2026-10-23',
+    displayDate: 'Fri Oct 23',
+    dayOfWeek: 'Fri',
+    taskTitle: 'Light buffer day',
+    whatItMeans: 'Catch up if behind, or rest if on track. Your call',
+    category: 'buffer',
+    taskId: 'w7-d5-1',
+    dayId: '2026-10-23',
+  },
+  {
+    dateStr: '2026-10-24',
+    displayDate: 'Sat Oct 24',
+    dayOfWeek: 'Sat',
+    taskTitle: 'Light targeted practice',
+    whatItMeans: 'Only the weak spots still bothering you, nothing new',
+    category: 'drill',
+    taskId: 'w7-d6-1',
+    dayId: '2026-10-24',
+  },
+  {
+    dateStr: '2026-10-25',
+    displayDate: 'Sun Oct 25',
+    dayOfWeek: 'Sun',
+    taskTitle: 'REST',
+    whatItMeans: 'Full day off, no exceptions',
+    category: 'rest',
+    taskId: 'w7-d7-1',
+    dayId: '2026-10-25',
+  },
+  {
+    dateStr: '2026-10-26',
+    displayDate: 'Mon Oct 26',
+    dayOfWeek: 'Mon',
+    taskTitle: 'Bluebook Test #3 (full, timed)',
+    whatItMeans: 'Same real conditions as Test #2',
+    category: 'test',
+    taskId: 'p2-test-3',
+    dayId: '2026-10-26',
+  },
+  {
+    dateStr: '2026-10-27',
+    displayDate: 'Tue Oct 27',
+    dayOfWeek: 'Tue',
+    taskTitle: 'Error-log review',
+    whatItMeans: 'Same process as after Test #2',
+    category: 'review',
+    taskId: 'w8-d2-1',
+    dayId: '2026-10-27',
+  },
+  {
+    dateStr: '2026-10-28',
+    displayDate: 'Wed Oct 28',
+    dayOfWeek: 'Wed',
+    taskTitle: 'Targeted drills',
+    whatItMeans: 'Fix what Test #3 exposed',
+    category: 'drill',
+    taskId: 'w8-d3-1',
+    dayId: '2026-10-28',
+  },
+  {
+    dateStr: '2026-10-29',
+    displayDate: 'Thu Oct 29',
+    dayOfWeek: 'Thu',
+    taskTitle: 'Deep review: punctuation & transitions + Math cleanup',
+    whatItMeans: 'This is your grammar-rules-cold-memorization day, plus any lingering Math weak spots',
+    category: 'review',
+    taskId: 'w8-d4-1',
+    dayId: '2026-10-29',
+  },
+  {
+    dateStr: '2026-10-30',
+    displayDate: 'Fri Oct 30',
+    dayOfWeek: 'Fri',
+    taskTitle: 'Light buffer day',
+    whatItMeans: 'Same as before, catch up or rest',
+    category: 'buffer',
+    taskId: 'w8-d5-1',
+    dayId: '2026-10-30',
+  },
+  {
+    dateStr: '2026-10-31',
+    displayDate: 'Sat Oct 31',
+    dayOfWeek: 'Sat',
+    taskTitle: 'Bluebook Test #4 (final full test, timed)',
+    whatItMeans: 'Your last full-length rehearsal',
+    category: 'test',
+    taskId: 'p2-test-4',
+    dayId: '2026-10-31',
+  },
+  {
+    dateStr: '2026-11-01',
+    displayDate: 'Sun Nov 1',
+    dayOfWeek: 'Sun',
+    taskTitle: 'REST',
+    whatItMeans: 'Full day off',
+    category: 'rest',
+    taskId: 'w8-d7-1',
+    dayId: '2026-11-01',
+  },
+  {
+    dateStr: '2026-11-02',
+    displayDate: 'Mon Nov 2',
+    dayOfWeek: 'Mon',
+    taskTitle: 'Error-log review + simulate exact test-day timing',
+    whatItMeans: "Review Test #4 mistakes, AND do a dry run: wake at your real exam wake-up time, eat what you'll eat, do a timed module at the exact hour your real test starts",
+    category: 'test',
+    taskId: 'w9-d1-2',
+    dayId: '2026-11-02',
+  },
+  {
+    dateStr: '2026-11-03',
+    displayDate: 'Tue Nov 3',
+    dayOfWeek: 'Tue',
+    taskTitle: 'Light taper: review error notebook + grammar rules',
+    whatItMeans: 'No new practice, just re-read your own collected mistakes across all 4 tests',
+    category: 'taper',
+    taskId: 'w9-d2-1',
+    dayId: '2026-11-03',
+  },
+  {
+    dateStr: '2026-11-04',
+    displayDate: 'Wed Nov 4',
+    dayOfWeek: 'Wed',
+    taskTitle: 'Light taper: verify Bluebook app, admission ticket, ID',
+    whatItMeans: 'Logistics check, not academic work',
+    category: 'taper',
+    taskId: 'w9-d3-1',
+    dayId: '2026-11-04',
+  },
+  {
+    dateStr: '2026-11-05',
+    displayDate: 'Thu Nov 5',
+    dayOfWeek: 'Thu',
+    taskTitle: 'Very light review, pack bag',
+    whatItMeans: 'ID/Smart CNIC, laptop, charger, snack, admission ticket, all physically packed tonight',
+    category: 'taper',
+    taskId: 'w9-d4-2',
+    dayId: '2026-11-05',
+  },
+  {
+    dateStr: '2026-11-06',
+    displayDate: 'Fri Nov 6',
+    dayOfWeek: 'Fri',
+    taskTitle: 'FULL REST',
+    whatItMeans: 'Zero studying. Sleep early. This is non-negotiable',
+    category: 'rest',
+    taskId: 'w9-d5-1',
+    dayId: '2026-11-06',
+  },
+  {
+    dateStr: '2026-11-07',
+    displayDate: 'Sat Nov 7',
+    dayOfWeek: 'Sat',
+    taskTitle: 'EXAM DAY',
+    whatItMeans: 'Go get it 🎯 Official SAT at Crescent Model School',
+    category: 'exam',
+    taskId: 'p2-final-1',
+    dayId: '2026-11-07',
+  },
+];
+
+interface BluebookArenaSectionProps {
+  weeks: WeekPlan[];
+  completedTaskIds: Record<string, boolean>;
+  onToggleTask: (dayId: string, taskId: string) => void;
+  onOpenDesmos: () => void;
+  onOpenErrorLog: () => void;
+  onLaunchTimer: (title?: string) => void;
+}
+
+export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
+  weeks,
+  completedTaskIds,
+  onToggleTask,
+  onOpenDesmos,
+  onOpenErrorLog,
+  onLaunchTimer,
+}) => {
+  const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
+
+  const mockTests = [
+    { name: 'Bluebook Practice Test #1', date: 'Sun Sep 20', time: '8:30 AM', dayId: '2026-09-20', taskId: 'w2-diag-1', tag: '★ Early Diagnostic' },
+    { name: 'Bluebook Practice Test #2', date: 'Mon Oct 19', time: 'Full Timed', dayId: '2026-10-19', taskId: 'p2-test-2', tag: 'Full Real Conditions' },
+    { name: 'Bluebook Practice Test #3', date: 'Mon Oct 26', time: 'Full Timed', dayId: '2026-10-26', taskId: 'p2-test-3', tag: 'Same Real Conditions' },
+    { name: 'Bluebook Practice Test #4', date: 'Sat Oct 31', time: 'Full Timed', dayId: '2026-10-31', taskId: 'p2-test-4', tag: 'Final Full Rehearsal' },
+    { name: 'Test-Day Timing Simulation', date: 'Mon Nov 2', time: 'Exam Wake Hour', dayId: '2026-11-02', taskId: 'w9-d1-2', tag: 'Exact Timing Dry Run' },
+  ];
+
+  const completedTestsCount = mockTests.filter((m) => completedTaskIds[m.taskId]).length;
+  const completedPhase2Count = PHASE_2_SCHEDULE.filter((item) => completedTaskIds[item.taskId]).length;
+
+  const filteredSchedule = PHASE_2_SCHEDULE.filter((item) => {
+    if (filterCategory === 'all') return true;
+    if (filterCategory === 'test') return item.category === 'test' || item.category === 'exam';
+    if (filterCategory === 'drill') return item.category === 'drill' || item.category === 'review';
+    if (filterCategory === 'rest') return item.category === 'rest' || item.category === 'buffer' || item.category === 'taper';
+    return true;
+  });
+
+  const getCategoryBadge = (cat: Phase2DaySchedule['category']) => {
+    switch (cat) {
+      case 'test':
+        return 'bg-purple-900/70 text-purple-200 border-purple-400/40';
+      case 'exam':
+        return 'bg-rose-600 text-white border-rose-300 font-extrabold animate-pulse';
+      case 'review':
+        return 'bg-indigo-900/70 text-indigo-200 border-indigo-400/40';
+      case 'drill':
+        return 'bg-sky-900/70 text-sky-200 border-sky-400/40';
+      case 'buffer':
+        return 'bg-emerald-900/60 text-emerald-200 border-emerald-400/30';
+      case 'rest':
+        return 'bg-emerald-950/80 text-emerald-300 border-emerald-400/50';
+      case 'taper':
+        return 'bg-amber-900/60 text-amber-200 border-amber-400/40';
+      default:
+        return 'bg-slate-800 text-slate-200 border-slate-600';
+    }
+  };
+
+  return (
+    <motion.section 
+      id="section-bluebook"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+      className="bg-gradient-to-br from-[#06243f]/95 via-[#0b3b64]/90 to-[#026aa2]/85 text-white rounded-3xl border-2 border-sky-400/40 p-5 sm:p-7 shadow-grave hover:shadow-grave-hover space-y-6 transition-all duration-300 backdrop-blur-xl"
+    >
+      {/* Phase 2 Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-sky-500/30 pb-5">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
+              Phase 2: Oct 19 – Nov 6 (19 Days) + Nov 7 Exam Day
+            </span>
+            <span className="text-xs text-amber-300 font-extrabold font-['JetBrains_Mono']">
+              4 Full Mocks &bull; Error Autopsies &bull; Final Rehearsals
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury flex items-center gap-2.5">
+            <Trophy className="w-7 h-7 text-amber-400" />
+            <span>The Bluebook Arena: Full Phase 2 Breakdown</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
+            Strict 19-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={onOpenDesmos}
+            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer"
+          >
+            <Zap className="w-4 h-4" />
+            <span>Desmos Speed Drills</span>
+          </button>
+          <button
+            onClick={onOpenErrorLog}
+            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-sky-600 hover:bg-sky-500 hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-1.5 min-h-[44px] cursor-pointer border border-sky-400/40"
+          >
+            <BookOpen className="w-4 h-4" />
+            <span>Mistake Autopsy Log</span>
+          </button>
+        </div>
+      </div>
+
+      {/* The 5 Official Mock Tests Tracker */}
+      <div className="space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+          <h3 className="text-xs font-black uppercase tracking-wider text-sky-200 font-['JetBrains_Mono']">
+            Core Bluebook Practice Tests & Dry Runs
+          </h3>
+          <span className="text-xs font-black font-['JetBrains_Mono'] text-sky-200 bg-[#072540]/90 px-3 py-1 rounded-xl border border-sky-400/35">
+            {completedTestsCount} of 5 Completed ({Math.round((completedTestsCount / 5) * 100)}%)
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          {mockTests.map((mock, idx) => {
+            const isDone = !!completedTaskIds[mock.taskId];
+            return (
+              <motion.div
+                key={mock.taskId}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-20px' }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className={`p-4 rounded-2xl border-2 flex flex-col justify-between space-y-3 shadow-grave-card hover:shadow-grave-card-hover smooth-card-hover cursor-default ${
+                  isDone 
+                    ? 'bg-[#051c33]/90 border-emerald-400/80 text-sky-100' 
+                    : 'bg-[#082a4a]/70 border-sky-400/25 hover:border-sky-300 hover:shadow-[0_12px_28px_-6px_rgba(2,132,199,0.35)] text-white'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-sky-950/80 text-sky-200 font-['JetBrains_Mono'] border border-sky-400/30">
+                      Step #{idx + 1}
+                    </span>
+                    <span className="text-xs text-amber-300 font-black font-['JetBrains_Mono']">{mock.date}</span>
+                  </div>
+                  <h4 className="mt-2.5 text-base font-bold text-white font-luxury">
+                    {mock.name}
+                  </h4>
+                  <p className="mt-1 text-xs text-sky-200 font-semibold">
+                    Timing: <span className="text-white font-extrabold">{mock.time}</span>
+                  </p>
+                  <span className="mt-2.5 inline-block text-[10px] font-black text-sky-100 bg-[#061e36]/90 px-2.5 py-1 rounded-lg border border-sky-400/30 font-['JetBrains_Mono']">
+                    {mock.tag}
+                  </span>
+                </div>
+
+                <div className="pt-2.5 border-t border-sky-500/25 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => onToggleTask(mock.dayId, mock.taskId)}
+                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition-all duration-150 min-h-[44px] cursor-pointer hover:scale-[1.02] active:scale-95 ${
+                      isDone 
+                        ? 'bg-emerald-400 text-slate-950 shadow-xs' 
+                        : 'bg-sky-600/80 hover:bg-sky-500 text-white border border-sky-400/40 hover:border-sky-200'
+                    }`}
+                  >
+                    {isDone ? (
+                      <>
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Completed</span>
+                      </>
+                    ) : (
+                      <>
+                        <Circle className="w-4 h-4 text-sky-200" />
+                        <span>Mark Done</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={onOpenErrorLog}
+                    title="Log mistakes from this test"
+                    className="p-2.5 rounded-xl bg-sky-900/70 hover:bg-sky-700/80 text-sky-200 hover:text-white transition border border-sky-500/40 hover:border-sky-300 min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
+            );
+          })}
+
+          {/* Test 4 & Mon Nov 2 Simulation Protocol Note */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="p-4 rounded-2xl bg-amber-500/20 border-2 border-amber-300/50 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200 flex flex-col justify-between"
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-1.5 text-amber-300 text-xs font-black uppercase font-['JetBrains_Mono']">
+                <ShieldAlert className="w-4 h-4" />
+                <span>Mon Nov 2 Simulation Protocol</span>
+              </div>
+              <h4 className="text-base font-bold text-amber-100 font-luxury">
+                Exact Timing Dry Run
+              </h4>
+              <p className="text-xs text-sky-100 font-medium leading-relaxed">
+                Wake at your real exam wake-up time (6:00–6:30 AM), eat your exact test-day breakfast, and execute a timed module at the exact hour your real SAT starts.
+              </p>
+            </div>
+            <div className="text-[11px] text-amber-200 font-black pt-2 font-['JetBrains_Mono']">
+              Eliminates test-day adrenaline shock and body-clock lag.
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* ============================================================ */}
+      {/* FULL 19-DAY INTERACTIVE PHASE 2 BREAKDOWN (Oct 19 – Nov 7)    */}
+      {/* ============================================================ */}
+      <div className="space-y-3.5 pt-4 border-t border-sky-500/25">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+          <div>
+            <h3 className="text-lg sm:text-xl font-bold text-white font-luxury flex items-center gap-2">
+              <span>Full Phase 2 Breakdown (Oct 19 – Nov 6, 19 days + Nov 7 Exam Day)</span>
+            </h3>
+            <p className="text-xs text-sky-200 font-medium mt-0.5">
+              Every day has a defined purpose: test, autopsy, targeted Khan fix, or non-negotiable rest.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1 bg-[#051c33] p-1 rounded-xl border border-sky-400/30 text-xs">
+              <button
+                onClick={() => setFilterCategory('all')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
+                  filterCategory === 'all' ? 'bg-sky-500 text-white' : 'text-sky-200 hover:text-white'
+                }`}
+              >
+                All (20d)
+              </button>
+              <button
+                onClick={() => setFilterCategory('test')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
+                  filterCategory === 'test' ? 'bg-purple-600 text-white' : 'text-sky-200 hover:text-white'
+                }`}
+              >
+                Mocks & Exam
+              </button>
+              <button
+                onClick={() => setFilterCategory('drill')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
+                  filterCategory === 'drill' ? 'bg-sky-600 text-white' : 'text-sky-200 hover:text-white'
+                }`}
+              >
+                Drills
+              </button>
+              <button
+                onClick={() => setFilterCategory('rest')}
+                className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
+                  filterCategory === 'rest' ? 'bg-emerald-600 text-white' : 'text-sky-200 hover:text-white'
+                }`}
+              >
+                Rest & Taper
+              </button>
+            </div>
+
+            <span className="text-xs font-mono font-bold text-amber-300 bg-[#061e36] px-2.5 py-1 rounded-lg border border-sky-400/30">
+              {completedPhase2Count}/{PHASE_2_SCHEDULE.length} Done
+            </span>
+          </div>
+        </div>
+
+        {/* Breakdown Table / Card Grid */}
+        <div className="overflow-hidden rounded-2xl border border-sky-400/30 bg-[#061d33]/85 backdrop-blur-md">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-sky-500/30 bg-[#082a4a]/90 text-[11px] font-black uppercase text-sky-200 font-['JetBrains_Mono']">
+                  <th className="py-3 px-3 sm:px-4 w-[130px]">Date</th>
+                  <th className="py-3 px-3 sm:px-4 w-[280px]">Task</th>
+                  <th className="py-3 px-3 sm:px-4">What this actually means</th>
+                  <th className="py-3 px-3 sm:px-4 w-[100px] text-center">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-sky-500/20 text-xs font-medium">
+                {filteredSchedule.map((item) => {
+                  const isDone = !!completedTaskIds[item.taskId];
+                  const isExamDay = item.category === 'exam';
+
+                  return (
+                    <tr
+                      key={item.dateStr}
+                      onClick={() => onToggleTask(item.dayId, item.taskId)}
+                      className={`transition-colors duration-150 cursor-pointer select-none ${
+                        isExamDay
+                          ? 'bg-rose-950/40 hover:bg-rose-900/50'
+                          : isDone
+                          ? 'bg-emerald-950/20 hover:bg-emerald-950/35'
+                          : 'hover:bg-sky-900/30'
+                      }`}
+                    >
+                      {/* Date */}
+                      <td className="py-3 px-3 sm:px-4 whitespace-nowrap">
+                        <div className="flex items-center gap-1.5">
+                          <span className={`font-mono font-black ${isExamDay ? 'text-amber-300 font-bold' : 'text-sky-100'}`}>
+                            {item.displayDate}
+                          </span>
+                        </div>
+                      </td>
+
+                      {/* Task */}
+                      <td className="py-3 px-3 sm:px-4">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded border font-mono ${getCategoryBadge(item.category)}`}>
+                              {item.category.toUpperCase()}
+                            </span>
+                            <span className={`font-bold ${isDone ? 'line-through text-slate-400' : 'text-white'}`}>
+                              {item.taskTitle}
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+
+                      {/* What this actually means */}
+                      <td className="py-3 px-3 sm:px-4">
+                        <span className={`leading-relaxed ${isDone ? 'text-slate-400' : 'text-sky-100/90 font-medium'}`}>
+                          {item.whatItMeans}
+                        </span>
+                      </td>
+
+                      {/* Status / Checkbox */}
+                      <td className="py-3 px-3 sm:px-4 text-center">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onToggleTask(item.dayId, item.taskId);
+                          }}
+                          className="inline-flex items-center justify-center cursor-pointer p-1 transition transform active:scale-90"
+                        >
+                          {isDone ? (
+                            <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-950" />
+                          ) : (
+                            <Circle className="w-5 h-5 text-sky-400/60 hover:text-emerald-400" />
+                          )}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* Arena Protocol Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-2 border-t border-sky-500/25">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="p-4 rounded-2xl bg-[#072642]/80 border border-sky-500/30 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200"
+        >
+          <div className="text-xs font-black text-sky-300 font-['JetBrains_Mono']">Wed Oct 21 & Oct 28</div>
+          <div className="text-base font-bold text-white mt-1 font-luxury">Targeted Drills & Desmos</div>
+          <p className="text-xs text-sky-100/90 font-medium mt-1 leading-relaxed">
+            Eliminate algebraic calculation for quadratic systems, intersections, and regressions. Redo Khan missed skills immediately after score reports.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="p-4 rounded-2xl bg-[#072642]/80 border border-sky-500/30 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200"
+        >
+          <div className="text-xs font-black text-emerald-300 font-['JetBrains_Mono']">Thu Nov 5 (Night Before)</div>
+          <div className="text-base font-bold text-white mt-1 font-luxury">Pack Bag & Check CNIC</div>
+          <p className="text-xs text-sky-100/90 font-medium mt-1 leading-relaxed">
+            Original Passport/Smart CNIC, laptop, charger, snacks packed before dinner. No late night scrambling.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-20px' }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="p-4 rounded-2xl bg-[#072642]/80 border border-sky-500/30 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200"
+        >
+          <div className="text-xs font-black text-rose-300 font-['JetBrains_Mono']">Fri Nov 6 (Zero Studying)</div>
+          <div className="text-base font-bold text-white mt-1 font-luxury">Non-Negotiable Full Rest</div>
+          <p className="text-xs text-sky-100/90 font-medium mt-1 leading-relaxed">
+            Strictly NO practice tests or heavy drills. Sleep early (before 9:30 PM). Prime your mind for 800-level execution tomorrow!
+          </p>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};

@@ -1,0 +1,87 @@
+export interface TaskItem {
+  id: string;
+  label: string;
+  subject: 'math' | 'rw' | 'test' | 'drill' | 'buffer' | 'review' | 'logistics';
+  code?: string;
+  topic?: string;
+  completed: boolean;
+  isCarriedOver?: boolean;
+  originalDayId?: string;
+  originalDateStr?: string;
+  originalFormattedDate?: string;
+  completedOnDateStr?: string;
+}
+
+export interface DayPlan {
+  id: string;
+  dateStr: string; // '2026-09-12'
+  dayOfWeek: string; // 'Sat', 'Sun', etc.
+  formattedDate: string; // 'Sat Sep 12'
+  weekId: string;
+  weekNumber: number | string;
+  weekTitle: string;
+  phase: 'foundations' | 'bluebook' | 'exam';
+  isBuffer: boolean;
+  isTestDay?: boolean;
+  tasks: TaskItem[];
+  specialInstructions?: string;
+  userNotes?: string;
+  hasCarriedOverTasks?: boolean;
+  carriedOverCount?: number;
+}
+
+export interface WeekPlan {
+  id: string;
+  title: string;
+  dateRange: string;
+  subtitle: string;
+  phase: 'foundations' | 'bluebook' | 'exam';
+  days: DayPlan[];
+}
+
+export interface ErrorLogEntry {
+  id: string;
+  date: string;
+  testOrSection: string; // e.g., 'Bluebook Test #1', 'Khan Drill'
+  questionRef: string; // e.g., 'Module 2, Q14'
+  domain: 'Math' | 'Reading/Writing';
+  whyMissed: string; // "Write down why you missed each question"
+  takeawayRule: string; // Formula or grammar rule to prevent repeating
+  reviewed: boolean;
+  createdAt: number;
+}
+
+export type TimerPhase = 'math' | 'break' | 'rw' | 'completed';
+
+export type PaceRating = 'too_fast' | 'perfect' | 'too_late';
+
+export interface SectionPacingResult {
+  allocatedMinutes: number; // e.g. 45 for math, 10 for break, 35 for rw
+  actualMinutes: number; // e.g. 35
+  actualSeconds: number; // exact seconds recorded
+  rating: PaceRating;
+  ratingLabel: string; // e.g. "Fully Perfect Pace", "Too Fast (Rushing Trap)", "Too Late (Overtime)"
+  ratingDescription: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+}
+
+export interface DaySessionTiming {
+  dateStr: string; // '2026-09-12'
+  dayTitle: string; // 'Sat Sep 12'
+  completedAt: string;
+  math: SectionPacingResult;
+  breakTime?: SectionPacingResult;
+  rw?: SectionPacingResult;
+  totalSessionMinutes: number;
+  overallRating: PaceRating;
+}
+
+export interface PackingItem {
+  id: string;
+  item: string;
+  category: 'essential' | 'tech' | 'comfort' | 'custom';
+  required: boolean;
+  packed: boolean;
+}
