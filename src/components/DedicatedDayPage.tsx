@@ -516,7 +516,7 @@ export function DedicatedDayPage({
 
                       <div className="space-y-1 min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          {task.code && (
+                          {task.code && !task.label.toLowerCase().includes(task.code.toLowerCase().replace(/[\[\]]/g, '')) && (
                             <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200 shrink-0">
                               {task.code}
                             </span>
@@ -620,7 +620,7 @@ export function DedicatedDayPage({
 
                       <div className="space-y-1 min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
-                          {task.code && (
+                          {task.code && !task.label.toLowerCase().includes(task.code.toLowerCase().replace(/[\[\]]/g, '')) && (
                             <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200 shrink-0">
                               {task.code}
                             </span>
