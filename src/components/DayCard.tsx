@@ -14,14 +14,14 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { DayPlan } from '../types';
-import { getDayLoadDifficulty } from '../utils/difficulty';
+import { getDayLoadDifficulty, cleanSkillLabel } from '../utils/difficulty';
 
 interface DayCardProps {
   day: DayPlan;
   isToday: boolean;
   isTomorrow?: boolean;
   onToggleTask: (dayId: string, taskId: string) => void;
-  onLaunchTimer: (dayTitle: string) => void;
+  onLaunchTimer?: (dayTitle: string) => void;
   onSaveNotes: (dayId: string, notes: string) => void;
   allPrecedingDaysCompleted?: boolean;
 }
@@ -128,16 +128,6 @@ export const DayCard: React.FC<DayCardProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-          {!day.isBuffer && (
-            <button
-              onClick={() => onLaunchTimer(`${day.formattedDate} (${day.tasks.length} tasks)`)}
-              className="p-1.5 text-slate-500 hover:text-indigo-700 hover:bg-indigo-100 rounded-lg transition"
-              title="Launch 90-min timer for this day"
-            >
-              <Play className="w-3.5 h-3.5 fill-current" />
-            </button>
-          )}
-
           {/* Completion Badge */}
           <span
             className={`text-xs font-['JetBrains_Mono'] font-black px-2 py-0.5 rounded-md border ${
@@ -250,12 +240,28 @@ export const DayCard: React.FC<DayCardProps> = ({
                   </span>
                 )}
 
+                {/* Timing Badge in front of skill */}
+                {task.timeSlot ? (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0d3b66]/10 text-[#0d3b66] border border-[#0d3b66]/20 font-['JetBrains_Mono'] text-[11px] font-black shrink-0">
+                    <Clock className="w-3 h-3 text-[#0d3b66] shrink-0" />
+                    <span>{task.timeSlot}</span>
+                    {task.durationMinutes && (
+                      <span className="text-[10px] font-bold text-[#0d3b66]/80">({task.durationMinutes}m)</span>
+                    )}
+                  </span>
+                ) : task.durationMinutes ? (
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-['JetBrains_Mono'] text-[11px] font-black shrink-0">
+                    <Clock className="w-3 h-3 text-slate-500 shrink-0" />
+                    <span>{task.durationMinutes}m</span>
+                  </span>
+                ) : null}
+
                 <span
                   className={`text-xs font-bold ${
                     task.completed ? 'line-through text-slate-500' : 'text-slate-950'
                   }`}
                 >
-                  {task.label}
+                  {cleanSkillLabel(task.label)}
                 </span>
               </div>
             </div>

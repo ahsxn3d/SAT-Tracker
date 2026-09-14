@@ -23,7 +23,7 @@ import {
   Timer
 } from 'lucide-react';
 import { DayPlan, TaskItem, DaySessionTiming, TaskTimingRecord } from '../types';
-import { getDayLoadDifficulty, DayLoadDifficulty, DIFFICULTY_CONFIGS } from '../utils/difficulty';
+import { getDayLoadDifficulty, DayLoadDifficulty, DIFFICULTY_CONFIGS, cleanSkillLabel } from '../utils/difficulty';
 
 interface InteractiveCalendarProps {
   allDays: DayPlan[];
@@ -993,26 +993,19 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                   );
                 } else if (!inspectedDay.isBuffer && !inspectedDay.isTestDay && inspectedDay.dateStr !== '2026-11-07') {
                   return (
-                    <div className="p-3.5 rounded-2xl bg-indigo-50/70 border-2 border-indigo-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <div className="p-3.5 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                       <div className="space-y-0.5">
-                        <div className="flex items-center gap-1.5 text-xs font-black text-indigo-950 font-['JetBrains_Mono']">
-                          <Clock className="w-3.5 h-3.5 text-indigo-600" />
-                          <span>90-Min Session Timing (45m Math &bull; 10m Break &bull; 35m RW)</span>
+                        <div className="flex items-center gap-1.5 text-xs font-black text-slate-900 font-['JetBrains_Mono']">
+                          <Clock className="w-3.5 h-3.5 text-[#0d3b66]" />
+                          <span>Daily Scheduled Routine &bull; {inspectedDay.totalTimeMinutes || 170}m Total Window</span>
                         </div>
-                        <p className="text-[11px] text-indigo-800 font-semibold">
-                          Benchmark: 28–45 mins Math is fully perfect pace (e.g. 35m). No timer logged yet for this date.
+                        <p className="text-[11px] text-slate-600 font-semibold">
+                          {inspectedDay.studyTimeMinutes || 140}m Study Drills &bull; {inspectedDay.breakTimeMinutes || 30}m Screen-Free Rest Breaks
                         </p>
                       </div>
-                      <button
-                        onClick={() => {
-                          onLaunchTimer(`${inspectedDay.formattedDate} - 90-Min Session`, inspectedDay.dateStr);
-                          setActiveInspectDayId(null);
-                        }}
-                        className="px-3.5 py-2 rounded-xl text-xs font-black text-white bg-indigo-600 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
-                      >
-                        <Play className="w-3 h-3 fill-white" />
-                        <span>Time this Day</span>
-                      </button>
+                      <div className="text-xs font-['JetBrains_Mono'] font-bold text-[#0d3b66] bg-[#0d3b66]/10 px-3 py-1.5 rounded-xl border border-[#0d3b66]/20 shrink-0">
+                        {inspectedDay.tasks.length} Modules Scheduled
+                      </div>
                     </div>
                   );
                 }
@@ -1106,60 +1099,55 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
                           {task.subject === 'math' && (
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200 font-['JetBrains_Mono']">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200 font-['JetBrains_Mono'] shrink-0">
                               Math
                             </span>
                           )}
                           {task.subject === 'rw' && (
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200 font-['JetBrains_Mono']">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200 font-['JetBrains_Mono'] shrink-0">
                               Reading & Writing
                             </span>
                           )}
                           {task.subject === 'buffer' && (
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200 font-['JetBrains_Mono']">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200 font-['JetBrains_Mono'] shrink-0">
                               Rest
                             </span>
                           )}
                           {task.subject === 'test' && (
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-900 border border-sky-300 font-['JetBrains_Mono']">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-sky-100 text-sky-900 border border-sky-300 font-['JetBrains_Mono'] shrink-0">
                               Exam
                             </span>
                           )}
                           {task.isCarriedOver && (
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs shrink-0">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
                               <span>Rollover from {task.originalFormattedDate}</span>
                             </span>
                           )}
+
+                          {/* Timing Badge in front of skill */}
+                          {task.timeSlot ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#0d3b66]/10 text-[#0d3b66] border border-[#0d3b66]/20 font-['JetBrains_Mono'] text-[11px] font-black shrink-0">
+                              <Clock className="w-3 h-3 text-[#0d3b66] shrink-0" />
+                              <span>{task.timeSlot}</span>
+                              {task.durationMinutes && (
+                                <span className="text-[10px] font-bold text-[#0d3b66]/80">({task.durationMinutes}m)</span>
+                              )}
+                            </span>
+                          ) : task.durationMinutes ? (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 border border-slate-200 font-['JetBrains_Mono'] text-[11px] font-black shrink-0">
+                              <Clock className="w-3 h-3 text-slate-500 shrink-0" />
+                              <span>{task.durationMinutes}m</span>
+                            </span>
+                          ) : null}
 
                           <span
                             className={`text-xs font-bold leading-tight ${
                               isChecked ? 'line-through text-slate-600' : 'text-slate-900'
                             }`}
                           >
-                            {task.label}
+                            {cleanSkillLabel(task.label)}
                           </span>
-                        </div>
-
-                        {/* Exact Lesson Time Taken or Allocated Schedule */}
-                        <div className="mt-1.5 flex items-center gap-2 flex-wrap text-[10px] font-['JetBrains_Mono']">
-                          {task.timeSlot && (
-                            <span className="text-slate-600 font-bold flex items-center gap-1">
-                              <Clock className="w-3 h-3 text-slate-400 shrink-0" />
-                              <span>{task.timeSlot}</span>
-                            </span>
-                          )}
-                          {task.durationMinutes && (
-                            <span className="text-slate-500 font-semibold">
-                              ({task.durationMinutes}m target)
-                            </span>
-                          )}
-                          {taskTimings && taskTimings[task.id] && (
-                            <span className="font-black px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-950 border border-emerald-300 flex items-center gap-1 shadow-2xs">
-                              <Timer className="w-3 h-3 text-emerald-700 shrink-0" />
-                              <span>Exact Time: {taskTimings[task.id].formatted}</span>
-                            </span>
-                          )}
                         </div>
                       </div>
                     </div>

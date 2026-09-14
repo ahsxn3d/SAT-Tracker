@@ -26,15 +26,16 @@ import {
   Target
 } from 'lucide-react';
 import { DayPlan, TaskItem, DaySessionTiming, PaceRating } from '../types';
+import { cleanSkillLabel } from '../utils/difficulty';
 
 interface DedicatedDayPageProps {
   day: DayPlan;
   completedTaskIds: Record<string, boolean>;
   onToggleTask: (taskId: string) => void;
   sessionTiming?: DaySessionTiming;
-  onSaveSessionTiming: (timing: DaySessionTiming) => void;
-  onDeleteSessionTiming: (dateStr: string) => void;
-  onLaunchTimerModal: (dayTitle: string, dateStr: string, taskId?: string) => void;
+  onSaveSessionTiming?: (timing: DaySessionTiming) => void;
+  onDeleteSessionTiming?: (dateStr: string) => void;
+  onLaunchTimerModal?: (dayTitle: string, dateStr: string, taskId?: string) => void;
   notes: string;
   onSaveNotes: (dateStr: string, text: string) => void;
   onBack: () => void;
@@ -318,21 +319,13 @@ export function DedicatedDayPage({
               </p>
             </div>
 
-            {/* Launch Timer CTA or Session Autopsy Status */}
+            {/* Action CTAs */}
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
               <button
-                onClick={() => onLaunchTimerModal(`${day.formattedDate} - ${day.weekTitle}`, day.dateStr)}
-                className="px-5 py-3.5 rounded-2xl text-sm font-black font-['Space_Grotesk'] text-white bg-indigo-600 hover:bg-indigo-700 border-2 border-indigo-700 shadow-grave-card hover:shadow-grave-card-hover hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Play className="w-4 h-4 fill-white" />
-                <span>Launch 90-Min Timer</span>
-              </button>
-
-              <button
                 onClick={() => onOpenErrorLogModal(day.dateStr)}
-                className="px-4 py-2.5 rounded-xl text-xs font-black font-['JetBrains_Mono'] text-slate-700 bg-matcha-sub hover:bg-matcha-input border border-[#a6c4a1]/70 shadow-2xs hover:scale-102 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                className="px-5 py-3 rounded-2xl text-xs sm:text-sm font-black font-['Space_Grotesk'] text-slate-800 bg-matcha-sub hover:bg-matcha-input border-2 border-[#a6c4a1] shadow-grave-card hover:shadow-grave-card-hover hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <FileText className="w-3.5 h-3.5 text-rose-600" />
+                <FileText className="w-4 h-4 text-rose-600" />
                 <span>Log Mistake to Error Log</span>
               </button>
             </div>
@@ -360,219 +353,79 @@ export function DedicatedDayPage({
         </section>
 
         {/* ============================================================ */}
-        {/* 90-MINUTE SESSION TIMING & PACING AUTOPSY STUDIO             */}
+        {/* DAILY SKILL SCHEDULE & PACING ALLOCATION OVERVIEW             */}
         {/* ============================================================ */}
         <section className="bg-matcha-input rounded-3xl border-2 border-slate-300 shadow-grave p-6 sm:p-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 border border-indigo-200 flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-[#0d3b66]/10 text-[#0d3b66] border border-[#0d3b66]/20 flex items-center justify-center shrink-0">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
                 <h2 className="text-xl sm:text-2xl font-black font-['Space_Grotesk'] text-slate-900">
-                  Daily 2-Hour Routine & Pacing Autopsy
+                  Daily Skill Schedule & Pacing Allocation
                 </h2>
                 <p className="text-xs text-slate-600 font-medium">
-                  45m Math &bull; 15m Real Break &bull; 40m RW &bull; 10m Real Break &bull; 10m Tracker Log (85m study total)
+                  {day.specialInstructions || 'Strict door-to-door schedule with dedicated rest breaks.'}
                 </p>
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {sessionTiming ? (
-                <button
-                  onClick={() => onDeleteSessionTiming(day.dateStr)}
-                  className="text-xs font-bold text-rose-600 hover:text-rose-800 underline px-2 py-1 cursor-pointer"
-                >
-                  Clear Saved Record
-                </button>
-              ) : (
-                <button
-                  onClick={() => setIsManualLogging(!isManualLogging)}
-                  className="text-xs font-bold font-['JetBrains_Mono'] px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 cursor-pointer"
-                >
-                  {isManualLogging ? 'Cancel Manual Input' : 'Quick Log Duration'}
-                </button>
-              )}
+            <div className="flex items-center gap-2 text-xs font-['JetBrains_Mono'] font-bold text-slate-700 bg-matcha-sub px-3 py-1.5 rounded-xl border border-[#a6c4a1]/70">
+              <span>{day.tasks.length} Modules Scheduled</span>
             </div>
           </div>
 
-          {/* Quick Manual Timing Logger Drawer */}
-          {isManualLogging && !sessionTiming && (
-            <div className="p-4 sm:p-5 rounded-2xl bg-indigo-50 border-2 border-indigo-200 space-y-3">
-              <div className="text-xs font-black uppercase text-indigo-900 font-['JetBrains_Mono']">
-                Record Offline Session Math Time (45 Mins Allocated)
+          {/* Quick Metrics Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="p-4 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/70 shadow-xs">
+              <div className="text-[10px] font-black uppercase text-slate-600 font-['JetBrains_Mono']">
+                Active Study
               </div>
-              <p className="text-xs text-indigo-800 font-medium">
-                Enter how many minutes you actually spent on the Math section today to evaluate your pacing against the 3 ranges:
-              </p>
-              <div className="flex items-center gap-3 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="number"
-                    min={5}
-                    max={90}
-                    value={manualMathMinutes}
-                    onChange={(e) => setManualMathMinutes(Number(e.target.value))}
-                    className="w-24 px-3 py-2 rounded-xl border-2 border-indigo-300 font-['JetBrains_Mono'] font-bold text-center text-slate-900 bg-matcha-input shadow-inner focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  />
-                  <span className="text-xs font-black font-['JetBrains_Mono'] text-slate-700">minutes</span>
-                </div>
-                <button
-                  onClick={handleSaveManualTiming}
-                  className="px-4 py-2 rounded-xl text-xs font-black font-['Space_Grotesk'] text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs cursor-pointer"
-                >
-                  Evaluate Pacing & Save
-                </button>
+              <div className="text-2xl sm:text-3xl font-black font-['JetBrains_Mono'] text-slate-900 mt-1">
+                {day.studyTimeMinutes || day.tasks.filter(t => t.subject !== 'buffer').reduce((acc, t) => acc + (t.durationMinutes || 20), 0)}m
+              </div>
+              <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                Math + R&W drills
               </div>
             </div>
-          )}
 
-          {/* Pacing Diagnostic Card (If Logged) */}
-          {sessionTiming ? (
-            <div className={`p-5 sm:p-6 rounded-2xl border-2 shadow-sm space-y-5 ${
-              sessionTiming.math.rating === 'perfect'
-                ? 'bg-emerald-50/80 border-emerald-300'
-                : sessionTiming.math.rating === 'too_fast'
-                ? 'bg-rose-50/80 border-rose-300'
-                : 'bg-amber-50/80 border-amber-300'
-            }`}>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-200/80 pb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-black uppercase tracking-wider font-['JetBrains_Mono'] text-slate-800">
-                    Math Section Pacing Diagnostic
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-500 font-semibold">
-                    (Logged at {sessionTiming.completedAt})
-                  </span>
-                </div>
-
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider font-['JetBrains_Mono'] shadow-xs ${
-                  sessionTiming.math.rating === 'perfect'
-                    ? 'bg-emerald-600 text-white'
-                    : sessionTiming.math.rating === 'too_fast'
-                    ? 'bg-rose-600 text-white'
-                    : 'bg-amber-600 text-white'
-                }`}>
-                  {sessionTiming.math.ratingLabel}
-                </span>
+            <div className="p-4 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/70 shadow-xs">
+              <div className="text-[10px] font-black uppercase text-emerald-800 font-['JetBrains_Mono']">
+                Rest & Breaks
               </div>
-
-              {/* Big Metrics Display */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="p-4 rounded-2xl bg-matcha-input border border-slate-200 shadow-xs">
-                  <div className="text-[10px] font-black uppercase text-slate-500 font-['JetBrains_Mono']">
-                    Math Time Taken
-                  </div>
-                  <div className="text-3xl font-black font-['JetBrains_Mono'] text-slate-900 mt-1">
-                    {sessionTiming.math.actualMinutes}m
-                  </div>
-                  <div className="text-xs font-semibold text-slate-500 mt-0.5">
-                    out of 45m allocated
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-matcha-input border border-slate-200 shadow-xs">
-                  <div className="text-[10px] font-black uppercase text-slate-500 font-['JetBrains_Mono']">
-                    Restorative Break
-                  </div>
-                  <div className="text-3xl font-black font-['JetBrains_Mono'] text-sky-700 mt-1">
-                    {sessionTiming.breakTime ? `${sessionTiming.breakTime.actualMinutes}m` : '10m'}
-                  </div>
-                  <div className="text-xs font-semibold text-slate-500 mt-0.5">
-                    10m eye relaxation cap
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-matcha-input border border-slate-200 shadow-xs">
-                  <div className="text-[10px] font-black uppercase text-slate-500 font-['JetBrains_Mono']">
-                    Reading & Writing
-                  </div>
-                  <div className="text-3xl font-black font-['JetBrains_Mono'] text-amber-700 mt-1">
-                    {sessionTiming.rw ? `${sessionTiming.rw.actualMinutes}m` : '35m'}
-                  </div>
-                  <div className="text-xs font-semibold text-slate-500 mt-0.5">
-                    35m section cap
-                  </div>
-                </div>
+              <div className="text-2xl sm:text-3xl font-black font-['JetBrains_Mono'] text-emerald-700 mt-1">
+                {day.breakTimeMinutes || day.tasks.filter(t => t.subject === 'buffer').reduce((acc, t) => acc + (t.durationMinutes || 15), 0)}m
               </div>
-
-              {/* 3 Explicit Ranges Spectrum Bar */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-black font-['JetBrains_Mono'] text-slate-800">
-                  <span className="text-rose-700">Range 1: 0–27m (Too Fast)</span>
-                  <span className="text-emerald-800 font-black">Range 2: 28–45m (Fully Perfect)</span>
-                  <span className="text-amber-800">Range 3: 46m+ (Too Late)</span>
-                </div>
-
-                <div className="relative h-7 rounded-full overflow-hidden flex shadow-inner bg-slate-200 border-2 border-slate-300">
-                  <div className="w-[30%] bg-rose-400 flex items-center justify-center text-[9px] font-black text-white uppercase tracking-wider">
-                    Too Fast
-                  </div>
-                  <div className="w-[45%] bg-emerald-500 flex items-center justify-center text-[10px] font-black text-white uppercase tracking-wider shadow-sm">
-                    ★ Fully Perfect (28–45m) ★
-                  </div>
-                  <div className="w-[25%] bg-amber-400 flex items-center justify-center text-[9px] font-black text-slate-950 uppercase tracking-wider">
-                    Too Late
-                  </div>
-                </div>
-
-                {/* Analysis Box */}
-                <div className="bg-matcha-input p-4 rounded-2xl border border-slate-200 text-xs text-slate-800 space-y-2.5 leading-relaxed shadow-xs">
-                  <div className="font-black text-slate-900 flex items-center gap-2 text-sm">
-                    <span className={`w-3 h-3 rounded-full inline-block ${
-                      sessionTiming.math.rating === 'perfect'
-                        ? 'bg-emerald-500'
-                        : sessionTiming.math.rating === 'too_fast'
-                        ? 'bg-rose-500'
-                        : 'bg-amber-500'
-                    }`} />
-                    <span>Your Result: {sessionTiming.math.actualMinutes} mins in Math ({sessionTiming.math.ratingLabel})</span>
-                  </div>
-
-                  <p className="font-semibold text-slate-700 text-xs sm:text-sm">
-                    {sessionTiming.math.ratingDescription}
-                  </p>
-
-                  <div className="pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
-                    <div className="p-3 rounded-xl bg-rose-50/80 border border-rose-200">
-                      <span className="font-black text-rose-900 font-['JetBrains_Mono'] block">Range 1 (&lt; 28m):</span>
-                      <span className="text-rose-950 font-medium">This specific range is <strong>too fast</strong>. Rushing invites sign errors, missed constraints, and skipped Desmos verification.</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-emerald-50/80 border border-emerald-300 ring-1 ring-emerald-300">
-                      <span className="font-black text-emerald-900 font-['JetBrains_Mono'] block">Range 2 (28–45m):</span>
-                      <span className="text-emerald-950 font-medium">This specific range is <strong>fully perfect</strong>. Optimal pace: leaves ample time to verify answers without rushing!</span>
-                    </div>
-                    <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200">
-                      <span className="font-black text-amber-950 font-['JetBrains_Mono'] block">Range 3 (&gt; 45m):</span>
-                      <span className="text-amber-950 font-medium">This specific range is <strong>too late</strong>. Causes cognitive burnout and test-day time exhaustion.</span>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                Screen-free rest
               </div>
             </div>
-          ) : (
-            <div className="p-5 rounded-2xl bg-indigo-50/60 border-2 border-indigo-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 text-sm font-black text-indigo-950 font-['Space_Grotesk']">
-                  <Clock className="w-4 h-4 text-indigo-600" />
-                  <span>No Timing Logged for {day.formattedDate} Yet</span>
-                </div>
-                <p className="text-xs text-indigo-800 font-medium max-w-xl">
-                  Benchmark: Aim for 28–45 minutes on the Math section. Launch the built-in timer or enter your offline duration to generate your pacing autopsy report.
-                </p>
-              </div>
 
-              <button
-                onClick={() => onLaunchTimerModal(`${day.formattedDate} - ${day.weekTitle}`, day.dateStr)}
-                className="px-5 py-3 rounded-xl text-xs font-black font-['Space_Grotesk'] text-white bg-indigo-600 hover:bg-indigo-700 shadow-xs hover:scale-105 active:scale-95 transition flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
-              >
-                <Play className="w-3.5 h-3.5 fill-white" />
-                <span>Start 90-Min Timer Now</span>
-              </button>
+            <div className="p-4 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/70 shadow-xs">
+              <div className="text-[10px] font-black uppercase text-[#0d3b66] font-['JetBrains_Mono']">
+                Total Window
+              </div>
+              <div className="text-2xl sm:text-3xl font-black font-['JetBrains_Mono'] text-[#0d3b66] mt-1">
+                {day.totalTimeMinutes || 170}m
+              </div>
+              <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                Door-to-door window
+              </div>
             </div>
-          )}
+
+            <div className="p-4 rounded-2xl bg-matcha-sub border border-[#a6c4a1]/70 shadow-xs">
+              <div className="text-[10px] font-black uppercase text-indigo-800 font-['JetBrains_Mono']">
+                Completion
+              </div>
+              <div className="text-2xl sm:text-3xl font-black font-['JetBrains_Mono'] text-indigo-700 mt-1">
+                {progressPercent}%
+              </div>
+              <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                {completedTasks}/{totalTasks} modules done
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Carried-Over Backlog Banner if uncompleted tasks rolled over */}
@@ -664,15 +517,26 @@ export function DedicatedDayPage({
                       <div className="space-y-1 min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           {task.code && (
-                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-indigo-100 text-indigo-900 border border-indigo-200">
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200 shrink-0">
                               {task.code}
                             </span>
                           )}
-                          {task.durationMinutes && (
-                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300">
+                          {/* Timing Badge in front of skill */}
+                          {task.timeSlot ? (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0d3b66]/10 text-[#0d3b66] border border-[#0d3b66]/20 font-['JetBrains_Mono'] text-xs font-black shrink-0 shadow-2xs">
+                              <Clock className="w-3.5 h-3.5 text-[#0d3b66] shrink-0" />
+                              <span>{task.timeSlot}</span>
+                              {task.durationMinutes && (
+                                <span className="text-[10px] bg-[#0d3b66]/15 text-[#0d3b66] px-1.5 py-0.5 rounded font-black">
+                                  ({task.durationMinutes}m)
+                                </span>
+                              )}
+                            </span>
+                          ) : task.durationMinutes ? (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300 shrink-0">
                               {task.durationMinutes}m
                             </span>
-                          )}
+                          ) : null}
                           {task.isCarriedOver && (
                             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
@@ -685,34 +549,15 @@ export function DedicatedDayPage({
                             </span>
                           )}
                           <span className={`text-xs font-bold leading-snug ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
-                            {task.label}
+                            {cleanSkillLabel(task.label)}
                           </span>
                         </div>
-                        {task.timeSlot && (
-                          <div className="text-[11px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-500" />
-                            <span>{task.timeSlot}</span>
-                          </div>
-                        )}
                         {task.topic && (
                           <div className="text-[11px] text-slate-500 font-medium">
                             Unit Topic: <span className="font-semibold text-slate-700">{task.topic}</span>
                           </div>
                         )}
                       </div>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onLaunchTimerModal(`${day.formattedDate} - ${task.code || task.label}`, day.dateStr, task.id);
-                        }}
-                        className="py-1 px-2.5 rounded-lg border border-indigo-300 bg-white hover:bg-indigo-50 text-indigo-900 text-[11px] font-bold flex items-center gap-1 transition shrink-0 cursor-pointer shadow-2xs"
-                        title={`Launch ${task.durationMinutes || 25}m timer for this lesson`}
-                      >
-                        <Clock className="w-3 h-3 text-indigo-600" />
-                        <span>Timer</span>
-                      </button>
                     </div>
                   );
                 })}
@@ -776,15 +621,26 @@ export function DedicatedDayPage({
                       <div className="space-y-1 min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           {task.code && (
-                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200">
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-200 shrink-0">
                               {task.code}
                             </span>
                           )}
-                          {task.durationMinutes && (
-                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-950 border border-indigo-300">
+                          {/* Timing Badge in front of skill */}
+                          {task.timeSlot ? (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] text-xs font-black shrink-0 shadow-2xs">
+                              <Clock className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                              <span>{task.timeSlot}</span>
+                              {task.durationMinutes && (
+                                <span className="text-[10px] bg-amber-200/80 text-amber-950 px-1.5 py-0.5 rounded font-black">
+                                  ({task.durationMinutes}m)
+                                </span>
+                              )}
+                            </span>
+                          ) : task.durationMinutes ? (
+                            <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-950 border border-indigo-300 shrink-0">
                               {task.durationMinutes}m
                             </span>
-                          )}
+                          ) : null}
                           {task.isCarriedOver && (
                             <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                               <RotateCcw className="w-2.5 h-2.5 text-amber-700" />
@@ -797,34 +653,15 @@ export function DedicatedDayPage({
                             </span>
                           )}
                           <span className={`text-xs font-bold leading-snug ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
-                            {task.label}
+                            {cleanSkillLabel(task.label)}
                           </span>
                         </div>
-                        {task.timeSlot && (
-                          <div className="text-[11px] font-semibold text-slate-600 font-['JetBrains_Mono'] flex items-center gap-1">
-                            <Clock className="w-3 h-3 text-slate-500" />
-                            <span>{task.timeSlot}</span>
-                          </div>
-                        )}
                         {task.topic && (
                           <div className="text-[11px] text-slate-500 font-medium">
                             Passage Focus: <span className="font-semibold text-slate-700">{task.topic}</span>
                           </div>
                         )}
                       </div>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onLaunchTimerModal(`${day.formattedDate} - ${task.code || task.label}`, day.dateStr, task.id);
-                        }}
-                        className="py-1 px-2.5 rounded-lg border border-amber-300 bg-white hover:bg-amber-50 text-amber-950 text-[11px] font-bold flex items-center gap-1 transition shrink-0 cursor-pointer shadow-2xs"
-                        title={`Launch ${task.durationMinutes || 20}m timer for this lesson`}
-                      >
-                        <Clock className="w-3 h-3 text-amber-600" />
-                        <span>Timer</span>
-                      </button>
                     </div>
                   );
                 })}
@@ -873,12 +710,29 @@ export function DedicatedDayPage({
                         <Circle className="w-5 h-5 text-slate-400 hover:text-emerald-600" />
                       )}
                     </button>
-                    <div className="space-y-0.5">
-                      <span className={`text-xs font-bold ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
-                        {task.label}
-                      </span>
+                    <div className="space-y-1 min-w-0 flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {task.timeSlot ? (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-950 border border-emerald-300 font-['JetBrains_Mono'] text-xs font-black shrink-0 shadow-2xs">
+                            <Clock className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                            <span>{task.timeSlot}</span>
+                            {task.durationMinutes && (
+                              <span className="text-[10px] bg-emerald-200/80 text-emerald-950 px-1.5 py-0.5 rounded font-black">
+                                ({task.durationMinutes}m)
+                              </span>
+                            )}
+                          </span>
+                        ) : task.durationMinutes ? (
+                          <span className="text-[10px] font-black font-['JetBrains_Mono'] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-950 border border-emerald-300 shrink-0">
+                            {task.durationMinutes}m
+                          </span>
+                        ) : null}
+                        <span className={`text-xs font-bold leading-snug ${isDone ? 'line-through text-slate-500' : 'text-slate-900'}`}>
+                          {cleanSkillLabel(task.label)}
+                        </span>
+                      </div>
                       {task.topic && (
-                        <p className="text-[11px] text-slate-500">{task.topic}</p>
+                        <p className="text-[11px] text-slate-500 font-medium">{task.topic}</p>
                       )}
                     </div>
                   </div>

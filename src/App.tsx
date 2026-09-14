@@ -25,14 +25,12 @@ import { BluebookArenaSection } from './components/BluebookArenaSection';
 import { CrescentModelSection } from './components/CrescentModelSection';
 import { ErrorLogSection } from './components/ErrorLogSection';
 import { DayCard } from './components/DayCard';
-import { SessionTimer } from './components/SessionTimer';
 import { ErrorLogModal } from './components/ErrorLogModal';
 import { PackingModal } from './components/PackingModal';
 import { DesmosGuideModal } from './components/DesmosGuideModal';
 import { CheatCodesSection } from './components/CheatCodesSection';
 import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
-import { StopwatchSection } from './components/StopwatchSection';
 import { ExamPrepSection } from './components/ExamPrepSection';
 import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
 import { computeWeeksWithRollover } from './utils/rollover';
@@ -602,7 +600,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
                 {activeSection === 'rules' && '🛡️ The Core Anti-Burnout Rules'}
-                {activeSection === 'timer' && '⏱️ 90-Minute Anti-Burnout Stopwatch & Process Station'}
                 {activeSection === 'exam-prep' && '🎒 48h & 24h Pre-Exam Preparation & Device Packout'}
               </span>
             </div>
@@ -614,39 +611,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
               <span>← Return to Home (Full Dashboard)</span>
             </button>
           </div>
-        )}
-
-        {/* ============================================================ */}
-        {/* SECTION: 90-MINUTE ANTI-BURNOUT STOPWATCH (Inline Under Nav) */}
-        {/* ============================================================ */}
-        {activeSection === 'timer' && (
-          <ScrollReveal id="section-stopwatch">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>90-Minute Anti-Burnout Stopwatch & Daily Process Station</span>
-                </span>
-                <button
-                  onClick={() => handleSelectSection('all')}
-                  className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
-                >
-                  View Full Dashboard &rarr;
-                </button>
-              </div>
-              <StopwatchSection
-                allDays={allDays}
-                selectedDateStr={selectedTimerDateStr}
-                onSelectDateStr={(d) => setSelectedTimerDateStr(d)}
-                onSaveTiming={handleSaveSessionTiming}
-                existingTiming={sessionTimings[selectedTimerDateStr]}
-                completedTaskIds={completedTaskIds}
-                onToggleTask={handleToggleTask}
-                taskTimings={taskTimings}
-                onSaveTaskTiming={handleSaveTaskTiming}
-              />
-            </div>
-          </ScrollReveal>
         )}
 
         {/* ============================================================ */}
@@ -1114,13 +1078,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
               className="text-indigo-700 hover:underline font-bold cursor-pointer"
             >
               Tactical Cheat Codes (Desmos & R&W)
-            </button>
-            <span>&bull;</span>
-            <button
-              onClick={() => handleLaunchTimer(`${tomorrowDay.formattedDate} Session`)}
-              className="text-emerald-800 hover:underline font-bold"
-            >
-              90-Min Timer
             </button>
           </div>
 

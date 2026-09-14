@@ -1,7 +1,14 @@
 'use client';
 
-import App from '@/App';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function StandaloneTimerPage() {
-  return <App initialSection="timer" />;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/');
+  }, [router]);
+
+  return null;
 }

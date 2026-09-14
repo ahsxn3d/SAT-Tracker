@@ -24,8 +24,7 @@ import {
   User as UserIcon,
   Zap,
   Layers,
-  MapPin,
-  Timer
+  MapPin
 } from 'lucide-react';
 
 interface NavPageItem {
@@ -128,16 +127,6 @@ const NAV_PAGES: NavPageItem[] = [
     activeClass: 'bg-teal-700 text-white shadow-sm ring-2 ring-teal-400 border-teal-600',
     inactiveClass: 'text-teal-950 bg-teal-100/80 border-teal-300 hover:bg-teal-200/90',
     iconColor: 'text-teal-600',
-    activeIconColor: 'text-white'
-  },
-  { 
-    id: 'timer', 
-    label: 'Stopwatch', 
-    href: '/timer', 
-    icon: Timer,
-    activeClass: 'bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-400 border-emerald-500',
-    inactiveClass: 'text-emerald-950 bg-emerald-100/80 border-emerald-300 hover:bg-emerald-200/90',
-    iconColor: 'text-emerald-600',
     activeIconColor: 'text-white'
   },
   { 

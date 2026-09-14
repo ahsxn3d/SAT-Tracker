@@ -149,3 +149,12 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
 
   return DIFFICULTY_CONFIGS.intensive;
 }
+
+/**
+ * Strips duplicate trailing duration like "(20 min)" or "(15 min)" from a skill label
+ * so it can be cleanly preceded by its timing pill: e.g. [6:30 PM - 6:50 PM (20m)]
+ */
+export function cleanSkillLabel(label: string): string {
+  if (!label) return '';
+  return label.replace(/\s*\(\d+\s*min\)$/i, '').trim();
+}
