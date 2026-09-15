@@ -36,81 +36,71 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
-    dateStr: '2026-10-19',
-    displayDate: 'Mon Oct 19',
-    dayOfWeek: 'Mon',
-    taskTitle: 'Bluebook Test #2 (full, timed)',
-    whatItMeans: 'Real conditions, both sections, the 10-min break included',
-    category: 'test',
-    taskId: 'p2-test-2',
-    dayId: '2026-10-19',
-  },
-  {
     dateStr: '2026-10-20',
     displayDate: 'Tue Oct 20',
     dayOfWeek: 'Tue',
-    taskTitle: 'Error-log review',
-    whatItMeans: "Open your score report, write down every wrong question: which skill, why you got it wrong (careless? didn't know the rule? ran out of time?)",
-    category: 'review',
-    taskId: 'w7-d2-1',
+    taskTitle: 'Full Bluebook Practice Test #2 (real conditions, timed)',
+    whatItMeans: '8:00 AM - 10:24 AM: Real conditions, both sections, 10-min break included',
+    category: 'test',
+    taskId: 'p2-test-2',
     dayId: '2026-10-20',
   },
   {
     dateStr: '2026-10-21',
     displayDate: 'Wed Oct 21',
     dayOfWeek: 'Wed',
-    taskTitle: 'Targeted Math drills + Desmos speed drills',
-    whatItMeans: "Go back to Khan Academy, redo the specific skills you missed. Practice using Desmos for systems/quadratics until it's automatic",
-    category: 'drill',
-    taskId: 'w7-d3-1',
+    taskTitle: 'Error-log review of Test #2 (45 min)',
+    whatItMeans: "6:30 PM - 7:15 PM: Open score report, write down every wrong question: skill, root-cause autopsy (careless? rule? timing?)",
+    category: 'review',
+    taskId: 'w6-d3-1',
     dayId: '2026-10-21',
   },
   {
     dateStr: '2026-10-22',
     displayDate: 'Thu Oct 22',
     dayOfWeek: 'Thu',
-    taskTitle: 'Targeted R&W drills',
-    whatItMeans: 'Redo missed R&W skills on Khan, review the grammar rule behind each punctuation/transition mistake',
+    taskTitle: 'Targeted Math drills + Desmos speed drills (75 min)',
+    whatItMeans: "6:30 PM - 7:45 PM: Targeted Math drills on Test #2 errors (45 min) + Desmos speed drills on systems & quadratics (30 min)",
     category: 'drill',
-    taskId: 'w7-d4-1',
+    taskId: 'w6-d4-1',
     dayId: '2026-10-22',
   },
   {
     dateStr: '2026-10-23',
     displayDate: 'Fri Oct 23',
     dayOfWeek: 'Fri',
-    taskTitle: 'Light buffer day',
-    whatItMeans: 'Catch up if behind, or rest if on track. Your call',
-    category: 'buffer',
-    taskId: 'w7-d5-1',
+    taskTitle: 'Targeted R&W drills, punctuation/grammar review (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Redo missed R&W skills on Khan, review grammar rules behind punctuation & transitions traps',
+    category: 'drill',
+    taskId: 'w6-d5-1',
     dayId: '2026-10-23',
   },
   {
     dateStr: '2026-10-24',
     displayDate: 'Sat Oct 24',
     dayOfWeek: 'Sat',
-    taskTitle: 'Light targeted practice',
-    whatItMeans: 'Only the weak spots still bothering you, nothing new',
+    taskTitle: 'Light targeted practice on remaining weak spots (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Only the weak spots still bothering you, nothing new',
     category: 'drill',
-    taskId: 'w7-d6-1',
+    taskId: 'w6-d6-1',
     dayId: '2026-10-24',
   },
   {
     dateStr: '2026-10-25',
     displayDate: 'Sun Oct 25',
     dayOfWeek: 'Sun',
-    taskTitle: 'REST',
-    whatItMeans: 'Full day off, no exceptions',
+    taskTitle: 'REST DAY',
+    whatItMeans: 'Full day off, no studying. Mental reset before Test #3 week',
     category: 'rest',
-    taskId: 'w7-d7-1',
+    taskId: 'w6-buf-sun',
     dayId: '2026-10-25',
   },
   {
     dateStr: '2026-10-26',
     displayDate: 'Mon Oct 26',
     dayOfWeek: 'Mon',
-    taskTitle: 'Bluebook Test #3 (full, timed)',
-    whatItMeans: 'Same real conditions as Test #2',
+    taskTitle: 'Full Bluebook Practice Test #3 (real conditions, timed)',
+    whatItMeans: '8:00 AM - 10:24 AM: Same real conditions as Test #2, timed rehearsal',
     category: 'test',
     taskId: 'p2-test-3',
     dayId: '2026-10-26',
@@ -119,8 +109,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-10-27',
     displayDate: 'Tue Oct 27',
     dayOfWeek: 'Tue',
-    taskTitle: 'Error-log review',
-    whatItMeans: 'Same process as after Test #2',
+    taskTitle: 'Error-log review of Test #3 (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Same autopsy process as after Test #2, log every missed question',
     category: 'review',
     taskId: 'w8-d2-1',
     dayId: '2026-10-27',
@@ -129,8 +119,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-10-28',
     displayDate: 'Wed Oct 28',
     dayOfWeek: 'Wed',
-    taskTitle: 'Targeted drills',
-    whatItMeans: 'Fix what Test #3 exposed',
+    taskTitle: 'Targeted drills on Test #3 weak areas (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Fix what Test #3 exposed with targeted Khan practice',
     category: 'drill',
     taskId: 'w8-d3-1',
     dayId: '2026-10-28',
@@ -139,8 +129,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-10-29',
     displayDate: 'Thu Oct 29',
     dayOfWeek: 'Thu',
-    taskTitle: 'Deep review: punctuation & transitions + Math cleanup',
-    whatItMeans: 'This is your grammar-rules-cold-memorization day, plus any lingering Math weak spots',
+    taskTitle: 'Deep review, punctuation & transitions traps + Math cleanup (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Grammar rules cold memorization day plus lingering Math weak spots',
     category: 'review',
     taskId: 'w8-d4-1',
     dayId: '2026-10-29',
@@ -149,8 +139,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-10-30',
     displayDate: 'Fri Oct 30',
     dayOfWeek: 'Fri',
-    taskTitle: 'Light buffer day',
-    whatItMeans: 'Same as before, catch up or rest',
+    taskTitle: 'Light buffer - catch up or rest, your choice',
+    whatItMeans: 'Catch up on any pending items or take full rest, your choice',
     category: 'buffer',
     taskId: 'w8-d5-1',
     dayId: '2026-10-30',
@@ -159,8 +149,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-10-31',
     displayDate: 'Sat Oct 31',
     dayOfWeek: 'Sat',
-    taskTitle: 'Bluebook Test #4 (final full test, timed)',
-    whatItMeans: 'Your last full-length rehearsal',
+    taskTitle: 'Full Bluebook Practice Test #4 (final full test, timed)',
+    whatItMeans: '8:00 AM - 10:24 AM: Your final full-length rehearsal before the real exam',
     category: 'test',
     taskId: 'p2-test-4',
     dayId: '2026-10-31',
@@ -169,8 +159,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-11-01',
     displayDate: 'Sun Nov 1',
     dayOfWeek: 'Sun',
-    taskTitle: 'REST',
-    whatItMeans: 'Full day off',
+    taskTitle: 'REST DAY',
+    whatItMeans: 'Full day off. Full mental reset before exam week taper',
     category: 'rest',
     taskId: 'w8-d7-1',
     dayId: '2026-11-01',
@@ -179,8 +169,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-11-02',
     displayDate: 'Mon Nov 2',
     dayOfWeek: 'Mon',
-    taskTitle: 'Error-log review + simulate exact test-day timing',
-    whatItMeans: "Review Test #4 mistakes, AND do a dry run: wake at your real exam wake-up time, eat what you'll eat, do a timed module at the exact hour your real test starts",
+    taskTitle: 'Error-log review of Test #4 + simulate exact test-day timing (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Error-log review of Test #4 + exact test-day timing simulation',
     category: 'test',
     taskId: 'w9-d1-2',
     dayId: '2026-11-02',
@@ -189,8 +179,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-11-03',
     displayDate: 'Tue Nov 3',
     dayOfWeek: 'Tue',
-    taskTitle: 'Light taper: review error notebook + grammar rules',
-    whatItMeans: 'No new practice, just re-read your own collected mistakes across all 4 tests',
+    taskTitle: 'Light taper, review error notebook + grammar rules (30 min)',
+    whatItMeans: '6:30 PM - 7:00 PM: No new practice, re-read your own collected mistakes across all 4 tests',
     category: 'taper',
     taskId: 'w9-d2-1',
     dayId: '2026-11-03',
@@ -199,8 +189,8 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-11-04',
     displayDate: 'Wed Nov 4',
     dayOfWeek: 'Wed',
-    taskTitle: 'Light taper: verify Bluebook app, admission ticket, ID',
-    whatItMeans: 'Logistics check, not academic work',
+    taskTitle: 'Verify Bluebook app, admission ticket, ID (20 min)',
+    whatItMeans: '6:30 PM - 6:50 PM: Verify Bluebook app updated, admission ticket printed, physical ID ready',
     category: 'taper',
     taskId: 'w9-d3-1',
     dayId: '2026-11-04',
@@ -209,18 +199,18 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     dateStr: '2026-11-05',
     displayDate: 'Thu Nov 5',
     dayOfWeek: 'Thu',
-    taskTitle: 'Very light review, pack bag',
-    whatItMeans: 'ID/Smart CNIC, laptop, charger, snack, admission ticket, all physically packed tonight',
+    taskTitle: 'Very light review, then pack bag (20 min)',
+    whatItMeans: '6:30 PM - 6:50 PM: Very light review, then physically pack bag (Smart CNIC/ID, laptop, charger, snack, ticket)',
     category: 'taper',
-    taskId: 'w9-d4-2',
+    taskId: 'w9-d4-1',
     dayId: '2026-11-05',
   },
   {
     dateStr: '2026-11-06',
     displayDate: 'Fri Nov 6',
     dayOfWeek: 'Fri',
-    taskTitle: 'FULL REST',
-    whatItMeans: 'Zero studying. Sleep early. This is non-negotiable',
+    taskTitle: 'FULL REST. No studying. Sleep early.',
+    whatItMeans: 'Zero studying. Hydrate, rest, early sleep. Curfew non-negotiable',
     category: 'rest',
     taskId: 'w9-d5-1',
     dayId: '2026-11-06',
@@ -230,9 +220,9 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     displayDate: 'Sat Nov 7',
     dayOfWeek: 'Sat',
     taskTitle: 'EXAM DAY',
-    whatItMeans: 'Go get it 🎯 Official SAT at Crescent Model School',
+    whatItMeans: 'Follow your official admission ticket reporting time exactly. Crescent Model School.',
     category: 'exam',
-    taskId: 'p2-final-1',
+    taskId: 'sat-exam-day',
     dayId: '2026-11-07',
   },
 ];
@@ -275,10 +265,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
 
   const mockTests = [
     { name: 'Bluebook Practice Test #1', date: 'Sun Sep 20', time: '8:30 AM', dayId: '2026-09-20', taskId: 'w2-diag-1', tag: '★ Early Diagnostic' },
-    { name: 'Bluebook Practice Test #2', date: 'Mon Oct 19', time: 'Full Timed', dayId: '2026-10-19', taskId: 'p2-test-2', tag: 'Full Real Conditions' },
-    { name: 'Bluebook Practice Test #3', date: 'Mon Oct 26', time: 'Full Timed', dayId: '2026-10-26', taskId: 'p2-test-3', tag: 'Same Real Conditions' },
-    { name: 'Bluebook Practice Test #4', date: 'Sat Oct 31', time: 'Full Timed', dayId: '2026-10-31', taskId: 'p2-test-4', tag: 'Final Full Rehearsal' },
-    { name: 'Test-Day Timing Simulation', date: 'Mon Nov 2', time: 'Exam Wake Hour', dayId: '2026-11-02', taskId: 'w9-d1-2', tag: 'Exact Timing Dry Run' },
+    { name: 'Bluebook Practice Test #2', date: 'Tue Oct 20', time: '8:00 AM - 10:24 AM', dayId: '2026-10-20', taskId: 'p2-test-2', tag: 'Full Real Conditions' },
+    { name: 'Bluebook Practice Test #3', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'p2-test-3', tag: 'Same Real Conditions' },
+    { name: 'Bluebook Practice Test #4', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'p2-test-4', tag: 'Final Full Rehearsal' },
+    { name: 'Test-Day Timing Simulation', date: 'Mon Nov 2', time: '6:30 PM - 7:15 PM', dayId: '2026-11-02', taskId: 'w9-d1-2', tag: 'Exact Timing Dry Run' },
   ];
 
   const completedTestsCount = mockTests.filter((m) => completedTaskIds[m.taskId]).length;
@@ -327,7 +317,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
-              Phase 2: Oct 19 – Nov 6 (19 Days) + Nov 7 Exam Day
+              Phase 2: Oct 20 – Nov 6 (18 Days) + Nov 7 Exam Day
             </span>
             <span className="text-xs text-amber-300 font-extrabold font-['JetBrains_Mono']">
               4 Full Mocks &bull; Error Autopsies &bull; Final Rehearsals
@@ -338,7 +328,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
             <span>The Bluebook Arena: Full Phase 2 Breakdown</span>
           </h2>
           <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
-            Strict 19-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
+            Strict 18-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
           </p>
         </div>
 
@@ -505,13 +495,13 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
       </div>
 
       {/* ============================================================ */}
-      {/* FULL 19-DAY INTERACTIVE PHASE 2 BREAKDOWN (Oct 19 – Nov 7)    */}
+      {/* FULL 18-DAY INTERACTIVE PHASE 2 BREAKDOWN (Oct 20 – Nov 7)    */}
       {/* ============================================================ */}
       <div className="space-y-3.5 pt-4 border-t border-sky-500/25">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-white font-luxury flex items-center gap-2">
-              <span>Full Phase 2 Breakdown (Oct 19 – Nov 6, 19 days + Nov 7 Exam Day)</span>
+              <span>Full Phase 2 Breakdown (Oct 20 – Nov 6, 18 days + Nov 7 Exam Day)</span>
             </h3>
             <p className="text-xs text-sky-200 font-medium mt-0.5">
               Every day has a defined purpose: test, autopsy, targeted Khan fix, or non-negotiable rest.
@@ -526,7 +516,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                   filterCategory === 'all' ? 'bg-sky-500 text-white' : 'text-sky-200 hover:text-white'
                 }`}
               >
-                All (20d)
+                All (19d)
               </button>
               <button
                 onClick={() => setFilterCategory('test')}

@@ -595,7 +595,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'calendar' && '📅 Master 57-Day Calendar'}
                 {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
                 {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
-                {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (19-Day Schedule)'}
+                {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)'}
                 {activeSection === 'cheat-codes' && '⚡ Tactical Cheat Codes (Desmos & R&W)'}
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
@@ -927,7 +927,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
         )}
 
         {/* ============================================================ */}
-        {/* SECTION 5: PHASE 2 - THE BLUEBOOK ARENA (Oct 19 to Nov 6)    */}
+        {/* SECTION 5: PHASE 2 - THE BLUEBOOK ARENA (Oct 20 to Nov 6)    */}
         {/* ============================================================ */}
         {(activeSection === 'all' || activeSection === 'bluebook' || activeSection === 'phase-2') && (
           <ScrollReveal id="section-bluebook">
@@ -935,7 +935,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
               <div className="flex items-center justify-between px-1">
                 <span className="text-xs font-black uppercase tracking-wider text-sky-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
                   <Trophy className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Section 5 &bull; Phase 2: The Bluebook Arena (19-Day Schedule • Oct 19–Nov 6)</span>
+                  <span>Section 5 &bull; Phase 2: The Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)</span>
                 </span>
                 {activeSection !== 'all' && (
                   <button

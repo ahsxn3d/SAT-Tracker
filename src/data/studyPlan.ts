@@ -2965,7 +2965,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "w6-d3-1",
-            "label": "Error-log review of Test #2: Root-cause autopsy of missed questions (45 min)",
+            "label": "Error-log review of Test #2 (45 min)",
             "subject": "review",
             "code": "AUTOPSY",
             "topic": "Test #2 Error Log",
@@ -3029,7 +3029,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "w6-d5-1",
-            "label": "Targeted R&W drills: Punctuation, transitions & clause boundaries (60 min)",
+            "label": "Targeted R&W drills, punctuation/grammar review (60 min)",
             "subject": "rw",
             "code": "RW DRILL",
             "topic": "Grammar & Transition Refinement",
@@ -3079,11 +3079,11 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "BUFFER SUNDAY: Rest, recharge, zero assigned lessons. Full cognitive reset before Test #3 week.",
+        "specialInstructions": "Sun Oct 25 -- REST DAY. No studying. Full cognitive reset before Test #3 week.",
         "tasks": [
           {
             "id": "w6-buf-sun",
-            "label": "Buffer Sunday: Zero assigned lessons (Rest & Recharge)",
+            "label": "Sun Oct 25 -- REST DAY: Zero assigned lessons (Rest & Recharge)",
             "subject": "buffer",
             "code": "REST",
             "topic": "Rest & Recharge",
@@ -3229,11 +3229,11 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "Light buffer - catch up or rest.",
+        "specialInstructions": "Light buffer - catch up or rest, your choice.",
         "tasks": [
           {
             "id": "w8-d5-1",
-            "label": "Light buffer: Catch up on any pending items or rest",
+            "label": "Light buffer - catch up or rest, your choice",
             "subject": "buffer",
             "topic": "Recovery",
             "completed": false
@@ -3285,7 +3285,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "w8-d7-1",
-            "label": "Buffer Sunday: Zero assigned lessons (Rest & Recharge)",
+            "label": "Sun Nov 1 -- REST DAY: Full mental rest before exam week taper",
             "subject": "buffer",
             "topic": "Pre-Exam Reset",
             "completed": false
@@ -3317,7 +3317,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "6:30 PM - 7:15 PM: Error-log review of Test #4 + simulate exact test-day timing (45 min).",
         "tasks": [
           {
-            "id": "w9-d1-1",
+            "id": "w9-d1-2",
             "label": "Error-log review of Test #4 + simulate exact test-day timing (45 min)",
             "subject": "review",
             "code": "REVIEW",
@@ -3422,11 +3422,11 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "FULL REST. No studying. Sleep early by 10:00 PM curfew.",
+        "specialInstructions": "FULL REST. No studying. Sleep early.",
         "tasks": [
           {
             "id": "w9-d5-1",
-            "label": "FULL REST DAY: No studying, hydrate, early 10:00 PM bedtime curfew",
+            "label": "FULL REST. No studying. Sleep early.",
             "subject": "buffer",
             "topic": "Pre-Exam Sleep Curfew",
             "completed": false
@@ -3447,15 +3447,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
-        "specialInstructions": "🎯 OFFICIAL DIGITAL SAT EXAM DAY! Follow your official admission ticket reporting time exactly. Crescent Model School, Shadman Lahore.",
+        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Crescent Model School, Shadman Lahore.",
         "tasks": [
           {
             "id": "sat-exam-day",
-            "label": "OFFICIAL DIGITAL SAT EXAM: Follow reporting time exactly (Arrive 7:15 AM)",
+            "label": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly",
             "subject": "test",
             "code": "EXAM DAY",
             "topic": "Crescent Model School Official Exam",
-            "timeSlot": "7:15 AM - 12:30 PM",
+            "timeSlot": "Official reporting time",
             "durationMinutes": 144,
             "completed": false
           }
