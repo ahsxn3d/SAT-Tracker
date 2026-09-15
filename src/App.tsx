@@ -132,8 +132,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
   // Modals state
   const [timerModalOpen, setTimerModalOpen] = useState(false);
-  const [activeTimerDayTitle, setActiveTimerDayTitle] = useState<string>('Tomorrow (Sat Sep 12) - Day 1 Session');
-  const [selectedTimerDateStr, setSelectedTimerDateStr] = useState<string>('2026-09-12');
+  const [activeTimerDayTitle, setActiveTimerDayTitle] = useState<string>('Tomorrow (Mon Sep 14) - Day 1 Session');
+  const [selectedTimerDateStr, setSelectedTimerDateStr] = useState<string>('2026-09-14');
   const [errorLogModalOpen, setErrorLogModalOpen] = useState(false);
   const [packingModalOpen, setPackingModalOpen] = useState(false);
   const [desmosModalOpen, setDesmosModalOpen] = useState(false);
@@ -643,7 +643,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
         )}
 
         {/* ============================================================ */}
-        {/* SECTION 1: TOMORROW-SPECIFIC FOCUS (Day 1: Sat Sep 12)       */}
+        {/* SECTION 1: TOMORROW-SPECIFIC FOCUS (Day 1: Mon Sep 14)       */}
         {/* ============================================================ */}
         {(activeSection === 'all' || activeSection === 'tomorrow') && (
           <ScrollReveal id="section-tomorrow">
@@ -746,7 +746,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
         )}
 
         {/* ============================================================ */}
-        {/* SECTION 4: PHASE 1 FOUNDATIONS (Weeks 1 to 6 • Sep 12–Oct 22) */}
+        {/* SECTION 4: PHASE 1 FOUNDATIONS (Weeks 1 to 6 • Sep 14–Oct 20) */}
         {/* ============================================================ */}
         {(activeSection === 'all' || activeSection === 'schedule') && (
           <ScrollReveal id="section-schedule">

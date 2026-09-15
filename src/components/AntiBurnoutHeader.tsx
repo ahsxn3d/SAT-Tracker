@@ -219,7 +219,7 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
               <span>EXAM: SATURDAY NOV 7 ({diffDays}d left)</span>
             </span>
             <span className="hidden sm:inline text-slate-400">&bull;</span>
-            <span className="font-extrabold text-[#1a3717] font-['JetBrains_Mono']">Sep 12 – Nov 7, 2026</span>
+            <span className="font-extrabold text-[#1a3717] font-['JetBrains_Mono']">Sep 14 – Nov 7, 2026</span>
             <span className="hidden sm:inline text-slate-400">&bull;</span>
             <span className="font-bold text-rose-900 underline decoration-amber-500 decoration-2">Crescent Model School</span>
             <span className="hidden sm:inline text-slate-400">&bull;</span>

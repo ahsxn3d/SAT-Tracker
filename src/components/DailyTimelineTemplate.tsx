@@ -134,7 +134,7 @@ const PRESETS: AnchorPreset[] = [
 
 export const DailyTimelineTemplate: React.FC<DailyTimelineTemplateProps> = ({
   onLaunchTimer,
-  dayTitle = 'Tomorrow (Sat Sep 12) - Day 1 Session'
+  dayTitle = 'Tomorrow (Mon Sep 14) - Day 1 Session'
 }) => {
   // Start time in "HH:mm" (24h) - Default strictly '20:30' on both SSR and initial client render to avoid hydration mismatch
   const [anchorTime, setAnchorTime] = useState<string>('20:30');

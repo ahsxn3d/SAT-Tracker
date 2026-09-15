@@ -90,7 +90,7 @@ export const SessionTimer: React.FC<SessionTimerProps> = ({
   const activeDayTitle = useMemo(() => {
     if (dayTitle) return dayTitle;
     if (currentDayPlan) return `${currentDayPlan.formattedDate} (${currentDayPlan.weekTitle})`;
-    return 'Sat Sep 12 (Day 1 Kickoff)';
+    return 'Mon Sep 14 (Day 1 Kickoff)';
   }, [dayTitle, currentDayPlan]);
 
   const handleOpenPopoutWindow = () => {
@@ -203,7 +203,7 @@ export const SessionTimer: React.FC<SessionTimerProps> = ({
 
       const timingPayload: DaySessionTiming = {
         dateStr: currentDateStr,
-        dayTitle: currentDayPlan ? currentDayPlan.formattedDate : 'Sat Sep 12',
+        dayTitle: currentDayPlan ? currentDayPlan.formattedDate : 'Mon Sep 14',
         completedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         math: mathResult,
         breakTime: breakPacing,

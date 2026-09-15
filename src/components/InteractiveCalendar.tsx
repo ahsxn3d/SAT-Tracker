@@ -295,12 +295,12 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
           <button
             onClick={() => {
               setSelectedMonth('2026-09');
-              setActiveInspectDayId('2026-09-12');
+              setActiveInspectDayId('2026-09-14');
             }}
             className="text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 hover:shadow-xs px-3 py-1.5 rounded-xl border border-indigo-200 transition-all duration-150 flex items-center gap-1 cursor-pointer active:scale-[0.98]"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            <span>Day 1 (Sep 12)</span>
+            <span>Day 1 (Sep 14)</span>
           </button>
 
           <button
@@ -487,7 +487,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                         {isKickoffEve ? 'Final device check' : 'Orientation warmup'}
                       </div>
                       <div className="text-[9px] font-black text-indigo-700 font-['JetBrains_Mono']">
-                        Kickoff: Sep 12
+                        Kickoff: Sep 14
                       </div>
                     </div>
                   </div>
@@ -713,14 +713,14 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
         /* Full 57-Day View in a Compact Responsive List */
         <div className="space-y-4">
           <div className="p-3 bg-matcha-sub rounded-2xl border border-slate-200 text-xs font-bold text-slate-700 flex items-center justify-between">
-            <span>Viewing all 57 days chronologically (Sep 12 &rarr; Nov 7)</span>
+            <span>Viewing all 55 days chronologically (Sep 14 &rarr; Nov 7)</span>
             <span className="text-slate-500">Click any row to inspect & toggle</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {allDays.map((day) => {
               const isExamDay = day.dateStr === '2026-11-07';
-              const isKickoff = day.dateStr === '2026-09-12';
+              const isKickoff = day.dateStr === '2026-09-14';
               const totalTasks = day.tasks.length;
               const completedTasks = day.tasks.filter((t) => completedTaskIds[t.id]).length;
               const isComplete = totalTasks > 0 && completedTasks === totalTasks;
