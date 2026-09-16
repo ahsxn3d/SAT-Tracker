@@ -33,6 +33,7 @@ import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
 import { ExamPrepSection } from './components/ExamPrepSection';
 import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
+import { FormulasSection } from './components/FormulasSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -50,7 +51,8 @@ import {
   Trophy,
   Compass,
   Target,
-  Luggage
+  Luggage,
+  Calculator
 } from 'lucide-react';
 
 const STORAGE_KEYS = {
@@ -65,7 +67,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator';
+type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -524,6 +526,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'bluebook': '/phase-2',
       'phase-2': '/phase-2',
       'cheat-codes': '/cheat-codes',
+      'formulas': '/formulas',
       'error-log': '/error-log',
       'crescent': '/test-center',
       'rules': '/rules',
@@ -597,6 +600,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
                 {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)'}
                 {activeSection === 'cheat-codes' && '⚡ Tactical Cheat Codes (Desmos & R&W)'}
+                {activeSection === 'formulas' && '📐 SAT Math Formula Vault (4 Chapters • 3 Difficulty Tiers)'}
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
                 {activeSection === 'rules' && '🛡️ The Core Anti-Burnout Rules'}
@@ -981,6 +985,31 @@ export default function App({ initialSection = 'all' }: AppProps) {
               <CheatCodesSection
                 onOpenModal={() => setDesmosModalOpen(true)}
               />
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* ============================================================ */}
+        {/* SECTION: FORMULA VAULT (Aligned Chapter & Difficulty Wise)   */}
+        {/* ============================================================ */}
+        {(activeSection === 'all' || activeSection === 'formulas') && (
+          <ScrollReveal id="section-formulas">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                  <Calculator className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>SAT Math Formula Vault &bull; 4 Chapters &bull; 3 Difficulty Tiers</span>
+                </span>
+                {activeSection !== 'all' && (
+                  <button
+                    onClick={() => setActiveSection('all')}
+                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
+                  >
+                    View Full Dashboard &rarr;
+                  </button>
+                )}
+              </div>
+              <FormulasSection />
             </div>
           </ScrollReveal>
         )}
