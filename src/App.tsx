@@ -993,25 +993,23 @@ export default function App({ initialSection = 'all' }: AppProps) {
         {/* SECTION: FORMULA VAULT (Aligned Chapter & Difficulty Wise)   */}
         {/* ============================================================ */}
         {(activeSection === 'all' || activeSection === 'formulas') && (
-          <ScrollReveal id="section-formulas">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <Calculator className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>SAT Math Formula Vault &bull; 4 Chapters &bull; 3 Difficulty Tiers</span>
-                </span>
-                {activeSection !== 'all' && (
-                  <button
-                    onClick={() => setActiveSection('all')}
-                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
-                  >
-                    View Full Dashboard &rarr;
-                  </button>
-                )}
-              </div>
-              <FormulasSection />
+          <div id="section-formulas" className="space-y-2">
+            <div className="flex items-center justify-between px-1">
+              <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                <Calculator className="w-3.5 h-3.5 text-emerald-600" />
+                <span>SAT Math Formula Vault &bull; 4 Chapters &bull; 3 Difficulty Tiers</span>
+              </span>
+              {activeSection !== 'all' && (
+                <button
+                  onClick={() => handleSelectSection('all')}
+                  className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
+                >
+                  View Full Dashboard &rarr;
+                </button>
+              )}
             </div>
-          </ScrollReveal>
+            <FormulasSection />
+          </div>
         )}
 
         {/* ============================================================ */}

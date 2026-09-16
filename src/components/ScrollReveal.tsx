@@ -25,7 +25,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       id={id}
       initial={{ opacity: 0, y: yOffset, scale }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-50px', amount: 0.1 }}
+      viewport={{ once: true, margin: '0px 0px -30px 0px', amount: 'some' }}
       transition={{
         duration: 0.65,
         delay,
