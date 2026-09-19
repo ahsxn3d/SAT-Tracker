@@ -47,8 +47,9 @@ const STORAGE_KEY = 'anti_burnout_mock_scores_v1';
 export const MOCK_TESTS_CONFIG = [
   { id: 'w2-diag-1', name: 'Bluebook Test #1 (Foundations Checkpoint)', date: 'Sun Sep 27', tag: 'Foundations Baseline' },
   { id: 'p2-test-2', name: 'Bluebook Test #2 (Medium Tier Checkpoint)', date: 'Sun Oct 11', tag: 'Medium Tier Complete' },
-  { id: 'p2-test-3', name: 'Bluebook Test #3 (Phase 2 Timed)', date: 'Mon Oct 26', tag: 'Mid-Phase Benchmark' },
-  { id: 'p2-test-4', name: 'Bluebook Test #4 (Final Rehearsal)', date: 'Sat Oct 31', tag: 'Final Full Mock' },
+  { id: 'p2-test-3', name: 'Bluebook Test #3 (Advanced Tier Checkpoint)', date: 'Wed Oct 21', tag: 'Advanced Tier Complete' },
+  { id: 'p2-test-4', name: 'Bluebook Test #4 (Full Test, Real Conditions)', date: 'Tue Oct 27', tag: 'Full Real Conditions' },
+  { id: 'p2-test-5', name: 'Bluebook Test #5 (Final Full Test, Timed)', date: 'Sat Oct 31', tag: 'Final Full Rehearsal' },
   { id: 'w9-d1-2', name: 'Test-Day Timing Dry Run', date: 'Mon Nov 2', tag: 'Exact Wakeup Dry Run' },
 ];
 
