@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { DayPlan, TaskItem } from '../types';
+import { getTaskKhanTier, getKhanTierBadge } from '../utils/difficulty';
 
 interface TomorrowFocusCardProps {
   tomorrowDay: DayPlan;
@@ -304,9 +305,16 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                   >
                     <div>
                       <div className="flex items-center justify-between gap-1 flex-wrap">
-                        <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full font-['JetBrains_Mono'] shadow-xs ${badgeBg}`}>
-                          Step {index + 1} &bull; {estimatedTime}
-                        </span>
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className={`text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full font-['JetBrains_Mono'] shadow-xs ${badgeBg}`}>
+                            Step {index + 1} &bull; {estimatedTime}
+                          </span>
+                          {task.subject !== 'buffer' && (
+                            <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded border font-['JetBrains_Mono'] ${getKhanTierBadge(getTaskKhanTier(task)).badgeClass}`}>
+                              {getKhanTierBadge(getTaskKhanTier(task)).label}
+                            </span>
+                          )}
+                        </div>
                         <span className="text-xs font-black uppercase font-['JetBrains_Mono'] text-slate-800">
                           {task.subject}
                         </span>

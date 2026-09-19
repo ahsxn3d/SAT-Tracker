@@ -337,70 +337,82 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
               </p>
             </div>
 
-            {/* Interactive Color Difficulty Filter Bar */}
-            <div className="flex items-center gap-1 flex-wrap">
+            {/* Interactive Color Difficulty Filter Bar (Khan Academy Tiers) */}
+            <div className="flex items-center gap-1.5 flex-wrap">
               <span className="text-[10px] font-black uppercase text-slate-500 font-['JetBrains_Mono'] mr-1">
-                Difficulty:
+                Tier:
               </span>
               <button
-                onClick={() => setDifficultyFilter(difficultyFilter === 'rest' ? 'all' : 'rest')}
+                onClick={() => setDifficultyFilter(difficultyFilter === 'foundations' ? 'all' : 'foundations')}
                 className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
-                  difficultyFilter === 'rest'
+                  difficultyFilter === 'foundations'
                     ? 'bg-emerald-300 text-emerald-950 border-emerald-500 shadow-xs ring-2 ring-emerald-400/50'
                     : 'bg-emerald-100/90 text-emerald-950 border-emerald-300 hover:bg-emerald-200'
                 }`}
-                title="Click to toggle filter for Rest days"
+                title="Filter for Foundations Tier (Math U2–U5 & R&W U2–U4)"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                <span>🌴 Rest (0 Units)</span>
+                <span>🌱 Foundations</span>
               </button>
               <button
-                onClick={() => setDifficultyFilter(difficultyFilter === 'light' ? 'all' : 'light')}
+                onClick={() => setDifficultyFilter(difficultyFilter === 'medium' ? 'all' : 'medium')}
                 className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
-                  difficultyFilter === 'light'
-                    ? 'bg-sky-300 text-sky-950 border-sky-500 shadow-xs ring-2 ring-sky-400/50'
-                    : 'bg-sky-100/90 text-sky-950 border-sky-300 hover:bg-sky-200'
-                }`}
-                title="Click to toggle filter for Light days (less units)"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
-                <span>⚡ Light (Fewer Units)</span>
-              </button>
-              <button
-                onClick={() => setDifficultyFilter(difficultyFilter === 'standard' ? 'all' : 'standard')}
-                className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
-                  difficultyFilter === 'standard'
-                    ? 'bg-[#b6d3b0] text-slate-950 border-[#83a67d] shadow-xs ring-2 ring-emerald-500/40'
-                    : 'bg-matcha-sub text-slate-800 border-[#a6c4a1]/70 hover:bg-matcha-input'
-                }`}
-                title="Click to toggle filter for Medium / Standard days"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-700"></span>
-                <span>🎯 Medium (3–4 Units)</span>
-              </button>
-              <button
-                onClick={() => setDifficultyFilter(difficultyFilter === 'intensive' ? 'all' : 'intensive')}
-                className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
-                  difficultyFilter === 'intensive'
+                  difficultyFilter === 'medium'
                     ? 'bg-amber-300 text-amber-950 border-amber-500 shadow-xs ring-2 ring-amber-400/50'
                     : 'bg-amber-100/90 text-amber-950 border-amber-300 hover:bg-amber-200'
                 }`}
-                title="Click to toggle filter for Hard / Sprint days"
+                title="Filter for Medium Tier (Math U6–U9 & R&W U5–U10, U12)"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
-                <span>🔥 Hard (Sprint / 5+ Units)</span>
+                <span>🎯 Medium</span>
+              </button>
+              <button
+                onClick={() => setDifficultyFilter(difficultyFilter === 'challenge' ? 'all' : 'challenge')}
+                className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
+                  difficultyFilter === 'challenge'
+                    ? 'bg-purple-300 text-purple-950 border-purple-500 shadow-xs ring-2 ring-purple-400/50'
+                    : 'bg-purple-100/90 text-purple-950 border-purple-300 hover:bg-purple-200'
+                }`}
+                title="Filter for Challenge Unit (R&W Unit 11)"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+                <span>⚡ Challenge</span>
+              </button>
+              <button
+                onClick={() => setDifficultyFilter(difficultyFilter === 'advanced' ? 'all' : 'advanced')}
+                className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
+                  difficultyFilter === 'advanced'
+                    ? 'bg-rose-300 text-rose-950 border-rose-500 shadow-xs ring-2 ring-rose-400/50'
+                    : 'bg-rose-100/90 text-rose-950 border-rose-300 hover:bg-rose-200'
+                }`}
+                title="Filter for Advanced / Hard Tier (Math U10–U13)"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
+                <span>🔥 Advanced</span>
               </button>
               <button
                 onClick={() => setDifficultyFilter(difficultyFilter === 'test' ? 'all' : 'test')}
                 className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
                   difficultyFilter === 'test'
-                    ? 'bg-indigo-300 text-indigo-950 border-indigo-500 shadow-xs ring-2 ring-indigo-400/50'
-                    : 'bg-indigo-100/90 text-indigo-950 border-indigo-300 hover:bg-indigo-200'
+                    ? 'bg-sky-300 text-sky-950 border-sky-500 shadow-xs ring-2 ring-sky-400/50'
+                    : 'bg-sky-100/90 text-sky-950 border-sky-300 hover:bg-sky-200'
                 }`}
-                title="Click to toggle filter for Mock Tests"
+                title="Filter for Bluebook Practice Tests"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
                 <span>📝 Mock Exam</span>
+              </button>
+              <button
+                onClick={() => setDifficultyFilter(difficultyFilter === 'rest' ? 'all' : 'rest')}
+                className={`px-2 py-0.5 rounded-lg text-[10px] font-black font-['JetBrains_Mono'] border transition-all cursor-pointer flex items-center gap-1 ${
+                  difficultyFilter === 'rest'
+                    ? 'bg-slate-300 text-slate-950 border-slate-500 shadow-xs ring-2 ring-slate-400/50'
+                    : 'bg-slate-100 text-slate-800 border-slate-300 hover:bg-slate-200'
+                }`}
+                title="Filter for Rest days"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                <span>🌴 Rest</span>
               </button>
             </div>
           </div>

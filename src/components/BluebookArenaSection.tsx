@@ -36,13 +36,23 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
+    dateStr: '2026-10-11',
+    displayDate: 'Sun Oct 11',
+    dayOfWeek: 'Sun',
+    taskTitle: 'Full Bluebook Practice Test #2 (Medium Tier Checkpoint)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook simulation right after Medium Tier completion',
+    category: 'test',
+    taskId: 'p2-test-2',
+    dayId: '2026-10-11',
+  },
+  {
     dateStr: '2026-10-20',
     displayDate: 'Tue Oct 20',
     dayOfWeek: 'Tue',
-    taskTitle: 'Full Bluebook Practice Test #2 (real conditions, timed)',
-    whatItMeans: '8:00 AM - 10:24 AM: Real conditions, both sections, 10-min break included',
-    category: 'test',
-    taskId: 'p2-test-2',
+    taskTitle: 'Phase 1 Complete: All Math Finished (80 min)',
+    whatItMeans: '6:30 PM - 7:50 PM: Unit circle trigonometry & circle equations. Advanced Tier & Phase 1 100% complete!',
+    category: 'drill',
+    taskId: 'week-6-d32-1',
     dayId: '2026-10-20',
   },
   {
@@ -264,9 +274,9 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   }, []);
 
   const mockTests = [
-    { name: 'Bluebook Practice Test #1', date: 'Sun Sep 20', time: '8:30 AM', dayId: '2026-09-20', taskId: 'w2-diag-1', tag: '★ Early Diagnostic' },
-    { name: 'Bluebook Practice Test #2', date: 'Tue Oct 20', time: '8:00 AM - 10:24 AM', dayId: '2026-10-20', taskId: 'p2-test-2', tag: 'Full Real Conditions' },
-    { name: 'Bluebook Practice Test #3', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'p2-test-3', tag: 'Same Real Conditions' },
+    { name: 'Bluebook Practice Test #1', date: 'Sun Sep 27', time: '8:00 AM - 10:24 AM', dayId: '2026-09-27', taskId: 'w2-diag-1', tag: 'Foundations Checkpoint' },
+    { name: 'Bluebook Practice Test #2', date: 'Sun Oct 11', time: '8:00 AM - 10:24 AM', dayId: '2026-10-11', taskId: 'p2-test-2', tag: 'Medium Tier Checkpoint' },
+    { name: 'Bluebook Practice Test #3', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'p2-test-3', tag: 'Phase 2 Benchmark' },
     { name: 'Bluebook Practice Test #4', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'p2-test-4', tag: 'Final Full Rehearsal' },
     { name: 'Test-Day Timing Simulation', date: 'Mon Nov 2', time: '6:30 PM - 7:15 PM', dayId: '2026-11-02', taskId: 'w9-d1-2', tag: 'Exact Timing Dry Run' },
   ];

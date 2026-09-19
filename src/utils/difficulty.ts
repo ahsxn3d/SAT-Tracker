@@ -1,9 +1,18 @@
-import { DayPlan } from '../types';
+import { DayPlan, TaskItem } from '../types';
 
-export type DayLoadDifficulty = 'rest' | 'light' | 'standard' | 'intensive' | 'test' | 'exam';
+export type KhanDifficultyTier = 
+  | 'foundations' 
+  | 'medium' 
+  | 'challenge' 
+  | 'advanced' 
+  | 'test' 
+  | 'rest' 
+  | 'exam';
+
+export type DayLoadDifficulty = KhanDifficultyTier | 'light' | 'standard' | 'intensive';
 
 export interface DifficultyConfig {
-  type: DayLoadDifficulty;
+  type: KhanDifficultyTier;
   label: string;
   shortLabel: string;
   badgeText: string;
@@ -16,71 +25,84 @@ export interface DifficultyConfig {
   description: string;
 }
 
-export const DIFFICULTY_CONFIGS: Record<DayLoadDifficulty, DifficultyConfig> = {
+export const DIFFICULTY_CONFIGS: Record<KhanDifficultyTier | 'light' | 'standard' | 'intensive', DifficultyConfig> = {
+  foundations: {
+    type: 'foundations',
+    label: 'Foundations Tier (Math U2–U5 & R&W U2–U4)',
+    shortLabel: 'Foundations',
+    badgeText: '🌱 Foundations',
+    badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-400 font-black',
+    calendarCellClass: 'bg-emerald-50/90 border-emerald-400 text-emerald-950 hover:bg-emerald-100/90 ring-1 ring-emerald-300/60',
+    cardBorderClass: 'border-emerald-400',
+    cardBgClass: 'bg-emerald-50/70',
+    dotColor: 'bg-emerald-500',
+    performanceDescription: 'Foundations Tier (Math U2–U5 & R&W U2–U4) • Core conceptual mastery',
+    description: 'Khan Academy Foundations Tier • Core conceptual mastery and key algebraic foundations',
+  },
+  medium: {
+    type: 'medium',
+    label: 'Medium Tier (Math U6–U9 & R&W U5–U10, U12)',
+    shortLabel: 'Medium',
+    badgeText: '🎯 Medium',
+    badgeClass: 'bg-amber-100 text-amber-950 border-amber-400 font-black',
+    calendarCellClass: 'bg-amber-50/90 border-amber-400 text-amber-950 hover:bg-amber-100/90 ring-1 ring-amber-300/60',
+    cardBorderClass: 'border-amber-400',
+    cardBgClass: 'bg-amber-50/70',
+    dotColor: 'bg-amber-500',
+    performanceDescription: 'Medium Tier (Math U6–U9 & R&W U5–U10, U12) • Multi-step SAT problems',
+    description: 'Khan Academy Medium Tier • Multi-step problem solving & standard SAT traps',
+  },
+  challenge: {
+    type: 'challenge',
+    label: 'Challenge Unit (R&W Unit 11 High Difficulty)',
+    shortLabel: 'Challenge',
+    badgeText: '⚡ Challenge',
+    badgeClass: 'bg-purple-100 text-purple-950 border-purple-400 font-black',
+    calendarCellClass: 'bg-purple-50/90 border-purple-400 text-purple-950 hover:bg-purple-100/90 ring-1 ring-purple-300/60',
+    cardBorderClass: 'border-purple-400',
+    cardBgClass: 'bg-purple-50/70',
+    dotColor: 'bg-purple-500',
+    performanceDescription: 'Challenge Unit (R&W Unit 11) • Hardest textual evidence, inferences & synthesis',
+    description: 'Khan Academy High-Difficulty Challenge Unit • Nuanced reading passages & complex grammar',
+  },
+  advanced: {
+    type: 'advanced',
+    label: 'Advanced / Hard Tier (Math U10–U13)',
+    shortLabel: 'Advanced',
+    badgeText: '🔥 Advanced',
+    badgeClass: 'bg-rose-100 text-rose-950 border-rose-400 font-black',
+    calendarCellClass: 'bg-rose-50/90 border-rose-400 text-rose-950 hover:bg-rose-100/90 ring-1 ring-rose-300/60',
+    cardBorderClass: 'border-rose-400',
+    cardBgClass: 'bg-rose-50/70',
+    dotColor: 'bg-rose-500',
+    performanceDescription: 'Advanced / Hard Tier (Math U10–U13) • Peak nonlinear algebra & geometry',
+    description: 'Khan Academy Advanced Tier • Peak difficulty SAT Math & complex multi-layer problems',
+  },
+  test: {
+    type: 'test',
+    label: 'Bluebook Practice Mock Exam',
+    shortLabel: 'Mock Exam',
+    badgeText: '📝 Mock Exam',
+    badgeClass: 'bg-sky-100 text-sky-950 border-sky-400 font-black',
+    calendarCellClass: 'bg-sky-50/95 border-sky-400 text-sky-950 hover:bg-sky-100/90 ring-1 ring-sky-300/60',
+    cardBorderClass: 'border-sky-400',
+    cardBgClass: 'bg-sky-50/80',
+    dotColor: 'bg-sky-600',
+    performanceDescription: 'Performance: Full Timed Simulation (134 Mins) • Bluebook Test & Error Log',
+    description: 'Full-length Bluebook exam diagnostic simulation under real testing conditions',
+  },
   rest: {
     type: 'rest',
     label: 'Rest & Recovery',
     shortLabel: 'Rest',
     badgeText: '🌴 Rest (0 Units)',
-    badgeClass: 'bg-emerald-200 text-emerald-950 border-emerald-300 font-black',
-    calendarCellClass: 'bg-emerald-50/90 border-emerald-400 text-emerald-950 hover:bg-emerald-100/80 ring-1 ring-emerald-300/60',
-    cardBorderClass: 'border-emerald-400',
-    cardBgClass: 'bg-emerald-50/70',
-    dotColor: 'bg-emerald-500',
+    badgeClass: 'bg-slate-100 text-slate-800 border-slate-300 font-black',
+    calendarCellClass: 'bg-slate-50/90 border-slate-300 text-slate-800 hover:bg-slate-100/80 ring-1 ring-slate-200/60',
+    cardBorderClass: 'border-slate-300',
+    cardBgClass: 'bg-slate-50/70',
+    dotColor: 'bg-slate-400',
     performanceDescription: 'Performance: Rest & Cognitive Recovery • Zero assigned lessons',
     description: 'Zero assigned lessons • Guaranteed mental recovery & emergency buffer',
-  },
-  light: {
-    type: 'light',
-    label: 'Light Performance (Low Load)',
-    shortLabel: 'Light',
-    badgeText: '⚡ Light Load',
-    badgeClass: 'bg-sky-100 text-sky-950 border-sky-300 font-black',
-    calendarCellClass: 'bg-sky-50/90 border-sky-400 text-sky-950 hover:bg-sky-100/80 ring-1 ring-sky-300/60',
-    cardBorderClass: 'border-sky-400',
-    cardBgClass: 'bg-sky-50/70',
-    dotColor: 'bg-sky-500',
-    performanceDescription: 'Performance: Light Effort (20–30m) • Quick targeted review',
-    description: 'Reduced cognitive load • Focused drills for easy flow and deep comprehension',
-  },
-  standard: {
-    type: 'standard',
-    label: 'Medium Performance (Standard Load)',
-    shortLabel: 'Medium',
-    badgeText: '🎯 Medium Load',
-    badgeClass: 'bg-matcha-sub text-slate-900 border-[#a6c4a1] font-black',
-    calendarCellClass: 'bg-matcha-input border-[#a6c4a1]/80 text-slate-900 hover:bg-matcha-sub',
-    cardBorderClass: 'border-[#a6c4a1]',
-    cardBgClass: 'bg-matcha-input',
-    dotColor: 'bg-emerald-600',
-    performanceDescription: 'Performance: Medium Effort (90m Window) • Math + Break + RW',
-    description: 'Balanced daily load • 45m Math + 10m Break + 35m RW structured focus',
-  },
-  intensive: {
-    type: 'intensive',
-    label: 'Hard / Intensive Sprint',
-    shortLabel: 'Hard',
-    badgeText: '🔥 Hard / Sprint',
-    badgeClass: 'bg-amber-100 text-amber-950 border-amber-300 font-black',
-    calendarCellClass: 'bg-amber-50/85 border-amber-400 text-amber-950 hover:bg-amber-100/80 ring-1 ring-amber-300/60',
-    cardBorderClass: 'border-amber-400',
-    cardBgClass: 'bg-amber-50/70',
-    dotColor: 'bg-amber-500',
-    performanceDescription: 'Performance: High Intensity Sprint (90–120m) • Peak effort',
-    description: 'Peak effort sprint • Extended units with strict door-to-door timer adherence',
-  },
-  test: {
-    type: 'test',
-    label: 'Mock Test Simulation',
-    shortLabel: 'Mock',
-    badgeText: '📝 Mock Exam',
-    badgeClass: 'bg-indigo-100 text-indigo-950 border-indigo-300 font-black',
-    calendarCellClass: 'bg-indigo-50/95 border-indigo-400 text-indigo-950 hover:bg-indigo-100/90 ring-1 ring-indigo-300/60',
-    cardBorderClass: 'border-indigo-400',
-    cardBgClass: 'bg-indigo-50/80',
-    dotColor: 'bg-indigo-600',
-    performanceDescription: 'Performance: Full Timed Simulation (134 Mins) • Bluebook Test & Error Log',
-    description: 'Full-length Bluebook exam diagnostic simulation under real testing conditions',
   },
   exam: {
     type: 'exam',
@@ -95,17 +117,127 @@ export const DIFFICULTY_CONFIGS: Record<DayLoadDifficulty, DifficultyConfig> = {
     performanceDescription: 'Performance: Real Exam Day • Crescent Model School Center (7:15 AM Gates Close)',
     description: 'Crescent Model Higher Secondary School • 7:15 AM Paper Day',
   },
+  // Backward compatibility mappings
+  light: {
+    type: 'foundations',
+    label: 'Foundations Tier (Math U2–U5 & R&W U2–U4)',
+    shortLabel: 'Foundations',
+    badgeText: '🌱 Foundations',
+    badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-400 font-black',
+    calendarCellClass: 'bg-emerald-50/90 border-emerald-400 text-emerald-950 hover:bg-emerald-100/90 ring-1 ring-emerald-300/60',
+    cardBorderClass: 'border-emerald-400',
+    cardBgClass: 'bg-emerald-50/70',
+    dotColor: 'bg-emerald-500',
+    performanceDescription: 'Foundations Tier (Math U2–U5 & R&W U2–U4) • Core conceptual mastery',
+    description: 'Khan Academy Foundations Tier • Core conceptual mastery and key algebraic foundations',
+  },
+  standard: {
+    type: 'medium',
+    label: 'Medium Tier (Math U6–U9 & R&W U5–U10, U12)',
+    shortLabel: 'Medium',
+    badgeText: '🎯 Medium',
+    badgeClass: 'bg-amber-100 text-amber-950 border-amber-400 font-black',
+    calendarCellClass: 'bg-amber-50/90 border-amber-400 text-amber-950 hover:bg-amber-100/90 ring-1 ring-amber-300/60',
+    cardBorderClass: 'border-amber-400',
+    cardBgClass: 'bg-amber-50/70',
+    dotColor: 'bg-amber-500',
+    performanceDescription: 'Medium Tier (Math U6–U9 & R&W U5–U10, U12) • Multi-step SAT problems',
+    description: 'Khan Academy Medium Tier • Multi-step problem solving & standard SAT traps',
+  },
+  intensive: {
+    type: 'advanced',
+    label: 'Advanced / Hard Tier (Math U10–U13)',
+    shortLabel: 'Advanced',
+    badgeText: '🔥 Advanced',
+    badgeClass: 'bg-rose-100 text-rose-950 border-rose-400 font-black',
+    calendarCellClass: 'bg-rose-50/90 border-rose-400 text-rose-950 hover:bg-rose-100/90 ring-1 ring-rose-300/60',
+    cardBorderClass: 'border-rose-400',
+    cardBgClass: 'bg-rose-50/70',
+    dotColor: 'bg-rose-500',
+    performanceDescription: 'Advanced / Hard Tier (Math U10–U13) • Peak nonlinear algebra & geometry',
+    description: 'Khan Academy Advanced Tier • Peak difficulty SAT Math & complex multi-layer problems',
+  },
 };
 
 /**
+ * Identifies the exact Khan Academy difficulty tier for any individual task
+ */
+export function getTaskKhanTier(task: { code?: string; label?: string; subject?: string }): KhanDifficultyTier {
+  if (task.subject === 'test' || (task.code && /MOCK|TEST/i.test(task.code))) {
+    return 'test';
+  }
+  if (task.subject === 'buffer' && /REST/i.test(task.code || '')) {
+    return 'rest';
+  }
+
+  const text = `${task.code || ''} ${task.label || ''}`.toUpperCase();
+
+  // Challenge: R&W Unit 11 (Khan Academy Challenge Unit)
+  if (/R&W\s*U11\b|RW\s*U11\b|UNIT\s*11.*(READING|WRITING|EVIDENCE|INFERENCES|TRANSITIONS|BOUNDARIES)/i.test(text)) {
+    return 'challenge';
+  }
+
+  // Advanced / Hard: Math Units 10, 11, 12, 13
+  if (/MATH\s*U1[0-3]\b|MATH\s*UNIT\s*1[0-3]\b/i.test(text)) {
+    return 'advanced';
+  }
+
+  // Medium: Math Units 6, 7, 8, 9 OR R&W Units 5, 6, 7, 8, 9, 10, 12
+  if (
+    /MATH\s*U[6-9]\b|MATH\s*UNIT\s*[6-9]\b/i.test(text) ||
+    /R&W\s*U([5-9]|10|12)\b|RW\s*U([5-9]|10|12)\b/i.test(text)
+  ) {
+    return 'medium';
+  }
+
+  // Foundations: Math Units 2, 3, 4, 5 OR R&W Units 2, 3, 4
+  if (
+    /MATH\s*U[2-5]\b|MATH\s*UNIT\s*[2-5]\b/i.test(text) ||
+    /R&W\s*U[2-4]\b|RW\s*U[2-4]\b/i.test(text)
+  ) {
+    return 'foundations';
+  }
+
+  // Phase 2 targeted drills / autopsies
+  if (task.subject === 'drill' || task.subject === 'review') {
+    return 'medium';
+  }
+
+  return 'foundations';
+}
+
+/**
+ * Returns visual pill styling for an individual Khan Academy task
+ */
+export function getKhanTierBadge(tier: KhanDifficultyTier): { label: string; badgeClass: string } {
+  switch (tier) {
+    case 'foundations':
+      return { label: 'Foundations', badgeClass: 'bg-emerald-100 text-emerald-950 border-emerald-300' };
+    case 'medium':
+      return { label: 'Medium', badgeClass: 'bg-amber-100 text-amber-950 border-amber-300' };
+    case 'challenge':
+      return { label: 'Challenge', badgeClass: 'bg-purple-100 text-purple-950 border-purple-300' };
+    case 'advanced':
+      return { label: 'Advanced', badgeClass: 'bg-rose-100 text-rose-950 border-rose-300' };
+    case 'test':
+      return { label: 'Mock Test', badgeClass: 'bg-sky-100 text-sky-950 border-sky-300' };
+    case 'rest':
+      return { label: 'Rest', badgeClass: 'bg-slate-100 text-slate-800 border-slate-300' };
+    case 'exam':
+      return { label: 'SAT Exam', badgeClass: 'bg-amber-300 text-slate-950 border-amber-400' };
+  }
+}
+
+/**
  * Returns the difficulty and visual configuration for any study day
+ * mapped directly to Khan Academy's Foundations / Medium / Challenge / Advanced curriculum tiers
  */
 export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
   if (day.dateStr === '2026-11-07') {
     return DIFFICULTY_CONFIGS.exam;
   }
 
-  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test')) {
+  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test' || /MOCK|TEST/i.test(t.code || ''))) {
     return DIFFICULTY_CONFIGS.test;
   }
 
@@ -120,34 +252,28 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
     return DIFFICULTY_CONFIGS.rest;
   }
 
-  const studyMins = day.studyTimeMinutes || activeTasks.reduce((acc, t) => acc + (t.durationMinutes || 20), 0);
+  // Check task tiers
+  const tiers = activeTasks.map(getTaskKhanTier);
 
-  // Phase 2 targeted drills
-  if (activeTasks.some((t) => t.subject === 'drill')) {
-    return studyMins >= 60 ? DIFFICULTY_CONFIGS.standard : DIFFICULTY_CONFIGS.light;
+  // If day contains R&W Unit 11 -> Khan Academy Challenge unit day (Days 17-20)
+  if (tiers.includes('challenge')) {
+    return DIFFICULTY_CONFIGS.challenge;
   }
 
-  // Phase 2 error-log reviews
-  if (activeTasks.some((t) => t.subject === 'review')) {
-    return studyMins >= 60 ? DIFFICULTY_CONFIGS.standard : DIFFICULTY_CONFIGS.light;
+  // If day contains Advanced Math (Units 10-13) (Days 23-32)
+  const advancedCount = tiers.filter((t) => t === 'advanced').length;
+  if (advancedCount > 0 && advancedCount >= tiers.length / 2) {
+    return DIFFICULTY_CONFIGS.advanced;
   }
 
-  // Pre-exam packout and ticket logistics
-  if (activeTasks.some((t) => t.subject === 'logistics')) {
-    return DIFFICULTY_CONFIGS.light;
+  // If day contains Medium Math (Units 6-9) or Medium R&W (Units 5-10, 12) (Days 10-16, 21-22)
+  const mediumCount = tiers.filter((t) => t === 'medium').length;
+  if (mediumCount > 0 && mediumCount + advancedCount >= tiers.length / 2) {
+    return DIFFICULTY_CONFIGS.medium;
   }
 
-  const count = activeTasks.length;
-  
-  if (count <= 2 || studyMins <= 45) {
-    return DIFFICULTY_CONFIGS.light;
-  }
-
-  if (count <= 4 || studyMins <= 120) {
-    return DIFFICULTY_CONFIGS.standard;
-  }
-
-  return DIFFICULTY_CONFIGS.intensive;
+  // Days 1-9: Foundations Tier (Math U2-U5 & R&W U2-U4)
+  return DIFFICULTY_CONFIGS.foundations;
 }
 
 /**

@@ -750,37 +750,17 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "weekTitle": "Kickoff & Problem Solving Foundations",
         "phase": "foundations",
         "isBuffer": true,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 10,
-        "totalTimeMinutes": 154,
-        "specialInstructions": "EARLY DIAGNOSTIC: Full Bluebook Practice Test #1 (8:00 AM - 10:24 AM). Strictly zero studying after test completion.",
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "specialInstructions": "REST DAY (no studying). Zero study minutes required.",
         "tasks": [
           {
-            "id": "p1-diagnostic",
-            "label": "Full Bluebook Practice Test #1 (real conditions, timed)",
-            "subject": "test",
-            "code": "MOCK #1",
-            "topic": "Diagnostic Baseline Mock",
-            "completed": false,
-            "timeSlot": "8:00 AM - 10:24 AM",
-            "durationMinutes": 144
-          },
-          {
-            "id": "week-1-dsun-b1",
-            "label": "Scheduled Bluebook 10-Minute Break",
+            "id": "week-1-sun-rest",
+            "label": "Guaranteed Sunday Rest & Sleep Recovery (0 min)",
             "subject": "buffer",
-            "code": "BREAK",
-            "topic": "Exam Break",
-            "completed": false,
-            "timeSlot": "9:14 AM - 9:24 AM",
-            "durationMinutes": 10
-          },
-          {
-            "id": "week-1-scores",
-            "label": "Log initial section scores in Tracker (strictly zero studying after test)",
-            "subject": "review",
-            "code": "SCORES",
-            "topic": "Score Logging",
+            "code": "REST",
+            "topic": "Active Recovery",
             "completed": false
           }
         ]
@@ -984,7 +964,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 124,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 154,
-        "specialInstructions": "Day 9: study 124 min + break 30 min = 154 min total.",
+        "specialInstructions": "Day 9: study 124 min + break 30 min = 154 min total. <<< FOUNDATIONS FULLY COMPLETE (Math U2-U5 + R&W U2-U4) >>>",
         "tasks": [
           {
             "id": "week-2-d9-1",
@@ -1332,18 +1312,39 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "weekNumber": 2,
         "weekTitle": "Week 2: Advanced Math & Reading Foundations",
         "phase": "foundations",
-        "isBuffer": true,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "REST DAY (no studying). Zero study minutes required.",
+        "isBuffer": false,
+        "isTestDay": true,
+        "studyTimeMinutes": 144,
+        "breakTimeMinutes": 10,
+        "totalTimeMinutes": 154,
+        "specialInstructions": "DIAGNOSTIC TEST: Full Bluebook Practice Test #1 (8:00 AM - 10:24 AM). Foundations complete as of Sep 23 -- this is your real baseline, not a mid-Foundations snapshot.",
         "tasks": [
           {
-            "id": "week-2-sun-rest",
-            "label": "Guaranteed Sunday Rest & Sleep Recovery (0 min)",
+            "id": "w2-diag-1",
+            "label": "Full Bluebook Practice Test #1 (real conditions, timed)",
+            "subject": "test",
+            "code": "MOCK #1",
+            "topic": "Foundations Checkpoint Diagnostic Mock",
+            "completed": false,
+            "timeSlot": "8:00 AM - 10:24 AM",
+            "durationMinutes": 144
+          },
+          {
+            "id": "week-2-diag-break",
+            "label": "Scheduled Bluebook 10-Minute Break",
             "subject": "buffer",
-            "code": "REST",
-            "topic": "Active Recovery",
+            "code": "BREAK",
+            "topic": "Exam Break",
+            "completed": false,
+            "timeSlot": "9:14 AM - 9:24 AM",
+            "durationMinutes": 10
+          },
+          {
+            "id": "week-2-scores",
+            "label": "Log section scores in Bluebook Arena (strictly zero studying after test)",
+            "subject": "review",
+            "code": "SCORES",
+            "topic": "Score Logging",
             "completed": false
           }
         ]
@@ -2138,7 +2139,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 130,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 160,
-        "specialInstructions": "Day 22: study 130 min + break 30 min = 160 min total.",
+        "specialInstructions": "Day 22: study 130 min + break 30 min = 160 min total. <<< MEDIUM TIER FULLY COMPLETE (Math U6-U9 + R&W U5-U7) >>>",
         "tasks": [
           {
             "id": "week-4-d22-1",
@@ -2324,7 +2325,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 135,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 165,
-        "specialInstructions": "Day 24: study 135 min + break 30 min = 165 min total. DONE: ALL READING & WRITING COMPLETE.",
+        "specialInstructions": "Day 24: study 135 min + break 30 min = 165 min total. <<< ALL READING & WRITING COMPLETE >>>",
         "tasks": [
           {
             "id": "week-4-d24-1",
@@ -2408,18 +2409,39 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "weekNumber": 4,
         "weekTitle": "Week 4: Reading & Writing Challenge Unit & Geometry Transition",
         "phase": "foundations",
-        "isBuffer": true,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "REST DAY (no studying). Zero study minutes required.",
+        "isBuffer": false,
+        "isTestDay": true,
+        "studyTimeMinutes": 144,
+        "breakTimeMinutes": 10,
+        "totalTimeMinutes": 154,
+        "specialInstructions": "TEST #2 (MEDIUM TIER CHECKPOINT): Full Bluebook Practice Test (8:00 AM - 10:24 AM). Medium Tier Complete as of Oct 8 -- real timed signal.",
         "tasks": [
           {
-            "id": "week-4-sun-rest",
-            "label": "Guaranteed Sunday Rest & Sleep Recovery (0 min)",
+            "id": "p2-test-2",
+            "label": "Full Bluebook Practice Test #2 (real conditions, timed)",
+            "subject": "test",
+            "code": "MOCK #2",
+            "topic": "Medium Tier Checkpoint Mock",
+            "completed": false,
+            "timeSlot": "8:00 AM - 10:24 AM",
+            "durationMinutes": 144
+          },
+          {
+            "id": "week-4-test2-break",
+            "label": "Scheduled Bluebook 10-Minute Break",
             "subject": "buffer",
-            "code": "REST",
-            "topic": "Active Recovery",
+            "code": "BREAK",
+            "topic": "Exam Break",
+            "completed": false,
+            "timeSlot": "9:14 AM - 9:24 AM",
+            "durationMinutes": 10
+          },
+          {
+            "id": "week-4-scores",
+            "label": "Log section scores in Bluebook Arena (strictly zero studying after test)",
+            "subject": "review",
+            "code": "SCORES",
+            "topic": "Score Logging",
             "completed": false
           }
         ]
@@ -2936,22 +2958,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "studyTimeMinutes": 80,
-        "breakTimeMinutes": 15,
+        "breakTimeMinutes": 0,
         "totalTimeMinutes": 80,
-        "specialInstructions": "Day 32: study 80 min + break 15 min = 80 min total. DONE: GEOMETRY & TRIGONOMETRY FULLY COMPLETE (Foundations + Medium + Advanced). DONE: ALL MATH COMPLETE 8:00 AM - 10:24 AM: Full Bluebook Practice Test #2 (real conditions, timed). Evening 6:30 PM: Complete final Phase 1 geometry lessons.",
+        "specialInstructions": "Day 32: study 80 min. <<< ADVANCED TIER + ALL MATH COMPLETE >>>. 6:30 PM - 7:50 PM: Complete final Phase 1 geometry & circle lessons.",
         "tasks": [
                 {
-                        "id": "p2-test-2",
-                        "label": "Full Bluebook Practice Test #2 (real conditions, timed)",
-                        "subject": "test",
-                        "code": "MOCK #2",
-                        "topic": "Full Timed Test #2",
-                        "completed": false,
-                        "timeSlot": "8:00 AM - 10:24 AM",
-                        "durationMinutes": 144
-                },
-                {
-                        "id": "week-6-d32-2",
+                        "id": "week-6-d32-1",
                         "label": "[MATH U13.5] Unit circle trigonometry (40 min)",
                         "subject": "math",
                         "code": "Math U13.5",
@@ -2961,7 +2973,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
                         "durationMinutes": 40
                 },
                 {
-                        "id": "week-6-d32-3",
+                        "id": "week-6-d32-2",
                         "label": "[MATH U13.6] Circle equations (40 min)",
                         "subject": "math",
                         "code": "Math U13.6",
@@ -2969,17 +2981,9 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
                         "completed": false,
                         "timeSlot": "7:10 PM - 7:50 PM",
                         "durationMinutes": 40
-                },
-                {
-                        "id": "week-6-scores",
-                        "label": "Log initial section scores in Tracker (strictly zero studying after test)",
-                        "subject": "review",
-                        "code": "SCORES",
-                        "topic": "Score Logging",
-                        "completed": false
                 }
         ],
-        "isTestDay": true
+        "isTestDay": false
 },
       {
         "id": "2026-10-21",

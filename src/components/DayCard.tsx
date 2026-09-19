@@ -14,7 +14,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { DayPlan } from '../types';
-import { getDayLoadDifficulty, cleanSkillLabel } from '../utils/difficulty';
+import { getDayLoadDifficulty, cleanSkillLabel, getTaskKhanTier, getKhanTierBadge } from '../utils/difficulty';
 
 interface DayCardProps {
   day: DayPlan;
@@ -58,16 +58,22 @@ export const DayCard: React.FC<DayCardProps> = ({
       className={`rounded-2xl border-2 overflow-hidden shadow-grave-card hover:shadow-grave-card-hover smooth-card-hover transition-all duration-300 ${
         isExamDay
           ? 'bg-gradient-to-br from-amber-50/90 via-rose-50/80 to-white/90 border-amber-500 ring-2 ring-amber-400'
-          : day.isBuffer
-          ? 'bg-gradient-to-br from-emerald-50/90 via-teal-50/60 to-[#e5f0e1]/90 border-emerald-400'
+          : day.isBuffer && diffConfig.type === 'rest'
+          ? 'bg-slate-50/80 backdrop-blur-md border-slate-300 hover:border-slate-400'
           : isToday
-          ? 'bg-[#e5f0e1]/90 border-indigo-500 ring-2 ring-indigo-300'
+          ? 'bg-indigo-50/90 border-indigo-500 ring-2 ring-indigo-300'
           : isAllCompleted
-          ? 'bg-[#d2e4cd]/75 border-[#a6c4a1]'
-          : diffConfig.type === 'light'
-          ? 'bg-sky-50/70 backdrop-blur-md border-sky-300 hover:border-sky-500'
-          : diffConfig.type === 'intensive'
+          ? 'bg-emerald-50/70 border-emerald-400'
+          : diffConfig.type === 'foundations'
+          ? 'bg-emerald-50/70 backdrop-blur-md border-emerald-300 hover:border-emerald-500'
+          : diffConfig.type === 'medium'
           ? 'bg-amber-50/70 backdrop-blur-md border-amber-300 hover:border-amber-500'
+          : diffConfig.type === 'challenge'
+          ? 'bg-purple-50/70 backdrop-blur-md border-purple-300 hover:border-purple-500'
+          : diffConfig.type === 'advanced'
+          ? 'bg-rose-50/70 backdrop-blur-md border-rose-300 hover:border-rose-500'
+          : diffConfig.type === 'test'
+          ? 'bg-sky-50/80 backdrop-blur-md border-sky-300 hover:border-sky-500'
           : 'bg-[#e5f0e1]/65 backdrop-blur-md border-[#a6c4a1] hover:border-emerald-600'
       }`}
     >
@@ -76,14 +82,20 @@ export const DayCard: React.FC<DayCardProps> = ({
         className={`px-4 py-3 flex items-center justify-between border-b ${
           isExamDay
             ? 'border-amber-200 bg-amber-100/70'
-            : day.isBuffer
-            ? 'border-emerald-200 bg-emerald-100/50'
+            : day.isBuffer && diffConfig.type === 'rest'
+            ? 'border-slate-200 bg-slate-100/60'
             : isToday
             ? 'border-indigo-200 bg-indigo-100/60'
-            : diffConfig.type === 'light'
-            ? 'border-sky-200 bg-sky-100/50'
-            : diffConfig.type === 'intensive'
-            ? 'border-amber-200 bg-amber-100/50'
+            : diffConfig.type === 'foundations'
+            ? 'border-emerald-200 bg-emerald-100/60'
+            : diffConfig.type === 'medium'
+            ? 'border-amber-200 bg-amber-100/60'
+            : diffConfig.type === 'challenge'
+            ? 'border-purple-200 bg-purple-100/60'
+            : diffConfig.type === 'advanced'
+            ? 'border-rose-200 bg-rose-100/60'
+            : diffConfig.type === 'test'
+            ? 'border-sky-200 bg-sky-100/60'
             : 'border-[#a6c4a1]/50 bg-[#d2e4cd]/50'
         }`}
       >
@@ -230,6 +242,13 @@ export const DayCard: React.FC<DayCardProps> = ({
                 {task.subject === 'logistics' && (
                   <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-matcha-sub-dark text-slate-900 border border-[#a6c4a1]/60 font-['JetBrains_Mono']">
                     Prep
+                  </span>
+                )}
+
+                {/* Khan Academy Difficulty Tier Chip */}
+                {task.subject !== 'buffer' && (
+                  <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${getKhanTierBadge(getTaskKhanTier(task)).badgeClass}`}>
+                    {getKhanTierBadge(getTaskKhanTier(task)).label}
                   </span>
                 )}
 
