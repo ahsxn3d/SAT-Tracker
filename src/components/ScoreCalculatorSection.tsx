@@ -45,9 +45,9 @@ export interface MockTestScoreRecord {
 const STORAGE_KEY = 'anti_burnout_mock_scores_v1';
 
 export const MOCK_TESTS_CONFIG = [
-  { id: 'bluebook-test-1', name: 'Bluebook Test #1 (Foundations Checkpoint)', date: 'Thu Sep 24', tag: 'Foundations Baseline' },
-  { id: 'bluebook-test-2', name: 'Bluebook Test #2 (Medium Tier Checkpoint)', date: 'Sat Oct 10', tag: 'Medium Tier Complete' },
-  { id: 'bluebook-test-3', name: 'Bluebook Test #3 (All Math Complete Checkpoint)', date: 'Fri Oct 23', tag: 'All Math Complete' },
+  { id: 'bluebook-test-1', name: 'Bluebook Test #1 (Diagnostic Foundations Baseline)', date: 'Sun Sep 27', tag: 'Foundations Baseline' },
+  { id: 'bluebook-test-2', name: 'Bluebook Test #2 (Advanced Tier Checkpoint)', date: 'Wed Oct 21', tag: 'All Math Complete' },
+  { id: 'bluebook-test-3', name: 'Bluebook Test #3 (Real Conditions Simulation)', date: 'Tue Oct 27', tag: 'High-Stakes Simulation' },
   { id: 'bluebook-test-4', name: 'Bluebook Test #4 (Final Full Test, Real Conditions)', date: 'Mon Nov 2', tag: 'Final Real Conditions' },
 ];
 
