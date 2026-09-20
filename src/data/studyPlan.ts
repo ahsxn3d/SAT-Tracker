@@ -233,12 +233,13 @@ export function mergePackingListWithDefaults(savedList?: PackingItem[] | null): 
   return [...mergedCanonical, ...customItems];
 }
 
+
 export const STUDY_PLAN_WEEKS: WeekPlan[] = [
   {
     "id": "week-1",
     "title": "Week 1: Problem Solving & Advanced Math Foundations",
     "dateRange": "Sep 14 to Sep 20",
-    "subtitle": "Ratios, unit conversions, percentages, data distributions & R&W launch.",
+    "subtitle": "Daily structured Math & Reading & Writing lessons with scheduled Sunday rest.",
     "phase": "foundations",
     "days": [
       {
@@ -253,9 +254,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 80,
+        "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 95,
+        "totalTimeMinutes": 135,
+        "specialInstructions": "Day 1: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-14-1",
@@ -306,9 +308,28 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "timeSlot": "7:45 PM - 8:05 PM",
             "durationMinutes": 20,
             "completed": false
+          },
+          {
+            "id": "task-2026-09-14-6",
+            "label": "[R&W U3.1] Words in context",
+            "subject": "rw",
+            "code": "R&W U3.1",
+            "topic": "Words in context",
+            "timeSlot": "8:05 PM - 8:25 PM",
+            "durationMinutes": 20,
+            "completed": false
+          },
+          {
+            "id": "task-2026-09-14-7",
+            "label": "[R&W U3.2] Text structure and purpose",
+            "subject": "rw",
+            "code": "R&W U3.2",
+            "topic": "Text structure and purpose",
+            "timeSlot": "8:25 PM - 8:45 PM",
+            "durationMinutes": 20,
+            "completed": false
           }
-        ],
-        "specialInstructions": "Day 1: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-15",
@@ -322,9 +343,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 80,
+        "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 95,
+        "totalTimeMinutes": 135,
+        "specialInstructions": "Day 2: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-15-1",
@@ -375,9 +397,28 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "timeSlot": "7:45 PM - 8:05 PM",
             "durationMinutes": 20,
             "completed": false
+          },
+          {
+            "id": "task-2026-09-15-6",
+            "label": "[R&W U3.3] Cross-text connections",
+            "subject": "rw",
+            "code": "R&W U3.3",
+            "topic": "Cross-text connections",
+            "timeSlot": "8:05 PM - 8:25 PM",
+            "durationMinutes": 20,
+            "completed": false
+          },
+          {
+            "id": "task-2026-09-15-7",
+            "label": "[R&W U4.1] Transitions",
+            "subject": "rw",
+            "code": "R&W U4.1",
+            "topic": "Transitions",
+            "timeSlot": "8:25 PM - 8:45 PM",
+            "durationMinutes": 20,
+            "completed": false
           }
-        ],
-        "specialInstructions": "Day 2: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-16",
@@ -394,6 +435,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 135,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 165,
+        "specialInstructions": "Day 3: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-16-1",
@@ -457,26 +499,25 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-16-7",
-            "label": "[R&W U3.1] Words in context",
+            "label": "[R&W U4.2] Rhetorical synthesis",
             "subject": "rw",
-            "code": "R&W U3.1",
-            "topic": "Words in context",
+            "code": "R&W U4.2",
+            "topic": "Rhetorical synthesis",
             "timeSlot": "8:35 PM - 8:55 PM",
             "durationMinutes": 20,
             "completed": false
           },
           {
             "id": "task-2026-09-16-8",
-            "label": "[R&W U3.2] Text structure and purpose",
+            "label": "[R&W U4.3] Form, structure, and sense",
             "subject": "rw",
-            "code": "R&W U3.2",
-            "topic": "Text structure and purpose",
+            "code": "R&W U4.3",
+            "topic": "Form, structure, and sense",
             "timeSlot": "8:55 PM - 9:15 PM",
             "durationMinutes": 20,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 3: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-17",
@@ -490,9 +531,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 115,
+        "studyTimeMinutes": 117,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 145,
+        "totalTimeMinutes": 147,
+        "specialInstructions": "Day 4: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-17-1",
@@ -536,10 +578,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-17-5",
-            "label": "[R&W U3.3] Cross-text connections",
+            "label": "[R&W U4.4] Boundaries",
             "subject": "rw",
-            "code": "R&W U3.3",
-            "topic": "Cross-text connections",
+            "code": "R&W U4.4",
+            "topic": "Boundaries",
             "timeSlot": "8:00 PM - 8:20 PM",
             "durationMinutes": 20,
             "completed": false
@@ -556,16 +598,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-17-7",
-            "label": "[R&W U4.1] Transitions",
+            "label": "[R&W U5.1] Command of textual evidence",
             "subject": "rw",
-            "code": "R&W U4.1",
-            "topic": "Transitions",
-            "timeSlot": "8:35 PM - 8:55 PM",
-            "durationMinutes": 20,
+            "code": "R&W U5.1",
+            "topic": "Command of textual evidence",
+            "timeSlot": "8:35 PM - 8:57 PM",
+            "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 4: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-18",
@@ -579,9 +620,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 115,
+        "studyTimeMinutes": 119,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 145,
+        "totalTimeMinutes": 149,
+        "specialInstructions": "Day 5: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-18-1",
@@ -625,12 +667,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-18-5",
-            "label": "[R&W U4.2] Rhetorical synthesis",
+            "label": "[R&W U5.2] Command of quantitative evidence",
             "subject": "rw",
-            "code": "R&W U4.2",
-            "topic": "Rhetorical synthesis",
-            "timeSlot": "8:00 PM - 8:20 PM",
-            "durationMinutes": 20,
+            "code": "R&W U5.2",
+            "topic": "Command of quantitative evidence",
+            "timeSlot": "8:00 PM - 8:22 PM",
+            "durationMinutes": 22,
             "completed": false
           },
           {
@@ -639,22 +681,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:20 PM - 8:35 PM",
+            "timeSlot": "8:22 PM - 8:37 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-09-18-7",
-            "label": "[R&W U4.3] Form, structure, and sense",
+            "label": "[R&W U5.3] Central ideas and details",
             "subject": "rw",
-            "code": "R&W U4.3",
-            "topic": "Form, structure, and sense",
-            "timeSlot": "8:35 PM - 8:55 PM",
-            "durationMinutes": 20,
+            "code": "R&W U5.3",
+            "topic": "Central ideas and details",
+            "timeSlot": "8:37 PM - 8:59 PM",
+            "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 5: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-19",
@@ -668,9 +709,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 117,
+        "studyTimeMinutes": 119,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 147,
+        "totalTimeMinutes": 149,
+        "specialInstructions": "Day 6: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-19-1",
@@ -714,12 +756,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-19-5",
-            "label": "[R&W U4.4] Boundaries",
+            "label": "[R&W U5.4] Inferences",
             "subject": "rw",
-            "code": "R&W U4.4",
-            "topic": "Boundaries",
-            "timeSlot": "8:00 PM - 8:20 PM",
-            "durationMinutes": 20,
+            "code": "R&W U5.4",
+            "topic": "Inferences",
+            "timeSlot": "8:00 PM - 8:22 PM",
+            "durationMinutes": 22,
             "completed": false
           },
           {
@@ -728,22 +770,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:20 PM - 8:35 PM",
+            "timeSlot": "8:22 PM - 8:37 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-09-19-7",
-            "label": "[R&W U5.1] Command of textual evidence",
+            "label": "[R&W U6.1] Words in context",
             "subject": "rw",
-            "code": "R&W U5.1",
-            "topic": "Command of textual evidence",
-            "timeSlot": "8:35 PM - 8:57 PM",
+            "code": "R&W U6.1",
+            "topic": "Words in context",
+            "timeSlot": "8:37 PM - 8:59 PM",
             "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 6: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-20",
@@ -759,6 +800,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
         "tasks": [
           {
             "id": "rest-2026-09-20",
@@ -768,16 +810,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery."
+        ]
       }
     ]
   },
   {
     "id": "week-2",
-    "title": "Week 2: Foundations Complete & Diagnostic Test #1 Checkpoint",
+    "title": "Week 2: Foundations Mastery & Pure Content Study",
     "dateRange": "Sep 21 to Sep 27",
-    "subtitle": "Foundations complete on Sep 23; Full Bluebook Test #1 baseline on Sun Sep 27.",
+    "subtitle": "Foundations complete on Wed Sep 23; Pure study across algebra & geometry with Sunday Rest.",
     "phase": "foundations",
     "days": [
       {
@@ -788,13 +829,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 7,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 129,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 159,
+        "specialInstructions": "Day 7: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-21-1",
@@ -838,10 +880,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-21-5",
-            "label": "[R&W U5.2] Command of quantitative evidence",
+            "label": "[R&W U6.2] Text structure and purpose",
             "subject": "rw",
-            "code": "R&W U5.2",
-            "topic": "Command of quantitative evidence",
+            "code": "R&W U6.2",
+            "topic": "Text structure and purpose",
             "timeSlot": "8:10 PM - 8:32 PM",
             "durationMinutes": 22,
             "completed": false
@@ -858,16 +900,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-21-7",
-            "label": "[R&W U5.3] Central ideas and details",
+            "label": "[R&W U6.3] Cross-text connections",
             "subject": "rw",
-            "code": "R&W U5.3",
-            "topic": "Central ideas and details",
+            "code": "R&W U6.3",
+            "topic": "Cross-text connections",
             "timeSlot": "8:47 PM - 9:09 PM",
             "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 7: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-22",
@@ -877,13 +918,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 8,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 134,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 164,
+        "specialInstructions": "Day 8: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-22-1",
@@ -927,10 +969,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-22-5",
-            "label": "[R&W U5.4] Inferences",
+            "label": "[R&W U7.1] Transitions",
             "subject": "rw",
-            "code": "R&W U5.4",
-            "topic": "Inferences",
+            "code": "R&W U7.1",
+            "topic": "Transitions",
             "timeSlot": "8:15 PM - 8:37 PM",
             "durationMinutes": 22,
             "completed": false
@@ -947,16 +989,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-22-7",
-            "label": "[R&W U6.1] Words in context",
+            "label": "[R&W U7.2] Rhetorical synthesis",
             "subject": "rw",
-            "code": "R&W U6.1",
-            "topic": "Words in context",
+            "code": "R&W U7.2",
+            "topic": "Rhetorical synthesis",
             "timeSlot": "8:52 PM - 9:14 PM",
             "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 8: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-23",
@@ -966,13 +1007,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 9,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 124,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 154,
+        "specialInstructions": "FOUNDATIONS FULLY COMPLETE (Math U2-U5 + R&W U2-U4)",
         "tasks": [
           {
             "id": "task-2026-09-23-1",
@@ -1016,10 +1058,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-23-5",
-            "label": "[R&W U6.2] Text structure and purpose",
+            "label": "[R&W U7.3] Form, structure, and sense",
             "subject": "rw",
-            "code": "R&W U6.2",
-            "topic": "Text structure and purpose",
+            "code": "R&W U7.3",
+            "topic": "Form, structure, and sense",
             "timeSlot": "8:05 PM - 8:27 PM",
             "durationMinutes": 22,
             "completed": false
@@ -1036,16 +1078,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-23-7",
-            "label": "[R&W U6.3] Cross-text connections",
+            "label": "[R&W U7.4] Boundaries",
             "subject": "rw",
-            "code": "R&W U6.3",
-            "topic": "Cross-text connections",
+            "code": "R&W U7.4",
+            "topic": "Boundaries",
             "timeSlot": "8:42 PM - 9:04 PM",
             "durationMinutes": 22,
             "completed": false
           }
-        ],
-        "specialInstructions": "FOUNDATIONS FULLY COMPLETE (Math U2-U5 + R&W U2-U4)"
+        ]
       },
       {
         "id": "2026-09-24",
@@ -1055,13 +1096,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 10,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 119,
+        "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 149,
+        "totalTimeMinutes": 155,
+        "specialInstructions": "Day 10: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-24-1",
@@ -1105,12 +1147,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-24-5",
-            "label": "[R&W U7.1] Transitions",
+            "label": "[R&W U8.1] Command of textual evidence",
             "subject": "rw",
-            "code": "R&W U7.1",
-            "topic": "Transitions",
-            "timeSlot": "8:00 PM - 8:22 PM",
-            "durationMinutes": 22,
+            "code": "R&W U8.1",
+            "topic": "Command of textual evidence",
+            "timeSlot": "8:00 PM - 8:25 PM",
+            "durationMinutes": 25,
             "completed": false
           },
           {
@@ -1119,22 +1161,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:22 PM - 8:37 PM",
+            "timeSlot": "8:25 PM - 8:40 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-09-24-7",
-            "label": "[R&W U7.2] Rhetorical synthesis",
+            "label": "[R&W U8.2] Command of quantitative evidence",
             "subject": "rw",
-            "code": "R&W U7.2",
-            "topic": "Rhetorical synthesis",
-            "timeSlot": "8:37 PM - 8:59 PM",
-            "durationMinutes": 22,
+            "code": "R&W U8.2",
+            "topic": "Command of quantitative evidence",
+            "timeSlot": "8:40 PM - 9:05 PM",
+            "durationMinutes": 25,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 10: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-25",
@@ -1144,13 +1185,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 11,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 119,
+        "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 149,
+        "totalTimeMinutes": 155,
+        "specialInstructions": "Day 11: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-25-1",
@@ -1194,12 +1236,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-25-5",
-            "label": "[R&W U7.3] Form, structure, and sense",
+            "label": "[R&W U8.3] Central ideas and details",
             "subject": "rw",
-            "code": "R&W U7.3",
-            "topic": "Form, structure, and sense",
-            "timeSlot": "8:00 PM - 8:22 PM",
-            "durationMinutes": 22,
+            "code": "R&W U8.3",
+            "topic": "Central ideas and details",
+            "timeSlot": "8:00 PM - 8:25 PM",
+            "durationMinutes": 25,
             "completed": false
           },
           {
@@ -1208,22 +1250,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:22 PM - 8:37 PM",
+            "timeSlot": "8:25 PM - 8:40 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-09-25-7",
-            "label": "[R&W U7.4] Boundaries",
+            "label": "[R&W U8.4] Inferences",
             "subject": "rw",
-            "code": "R&W U7.4",
-            "topic": "Boundaries",
-            "timeSlot": "8:37 PM - 8:59 PM",
-            "durationMinutes": 22,
+            "code": "R&W U8.4",
+            "topic": "Inferences",
+            "timeSlot": "8:40 PM - 9:05 PM",
+            "durationMinutes": 25,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 11: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-26",
@@ -1233,13 +1274,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 12,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 155,
+        "specialInstructions": "Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-26-1",
@@ -1283,10 +1325,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-26-5",
-            "label": "[R&W U8.1] Command of textual evidence",
+            "label": "[R&W U9.1] Words in context",
             "subject": "rw",
-            "code": "R&W U8.1",
-            "topic": "Command of textual evidence",
+            "code": "R&W U9.1",
+            "topic": "Words in context",
             "timeSlot": "8:00 PM - 8:25 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1303,16 +1345,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-26-7",
-            "label": "[R&W U8.2] Command of quantitative evidence",
+            "label": "[R&W U9.2] Text structure and purpose",
             "subject": "rw",
-            "code": "R&W U8.2",
-            "topic": "Command of quantitative evidence",
+            "code": "R&W U9.2",
+            "topic": "Text structure and purpose",
             "timeSlot": "8:40 PM - 9:05 PM",
             "durationMinutes": 25,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-27",
@@ -1321,26 +1362,24 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sun Sep 27",
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Complete & Diagnostic Test #1 Checkpoint",
+        "weekTitle": "Foundations Mastery & Pure Content Study",
         "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": true,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 10,
-        "totalTimeMinutes": 154,
+        "isBuffer": true,
+        "isTestDay": false,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
         "tasks": [
           {
-            "id": "bluebook-test-1",
-            "label": "Full Bluebook Practice Test #1 (real conditions, timed)",
-            "subject": "test",
-            "code": "TEST #1",
-            "topic": "Foundations Checkpoint Diagnostic Mock",
-            "timeSlot": "8:00 AM - 10:24 AM",
-            "durationMinutes": 144,
+            "id": "rest-2026-09-27",
+            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
+            "subject": "buffer",
+            "code": "REST",
+            "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "DIAGNOSTIC TEST: Full Bluebook Practice Test #1 (8:00 AM - 10:24 AM). Foundations complete as of Sep 23 -- this is your real baseline, not a mid-Foundations snapshot."
+        ]
       }
     ]
   },
@@ -1366,6 +1405,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 155,
+        "specialInstructions": "Day 13: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-28-1",
@@ -1409,10 +1449,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-28-5",
-            "label": "[R&W U8.3] Central ideas and details",
+            "label": "[R&W U9.3] Cross-text connections",
             "subject": "rw",
-            "code": "R&W U8.3",
-            "topic": "Central ideas and details",
+            "code": "R&W U9.3",
+            "topic": "Cross-text connections",
             "timeSlot": "8:00 PM - 8:25 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1429,16 +1469,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-28-7",
-            "label": "[R&W U8.4] Inferences",
+            "label": "[R&W U10.1] Transitions",
             "subject": "rw",
-            "code": "R&W U8.4",
-            "topic": "Inferences",
+            "code": "R&W U10.1",
+            "topic": "Transitions",
             "timeSlot": "8:40 PM - 9:05 PM",
             "durationMinutes": 25,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 13: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-29",
@@ -1455,6 +1494,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 155,
+        "specialInstructions": "Day 14: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-29-1",
@@ -1498,10 +1538,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-29-5",
-            "label": "[R&W U9.1] Words in context",
+            "label": "[R&W U10.2] Rhetorical synthesis",
             "subject": "rw",
-            "code": "R&W U9.1",
-            "topic": "Words in context",
+            "code": "R&W U10.2",
+            "topic": "Rhetorical synthesis",
             "timeSlot": "8:00 PM - 8:25 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1518,16 +1558,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-29-7",
-            "label": "[R&W U9.2] Text structure and purpose",
+            "label": "[R&W U10.3] Form, structure, and sense",
             "subject": "rw",
-            "code": "R&W U9.2",
-            "topic": "Text structure and purpose",
+            "code": "R&W U10.3",
+            "topic": "Form, structure, and sense",
             "timeSlot": "8:40 PM - 9:05 PM",
             "durationMinutes": 25,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 14: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-09-30",
@@ -1541,9 +1580,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 105,
+        "studyTimeMinutes": 115,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 120,
+        "totalTimeMinutes": 130,
+        "specialInstructions": "Day 15: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-09-30-1",
@@ -1577,26 +1617,25 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-09-30-4",
-            "label": "[R&W U9.3] Cross-text connections",
+            "label": "[R&W U10.4] Boundaries",
             "subject": "rw",
-            "code": "R&W U9.3",
-            "topic": "Cross-text connections",
+            "code": "R&W U10.4",
+            "topic": "Boundaries",
             "timeSlot": "7:40 PM - 8:05 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-09-30-5",
-            "label": "[R&W U10.1] Transitions",
+            "label": "[R&W U11.1] Command of evidence",
             "subject": "rw",
-            "code": "R&W U10.1",
-            "topic": "Transitions",
-            "timeSlot": "8:05 PM - 8:30 PM",
-            "durationMinutes": 25,
+            "code": "R&W U11.1",
+            "topic": "Command of evidence",
+            "timeSlot": "8:05 PM - 8:40 PM",
+            "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 15: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-01",
@@ -1610,9 +1649,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 110,
+        "studyTimeMinutes": 130,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 125,
+        "totalTimeMinutes": 145,
+        "specialInstructions": "Day 16: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-01-1",
@@ -1646,26 +1686,25 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-01-4",
-            "label": "[R&W U10.2] Rhetorical synthesis",
+            "label": "[R&W U11.2] Central ideas and details + inferences",
             "subject": "rw",
-            "code": "R&W U10.2",
-            "topic": "Rhetorical synthesis",
-            "timeSlot": "7:45 PM - 8:10 PM",
-            "durationMinutes": 25,
+            "code": "R&W U11.2",
+            "topic": "Central ideas and details + inferences",
+            "timeSlot": "7:45 PM - 8:20 PM",
+            "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-01-5",
-            "label": "[R&W U10.3] Form, structure, and sense",
+            "label": "[R&W U11.3] Words in context",
             "subject": "rw",
-            "code": "R&W U10.3",
-            "topic": "Form, structure, and sense",
-            "timeSlot": "8:10 PM - 8:35 PM",
-            "durationMinutes": 25,
+            "code": "R&W U11.3",
+            "topic": "Words in context",
+            "timeSlot": "8:20 PM - 8:55 PM",
+            "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 16: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-02",
@@ -1679,9 +1718,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 120,
+        "studyTimeMinutes": 130,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 135,
+        "totalTimeMinutes": 145,
+        "specialInstructions": "Day 17: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-02-1",
@@ -1715,26 +1755,25 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-02-4",
-            "label": "[R&W U10.4] Boundaries",
+            "label": "[R&W U11.4] Text structure and purpose + cross-text connections",
             "subject": "rw",
-            "code": "R&W U10.4",
-            "topic": "Boundaries",
-            "timeSlot": "7:45 PM - 8:10 PM",
-            "durationMinutes": 25,
+            "code": "R&W U11.4",
+            "topic": "Text structure and purpose + cross-text connections",
+            "timeSlot": "7:45 PM - 8:20 PM",
+            "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-02-5",
-            "label": "[R&W U11.1] Command of evidence",
+            "label": "[R&W U11.5] Boundaries + form, structure, and sense",
             "subject": "rw",
-            "code": "R&W U11.1",
-            "topic": "Command of evidence",
-            "timeSlot": "8:10 PM - 8:45 PM",
+            "code": "R&W U11.5",
+            "topic": "Boundaries + form, structure, and sense",
+            "timeSlot": "8:20 PM - 8:55 PM",
             "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 17: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-03",
@@ -1748,9 +1787,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 160,
+        "studyTimeMinutes": 140,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 190,
+        "totalTimeMinutes": 170,
+        "specialInstructions": "CHALLENGE UNIT COMPLETE (R&W Unit 11 mastered!)",
         "tasks": [
           {
             "id": "task-2026-10-03-1",
@@ -1794,10 +1834,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-03-5",
-            "label": "[R&W U11.2] Central ideas and details + inferences",
+            "label": "[R&W U11.6] Transitions + rhetorical synthesis",
             "subject": "rw",
-            "code": "R&W U11.2",
-            "topic": "Central ideas and details + inferences",
+            "code": "R&W U11.6",
+            "topic": "Transitions + rhetorical synthesis",
             "timeSlot": "8:15 PM - 8:50 PM",
             "durationMinutes": 35,
             "completed": false
@@ -1814,16 +1854,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-03-7",
-            "label": "[R&W U11.3] Words in context",
+            "label": "[R&W U12.1] Subject-verb agreement",
             "subject": "rw",
-            "code": "R&W U11.3",
-            "topic": "Words in context",
-            "timeSlot": "9:05 PM - 9:40 PM",
-            "durationMinutes": 35,
+            "code": "R&W U12.1",
+            "topic": "Subject-verb agreement",
+            "timeSlot": "9:05 PM - 9:20 PM",
+            "durationMinutes": 15,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 18: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-04",
@@ -1839,6 +1878,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
         "tasks": [
           {
             "id": "rest-2026-10-04",
@@ -1848,8 +1888,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery."
+        ]
       }
     ]
   },
@@ -1857,7 +1896,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-4",
     "title": "Week 4: Challenge Unit Completion & All R&W Complete",
     "dateRange": "Oct 05 to Oct 11",
-    "subtitle": "Challenge Unit finished on Oct 6; All Reading & Writing 100% finished on Sat Oct 10!",
+    "subtitle": "Challenge Unit finished on Oct 3; All Reading & Writing 100% finished on Thu Oct 8!",
     "phase": "foundations",
     "days": [
       {
@@ -1872,9 +1911,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 160,
+        "studyTimeMinutes": 120,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 190,
+        "totalTimeMinutes": 150,
+        "specialInstructions": "Day 19: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-05-1",
@@ -1918,12 +1958,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-05-5",
-            "label": "[R&W U11.4] Text structure and purpose + cross-text connections",
+            "label": "[R&W U12.2] Pronoun-antecedent agreement",
             "subject": "rw",
-            "code": "R&W U11.4",
-            "topic": "Text structure and purpose + cross-text connections",
-            "timeSlot": "8:15 PM - 8:50 PM",
-            "durationMinutes": 35,
+            "code": "R&W U12.2",
+            "topic": "Pronoun-antecedent agreement",
+            "timeSlot": "8:15 PM - 8:30 PM",
+            "durationMinutes": 15,
             "completed": false
           },
           {
@@ -1932,22 +1972,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:50 PM - 9:05 PM",
+            "timeSlot": "8:30 PM - 8:45 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-10-05-7",
-            "label": "[R&W U11.5] Boundaries + form, structure, and sense",
+            "label": "[R&W U12.3] Plurals and possessives",
             "subject": "rw",
-            "code": "R&W U11.5",
-            "topic": "Boundaries + form, structure, and sense",
-            "timeSlot": "9:05 PM - 9:40 PM",
-            "durationMinutes": 35,
+            "code": "R&W U12.3",
+            "topic": "Plurals and possessives",
+            "timeSlot": "8:45 PM - 9:00 PM",
+            "durationMinutes": 15,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 19: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-06",
@@ -1961,9 +2000,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 145,
+        "studyTimeMinutes": 125,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 175,
+        "totalTimeMinutes": 155,
+        "specialInstructions": "Day 20: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-06-1",
@@ -2007,12 +2047,12 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-06-5",
-            "label": "[R&W U11.6] Transitions + rhetorical synthesis",
+            "label": "[R&W U12.4] Verb forms",
             "subject": "rw",
-            "code": "R&W U11.6",
-            "topic": "Transitions + rhetorical synthesis",
-            "timeSlot": "8:20 PM - 8:55 PM",
-            "durationMinutes": 35,
+            "code": "R&W U12.4",
+            "topic": "Verb forms",
+            "timeSlot": "8:20 PM - 8:35 PM",
+            "durationMinutes": 15,
             "completed": false
           },
           {
@@ -2021,22 +2061,21 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "code": "BREAK",
             "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:55 PM - 9:10 PM",
+            "timeSlot": "8:35 PM - 8:50 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-10-06-7",
-            "label": "[R&W U12.1] Subject-verb agreement",
+            "label": "[R&W U12.5] Subject-modifier placement",
             "subject": "rw",
-            "code": "R&W U12.1",
-            "topic": "Subject-verb agreement",
-            "timeSlot": "9:10 PM - 9:25 PM",
+            "code": "R&W U12.5",
+            "topic": "Subject-modifier placement",
+            "timeSlot": "8:50 PM - 9:05 PM",
             "durationMinutes": 15,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 20: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-07",
@@ -2053,6 +2092,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 135,
         "breakTimeMinutes": 30,
         "totalTimeMinutes": 165,
+        "specialInstructions": "Day 21: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-07-1",
@@ -2096,10 +2136,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-07-5",
-            "label": "[R&W U12.2] Pronoun-antecedent agreement",
+            "label": "[R&W U12.6] Linking clauses",
             "subject": "rw",
-            "code": "R&W U12.2",
-            "topic": "Pronoun-antecedent agreement",
+            "code": "R&W U12.6",
+            "topic": "Linking clauses",
             "timeSlot": "8:30 PM - 8:45 PM",
             "durationMinutes": 15,
             "completed": false
@@ -2116,16 +2156,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-07-7",
-            "label": "[R&W U12.3] Plurals and possessives",
+            "label": "[R&W U12.7] Supplements",
             "subject": "rw",
-            "code": "R&W U12.3",
-            "topic": "Plurals and possessives",
+            "code": "R&W U12.7",
+            "topic": "Supplements",
             "timeSlot": "9:00 PM - 9:15 PM",
             "durationMinutes": 15,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 21: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-08",
@@ -2139,9 +2178,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 130,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 160,
+        "studyTimeMinutes": 115,
+        "breakTimeMinutes": 15,
+        "totalTimeMinutes": 130,
+        "specialInstructions": "ALL READING & WRITING COMPLETE (R&W Units 2-12 finished!)",
         "tasks": [
           {
             "id": "task-2026-10-08-1",
@@ -2185,36 +2225,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-08-5",
-            "label": "[R&W U12.4] Verb forms",
+            "label": "[R&W U12.8] Punctuation",
             "subject": "rw",
-            "code": "R&W U12.4",
-            "topic": "Verb forms",
+            "code": "R&W U12.8",
+            "topic": "Punctuation",
             "timeSlot": "8:25 PM - 8:40 PM",
             "durationMinutes": 15,
             "completed": false
-          },
-          {
-            "id": "break-2026-10-08-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "code": "BREAK",
-            "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:40 PM - 8:55 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-08-7",
-            "label": "[R&W U12.5] Subject-modifier placement",
-            "subject": "rw",
-            "code": "R&W U12.5",
-            "topic": "Subject-modifier placement",
-            "timeSlot": "8:55 PM - 9:10 PM",
-            "durationMinutes": 15,
-            "completed": false
           }
-        ],
-        "specialInstructions": "Day 22: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-09",
@@ -2228,9 +2247,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 150,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 180,
+        "studyTimeMinutes": 120,
+        "breakTimeMinutes": 15,
+        "totalTimeMinutes": 135,
+        "specialInstructions": "Day 23: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-09-1",
@@ -2281,39 +2301,8 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "timeSlot": "8:15 PM - 8:45 PM",
             "durationMinutes": 30,
             "completed": false
-          },
-          {
-            "id": "break-2026-10-09-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "code": "BREAK",
-            "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:45 PM - 9:00 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-09-7",
-            "label": "[R&W U12.6] Linking clauses",
-            "subject": "rw",
-            "code": "R&W U12.6",
-            "topic": "Linking clauses",
-            "timeSlot": "9:00 PM - 9:15 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-09-8",
-            "label": "[R&W U12.7] Supplements",
-            "subject": "rw",
-            "code": "R&W U12.7",
-            "topic": "Supplements",
-            "timeSlot": "9:15 PM - 9:30 PM",
-            "durationMinutes": 15,
-            "completed": false
           }
-        ],
-        "specialInstructions": "Day 23: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-10",
@@ -2327,9 +2316,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 135,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 165,
+        "studyTimeMinutes": 120,
+        "breakTimeMinutes": 15,
+        "totalTimeMinutes": 135,
+        "specialInstructions": "Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-10-1",
@@ -2380,29 +2370,8 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "timeSlot": "8:15 PM - 8:45 PM",
             "durationMinutes": 30,
             "completed": false
-          },
-          {
-            "id": "break-2026-10-10-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "code": "BREAK",
-            "topic": "Screen-Free Rest & Recharge",
-            "timeSlot": "8:45 PM - 9:00 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-10-7",
-            "label": "[R&W U12.8] Punctuation",
-            "subject": "rw",
-            "code": "R&W U12.8",
-            "topic": "Punctuation",
-            "timeSlot": "9:00 PM - 9:15 PM",
-            "durationMinutes": 15,
-            "completed": false
           }
-        ],
-        "specialInstructions": "Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-11",
@@ -2418,6 +2387,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
         "tasks": [
           {
             "id": "rest-2026-10-11",
@@ -2427,8 +2397,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery."
+        ]
       }
     ]
   },
@@ -2454,6 +2423,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 135,
+        "specialInstructions": "Day 25: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-12-1",
@@ -2505,8 +2475,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 30,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 25: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-13",
@@ -2523,6 +2492,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 135,
+        "specialInstructions": "Day 26: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-13-1",
@@ -2574,8 +2544,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 30,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 26: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-14",
@@ -2592,6 +2561,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 135,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 150,
+        "specialInstructions": "Day 27: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-14-1",
@@ -2643,8 +2613,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 27: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-15",
@@ -2661,6 +2630,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 140,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 155,
+        "specialInstructions": "Day 28: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-15-1",
@@ -2712,8 +2682,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 28: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-16",
@@ -2730,6 +2699,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 140,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 155,
+        "specialInstructions": "Day 29: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-16-1",
@@ -2781,8 +2751,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 35,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 29: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-17",
@@ -2799,6 +2768,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 110,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 125,
+        "specialInstructions": "Day 30: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-17-1",
@@ -2840,8 +2810,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 40,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 30: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-18",
@@ -2857,6 +2826,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
         "tasks": [
           {
             "id": "rest-2026-10-18",
@@ -2866,8 +2836,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery."
+        ]
       }
     ]
   },
@@ -2893,6 +2862,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
         "totalTimeMinutes": 135,
+        "specialInstructions": "Day 31: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.",
         "tasks": [
           {
             "id": "task-2026-10-19-1",
@@ -2934,8 +2904,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 40,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 31: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-20",
@@ -2952,6 +2921,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 80,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 80,
+        "specialInstructions": "ALL MATH COMPLETE (Math Units 2-13 finished! 100% curriculum mastered)",
         "tasks": [
           {
             "id": "task-2026-10-20-1",
@@ -2973,8 +2943,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 40,
             "completed": false
           }
-        ],
-        "specialInstructions": "Day 32: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        ]
       },
       {
         "id": "2026-10-21",
@@ -2990,19 +2959,19 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
+        "specialInstructions": "Full Bluebook Practice Test #2 (real conditions, timed): 8:00 AM - 10:24 AM.",
         "tasks": [
           {
             "id": "bluebook-test-2",
-            "label": "TEST #2: Advanced Tier / All Math Complete Checkpoint (144 min, timed)",
+            "label": "Full Bluebook Practice Test #2 (real conditions, timed)",
             "subject": "test",
             "code": "TEST #2",
-            "topic": "Advanced Tier Full Test Checkpoint",
+            "topic": "Full Bluebook Practice Test #2 (Real Conditions)",
             "timeSlot": "8:00 AM - 10:24 AM",
             "durationMinutes": 144,
             "completed": false
           }
-        ],
-        "specialInstructions": "TEST #2 (ADVANCED TIER CHECKPOINT / full test): 8:00 AM - 10:24 AM under real conditions right after completing all SAT Math."
+        ]
       },
       {
         "id": "2026-10-22",
@@ -3018,6 +2987,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 45,
+        "specialInstructions": "Error-log review of Test #2 (45 min): Open score report, dissect every wrong question: skill & root-cause autopsy.",
         "tasks": [
           {
             "id": "p2-d2-1",
@@ -3029,8 +2999,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 45,
             "completed": false
           }
-        ],
-        "specialInstructions": "Error-log review of Test #2: Open score report, dissect every wrong question: skill & root-cause autopsy."
+        ]
       },
       {
         "id": "2026-10-23",
@@ -3046,6 +3015,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 75,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 75,
+        "specialInstructions": "Targeted Math drills on Test #2 errors (45m) + Desmos speed drills on systems & roots (30m).",
         "tasks": [
           {
             "id": "p2-d3-1",
@@ -3057,8 +3027,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 75,
             "completed": false
           }
-        ],
-        "specialInstructions": "Targeted Math drills on Test #2 errors (45m) + Desmos speed drills on systems & roots (30m)."
+        ]
       },
       {
         "id": "2026-10-24",
@@ -3074,6 +3043,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 60,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 60,
+        "specialInstructions": "Targeted R&W drills, punctuation/grammar review: Redo missed skills on Khan, review grammar rules.",
         "tasks": [
           {
             "id": "p2-d4-1",
@@ -3085,8 +3055,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 60,
             "completed": false
           }
-        ],
-        "specialInstructions": "Targeted R&W drills, punctuation/grammar review: Redo missed skills on Khan, review grammar rules."
+        ]
       },
       {
         "id": "2026-10-25",
@@ -3102,6 +3071,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset & recovery.",
         "tasks": [
           {
             "id": "rest-2026-10-25",
@@ -3111,8 +3081,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Cognitive Recovery",
             "completed": false
           }
-        ],
-        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset & recovery."
+        ]
       }
     ]
   },
@@ -3137,6 +3106,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 45,
+        "specialInstructions": "Light targeted practice on remaining weak spots (45 min): Only weak spots still bothering you, nothing new.",
         "tasks": [
           {
             "id": "p2-d6-1",
@@ -3148,8 +3118,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 45,
             "completed": false
           }
-        ],
-        "specialInstructions": "Light targeted practice on remaining weak spots (45 min): Only weak spots still bothering you, nothing new."
+        ]
       },
       {
         "id": "2026-10-27",
@@ -3165,19 +3134,19 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
+        "specialInstructions": "Full Bluebook Practice Test #3 (real conditions, timed): 8:00 AM - 10:24 AM.",
         "tasks": [
           {
             "id": "bluebook-test-3",
-            "label": "TEST #3: Full Bluebook Practice Test (real conditions, 144 min)",
+            "label": "Full Bluebook Practice Test #3 (real conditions, timed)",
             "subject": "test",
             "code": "TEST #3",
-            "topic": "Full Timed Simulation",
+            "topic": "Full Bluebook Practice Test #3 (Real Conditions)",
             "timeSlot": "8:00 AM - 10:24 AM",
             "durationMinutes": 144,
             "completed": false
           }
-        ],
-        "specialInstructions": "TEST #3: Full test under real conditions, both sections with 10-min break."
+        ]
       },
       {
         "id": "2026-10-28",
@@ -3193,6 +3162,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 45,
+        "specialInstructions": "Error-log review of Test #3 (45 min): Dissect every wrong question and log root-cause rules.",
         "tasks": [
           {
             "id": "p2-d8-1",
@@ -3204,8 +3174,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 45,
             "completed": false
           }
-        ],
-        "specialInstructions": "Error-log review of Test #3 (45 min): Dissect every wrong question and log root-cause rules."
+        ]
       },
       {
         "id": "2026-10-29",
@@ -3221,6 +3190,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 60,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 60,
+        "specialInstructions": "Targeted drills on Test #3 weak areas (60 min): Fix what Test #3 exposed with targeted Khan practice.",
         "tasks": [
           {
             "id": "p2-d9-1",
@@ -3232,8 +3202,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 60,
             "completed": false
           }
-        ],
-        "specialInstructions": "Targeted drills on Test #3 weak areas (60 min): Fix what Test #3 exposed with targeted Khan practice."
+        ]
       },
       {
         "id": "2026-10-30",
@@ -3249,6 +3218,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 60,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 60,
+        "specialInstructions": "Deep review, punctuation & transitions traps + Math cleanup (60 min).",
         "tasks": [
           {
             "id": "p2-d10-1",
@@ -3260,8 +3230,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 60,
             "completed": false
           }
-        ],
-        "specialInstructions": "Deep review, punctuation & transitions traps + Math cleanup (60 min)."
+        ]
       },
       {
         "id": "2026-10-31",
@@ -3277,6 +3246,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
+        "specialInstructions": "Full Bluebook Practice Test #4 (final full test, timed): 8:00 AM - 10:24 AM under real conditions.",
         "tasks": [
           {
             "id": "bluebook-test-4",
@@ -3288,8 +3258,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 144,
             "completed": false
           }
-        ],
-        "specialInstructions": "Full Bluebook Practice Test #4 (final full test, timed): 8:00 AM - 10:24 AM under real conditions."
+        ]
       },
       {
         "id": "2026-11-01",
@@ -3305,6 +3274,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset.",
         "tasks": [
           {
             "id": "rest-2026-11-01",
@@ -3314,8 +3284,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Mental Reset",
             "completed": false
           }
-        ],
-        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset."
+        ]
       }
     ]
   },
@@ -3340,6 +3309,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 45,
+        "specialInstructions": "Error-log review of Test #4 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing.",
         "tasks": [
           {
             "id": "w8-d1-1",
@@ -3351,8 +3321,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 45,
             "completed": false
           }
-        ],
-        "specialInstructions": "Error-log review of Test #4 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing."
+        ]
       },
       {
         "id": "2026-11-03",
@@ -3368,6 +3337,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 30,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 30,
+        "specialInstructions": "Light taper, review error notebook + grammar rules (30 min): No heavy problem sets, gentle reinforcement.",
         "tasks": [
           {
             "id": "w8-d2-1",
@@ -3379,8 +3349,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 30,
             "completed": false
           }
-        ],
-        "specialInstructions": "Light taper, review error notebook + grammar rules (30 min): No heavy problem sets, gentle reinforcement."
+        ]
       },
       {
         "id": "2026-11-04",
@@ -3396,6 +3365,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 20,
+        "specialInstructions": "Verify Bluebook app, admission ticket, ID (20 min): Ensure device is updated, admission ticket printed, ID ready.",
         "tasks": [
           {
             "id": "w8-d3-1",
@@ -3407,8 +3377,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 20,
             "completed": false
           }
-        ],
-        "specialInstructions": "Verify Bluebook app, admission ticket, ID (20 min): Ensure device is updated, admission ticket printed, ID ready."
+        ]
       },
       {
         "id": "2026-11-05",
@@ -3424,6 +3393,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 20,
+        "specialInstructions": "Very light review, then pack bag (20 min): Re-read top 5 rules, pack bag with ID/Smart CNIC, charger, snacks, calculator.",
         "tasks": [
           {
             "id": "w8-d4-1",
@@ -3435,8 +3405,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 20,
             "completed": false
           }
-        ],
-        "specialInstructions": "Very light review, then pack bag (20 min): Re-read top 5 rules, pack bag with ID/Smart CNIC, charger, snacks, calculator."
+        ]
       },
       {
         "id": "2026-11-06",
@@ -3452,6 +3421,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
+        "specialInstructions": "FULL REST. No studying. Sleep early. Relax, hydrate, eat well, and sleep early.",
         "tasks": [
           {
             "id": "w8-d5-1",
@@ -3461,8 +3431,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "topic": "Full Rest & Pre-Exam Sleep Curfew",
             "completed": false
           }
-        ],
-        "specialInstructions": "FULL REST. No studying. Sleep early. Relax, hydrate, eat well, and sleep early."
+        ]
       },
       {
         "id": "2026-11-07",
@@ -3478,6 +3447,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
+        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Arrive at Crescent Model School, Shadman Lahore by 7:15 AM sharp (gates lock at 7:45 AM).",
         "tasks": [
           {
             "id": "sat-exam-day",
@@ -3489,8 +3459,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "durationMinutes": 144,
             "completed": false
           }
-        ],
-        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Arrive at Crescent Model School, Shadman Lahore by 7:15 AM sharp (gates lock at 7:45 AM)."
+        ]
       }
     ]
   }

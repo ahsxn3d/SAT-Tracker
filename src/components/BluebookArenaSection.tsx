@@ -36,16 +36,6 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
-    dateStr: '2026-09-27',
-    displayDate: 'Sun Sep 27',
-    dayOfWeek: 'Sun',
-    taskTitle: 'Full Bluebook Practice Test #1 (Diagnostic Foundations Baseline)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed diagnostic simulation right after Foundations completion',
-    category: 'test',
-    taskId: 'bluebook-test-1',
-    dayId: '2026-09-27',
-  },
-  {
     dateStr: '2026-10-20',
     displayDate: 'Tue Oct 20',
     dayOfWeek: 'Tue',
@@ -255,7 +245,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onLaunchTimer,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
-  const [selectedMockForScore, setSelectedMockForScore] = useState<string>('bluebook-test-1');
+  const [selectedMockForScore, setSelectedMockForScore] = useState<string>('bluebook-test-2');
   const [savedScores, setSavedScores] = useState<Record<string, MockTestScoreRecord>>({});
 
   const loadSavedScores = () => {
@@ -274,7 +264,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   }, []);
 
   const mockTests = [
-    { name: 'Bluebook Practice Test #1', date: 'Sun Sep 27', time: '8:00 AM - 10:24 AM', dayId: '2026-09-27', taskId: 'bluebook-test-1', tag: 'Diagnostic Foundations Baseline' },
     { name: 'Bluebook Practice Test #2', date: 'Wed Oct 21', time: '8:00 AM - 10:24 AM', dayId: '2026-10-21', taskId: 'bluebook-test-2', tag: 'All Math Complete' },
     { name: 'Bluebook Practice Test #3', date: 'Tue Oct 27', time: '8:00 AM - 10:24 AM', dayId: '2026-10-27', taskId: 'bluebook-test-3', tag: 'Real Conditions' },
     { name: 'Bluebook Practice Test #4', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'bluebook-test-4', tag: 'Final Full Test' },
