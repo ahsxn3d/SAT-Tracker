@@ -258,9 +258,9 @@ export default function App({ initialSection = 'all' }: AppProps) {
       const m = String(now.getMonth() + 1).padStart(2, '0');
       const d = String(now.getDate()).padStart(2, '0');
       const formatted = `${y}-${m}-${d}`;
-      return formatted >= '2026-09-12' ? formatted : '2026-09-12';
+      return formatted >= '2026-09-14' ? formatted : '2026-09-14';
     } catch {
-      return '2026-09-12';
+      return '2026-09-14';
     }
   }, []);
 
