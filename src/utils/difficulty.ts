@@ -163,7 +163,7 @@ export const DIFFICULTY_CONFIGS: Record<KhanDifficultyTier | 'light' | 'standard
  * Identifies the exact Khan Academy difficulty tier for any individual task
  */
 export function getTaskKhanTier(task: { code?: string; label?: string; subject?: string }): KhanDifficultyTier {
-  if (task.subject === 'test' || (task.code && /MOCK|TEST/i.test(task.code))) {
+  if (task.subject === 'test' || (task.code && /^(MOCK|TEST(\s*#?\d+)?)$/i.test(task.code.trim()))) {
     return 'test';
   }
   if (task.subject === 'buffer' && /REST/i.test(task.code || '')) {
@@ -247,7 +247,7 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
     return DIFFICULTY_CONFIGS.exam;
   }
 
-  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test' || /MOCK|TEST/i.test(t.code || '') || /TEST/i.test(t.label || ''))) {
+  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test' || (t.code && /^(MOCK|TEST(\s*#?\d+)?)$/i.test(t.code.trim())))) {
     return DIFFICULTY_CONFIGS.test;
   }
 
@@ -262,25 +262,52 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
     return DIFFICULTY_CONFIGS.rest;
   }
 
-  // Check task tiers
-  const tiers = activeTasks.map(getTaskKhanTier);
+  // Count lessons by Khan Academy tier
+  let foundationsCount = 0;
+  let mediumCount = 0;
+  let challengeCount = 0;
+  let advancedCount = 0; // Hard / Advanced
 
-  // If day contains R&W Unit 11 -> Khan Academy Challenge unit day (Days 33-35)
-  if (tiers.includes('challenge')) {
+  activeTasks.forEach((t) => {
+    const tier = getTaskKhanTier(t);
+    if (tier === 'challenge') challengeCount++;
+    else if (tier === 'advanced') advancedCount++;
+    else if (tier === 'medium') mediumCount++;
+    else if (tier === 'foundations') foundationsCount++;
+  });
+
+  // Rule 1: If a day has 2 or more challenging lessons -> Challenge tier (purple)
+  if (challengeCount >= 2) {
     return DIFFICULTY_CONFIGS.challenge;
   }
 
-  // If day contains Advanced Math (Units 10-13) (Days 22-32)
-  if (tiers.includes('advanced')) {
+  // Rule 2: Majority / plurality rule between Hard (Advanced), Medium, and Foundations
+  // Whichever tier has the most lessons determines the day's difficulty and color
+  if (advancedCount > mediumCount && advancedCount > foundationsCount) {
     return DIFFICULTY_CONFIGS.advanced;
   }
 
-  // If day contains Medium Math (Units 6-9) or Medium R&W (Units 5-10, 12) (Days 9-22, 36-39)
-  if (tiers.includes('medium')) {
+  if (mediumCount > advancedCount && mediumCount > foundationsCount) {
     return DIFFICULTY_CONFIGS.medium;
   }
 
-  // Days 1-8: Foundations Tier (Math U2-U5 & R&W U2-U4)
+  if (foundationsCount > advancedCount && foundationsCount > mediumCount) {
+    return DIFFICULTY_CONFIGS.foundations;
+  }
+
+  // Tie-breaking: higher difficulty tier takes precedence (Hard > Medium > Foundations)
+  if (advancedCount >= mediumCount && advancedCount >= foundationsCount && advancedCount > 0) {
+    return DIFFICULTY_CONFIGS.advanced;
+  }
+
+  if (mediumCount >= foundationsCount && mediumCount > 0) {
+    return DIFFICULTY_CONFIGS.medium;
+  }
+
+  if (challengeCount > 0) {
+    return DIFFICULTY_CONFIGS.challenge;
+  }
+
   return DIFFICULTY_CONFIGS.foundations;
 }
 

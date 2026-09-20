@@ -542,7 +542,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                     isExamDay
                       ? diffConfig.calendarCellClass
                       : isKickoffDay
-                      ? 'bg-indigo-50/90 border-indigo-500 ring-2 ring-indigo-300 shadow-md'
+                      ? `${diffConfig.calendarCellClass} ring-2 ring-emerald-500 shadow-md`
                       : isComplete
                       ? 'bg-emerald-50/75 border-emerald-400 hover:bg-emerald-100/70'
                       : diffConfig.calendarCellClass
@@ -556,7 +556,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                           isExamDay
                             ? 'text-white text-lg sm:text-xl drop-shadow-xs'
                             : isKickoffDay
-                            ? 'text-indigo-900'
+                            ? 'text-emerald-950'
                             : 'text-slate-900'
                         }`}
                       >
@@ -572,23 +572,15 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
 
                       {/* Day 1 Kickoff Label */}
                       {isKickoffDay && (
-                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-indigo-600 text-white">
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-700 text-white shadow-xs">
                           Day 1
                         </span>
                       )}
 
-                      {/* Load Difficulty Badge (Rest, Light, Medium, Hard, Mock, Review, Drill) */}
+                      {/* Khan Academy Difficulty Tier Badge (Foundations, Medium, Challenge, Advanced, Mock, Rest) */}
                       {!isExamDay && (
-                        <span className={`text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${
-                          hasReview
-                            ? 'bg-rose-100 text-rose-950 border-rose-300'
-                            : hasDrill
-                            ? 'bg-indigo-100 text-indigo-950 border-indigo-300'
-                            : hasLogistics
-                            ? 'bg-teal-100 text-teal-950 border-teal-300'
-                            : diffConfig.badgeClass
-                        }`}>
-                          {hasReview ? 'Review' : hasDrill ? 'Drill' : hasLogistics ? 'Prep' : diffConfig.shortLabel}
+                        <span className={`text-[8px] sm:text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${diffConfig.badgeClass}`}>
+                          {diffConfig.shortLabel}
                         </span>
                       )}
                     </div>
@@ -754,7 +746,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                     isExamDay
                       ? 'bg-amber-100 border-amber-400 text-rose-950 ring-2 ring-amber-400 hover:border-rose-500'
                       : isKickoff
-                      ? 'bg-indigo-50 border-indigo-400 hover:border-indigo-600'
+                      ? `${diffConfig.cardBgClass} ${diffConfig.cardBorderClass} ring-2 ring-emerald-500 hover:border-emerald-600`
                       : isComplete
                       ? 'bg-emerald-50 border-emerald-300 hover:border-emerald-500'
                       : `${diffConfig.cardBgClass} ${diffConfig.cardBorderClass} hover:border-emerald-500`
@@ -770,8 +762,13 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                           SAT EXAM
                         </span>
                       )}
-                      {!isExamDay && !isKickoff && (
-                        <span className={`text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded border font-['JetBrains_Mono'] ${diffConfig.badgeClass}`}>
+                      {isKickoff && (
+                        <span className="text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-emerald-700 text-white shadow-xs">
+                          Day 1
+                        </span>
+                      )}
+                      {!isExamDay && (
+                        <span className={`text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded border font-['JetBrains_Mono'] ${diffConfig.badgeClass}`}>
                           {diffConfig.shortLabel}
                         </span>
                       )}
