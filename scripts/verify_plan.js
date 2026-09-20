@@ -38,3 +38,21 @@ console.log(`\nVerification Summary:`);
 console.log(`- Total Days: ${totalDays}`);
 console.log(`- Numbered Study Days (Phase 1): ${numberedDays}`);
 console.log(`- Full Practice Tests: ${testCount}`);
+
+console.log('\n=== TESTING ROLLOVER SYSTEM INTEGRITY ===');
+const { computeWeeksWithRollover } = require('../src/utils/rollover');
+
+// Test 1: Day 1 untouched -> should NOT roll over anything to Day 2
+const weeks1 = computeWeeksWithRollover(STUDY_PLAN_WEEKS, {}, {});
+const day2Carried1 = weeks1[0].days[1].tasks.filter(t => t.isCarriedOver).length;
+console.log('Test 1 (Day 1 untouched): Day 2 carried-over count =', day2Carried1, day2Carried1 === 0 ? '✓ PASS' : '✗ FAIL');
+
+// Test 2: Day 1 engaged (task 1 done, 3 curriculum tasks uncompleted, 1 break skipped) -> should roll over ONLY to Day 2, NOT to Day 3
+const day1Task1Id = STUDY_PLAN_WEEKS[0].days[0].tasks[0].id;
+const weeks2 = computeWeeksWithRollover(STUDY_PLAN_WEEKS, { [day1Task1Id]: true }, {});
+const day2Carried2 = weeks2[0].days[1].tasks.filter(t => t.isCarriedOver).length;
+const day3Carried2 = weeks2[0].days[2].tasks.filter(t => t.isCarriedOver).length;
+console.log('Test 2 (Day 1 engaged with leftovers):');
+console.log('  Day 2 carried-over count =', day2Carried2, day2Carried2 === 3 ? '✓ PASS' : '✗ FAIL');
+console.log('  Day 3 carried-over count =', day3Carried2, day3Carried2 === 0 ? '✓ PASS' : '✗ FAIL');
+

@@ -48,7 +48,7 @@ export const MOCK_TESTS_CONFIG = [
   { id: 'bluebook-test-1', name: 'Bluebook Test #1 (Diagnostic Foundations Baseline)', date: 'Sun Sep 27', tag: 'Foundations Baseline' },
   { id: 'bluebook-test-2', name: 'Bluebook Test #2 (Advanced Tier Checkpoint)', date: 'Wed Oct 21', tag: 'All Math Complete' },
   { id: 'bluebook-test-3', name: 'Bluebook Test #3 (Real Conditions Simulation)', date: 'Tue Oct 27', tag: 'High-Stakes Simulation' },
-  { id: 'bluebook-test-4', name: 'Bluebook Test #4 (Final Full Test, Real Conditions)', date: 'Mon Nov 2', tag: 'Final Real Conditions' },
+  { id: 'bluebook-test-4', name: 'Full Bluebook Practice Test #4 (Final Full Test, Timed)', date: 'Sat Oct 31', tag: 'Final Practice Test' },
 ];
 
 /**

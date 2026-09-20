@@ -693,20 +693,20 @@ const phase2Days = [
     dayOfWeek: 'Sat',
     dayNumber: undefined,
     isBuffer: false,
-    isTestDay: false,
-    studyTimeMinutes: 45,
-    breakTimeMinutes: 0,
-    totalTimeMinutes: 45,
-    specialInstructions: 'Pre-Taper Final Polish: Review Desmos shortcuts and pacing benchmark rules.',
+    isTestDay: true,
+    studyTimeMinutes: 144,
+    breakTimeMinutes: 10,
+    totalTimeMinutes: 154,
+    specialInstructions: 'Full Bluebook Practice Test #4 (final full test, timed): 8:00 AM - 10:24 AM under real conditions.',
     tasks: [
       {
-        id: 'p2-d11-1',
-        label: 'Pre-Taper Final Polish: Desmos shortcuts & pacing rules (45 min)',
-        subject: 'review',
-        code: 'PRE-TAPER',
-        topic: 'Desmos & Pacing Calibration',
-        timeSlot: '6:30 PM - 7:15 PM',
-        durationMinutes: 45,
+        id: 'bluebook-test-4',
+        label: 'Full Bluebook Practice Test #4 (final full test, timed)',
+        subject: 'test',
+        code: 'TEST #4',
+        topic: 'Final Full Bluebook Practice Test (Real Conditions)',
+        timeSlot: '8:00 AM - 10:24 AM',
+        durationMinutes: 144,
         completed: false
       }
     ]
@@ -721,14 +721,14 @@ const phase2Days = [
     studyTimeMinutes: 0,
     breakTimeMinutes: 0,
     totalTimeMinutes: 0,
-    specialInstructions: 'REST DAY: Full day off, zero studying. Mental reset before Final Exam Week begins.',
+    specialInstructions: 'REST DAY: Full day off, no studying. Guaranteed mental reset.',
     tasks: [
       {
         id: 'rest-2026-11-01',
-        label: 'REST DAY: Full day off, zero studying. Mental reset before Exam Week',
+        label: 'REST DAY: Full day off, no studying',
         subject: 'buffer',
         code: 'REST',
-        topic: 'Pre-Exam Reset',
+        topic: 'Mental Reset',
         completed: false
       }
     ]
@@ -739,20 +739,20 @@ const phase2Days = [
     dayOfWeek: 'Mon',
     dayNumber: undefined,
     isBuffer: false,
-    isTestDay: true,
-    studyTimeMinutes: 144,
-    breakTimeMinutes: 10,
-    totalTimeMinutes: 154,
-    specialInstructions: 'TEST #4 (final full Bluebook Practice Test, 8:00 AM - 10:24 AM, real conditions). Both sections with official 10-minute break.',
+    isTestDay: false,
+    studyTimeMinutes: 45,
+    breakTimeMinutes: 0,
+    totalTimeMinutes: 45,
+    specialInstructions: 'Error-log review of Test #4 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing.',
     tasks: [
       {
-        id: 'bluebook-test-4',
-        label: 'TEST #4: Final full Bluebook Practice Test (8:00 AM - 10:24 AM, real conditions)',
-        subject: 'test',
-        code: 'TEST #4',
-        topic: 'Final Full Bluebook Practice Test (Real Conditions)',
-        timeSlot: '8:00 AM - 10:24 AM',
-        durationMinutes: 144,
+        id: 'w8-d1-1',
+        label: 'Error-log review of Test #4 + simulate exact test-day timing (45 min)',
+        subject: 'review',
+        code: 'AUTOPSY',
+        topic: 'Test #4 Error-Log Review & Timing Calibration',
+        timeSlot: '6:30 PM - 7:15 PM',
+        durationMinutes: 45,
         completed: false
       }
     ]
@@ -764,19 +764,19 @@ const phase2Days = [
     dayNumber: undefined,
     isBuffer: false,
     isTestDay: false,
-    studyTimeMinutes: 45,
+    studyTimeMinutes: 30,
     breakTimeMinutes: 0,
-    totalTimeMinutes: 45,
-    specialInstructions: 'Error-log review of Test #4: Write down every wrong question and why, across both Math and Reading & Writing.',
+    totalTimeMinutes: 30,
+    specialInstructions: 'Light taper, review error notebook + grammar rules (30 min): No heavy problem sets, gentle reinforcement.',
     tasks: [
       {
         id: 'w8-d2-1',
-        label: 'Error-log review of Test #4, write down every wrong question and why, both subjects',
+        label: 'Light taper, review error notebook + grammar rules (30 min)',
         subject: 'review',
-        code: 'AUTOPSY',
-        topic: 'Test #4 Error Log Autopsy & Analysis',
-        timeSlot: '6:30 PM - 7:15 PM',
-        durationMinutes: 45,
+        code: 'LIGHT TAPER',
+        topic: 'Error Notebook & Grammar Traps Refresh',
+        timeSlot: '6:30 PM - 7:00 PM',
+        durationMinutes: 30,
         completed: false
       }
     ]
@@ -788,19 +788,19 @@ const phase2Days = [
     dayNumber: undefined,
     isBuffer: false,
     isTestDay: false,
-    studyTimeMinutes: 35,
+    studyTimeMinutes: 20,
     breakTimeMinutes: 0,
-    totalTimeMinutes: 35,
-    specialInstructions: 'Light targeted review: Re-read your Math formula sheet + grammar rule summary. No new content, no drilling weak spots hard, just refresh.',
+    totalTimeMinutes: 20,
+    specialInstructions: 'Verify Bluebook app, admission ticket, ID (20 min): Ensure device is updated, admission ticket printed, ID ready.',
     tasks: [
       {
         id: 'w8-d3-1',
-        label: 'Light targeted review: re-read your Math formula sheet + grammar rule summary. No new content, no drilling weak spots hard, just refresh',
-        subject: 'review',
-        code: 'FORMULA & GRAMMAR',
-        topic: 'Math Formulas & Grammar Summary Refresh',
-        timeSlot: '6:30 PM - 7:05 PM',
-        durationMinutes: 35,
+        label: 'Verify Bluebook app, admission ticket, ID (20 min)',
+        subject: 'logistics',
+        code: 'LOGISTICS',
+        topic: 'Bluebook App Verification & Admission Ticket Check',
+        timeSlot: '6:30 PM - 6:50 PM',
+        durationMinutes: 20,
         completed: false
       }
     ]
@@ -812,19 +812,19 @@ const phase2Days = [
     dayNumber: undefined,
     isBuffer: false,
     isTestDay: false,
-    studyTimeMinutes: 25,
+    studyTimeMinutes: 20,
     breakTimeMinutes: 0,
-    totalTimeMinutes: 25,
-    specialInstructions: 'Logistics only: Verify Bluebook app login, admission ticket, ID, pack your bag (ID/Smart CNIC, calculator if needed, charger, snack).',
+    totalTimeMinutes: 20,
+    specialInstructions: 'Very light review, then pack bag (20 min): Re-read top 5 rules, pack bag with ID/Smart CNIC, charger, snacks, calculator.',
     tasks: [
       {
         id: 'w8-d4-1',
-        label: 'Logistics only: verify Bluebook app login, admission ticket, ID, pack your bag (ID/Smart CNIC, calculator if needed, charger, snack)',
+        label: 'Very light review, then pack bag (20 min)',
         subject: 'logistics',
-        code: 'LOGISTICS & PACKOUT',
-        topic: 'Exam Logistics, Credentials & Bag Packout',
-        timeSlot: '6:30 PM - 6:55 PM',
-        durationMinutes: 25,
+        code: 'BAG PACKOUT',
+        topic: 'Formula Checklist & Exam Bag Packing',
+        timeSlot: '6:30 PM - 6:50 PM',
+        durationMinutes: 20,
         completed: false
       }
     ]
@@ -839,7 +839,7 @@ const phase2Days = [
     studyTimeMinutes: 0,
     breakTimeMinutes: 0,
     totalTimeMinutes: 0,
-    specialInstructions: 'FULL REST: No studying. Hydrate, eat a solid dinner, relax, and sleep early (10:00 PM curfew).',
+    specialInstructions: 'FULL REST. No studying. Sleep early. Relax, hydrate, eat well, and sleep early.',
     tasks: [
       {
         id: 'w8-d5-1',
@@ -861,15 +861,15 @@ const phase2Days = [
     studyTimeMinutes: 144,
     breakTimeMinutes: 10,
     totalTimeMinutes: 154,
-    specialInstructions: 'Sat Nov 7 -- EXAM DAY: Crescent Model School, Shadman Lahore. Arrive by 7:15 AM sharp (gates lock at 7:45 AM). Stay calm and execute.',
+    specialInstructions: 'Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Arrive at Crescent Model School, Shadman Lahore by 7:15 AM sharp (gates lock at 7:45 AM).',
     tasks: [
       {
         id: 'sat-exam-day',
-        label: 'EXAM DAY: Official SAT at Crescent Model School (7:15 AM Arrival)',
+        label: 'EXAM DAY: Follow your official admission ticket reporting time exactly',
         subject: 'test',
-        code: 'EXAM DAY',
-        topic: 'Official SAT Examination',
-        timeSlot: '7:15 AM - 12:30 PM',
+        code: 'OFFICIAL SAT',
+        topic: 'Official Digital SAT Exam',
+        timeSlot: '7:15 AM arrival',
         durationMinutes: 144,
         completed: false
       }
@@ -946,9 +946,9 @@ const WEEKS_META = [
   {
     id: 'week-7',
     weekNumber: 7,
-    title: 'Week 7: Phase 2 Test #3 & High-Precision Drills',
+    title: 'Week 7: Practice Tests #3 & #4 Simulations',
     dateRange: 'Oct 26 to Nov 01',
-    subtitle: 'Full Bluebook Test #3 on Tue Oct 27 + targeted mistake autopsies and grammar polish.',
+    subtitle: 'Full Bluebook Test #3 on Tue Oct 27 and Final Test #4 on Sat Oct 31.',
     phase: 'bluebook',
     startDate: '2026-10-26',
     endDate: '2026-11-01'
@@ -956,9 +956,9 @@ const WEEKS_META = [
   {
     id: 'week-8',
     weekNumber: 8,
-    title: 'Week 8: Test #4, Final Review, Logistics & Official SAT Exam Day',
+    title: 'Week 8: Test #4 Autopsy, Taper Protocol & Official SAT Exam Day',
     dateRange: 'Nov 02 to Nov 07',
-    subtitle: 'Test #4 real conditions simulation, error autopsy, formula/grammar refresh, packout protocol & Sat Nov 7 Exam Day.',
+    subtitle: 'Test #4 error review, light taper, logistics check, bag packout, full rest & Sat Nov 7 Exam Day.',
     phase: 'exam',
     startDate: '2026-11-02',
     endDate: '2026-11-07'

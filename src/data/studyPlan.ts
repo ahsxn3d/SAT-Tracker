@@ -3118,9 +3118,9 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
   },
   {
     "id": "week-7",
-    "title": "Week 7: Phase 2 Test #3 & High-Precision Drills",
+    "title": "Week 7: Practice Tests #3 & #4 Simulations",
     "dateRange": "Oct 26 to Nov 01",
-    "subtitle": "Full Bluebook Test #3 on Tue Oct 27 + targeted mistake autopsies and grammar polish.",
+    "subtitle": "Full Bluebook Test #3 on Tue Oct 27 and Final Test #4 on Sat Oct 31.",
     "phase": "bluebook",
     "days": [
       {
@@ -3130,7 +3130,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Mon Oct 26",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": false,
@@ -3158,7 +3158,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Tue Oct 27",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": true,
@@ -3186,7 +3186,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Wed Oct 28",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": false,
@@ -3214,7 +3214,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Thu Oct 29",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": false,
@@ -3242,7 +3242,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Fri Oct 30",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": false,
@@ -3270,26 +3270,26 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sat Oct 31",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 45,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 45,
+        "isTestDay": true,
+        "studyTimeMinutes": 144,
+        "breakTimeMinutes": 10,
+        "totalTimeMinutes": 154,
         "tasks": [
           {
-            "id": "p2-d11-1",
-            "label": "Pre-Taper Final Polish: Desmos shortcuts & pacing rules (45 min)",
-            "subject": "review",
-            "code": "PRE-TAPER",
-            "topic": "Desmos & Pacing Calibration",
-            "timeSlot": "6:30 PM - 7:15 PM",
-            "durationMinutes": 45,
+            "id": "bluebook-test-4",
+            "label": "Full Bluebook Practice Test #4 (final full test, timed)",
+            "subject": "test",
+            "code": "TEST #4",
+            "topic": "Final Full Bluebook Practice Test (Real Conditions)",
+            "timeSlot": "8:00 AM - 10:24 AM",
+            "durationMinutes": 144,
             "completed": false
           }
         ],
-        "specialInstructions": "Pre-Taper Final Polish: Review Desmos shortcuts and pacing benchmark rules."
+        "specialInstructions": "Full Bluebook Practice Test #4 (final full test, timed): 8:00 AM - 10:24 AM under real conditions."
       },
       {
         "id": "2026-11-01",
@@ -3298,7 +3298,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sun Nov 1",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Phase 2 Test #3 & High-Precision Drills",
+        "weekTitle": "Practice Tests #3 & #4 Simulations",
         "phase": "bluebook",
         "isBuffer": true,
         "isTestDay": false,
@@ -3308,22 +3308,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "rest-2026-11-01",
-            "label": "REST DAY: Full day off, zero studying. Mental reset before Exam Week",
+            "label": "REST DAY: Full day off, no studying",
             "subject": "buffer",
             "code": "REST",
-            "topic": "Pre-Exam Reset",
+            "topic": "Mental Reset",
             "completed": false
           }
         ],
-        "specialInstructions": "REST DAY: Full day off, zero studying. Mental reset before Final Exam Week begins."
+        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset."
       }
     ]
   },
   {
     "id": "week-8",
-    "title": "Week 8: Test #4, Final Review, Logistics & Official SAT Exam Day",
+    "title": "Week 8: Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
     "dateRange": "Nov 02 to Nov 07",
-    "subtitle": "Test #4 real conditions simulation, error autopsy, formula/grammar refresh, packout protocol & Sat Nov 7 Exam Day.",
+    "subtitle": "Test #4 error review, light taper, logistics check, bag packout, full rest & Sat Nov 7 Exam Day.",
     "phase": "exam",
     "days": [
       {
@@ -3333,35 +3333,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Mon Nov 2",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
-        "phase": "exam",
-        "isBuffer": false,
-        "isTestDay": true,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 10,
-        "totalTimeMinutes": 154,
-        "tasks": [
-          {
-            "id": "bluebook-test-4",
-            "label": "TEST #4: Final full Bluebook Practice Test (8:00 AM - 10:24 AM, real conditions)",
-            "subject": "test",
-            "code": "TEST #4",
-            "topic": "Final Full Bluebook Practice Test (Real Conditions)",
-            "timeSlot": "8:00 AM - 10:24 AM",
-            "durationMinutes": 144,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "TEST #4 (final full Bluebook Practice Test, 8:00 AM - 10:24 AM, real conditions). Both sections with official 10-minute break."
-      },
-      {
-        "id": "2026-11-03",
-        "dateStr": "2026-11-03",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Nov 3",
-        "weekId": "week-8",
-        "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
         "isTestDay": false,
@@ -3370,17 +3342,45 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 45,
         "tasks": [
           {
-            "id": "w8-d2-1",
-            "label": "Error-log review of Test #4, write down every wrong question and why, both subjects",
+            "id": "w8-d1-1",
+            "label": "Error-log review of Test #4 + simulate exact test-day timing (45 min)",
             "subject": "review",
             "code": "AUTOPSY",
-            "topic": "Test #4 Error Log Autopsy & Analysis",
+            "topic": "Test #4 Error-Log Review & Timing Calibration",
             "timeSlot": "6:30 PM - 7:15 PM",
             "durationMinutes": 45,
             "completed": false
           }
         ],
-        "specialInstructions": "Error-log review of Test #4: Write down every wrong question and why, across both Math and Reading & Writing."
+        "specialInstructions": "Error-log review of Test #4 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing."
+      },
+      {
+        "id": "2026-11-03",
+        "dateStr": "2026-11-03",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Nov 3",
+        "weekId": "week-8",
+        "weekNumber": 8,
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "phase": "exam",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 30,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 30,
+        "tasks": [
+          {
+            "id": "w8-d2-1",
+            "label": "Light taper, review error notebook + grammar rules (30 min)",
+            "subject": "review",
+            "code": "LIGHT TAPER",
+            "topic": "Error Notebook & Grammar Traps Refresh",
+            "timeSlot": "6:30 PM - 7:00 PM",
+            "durationMinutes": 30,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Light taper, review error notebook + grammar rules (30 min): No heavy problem sets, gentle reinforcement."
       },
       {
         "id": "2026-11-04",
@@ -3389,26 +3389,26 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Wed Nov 4",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 35,
+        "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
-        "totalTimeMinutes": 35,
+        "totalTimeMinutes": 20,
         "tasks": [
           {
             "id": "w8-d3-1",
-            "label": "Light targeted review: re-read your Math formula sheet + grammar rule summary. No new content, no drilling weak spots hard, just refresh",
-            "subject": "review",
-            "code": "FORMULA & GRAMMAR",
-            "topic": "Math Formulas & Grammar Summary Refresh",
-            "timeSlot": "6:30 PM - 7:05 PM",
-            "durationMinutes": 35,
+            "label": "Verify Bluebook app, admission ticket, ID (20 min)",
+            "subject": "logistics",
+            "code": "LOGISTICS",
+            "topic": "Bluebook App Verification & Admission Ticket Check",
+            "timeSlot": "6:30 PM - 6:50 PM",
+            "durationMinutes": 20,
             "completed": false
           }
         ],
-        "specialInstructions": "Light targeted review: Re-read your Math formula sheet + grammar rule summary. No new content, no drilling weak spots hard, just refresh."
+        "specialInstructions": "Verify Bluebook app, admission ticket, ID (20 min): Ensure device is updated, admission ticket printed, ID ready."
       },
       {
         "id": "2026-11-05",
@@ -3417,26 +3417,26 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Thu Nov 5",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 25,
+        "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
-        "totalTimeMinutes": 25,
+        "totalTimeMinutes": 20,
         "tasks": [
           {
             "id": "w8-d4-1",
-            "label": "Logistics only: verify Bluebook app login, admission ticket, ID, pack your bag (ID/Smart CNIC, calculator if needed, charger, snack)",
+            "label": "Very light review, then pack bag (20 min)",
             "subject": "logistics",
-            "code": "LOGISTICS & PACKOUT",
-            "topic": "Exam Logistics, Credentials & Bag Packout",
-            "timeSlot": "6:30 PM - 6:55 PM",
-            "durationMinutes": 25,
+            "code": "BAG PACKOUT",
+            "topic": "Formula Checklist & Exam Bag Packing",
+            "timeSlot": "6:30 PM - 6:50 PM",
+            "durationMinutes": 20,
             "completed": false
           }
         ],
-        "specialInstructions": "Logistics only: Verify Bluebook app login, admission ticket, ID, pack your bag (ID/Smart CNIC, calculator if needed, charger, snack)."
+        "specialInstructions": "Very light review, then pack bag (20 min): Re-read top 5 rules, pack bag with ID/Smart CNIC, charger, snacks, calculator."
       },
       {
         "id": "2026-11-06",
@@ -3445,7 +3445,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Fri Nov 6",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": true,
         "isTestDay": false,
@@ -3462,7 +3462,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "FULL REST: No studying. Hydrate, eat a solid dinner, relax, and sleep early (10:00 PM curfew)."
+        "specialInstructions": "FULL REST. No studying. Sleep early. Relax, hydrate, eat well, and sleep early."
       },
       {
         "id": "2026-11-07",
@@ -3471,7 +3471,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sat Nov 7",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #4, Final Review, Logistics & Official SAT Exam Day",
+        "weekTitle": "Test #4 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
         "isTestDay": true,
@@ -3481,16 +3481,16 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "sat-exam-day",
-            "label": "EXAM DAY: Official SAT at Crescent Model School (7:15 AM Arrival)",
+            "label": "EXAM DAY: Follow your official admission ticket reporting time exactly",
             "subject": "test",
-            "code": "EXAM DAY",
-            "topic": "Official SAT Examination",
-            "timeSlot": "7:15 AM - 12:30 PM",
+            "code": "OFFICIAL SAT",
+            "topic": "Official Digital SAT Exam",
+            "timeSlot": "7:15 AM arrival",
             "durationMinutes": 144,
             "completed": false
           }
         ],
-        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Crescent Model School, Shadman Lahore. Arrive by 7:15 AM sharp (gates lock at 7:45 AM). Stay calm and execute."
+        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Arrive at Crescent Model School, Shadman Lahore by 7:15 AM sharp (gates lock at 7:45 AM)."
       }
     ]
   }
