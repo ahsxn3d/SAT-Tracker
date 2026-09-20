@@ -424,14 +424,14 @@ const phase2Days = [
     studyTimeMinutes: 144,
     breakTimeMinutes: 10,
     totalTimeMinutes: 154,
-    specialInstructions: 'Full Bluebook Practice Test #2 (real conditions, timed): 8:00 AM - 10:24 AM.',
+    specialInstructions: 'TEST #1 (full Bluebook Practice Test, real conditions): 8:00 AM - 10:24 AM.',
     tasks: [
       {
-        id: 'bluebook-test-2',
-        label: 'Full Bluebook Practice Test #2 (real conditions, timed)',
+        id: 'bluebook-test-1',
+        label: 'TEST #1 (full Bluebook Practice Test, real conditions)',
         subject: 'test',
-        code: 'TEST #2',
-        topic: 'Full Bluebook Practice Test #2 (Real Conditions)',
+        code: 'TEST #1',
+        topic: 'Full Bluebook Practice Test #1 (Real Conditions)',
         timeSlot: '8:00 AM - 10:24 AM',
         durationMinutes: 144,
         completed: false
@@ -448,14 +448,14 @@ const phase2Days = [
     studyTimeMinutes: 45,
     breakTimeMinutes: 0,
     totalTimeMinutes: 45,
-    specialInstructions: 'Error-log review of Test #2 (45 min): Open score report, dissect every wrong question: skill & root-cause autopsy.',
+    specialInstructions: 'Error-log review of Test #1 (45 min): Open score report, dissect every wrong question: skill & root-cause autopsy.',
     tasks: [
       {
         id: 'p2-d2-1',
-        label: 'Error-log review of Test #2 (45 min)',
+        label: 'Error-log review of Test #1 (45 min)',
         subject: 'review',
         code: 'AUTOPSY',
-        topic: 'Test #2 Error Log Dissection',
+        topic: 'Test #1 Error Log Dissection',
         timeSlot: '6:30 PM - 7:15 PM',
         durationMinutes: 45,
         completed: false
@@ -472,14 +472,14 @@ const phase2Days = [
     studyTimeMinutes: 75,
     breakTimeMinutes: 0,
     totalTimeMinutes: 75,
-    specialInstructions: 'Targeted Math drills on Test #2 errors (45m) + Desmos speed drills on systems & roots (30m).',
+    specialInstructions: 'Targeted Math drills on Test #1 errors (45m) + Desmos speed drills on systems & roots (30m).',
     tasks: [
       {
         id: 'p2-d3-1',
         label: 'Targeted Math drills + Desmos speed drills (75 min)',
         subject: 'drill',
         code: 'MATH DRILL',
-        topic: 'Test #2 Error Drills & Desmos Speed Training',
+        topic: 'Test #1 Error Drills & Desmos Speed Training',
         timeSlot: '6:30 PM - 7:45 PM',
         durationMinutes: 75,
         completed: false
@@ -566,14 +566,14 @@ const phase2Days = [
     studyTimeMinutes: 144,
     breakTimeMinutes: 10,
     totalTimeMinutes: 154,
-    specialInstructions: 'Full Bluebook Practice Test #3 (real conditions, timed): 8:00 AM - 10:24 AM.',
+    specialInstructions: 'TEST #2 (full Bluebook Practice Test): 8:00 AM - 10:24 AM.',
     tasks: [
       {
-        id: 'bluebook-test-3',
-        label: 'Full Bluebook Practice Test #3 (real conditions, timed)',
+        id: 'bluebook-test-2',
+        label: 'TEST #2 (full Bluebook Practice Test)',
         subject: 'test',
-        code: 'TEST #3',
-        topic: 'Full Bluebook Practice Test #3 (Real Conditions)',
+        code: 'TEST #2',
+        topic: 'Full Bluebook Practice Test #2 (Real Conditions)',
         timeSlot: '8:00 AM - 10:24 AM',
         durationMinutes: 144,
         completed: false
@@ -590,14 +590,14 @@ const phase2Days = [
     studyTimeMinutes: 45,
     breakTimeMinutes: 0,
     totalTimeMinutes: 45,
-    specialInstructions: 'Error-log review of Test #3 (45 min): Dissect every wrong question and log root-cause rules.',
+    specialInstructions: 'Error-log review of Test #2 (45 min): Dissect every wrong question and log root-cause rules.',
     tasks: [
       {
         id: 'p2-d8-1',
-        label: 'Error-log review of Test #3 (45 min)',
+        label: 'Error-log review of Test #2 (45 min)',
         subject: 'review',
         code: 'AUTOPSY',
-        topic: 'Test #3 Error Dissection',
+        topic: 'Test #2 Error Dissection',
         timeSlot: '6:30 PM - 7:15 PM',
         durationMinutes: 45,
         completed: false
@@ -614,14 +614,14 @@ const phase2Days = [
     studyTimeMinutes: 60,
     breakTimeMinutes: 0,
     totalTimeMinutes: 60,
-    specialInstructions: 'Targeted drills on Test #3 weak areas (60 min): Fix what Test #3 exposed with targeted Khan practice.',
+    specialInstructions: 'Targeted drills on Test #2 weak areas (60 min): Fix what Test #2 exposed with targeted Khan practice.',
     tasks: [
       {
         id: 'p2-d9-1',
-        label: 'Targeted drills on Test #3 weak areas (60 min)',
+        label: 'Targeted drills on Test #2 weak areas (60 min)',
         subject: 'drill',
         code: 'TARGETED DRILL',
-        topic: 'High-Priority Drill Practice',
+        topic: 'Test #2 Weak Areas Targeted Drills',
         timeSlot: '6:30 PM - 7:30 PM',
         durationMinutes: 60,
         completed: false
@@ -662,14 +662,14 @@ const phase2Days = [
     studyTimeMinutes: 144,
     breakTimeMinutes: 10,
     totalTimeMinutes: 154,
-    specialInstructions: 'Full Bluebook Practice Test #4 (final full test, timed): 8:00 AM - 10:24 AM under real conditions.',
+    specialInstructions: 'TEST #3 (final full test, timed): 8:00 AM - 10:24 AM under real conditions.',
     tasks: [
       {
-        id: 'bluebook-test-4',
-        label: 'Full Bluebook Practice Test #4 (final full test, timed)',
+        id: 'bluebook-test-3',
+        label: 'TEST #3 (final full test, timed)',
         subject: 'test',
-        code: 'TEST #4',
-        topic: 'Final Full Bluebook Practice Test (Real Conditions)',
+        code: 'TEST #3',
+        topic: 'Final Full Bluebook Practice Test #3 (Real Conditions)',
         timeSlot: '8:00 AM - 10:24 AM',
         durationMinutes: 144,
         completed: false
@@ -708,14 +708,14 @@ const phase2Days = [
     studyTimeMinutes: 45,
     breakTimeMinutes: 0,
     totalTimeMinutes: 45,
-    specialInstructions: 'Error-log review of Test #4 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing.',
+    specialInstructions: 'Error-log review of Test #3 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing.',
     tasks: [
       {
         id: 'w8-d1-1',
-        label: 'Error-log review of Test #4 + simulate exact test-day timing (45 min)',
+        label: 'Error-log review of Test #3 + simulate exact test-day timing (45 min)',
         subject: 'review',
         code: 'AUTOPSY',
-        topic: 'Test #4 Error-Log Review & Timing Calibration',
+        topic: 'Test #3 Error-Log Review & Timing Calibration',
         timeSlot: '6:30 PM - 7:15 PM',
         durationMinutes: 45,
         completed: false
@@ -853,7 +853,7 @@ const WEEKS_META = [
     weekNumber: 1,
     title: 'Week 1: Problem Solving & Advanced Math Foundations',
     dateRange: 'Sep 14 to Sep 20',
-    subtitle: 'Daily structured Math & Reading & Writing lessons with scheduled Sunday rest.',
+    subtitle: 'Ratios, unit conversions, percentages, data distributions & R&W launch.',
     phase: 'foundations',
     startDate: '2026-09-14',
     endDate: '2026-09-20'
@@ -863,7 +863,7 @@ const WEEKS_META = [
     weekNumber: 2,
     title: 'Week 2: Foundations Mastery & Pure Content Study',
     dateRange: 'Sep 21 to Sep 27',
-    subtitle: 'Foundations complete on Wed Sep 23; Pure study across algebra & geometry with Sunday Rest.',
+    subtitle: 'Linear equations, systems, right triangles & pure content study.',
     phase: 'foundations',
     startDate: '2026-09-21',
     endDate: '2026-09-27'
@@ -873,7 +873,7 @@ const WEEKS_META = [
     weekNumber: 3,
     title: 'Week 3: Medium Tier Acceleration & Synthesis',
     dateRange: 'Sep 28 to Oct 04',
-    subtitle: 'Medium Math (U7-U8) + Medium R&W (U8-U11) • High-density multi-step mastery.',
+    subtitle: 'Medium tier Khan lessons, rhetorical synthesis & boundaries.',
     phase: 'foundations',
     startDate: '2026-09-28',
     endDate: '2026-10-04'
@@ -903,7 +903,7 @@ const WEEKS_META = [
     weekNumber: 6,
     title: 'Week 6: All Math Complete & Phase 2 Testing Launch',
     dateRange: 'Oct 19 to Oct 25',
-    subtitle: 'All Math finished on Tue Oct 20; Full Bluebook Test #2 on Wed Oct 21.',
+    subtitle: 'All Math finished on Tue Oct 20; Full Bluebook Test #1 on Wed Oct 21.',
     phase: 'bluebook',
     startDate: '2026-10-19',
     endDate: '2026-10-25'
@@ -911,9 +911,9 @@ const WEEKS_META = [
   {
     id: 'week-7',
     weekNumber: 7,
-    title: 'Week 7: Practice Tests #3 & #4 Simulations',
+    title: 'Week 7: Practice Tests #2 & #3 Simulations',
     dateRange: 'Oct 26 to Nov 01',
-    subtitle: 'Full Bluebook Test #3 on Tue Oct 27 and Final Test #4 on Sat Oct 31.',
+    subtitle: 'Full Bluebook Test #2 on Tue Oct 27 and Final Test #3 on Sat Oct 31.',
     phase: 'bluebook',
     startDate: '2026-10-26',
     endDate: '2026-11-01'
@@ -921,9 +921,9 @@ const WEEKS_META = [
   {
     id: 'week-8',
     weekNumber: 8,
-    title: 'Week 8: Test #4 Autopsy, Taper Protocol & Official SAT Exam Day',
+    title: 'Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day',
     dateRange: 'Nov 02 to Nov 07',
-    subtitle: 'Test #4 error review, light taper, logistics check, bag packout, full rest & Sat Nov 7 Exam Day.',
+    subtitle: 'Test #3 error review, light taper, logistics check, bag packout, full rest & Sat Nov 7 Exam Day.',
     phase: 'exam',
     startDate: '2026-11-02',
     endDate: '2026-11-07'

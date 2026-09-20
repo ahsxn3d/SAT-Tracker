@@ -75,10 +75,10 @@ export async function GET(req: NextRequest) {
         const testScoresMap: Record<string, any> = {};
         user.testScores?.forEach((ts) => {
           const idMap: Record<number, string> = {
-            1: 'w2-diag-1',
-            2: 'p2-test-2',
-            3: 'p2-test-3',
-            4: 'p2-test-4',
+            1: 'bluebook-test-1',
+            2: 'bluebook-test-2',
+            3: 'bluebook-test-3',
+            4: 'bluebook-test-4',
             5: 'w9-d1-2',
           };
           const testId = idMap[ts.testNumber] || `test-${ts.testNumber}`;
@@ -343,6 +343,10 @@ export async function POST(req: NextRequest) {
       // 5. Persist Mock Test Scores
       if (mockTestScores && typeof mockTestScores === 'object') {
         const numberMap: Record<string, number> = {
+          'bluebook-test-1': 1,
+          'bluebook-test-2': 2,
+          'bluebook-test-3': 3,
+          'bluebook-test-4': 4,
           'w2-diag-1': 1,
           'p2-test-2': 2,
           'p2-test-3': 3,
