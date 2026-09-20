@@ -170,22 +170,30 @@ export function getTaskKhanTier(task: { code?: string; label?: string; subject?:
     return 'rest';
   }
 
-  const text = `${task.code || ''} ${task.label || ''}`.toUpperCase();
+  const text = `${task.subject || ''} ${task.code || ''} ${task.label || ''}`.toUpperCase();
 
   // Challenge: R&W Unit 11 (Khan Academy Challenge Unit)
-  if (/R&W\s*U11\b|RW\s*U11\b|UNIT\s*11.*(READING|WRITING|EVIDENCE|INFERENCES|TRANSITIONS|BOUNDARIES)/i.test(text)) {
+  if (
+    /R&W\s*U11\b|RW\s*U11\b|UNIT\s*11.*(READING|WRITING|EVIDENCE|INFERENCES|TRANSITIONS|BOUNDARIES)/i.test(text) ||
+    (task.subject === 'rw' && /\bU11(\.|\b)/i.test(text))
+  ) {
     return 'challenge';
   }
 
   // Advanced / Hard: Math Units 10, 11, 12, 13
-  if (/MATH\s*U1[0-3]\b|MATH\s*UNIT\s*1[0-3]\b/i.test(text)) {
+  if (
+    /MATH\s*U1[0-3]\b|MATH\s*UNIT\s*1[0-3]\b/i.test(text) ||
+    (task.subject === 'math' && /\bU1[0-3](\.|\b)/i.test(text))
+  ) {
     return 'advanced';
   }
 
   // Medium: Math Units 6, 7, 8, 9 OR R&W Units 5, 6, 7, 8, 9, 10, 12
   if (
     /MATH\s*U[6-9]\b|MATH\s*UNIT\s*[6-9]\b/i.test(text) ||
-    /R&W\s*U([5-9]|10|12)\b|RW\s*U([5-9]|10|12)\b/i.test(text)
+    /R&W\s*U([5-9]|10|12)\b|RW\s*U([5-9]|10|12)\b/i.test(text) ||
+    (task.subject === 'math' && /\bU[6-9](\.|\b)/i.test(text)) ||
+    (task.subject === 'rw' && /\bU([5-9]|10|12)(\.|\b)/i.test(text))
   ) {
     return 'medium';
   }
@@ -193,7 +201,9 @@ export function getTaskKhanTier(task: { code?: string; label?: string; subject?:
   // Foundations: Math Units 2, 3, 4, 5 OR R&W Units 2, 3, 4
   if (
     /MATH\s*U[2-5]\b|MATH\s*UNIT\s*[2-5]\b/i.test(text) ||
-    /R&W\s*U[2-4]\b|RW\s*U[2-4]\b/i.test(text)
+    /R&W\s*U[2-4]\b|RW\s*U[2-4]\b/i.test(text) ||
+    (task.subject === 'math' && /\bU[2-5](\.|\b)/i.test(text)) ||
+    (task.subject === 'rw' && /\bU[2-4](\.|\b)/i.test(text))
   ) {
     return 'foundations';
   }
@@ -237,7 +247,7 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
     return DIFFICULTY_CONFIGS.exam;
   }
 
-  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test' || /MOCK|TEST/i.test(t.code || ''))) {
+  if (day.isTestDay || day.tasks.some((t) => t.subject === 'test' || /MOCK|TEST/i.test(t.code || '') || /TEST/i.test(t.label || ''))) {
     return DIFFICULTY_CONFIGS.test;
   }
 
@@ -255,24 +265,22 @@ export function getDayLoadDifficulty(day: DayPlan): DifficultyConfig {
   // Check task tiers
   const tiers = activeTasks.map(getTaskKhanTier);
 
-  // If day contains R&W Unit 11 -> Khan Academy Challenge unit day (Days 17-20)
+  // If day contains R&W Unit 11 -> Khan Academy Challenge unit day (Days 33-35)
   if (tiers.includes('challenge')) {
     return DIFFICULTY_CONFIGS.challenge;
   }
 
-  // If day contains Advanced Math (Units 10-13) (Days 23-32)
-  const advancedCount = tiers.filter((t) => t === 'advanced').length;
-  if (advancedCount > 0 && advancedCount >= tiers.length / 2) {
+  // If day contains Advanced Math (Units 10-13) (Days 22-32)
+  if (tiers.includes('advanced')) {
     return DIFFICULTY_CONFIGS.advanced;
   }
 
-  // If day contains Medium Math (Units 6-9) or Medium R&W (Units 5-10, 12) (Days 10-16, 21-22)
-  const mediumCount = tiers.filter((t) => t === 'medium').length;
-  if (mediumCount > 0 && mediumCount + advancedCount >= tiers.length / 2) {
+  // If day contains Medium Math (Units 6-9) or Medium R&W (Units 5-10, 12) (Days 9-22, 36-39)
+  if (tiers.includes('medium')) {
     return DIFFICULTY_CONFIGS.medium;
   }
 
-  // Days 1-9: Foundations Tier (Math U2-U5 & R&W U2-U4)
+  // Days 1-8: Foundations Tier (Math U2-U5 & R&W U2-U4)
   return DIFFICULTY_CONFIGS.foundations;
 }
 
