@@ -27,6 +27,7 @@ import { playChime } from '../utils/audio';
 import { DayPlan, DaySessionTiming, SectionPacingResult, PaceRating } from '../types';
 import { evaluatePacing, MATH_PACING_BENCHMARKS } from '../utils/pacing';
 import { MatchaSelect } from './MatchaSelect';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 interface SessionTimerProps {
   isOpen: boolean;
@@ -55,6 +56,7 @@ export const SessionTimer: React.FC<SessionTimerProps> = ({
   onNavigateToCalendar,
   isStandalone = false,
 }) => {
+  useModalScrollLock(isOpen && !isStandalone);
   const [currentDateStr, setCurrentDateStr] = useState<string>(selectedDateStr || '2026-09-12');
   const [rwDurationMinutes, setRwDurationMinutes] = useState<number>(35);
   const [currentStage, setCurrentStage] = useState<Stage>('math');
@@ -320,8 +322,14 @@ export const SessionTimer: React.FC<SessionTimerProps> = ({
   }
 
   return (
-    <div className={isStandalone ? "w-full min-h-screen bg-slate-950 text-white flex items-center justify-center p-3 sm:p-4" : "fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-150"}>
-      <div className={isStandalone ? "w-full max-w-xl bg-matcha-input text-slate-950 rounded-3xl shadow-2xl border-2 border-slate-700 overflow-hidden flex flex-col my-auto" : "w-full max-w-xl bg-matcha-input text-slate-950 rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col max-h-[92vh] overflow-y-auto"}>
+    <div 
+      className={isStandalone ? "w-full min-h-screen bg-slate-950 text-white flex items-center justify-center p-3 sm:p-4" : "fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto overscroll-contain"}
+      data-lenis-prevent={!isStandalone ? "true" : undefined}
+    >
+      <div 
+        className={isStandalone ? "w-full max-w-xl bg-matcha-input text-slate-950 rounded-3xl shadow-2xl border-2 border-slate-700 overflow-hidden flex flex-col my-auto" : "w-full max-w-xl bg-matcha-input text-slate-950 rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col max-h-[92vh] overflow-y-auto overscroll-contain"}
+        data-lenis-prevent={!isStandalone ? "true" : undefined}
+      >
         
         {/* Modal Top Header with Day Connection */}
         <div className="bg-slate-900 px-5 sm:px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">

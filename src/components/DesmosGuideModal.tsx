@@ -24,6 +24,7 @@ interface DesmosGuideModalProps {
 }
 
 import { CheatCodeItem, CHEAT_CODES } from '../data/cheatCodes';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 export type { CheatCodeItem };
 export { CHEAT_CODES };
 
@@ -33,6 +34,7 @@ export const DesmosGuideModal: React.FC<DesmosGuideModalProps> = ({
   onClose,
   initialTab = 'desmos'
 }) => {
+  useModalScrollLock(isOpen);
   const [activeTab, setActiveTab] = useState<'all' | 'desmos' | 'rw-grammar' | 'rw-strategies'>(initialTab);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -61,8 +63,14 @@ export const DesmosGuideModal: React.FC<DesmosGuideModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="w-full max-w-3xl max-h-[92vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto overscroll-contain"
+      data-lenis-prevent="true"
+    >
+      <div 
+        className="w-full max-w-3xl max-h-[92vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col overscroll-contain"
+        data-lenis-prevent="true"
+      >
         
         {/* Header */}
         <div className="bg-slate-900 px-5 sm:px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">

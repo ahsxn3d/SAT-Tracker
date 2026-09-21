@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Plus, Trash2, CheckCircle, BookOpen, AlertTriangle, Filter, Download } from 'lucide-react';
 import { ErrorLogEntry } from '../types';
 import { MatchaSelect } from './MatchaSelect';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 interface ErrorLogModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export const ErrorLogModal: React.FC<ErrorLogModalProps> = ({
   onDeleteEntry,
   onToggleReviewed,
 }) => {
+  useModalScrollLock(isOpen);
   const [isAdding, setIsAdding] = useState(false);
   const [testOrSection, setTestOrSection] = useState('Bluebook Practice Test #1');
   const [questionRef, setQuestionRef] = useState('');
@@ -79,8 +81,14 @@ export const ErrorLogModal: React.FC<ErrorLogModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="w-full max-w-3xl max-h-[90vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto overscroll-contain"
+      data-lenis-prevent="true"
+    >
+      <div 
+        className="w-full max-w-3xl max-h-[90vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col overscroll-contain"
+        data-lenis-prevent="true"
+      >
         {/* Header */}
         <div className="bg-slate-900 px-6 py-4 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">

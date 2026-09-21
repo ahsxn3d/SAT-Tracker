@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { DayPlan, TaskItem, DaySessionTiming, TaskTimingRecord } from '../types';
 import { getDayLoadDifficulty, DayLoadDifficulty, DIFFICULTY_CONFIGS, cleanSkillLabel } from '../utils/difficulty';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 interface InteractiveCalendarProps {
   allDays: DayPlan[];
@@ -104,6 +105,9 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
     if (!activeInspectDayId) return null;
     return daysByDate.get(activeInspectDayId) || null;
   }, [activeInspectDayId, daysByDate]);
+
+  // Lock background scroll when inspecting a day modal
+  useModalScrollLock(!!inspectedDay);
 
   // Months configuration for the study window
   const monthsData = useMemo(() => {
@@ -813,8 +817,14 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
       {/* INTERACTIVE DAY INSPECTOR MODAL / SLIDE-OVER                 */}
       {/* ============================================================ */}
       {inspectedDay && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150">
-          <div className="bg-matcha-input rounded-3xl border-2 border-slate-300 shadow-grave max-w-lg w-full max-h-[90vh] overflow-y-auto flex flex-col">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto overscroll-contain"
+          data-lenis-prevent="true"
+        >
+          <div 
+            className="bg-matcha-input rounded-3xl border-2 border-slate-300 shadow-grave max-w-lg w-full max-h-[90vh] overflow-y-auto flex flex-col overscroll-contain"
+            data-lenis-prevent="true"
+          >
             
             {/* Modal Header with Date and Exam Marker */}
             <div className={`p-5 sm:p-6 border-b flex items-start justify-between gap-3 ${

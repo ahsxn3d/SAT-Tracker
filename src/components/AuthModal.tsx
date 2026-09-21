@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { X, LogIn, Sparkles, Crown, Zap, Mail, User, ShieldCheck } from 'lucide-react';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   onClose,
   adminEmailConfigured = 'muhammadahsanjaved09@gmail.com',
 }) => {
+  useModalScrollLock(isOpen);
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -83,16 +85,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   return (
     <AnimatePresence>
       <div 
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#122810]/45 backdrop-blur-md"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#122810]/45 backdrop-blur-md overflow-y-auto overscroll-contain"
         onClick={onClose}
+        data-lenis-prevent="true"
       >
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="ios-glass-card rounded-3xl border-2 border-[#a6c4a1] bg-[#e5f0e1]/95 text-[#122810] shadow-grave max-w-md w-full overflow-hidden relative select-none"
+          className="ios-glass-card rounded-3xl border-2 border-[#a6c4a1] bg-[#e5f0e1]/95 text-[#122810] shadow-grave max-w-md w-full overflow-hidden relative select-none overscroll-contain"
           onClick={(e) => e.stopPropagation()}
+          data-lenis-prevent="true"
         >
           {/* Header Banner - Matching Matcha Forest Palette */}
           <div className="bg-gradient-to-r from-[#264e22] to-[#1a3717] text-[#f2f8f0] p-5 sm:p-6 relative">

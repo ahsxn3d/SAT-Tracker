@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, ShieldCheck, AlertCircle, Plus, MapPin, Clock, Luggage } from 'lucide-react';
 import { PackingItem } from '../types';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 interface PackingModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export const PackingModal: React.FC<PackingModalProps> = ({
   onToggleItem,
   onAddItem,
 }) => {
+  useModalScrollLock(isOpen);
   const [newItemText, setNewItemText] = useState('');
 
   if (!isOpen) return null;
@@ -31,8 +33,14 @@ export const PackingModal: React.FC<PackingModalProps> = ({
   const packedCount = items.filter((i) => i.packed).length;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150">
-      <div className="w-full max-w-xl max-h-[90vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto overscroll-contain"
+      data-lenis-prevent="true"
+    >
+      <div 
+        className="w-full max-w-xl max-h-[90vh] bg-matcha-input rounded-3xl shadow-grave border-2 border-slate-300 overflow-hidden flex flex-col overscroll-contain"
+        data-lenis-prevent="true"
+      >
         {/* Header */}
         <div className="bg-slate-900 px-6 py-4 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">

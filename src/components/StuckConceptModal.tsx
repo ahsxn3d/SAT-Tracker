@@ -17,6 +17,7 @@ import {
 import { CORE_CURRICULUM_CHAPTERS, getAllCoreLessons } from '../data/coreCurriculum';
 import { StuckConceptRecord, TaskItem, DayPlan } from '../types';
 import { MatchaSelect, MatchaSelectOption } from './MatchaSelect';
+import { useModalScrollLock } from '../hooks/useModalScrollLock';
 
 export interface StuckConceptModalProps {
   isOpen: boolean;
@@ -60,6 +61,9 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
   const actualDayNumber = day?.dayNumber ?? dayNumber;
   const actualTasks = day?.tasks || scheduledTasks;
   const handleSave = onSaveStruggle || onSave;
+
+  // Lock background window scroll and pause Lenis smooth scroll while modal is open
+  useModalScrollLock(isOpen);
 
   const curriculumLessons = useMemo(() => getAllCoreLessons(), []);
 
@@ -260,13 +264,17 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm overflow-y-auto">
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/60 backdrop-blur-sm overflow-y-auto overscroll-contain"
+        data-lenis-prevent="true"
+      >
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-matcha-modal rounded-3xl border-2 border-[#a6c4a1] shadow-grave max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col font-sans text-[#122810] backdrop-blur-2xl"
+          className="bg-matcha-modal rounded-3xl border-2 border-[#a6c4a1] shadow-grave max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col font-sans text-[#122810] backdrop-blur-2xl overscroll-contain"
+          data-lenis-prevent="true"
         >
           {/* Header */}
           <div className="p-4 sm:p-6 bg-matcha-sub-dark/70 border-b-2 border-[#a6c4a1] flex items-start justify-between gap-3 shrink-0 backdrop-blur-md">
@@ -297,7 +305,10 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
           </div>
 
           {/* Body Content */}
-          <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1">
+          <div 
+            className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 overscroll-contain"
+            data-lenis-prevent="true"
+          >
             {/* Form */}
             <form onSubmit={handleSubmitForm} className="space-y-4">
               {/* Row 1: Lesson & Chapter Selection */}
