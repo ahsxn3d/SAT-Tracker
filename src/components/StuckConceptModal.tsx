@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { CORE_CURRICULUM_CHAPTERS, getAllCoreLessons } from '../data/coreCurriculum';
 import { StuckConceptRecord, TaskItem, DayPlan } from '../types';
+import { MatchaSelect, MatchaSelectOption } from './MatchaSelect';
 
 export interface StuckConceptModalProps {
   isOpen: boolean;
@@ -68,6 +69,7 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
   }, [actualTasks]);
 
   // Form states
+  const [selectedLessonKey, setSelectedLessonKey] = useState<string>('');
   const [selectedLessonCode, setSelectedLessonCode] = useState<string>('');
   const [selectedLessonTitle, setSelectedLessonTitle] = useState<string>('');
   const [selectedChapter, setSelectedChapter] = useState<string>('Algebra');
@@ -77,11 +79,49 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
   const [takeawayRule, setTakeawayRule] = useState<string>('');
   const [syncToErrorLog, setSyncToErrorLog] = useState<boolean>(true);
 
+  // Lesson dropdown options
+  const lessonOptions: MatchaSelectOption[] = useMemo(() => {
+    const list: MatchaSelectOption[] = [];
+    if (dayStudyTasks.length > 0) {
+      dayStudyTasks.forEach((t) => {
+        list.push({
+          value: `task:${t.id}`,
+          label: `${t.code ? `[${t.code}] ` : ''}${t.topic || t.label}`,
+          badge: "Today's Task",
+        });
+      });
+    }
+    curriculumLessons.forEach((l) => {
+      list.push({
+        value: `curr:${l.id}`,
+        label: `${l.chapterTitle}: ${l.lessonTitle}`,
+        badge: l.chapterTitle.split(' ')[0],
+      });
+    });
+    return list;
+  }, [dayStudyTasks, curriculumLessons]);
+
+  // Chapter options
+  const chapterOptions: MatchaSelectOption[] = useMemo(() => {
+    const list: MatchaSelectOption[] = CORE_CURRICULUM_CHAPTERS.map((ch) => ({
+      value: ch.title,
+      label: ch.title,
+      badge: ch.badge,
+    }));
+    list.push({
+      value: 'Reading & Writing',
+      label: 'Reading & Writing (Grammar / Strategy)',
+      badge: 'R&W',
+    });
+    return list;
+  }, []);
+
   // Initialize or reset when modal opens or date changes
   useEffect(() => {
     if (isOpen) {
       if (dayStudyTasks.length > 0) {
         const first = dayStudyTasks[0];
+        setSelectedLessonKey(`task:${first.id}`);
         setSelectedLessonCode(first.code || 'MATH');
         setSelectedLessonTitle(first.topic || first.label);
 
@@ -101,9 +141,18 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
           setSelectedChapter('Algebra');
         }
       } else {
-        setSelectedLessonCode('MATH');
-        setSelectedLessonTitle('General Study Review');
-        setSelectedChapter('Algebra');
+        const firstCurriculum = curriculumLessons[0];
+        if (firstCurriculum) {
+          setSelectedLessonKey(`curr:${firstCurriculum.id}`);
+          setSelectedLessonCode(firstCurriculum.lessonTitle);
+          setSelectedLessonTitle(firstCurriculum.lessonTitle);
+          setSelectedChapter(firstCurriculum.chapterTitle);
+        } else {
+          setSelectedLessonKey('task:default');
+          setSelectedLessonCode('MATH');
+          setSelectedLessonTitle('General Study Review');
+          setSelectedChapter('Algebra');
+        }
       }
 
       setSelectedConcept('');
@@ -112,7 +161,7 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
       setTakeawayRule('');
       setSyncToErrorLog(true);
     }
-  }, [isOpen, dateStr, dayStudyTasks]);
+  }, [isOpen, dateStr, dayStudyTasks, curriculumLessons]);
 
   // Get concepts for the currently selected chapter
   const availableConcepts = useMemo(() => {
@@ -121,6 +170,21 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
     return chapterObj.lessons.flatMap((l) => l.conceptsForLogging);
   }, [selectedChapter]);
 
+  // Concept options
+  const conceptOptions: MatchaSelectOption[] = useMemo(() => {
+    const list: MatchaSelectOption[] = availableConcepts.map((c) => ({
+      value: c,
+      label: c,
+      badge: 'Core Info',
+    }));
+    list.push({
+      value: 'other',
+      label: '✏️ Custom Question / Formula Variation',
+      badge: 'Custom',
+    });
+    return list;
+  }, [availableConcepts]);
+
   // Auto-select first concept when available concepts change
   useEffect(() => {
     if (availableConcepts.length > 0 && !selectedConcept) {
@@ -128,8 +192,8 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
     }
   }, [availableConcepts, selectedConcept]);
 
-  const handleLessonChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const val = e.target.value;
+  const handleLessonKeyChange = (val: string) => {
+    setSelectedLessonKey(val);
     if (val.startsWith('task:')) {
       const taskId = val.replace('task:', '');
       const task = dayStudyTasks.find((t) => t.id === taskId);
@@ -147,6 +211,8 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
           setSelectedChapter('Geometry & Trigonometry');
         } else if (codeUpper.includes('MATH U6') || codeUpper.includes('MATH U10')) {
           setSelectedChapter('Algebra');
+        } else if (codeUpper.includes('R&W')) {
+          setSelectedChapter('Reading & Writing');
         } else {
           setSelectedChapter('Algebra');
         }
@@ -236,57 +302,42 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
             <form onSubmit={handleSubmitForm} className="space-y-4">
               {/* Row 1: Lesson & Chapter Selection */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-1 font-['JetBrains_Mono']">
+                <div className="relative z-30">
+                  <label className="block text-xs font-black uppercase tracking-wider text-[#122810] mb-1.5 font-['JetBrains_Mono']">
                     1. Select Specific Lesson
                   </label>
-                  <select
-                    onChange={handleLessonChange}
-                    className="w-full text-xs font-semibold bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 text-slate-900 focus:ring-2 focus:ring-rose-500 focus:outline-none"
-                  >
-                    <optgroup label="Today's Assigned Lessons">
-                      {dayStudyTasks.map((t) => (
-                        <option key={t.id} value={`task:${t.id}`}>
-                          {t.code ? `[${t.code}] ` : ''}{t.topic || t.label}
-                        </option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Core Knowledge Base Lessons">
-                      {curriculumLessons.map((l) => (
-                        <option key={l.id} value={`curr:${l.id}`}>
-                          {l.chapterTitle}: {l.lessonTitle}
-                        </option>
-                      ))}
-                    </optgroup>
-                  </select>
+                  <MatchaSelect
+                    value={selectedLessonKey}
+                    onChange={handleLessonKeyChange}
+                    options={lessonOptions}
+                    variant="matcha"
+                    fullWidth
+                    placeholder="Select specific lesson..."
+                  />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-1 font-['JetBrains_Mono']">
+                <div className="relative z-20">
+                  <label className="block text-xs font-black uppercase tracking-wider text-[#122810] mb-1.5 font-['JetBrains_Mono']">
                     2. Chapter / Domain Category
                   </label>
-                  <select
+                  <MatchaSelect
                     value={selectedChapter}
-                    onChange={(e) => {
-                      setSelectedChapter(e.target.value);
+                    onChange={(val) => {
+                      setSelectedChapter(String(val));
                       setSelectedConcept('');
                     }}
-                    className="w-full text-xs font-semibold bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 text-slate-900 focus:ring-2 focus:ring-rose-500 focus:outline-none"
-                  >
-                    {CORE_CURRICULUM_CHAPTERS.map((ch) => (
-                      <option key={ch.id} value={ch.title}>
-                        {ch.title}
-                      </option>
-                    ))}
-                    <option value="Reading & Writing">Reading & Writing (Grammar / Strategy)</option>
-                  </select>
+                    options={chapterOptions}
+                    variant="matcha"
+                    fullWidth
+                    placeholder="Select chapter..."
+                  />
                 </div>
               </div>
 
               {/* Row 2: Specific Formula / Concept from Core Info */}
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-black uppercase tracking-wider text-slate-800 font-['JetBrains_Mono']">
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-black uppercase tracking-wider text-[#122810] font-['JetBrains_Mono']">
                     3. Exact Formula, Rule, or Trap (From Core Info)
                   </label>
                   {onNavigateToCoreInfo && (
@@ -296,7 +347,7 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                         onClose();
                         onNavigateToCoreInfo();
                       }}
-                      className="text-[11px] font-bold text-indigo-700 hover:text-indigo-900 flex items-center gap-1 cursor-pointer"
+                      className="text-[11px] font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1 cursor-pointer"
                     >
                       <BookOpen className="w-3 h-3" />
                       <span>Review Core Info &rarr;</span>
@@ -305,20 +356,18 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                 </div>
 
                 {availableConcepts.length > 0 ? (
-                  <select
-                    value={selectedConcept}
-                    onChange={(e) => setSelectedConcept(e.target.value)}
-                    className="w-full text-xs font-semibold bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 text-slate-900 focus:ring-2 focus:ring-rose-500 focus:outline-none mb-2"
-                  >
-                    {availableConcepts.map((c, idx) => (
-                      <option key={idx} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                    <option value="other">-- Custom Question / Formula Variation --</option>
-                  </select>
+                  <div className="mb-2">
+                    <MatchaSelect
+                      value={selectedConcept}
+                      onChange={(val) => setSelectedConcept(String(val))}
+                      options={conceptOptions}
+                      variant="matcha"
+                      fullWidth
+                      placeholder="Select formula, rule, or trap..."
+                    />
+                  </div>
                 ) : (
-                  <p className="text-xs text-slate-600 mb-2 font-medium">Enter custom concept or question detail below:</p>
+                  <p className="text-xs text-[#274624] mb-2 font-medium">Enter custom concept or question detail below:</p>
                 )}
 
                 {(selectedConcept === 'other' || availableConcepts.length === 0) && (

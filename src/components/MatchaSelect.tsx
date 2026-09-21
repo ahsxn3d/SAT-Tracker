@@ -79,12 +79,12 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
   const isWhite = variant === 'white';
 
   const triggerBaseClasses = isDark
-    ? 'bg-[#152713] text-[#e8f3e5] border-[#2d4d28] hover:border-emerald-500 hover:bg-[#1a3318]'
+    ? 'bg-[#152713] text-[#e8f3e5] border-2 border-[#2d4d28] hover:border-emerald-500 hover:bg-[#1a3318]'
     : isWhite
-    ? 'bg-white text-slate-900 border-[#a6c4a1] hover:border-emerald-600 hover:bg-emerald-50/20'
-    : 'bg-white/95 text-[#122810] border-[#a6c4a1] hover:border-emerald-600 hover:bg-white';
+    ? 'bg-matcha-input text-[#122810] border-2 border-[#a6c4a1] hover:border-emerald-600 hover:bg-matcha-sub backdrop-blur-md'
+    : 'bg-matcha-input text-[#122810] border-2 border-[#a6c4a1] hover:border-emerald-600 hover:bg-matcha-sub shadow-xs backdrop-blur-md';
 
-  const sizeClasses = size === 'sm' ? 'px-2.5 py-1.5 text-xs' : 'px-3.5 py-2.5 text-xs sm:text-sm';
+  const sizeClasses = size === 'sm' ? 'px-3 py-2 text-xs' : 'px-3.5 py-2.5 text-xs sm:text-sm';
 
   return (
     <div
@@ -97,7 +97,7 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className={`w-full flex items-center justify-between gap-2 rounded-xl font-bold font-['JetBrains_Mono'] border transition-all duration-150 shadow-2xs cursor-pointer select-none ${triggerBaseClasses} ${sizeClasses} ${className}`}
+        className={`w-full flex items-center justify-between gap-2 rounded-xl font-bold font-['JetBrains_Mono'] transition-all duration-150 shadow-xs cursor-pointer select-none active:scale-[0.99] ${triggerBaseClasses} ${sizeClasses} ${className}`}
       >
         <span className="flex items-center gap-1.5 truncate">
           {icon && <span className="shrink-0">{icon}</span>}
@@ -118,12 +118,14 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
-            className={`absolute z-50 mt-1.5 max-h-72 w-max min-w-[220px] max-w-[340px] overflow-y-auto scrollbar-thin rounded-2xl p-1.5 shadow-2xl border-2 backdrop-blur-xl ${
+            className={`absolute z-50 mt-1.5 max-h-72 ${
+              fullWidth ? 'w-full min-w-full' : 'w-max min-w-[220px] max-w-[360px]'
+            } overflow-y-auto scrollbar-thin rounded-2xl p-1.5 shadow-grave border-2 backdrop-blur-2xl ${
               align === 'right' ? 'right-0' : 'left-0'
             } ${
               isDark
                 ? 'bg-[#0f1f0e]/95 border-[#284824] shadow-black/60 text-slate-100'
-                : 'bg-[#f4f9f2]/95 sm:bg-white/95 border-[#8eb388] shadow-emerald-950/20 text-[#122810]'
+                : 'bg-matcha-modal border-[#a6c4a1] shadow-grave text-[#122810]'
             } ${menuClassName}`}
             role="listbox"
           >
@@ -140,14 +142,14 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
                   }}
                   role="option"
                   aria-selected={isSelected}
-                  className={`w-full flex items-center justify-between gap-2.5 px-3 py-2 rounded-xl text-left text-xs font-bold font-['JetBrains_Mono'] transition-all duration-150 cursor-pointer select-none my-0.5 ${
+                  className={`w-full flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-xl text-left text-xs font-bold font-['JetBrains_Mono'] transition-all duration-150 cursor-pointer select-none my-0.5 active:scale-[0.99] ${
                     isSelected
                       ? isDark
                         ? 'bg-emerald-600 text-white font-black shadow-xs'
-                        : 'bg-[#244c20] text-white font-black shadow-xs'
+                        : 'bg-[#122810] text-white font-black shadow-xs'
                       : isDark
                       ? 'hover:bg-[#1a3518] text-[#d6ebd1]'
-                      : 'hover:bg-[#e3eee0] text-[#122810]'
+                      : 'hover:bg-matcha-sub text-[#122810]'
                   }`}
                 >
                   <span className="flex items-center gap-2 truncate">
@@ -158,12 +160,12 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
                   <span className="flex items-center gap-1.5 shrink-0">
                     {option.badge && (
                       <span
-                        className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${
+                        className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md ${
                           isSelected
                             ? 'bg-white/20 text-white'
                             : isDark
                             ? 'bg-amber-400/20 text-amber-300'
-                            : 'bg-amber-100 text-amber-900 border border-amber-300/60'
+                            : 'bg-matcha-sub text-[#122810] border border-[#a6c4a1]'
                         }`}
                       >
                         {option.badge}
@@ -173,7 +175,7 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
                     {isSelected && (
                       <Check
                         className={`w-3.5 h-3.5 ${
-                          isDark ? 'text-emerald-200' : 'text-emerald-300'
+                          isDark ? 'text-emerald-200' : 'text-emerald-400'
                         }`}
                       />
                     )}
