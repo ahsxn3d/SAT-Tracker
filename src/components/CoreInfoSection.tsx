@@ -197,7 +197,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
       {mainPageTab === 'curriculum' && (
         <div className="space-y-6">
           {/* Controls: Chapter Selector & Real-Time Search */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub p-3.5 sm:p-4 rounded-2xl border border-[#a6c4a1]/70">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
             {/* Chapter Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
               <button
@@ -205,7 +205,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                 className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 ${
                   selectedChapterId === 'all'
                     ? 'bg-[#1a3717] text-white shadow-xs'
-                    : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]/60'
+                    : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
                 }`}
               >
                 All Chapters
@@ -217,7 +217,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                   className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 ${
                     selectedChapterId === ch.id
                       ? 'bg-[#1a3717] text-white shadow-xs'
-                      : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]/60'
+                      : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
                   }`}
                 >
                   {ch.title}
@@ -233,7 +233,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                 placeholder="Search formulas, rules, lessons..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 bg-matcha-input border border-[#a6c4a1] rounded-xl text-xs text-slate-900 placeholder:text-slate-500 font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none"
+                className="w-full pl-9 pr-3 py-2 bg-matcha-input border border-[#a6c4a1] rounded-xl text-xs text-[#122810] placeholder:text-[#3d5a39] font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none backdrop-blur-md"
               />
             </div>
           </div>
@@ -243,17 +243,17 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
             {filteredChapters.map((ch) => (
               <div key={ch.id} className="space-y-4">
                 {/* Chapter Banner */}
-                <div className="p-4 bg-[#d2e4cd]/70 rounded-2xl border border-[#a6c4a1] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="p-4 bg-matcha-sub-dark/70 backdrop-blur-md rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-800 text-white font-['JetBrains_Mono']">
+                      <span className="text-[11px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-800 text-white font-['JetBrains_Mono'] shadow-xs">
                         {ch.badge}
                       </span>
-                      <h3 className="text-lg font-bold text-slate-950 font-luxury">
+                      <h3 className="text-lg font-bold text-[#122810] font-luxury">
                         {ch.title}
                       </h3>
                     </div>
-                    <p className="text-xs text-slate-700 font-medium mt-0.5">
+                    <p className="text-xs text-[#274624] font-medium mt-0.5">
                       {ch.description}
                     </p>
                   </div>
@@ -268,12 +268,12 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                     return (
                       <div
                         key={lesson.id}
-                        className="bg-white rounded-2xl border border-[#a6c4a1] shadow-xs overflow-hidden transition-all duration-150"
+                        className="ios-glass-card rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card hover:shadow-grave-card-hover overflow-hidden transition-all duration-200"
                       >
                         {/* Lesson Header Accordion Toggle */}
                         <div
                           onClick={() => toggleLesson(lesson.id)}
-                          className="p-4 sm:p-5 flex items-start justify-between gap-3 cursor-pointer hover:bg-emerald-50/40 transition"
+                          className="p-4 sm:p-5 flex items-start justify-between gap-3 cursor-pointer hover:bg-matcha-sub/70 transition"
                         >
                           <div>
                             <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -287,41 +287,41 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                                 </span>
                               )}
                             </div>
-                            <h4 className="text-base font-bold text-slate-950 font-luxury">
+                            <h4 className="text-base font-bold text-[#122810] font-luxury">
                               {lesson.lessonTitle}
                             </h4>
                             {lesson.definition && (
-                              <p className="text-xs text-slate-700 font-medium mt-1 leading-relaxed">
+                              <p className="text-xs text-[#274624] font-medium mt-1 leading-relaxed">
                                 {lesson.definition}
                               </p>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-1 shrink-0 text-slate-500">
+                          <div className="flex items-center gap-1 shrink-0 text-[#3d5a39]">
                             {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                           </div>
                         </div>
 
                         {/* Expanded Details */}
                         {isExpanded && (
-                          <div className="p-4 sm:p-5 pt-0 border-t border-[#a6c4a1]/40 space-y-4 bg-matcha-sub/30">
+                          <div className="p-4 sm:p-5 pt-0 border-t border-[#a6c4a1]/50 space-y-4 bg-matcha-sub/40 backdrop-blur-md">
                             {/* Formulas Box */}
                             {lesson.formulas.length > 0 && (
                               <div className="space-y-2 pt-2">
-                                <span className="text-[11px] font-black uppercase tracking-wider text-slate-800 font-['JetBrains_Mono'] block">
+                                <span className="text-[11px] font-black uppercase tracking-wider text-[#122810] font-['JetBrains_Mono'] block">
                                   Essential Formulas & Syntax
                                 </span>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                                   {lesson.formulas.map((f, fIdx) => (
                                     <div
                                       key={fIdx}
-                                      className="p-3 bg-white rounded-xl border border-[#a6c4a1] shadow-xs flex flex-col justify-between"
+                                      className="p-3.5 bg-matcha-sub/90 backdrop-blur-md rounded-xl border border-[#a6c4a1] shadow-grave-card flex flex-col justify-between"
                                     >
                                       <div>
-                                        <span className="text-[11px] font-bold text-emerald-900 block mb-1">
+                                        <span className="text-[11px] font-bold text-emerald-950 block mb-1">
                                           {f.label}
                                         </span>
-                                        <div className="p-2 bg-slate-900 text-emerald-300 font-mono text-xs rounded-lg font-bold overflow-x-auto flex items-center justify-between">
+                                        <div className="p-2.5 bg-[#122810]/95 backdrop-blur-md text-emerald-300 font-mono text-xs rounded-lg font-bold border border-emerald-500/30 overflow-x-auto flex items-center justify-between shadow-inner">
                                           <span>{f.formula}</span>
                                           <button
                                             type="button"
@@ -329,7 +329,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                                               e.stopPropagation();
                                               handleCopy(f.formula);
                                             }}
-                                            className="p-1 hover:bg-slate-800 rounded text-slate-400 hover:text-white transition shrink-0 ml-2"
+                                            className="p-1 hover:bg-[#1a3717] rounded text-emerald-400/70 hover:text-white transition shrink-0 ml-2"
                                             title="Copy formula"
                                           >
                                             {copiedFormula === f.formula ? (
@@ -341,7 +341,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                                         </div>
                                       </div>
                                       {f.explanation && (
-                                        <p className="text-[11px] text-slate-600 mt-1.5 font-medium leading-normal">
+                                        <p className="text-[11px] text-[#274624] mt-1.5 font-medium leading-normal">
                                           {f.explanation}
                                         </p>
                                       )}
@@ -355,26 +355,26 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                             {lesson.methods && lesson.methods.length > 0 && (
                               <div className="space-y-2">
                                 {lesson.methods.map((m, mIdx) => (
-                                  <div key={mIdx} className="p-3.5 bg-white rounded-xl border border-[#a6c4a1] shadow-xs space-y-2">
+                                  <div key={mIdx} className="p-4 bg-matcha-sub/90 backdrop-blur-md rounded-xl border border-[#a6c4a1] shadow-grave-card space-y-2">
                                     <span className="text-xs font-bold text-indigo-950 flex items-center gap-1.5 font-['JetBrains_Mono']">
-                                      <ArrowRight className="w-3.5 h-3.5 text-indigo-600" />
+                                      <ArrowRight className="w-3.5 h-3.5 text-indigo-700" />
                                       <span>{m.title}</span>
                                     </span>
                                     <div className="space-y-1 pl-1">
                                       {m.steps.map((step, sIdx) => (
-                                        <p key={sIdx} className="text-xs text-slate-800 font-medium leading-relaxed">
+                                        <p key={sIdx} className="text-xs text-[#122810] font-medium leading-relaxed">
                                           {step}
                                         </p>
                                       ))}
                                     </div>
 
                                     {m.reverseSteps && (
-                                      <div className="pt-2 border-t border-slate-100">
-                                        <span className="text-[11px] font-bold text-amber-900 block mb-1">
+                                      <div className="pt-2 border-t border-[#a6c4a1]/50">
+                                        <span className="text-[11px] font-bold text-amber-950 block mb-1 font-['JetBrains_Mono']">
                                           Reverse Version (Finding unknown dimension):
                                         </span>
                                         {m.reverseSteps.map((rStep, rIdx) => (
-                                          <p key={rIdx} className="text-xs text-slate-700 font-medium leading-relaxed">
+                                          <p key={rIdx} className="text-xs text-amber-950/90 font-medium leading-relaxed">
                                             {rStep}
                                           </p>
                                         ))}
@@ -387,11 +387,11 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
                             {/* Example Logic */}
                             {lesson.exampleLogic && (
-                              <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                              <div className="p-3.5 bg-matcha-input/90 backdrop-blur-md rounded-xl border-2 border-emerald-600/40 shadow-grave-card">
                                 <span className="text-[11px] font-bold text-emerald-950 block mb-1 font-['JetBrains_Mono']">
                                   Example Logic & Dimensional Flow:
                                 </span>
-                                <pre className="text-xs text-slate-800 font-mono whitespace-pre-wrap leading-relaxed">
+                                <pre className="text-xs text-[#122810] font-mono whitespace-pre-wrap leading-relaxed">
                                   {lesson.exampleLogic}
                                 </pre>
                               </div>
@@ -399,13 +399,13 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
                             {/* Golden Rules */}
                             {lesson.goldenRules && lesson.goldenRules.length > 0 && (
-                              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 space-y-1">
+                              <div className="p-3.5 bg-amber-500/10 backdrop-blur-md rounded-xl border border-amber-500/30 shadow-grave-card space-y-1">
                                 <span className="text-[11px] font-black uppercase text-amber-950 font-['JetBrains_Mono'] flex items-center gap-1">
                                   <Flame className="w-3.5 h-3.5 text-amber-600" />
                                   <span>Golden Rules & High-Leverage Tips</span>
                                 </span>
                                 {lesson.goldenRules.map((rule, rIdx) => (
-                                  <p key={rIdx} className="text-xs text-amber-900 font-semibold leading-relaxed">
+                                  <p key={rIdx} className="text-xs text-amber-950 font-semibold leading-relaxed">
                                     &bull; {rule}
                                   </p>
                                 ))}
@@ -414,13 +414,13 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
                             {/* Traps & Warnings */}
                             {lesson.trapsAndWarnings && lesson.trapsAndWarnings.length > 0 && (
-                              <div className="p-3 bg-rose-50 rounded-xl border border-rose-200 space-y-1">
+                              <div className="p-3.5 bg-rose-500/10 backdrop-blur-md rounded-xl border border-rose-500/30 shadow-grave-card space-y-1">
                                 <span className="text-[11px] font-black uppercase text-rose-950 font-['JetBrains_Mono'] flex items-center gap-1">
                                   <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
                                   <span>Common SAT Traps & Extraneous Warnings</span>
                                 </span>
                                 {lesson.trapsAndWarnings.map((trap, tIdx) => (
-                                  <p key={tIdx} className="text-xs text-rose-900 font-semibold leading-relaxed">
+                                  <p key={tIdx} className="text-xs text-rose-950 font-semibold leading-relaxed">
                                     &bull; {trap}
                                   </p>
                                 ))}
@@ -429,36 +429,36 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
                             {/* Unit Circle Table */}
                             {lesson.unitCircleTable && (
-                              <div className="p-3.5 bg-white rounded-xl border border-[#a6c4a1] shadow-xs space-y-2">
+                              <div className="p-4 bg-matcha-sub/90 backdrop-blur-md rounded-xl border-2 border-[#a6c4a1] shadow-grave-card space-y-2">
                                 <div className="flex items-center justify-between">
-                                  <span className="text-xs font-black uppercase tracking-wider text-slate-900 font-['JetBrains_Mono']">
+                                  <span className="text-xs font-black uppercase tracking-wider text-[#122810] font-['JetBrains_Mono']">
                                     Full Unit Circle Reference Table (Memorize for SAT)
                                   </span>
                                 </div>
-                                <div className="overflow-x-auto">
+                                <div className="overflow-x-auto rounded-xl border border-[#a6c4a1]/70">
                                   <table className="w-full text-xs text-left border-collapse">
                                     <thead>
-                                      <tr className="bg-slate-100 border-b border-slate-300 font-['JetBrains_Mono'] text-slate-800">
-                                        <th className="p-2 font-black">Angle θ (Rad)</th>
-                                        <th className="p-2 font-black">Degree</th>
-                                        <th className="p-2 font-black">cos θ (x)</th>
-                                        <th className="p-2 font-black">sin θ (y)</th>
-                                        <th className="p-2 font-black">tan θ (y/x)</th>
+                                      <tr className="bg-matcha-sub-dark/90 border-b-2 border-[#a6c4a1] font-['JetBrains_Mono'] text-[#122810]">
+                                        <th className="p-2.5 font-black">Angle θ (Rad)</th>
+                                        <th className="p-2.5 font-black">Degree</th>
+                                        <th className="p-2.5 font-black">cos θ (x)</th>
+                                        <th className="p-2.5 font-black">sin θ (y)</th>
+                                        <th className="p-2.5 font-black">tan θ (y/x)</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       {lesson.unitCircleTable.map((row, rIdx) => (
                                         <tr
                                           key={rIdx}
-                                          className={`border-b border-slate-200 font-mono font-medium ${
-                                            rIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'
+                                          className={`border-b border-[#a6c4a1]/40 font-mono font-medium transition-colors ${
+                                            rIdx % 2 === 0 ? 'bg-matcha-sub/40 hover:bg-matcha-sub/70' : 'bg-matcha-input/50 hover:bg-matcha-sub/70'
                                           }`}
                                         >
-                                          <td className="p-2 font-bold text-indigo-700">{row.theta}</td>
-                                          <td className="p-2 text-slate-600">{row.deg}</td>
-                                          <td className="p-2 font-bold text-slate-900">{row.cos}</td>
-                                          <td className="p-2 font-bold text-slate-900">{row.sin}</td>
-                                          <td className="p-2 text-slate-800">{row.tan}</td>
+                                          <td className="p-2.5 font-bold text-indigo-800">{row.theta}</td>
+                                          <td className="p-2.5 text-[#274624]">{row.deg}</td>
+                                          <td className="p-2.5 font-bold text-[#122810]">{row.cos}</td>
+                                          <td className="p-2.5 font-bold text-[#122810]">{row.sin}</td>
+                                          <td className="p-2.5 text-[#122810]">{row.tan}</td>
                                         </tr>
                                       ))}
                                     </tbody>
@@ -468,7 +468,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                             )}
 
                             {/* Concepts For Logging Dropdown Items */}
-                            <div className="pt-2 flex items-center justify-between text-[11px] text-slate-600">
+                            <div className="pt-2 flex items-center justify-between text-[11px] text-[#274624]">
                               <span className="font-bold font-['JetBrains_Mono']">
                                 {lesson.conceptsForLogging.length} Loggable Sub-Concepts Connected to Calendar
                               </span>
@@ -495,22 +495,22 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
       {/* PAGE 3: TACTICAL BLUEPRINTS (DESMOS & R&W) */}
       {mainPageTab === 'blueprints' && (
         <div className="space-y-4">
-          <div className="p-4 bg-amber-50 rounded-2xl border border-amber-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="p-4 bg-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/30 shadow-grave-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>
-              <span className="text-xs font-black uppercase text-amber-900 font-['JetBrains_Mono']">
+              <span className="text-xs font-black uppercase text-amber-950 font-['JetBrains_Mono']">
                 ⚡ Tactical Blueprints & Shortcuts
               </span>
-              <h3 className="text-lg font-bold text-slate-950 font-luxury">
+              <h3 className="text-lg font-bold text-[#122810] font-luxury">
                 Desmos Regression & Grammar Traps
               </h3>
-              <p className="text-xs text-slate-700 font-medium mt-0.5">
+              <p className="text-xs text-[#274624] font-medium mt-0.5">
                 Master the exact 8 Desmos shortcuts and 6 Reading & Writing grammar blueprints.
               </p>
             </div>
-            {onOpenDesmosModal && (
+            {openModalHandler && (
               <button
-                onClick={() => onOpenDesmosModal('desmos')}
-                className="px-4 py-2 bg-amber-600 text-white rounded-xl text-xs font-black hover:bg-amber-700 transition cursor-pointer self-start sm:self-auto"
+                onClick={() => openModalHandler('desmos')}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black transition cursor-pointer self-start sm:self-auto shadow-xs"
               >
                 Open Studio Modal
               </button>
@@ -519,17 +519,17 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
             {CHEAT_CODES.map((item) => (
-              <div key={item.id} className="p-4 bg-white rounded-2xl border border-[#a6c4a1] shadow-xs space-y-2">
+              <div key={item.id} className="p-4.5 ios-glass-card rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card space-y-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-['JetBrains_Mono']">
+                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-950 font-['JetBrains_Mono']">
                     {item.category.toUpperCase()}
                   </span>
-                  <h4 className="text-sm font-bold text-slate-950 font-luxury">{item.title}</h4>
+                  <h4 className="text-sm font-bold text-[#122810] font-luxury">{item.title}</h4>
                 </div>
-                <p className="text-xs text-slate-800 font-semibold">{item.ruleSummary}</p>
-                <p className="text-xs text-slate-600 font-medium leading-relaxed">{item.detailedGuidance}</p>
+                <p className="text-xs text-[#122810] font-semibold">{item.ruleSummary}</p>
+                <p className="text-xs text-[#274624] font-medium leading-relaxed">{item.detailedGuidance}</p>
                 {item.recommendedSyntax && (
-                  <pre className="text-xs p-2 bg-slate-900 text-emerald-300 rounded-lg font-mono overflow-x-auto">
+                  <pre className="text-xs p-2.5 bg-[#122810]/95 backdrop-blur-md text-emerald-300 rounded-lg font-mono border border-emerald-500/30 shadow-inner overflow-x-auto">
                     {item.recommendedSyntax}
                   </pre>
                 )}

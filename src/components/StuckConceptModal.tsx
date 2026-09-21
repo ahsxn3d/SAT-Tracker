@@ -200,31 +200,31 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-white rounded-3xl border-2 border-[#a6c4a1] shadow-2xl max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col font-sans text-slate-900"
+          className="bg-matcha-modal rounded-3xl border-2 border-[#a6c4a1] shadow-grave max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col font-sans text-[#122810] backdrop-blur-2xl"
         >
           {/* Header */}
-          <div className="p-4 sm:p-6 bg-[#d2e4cd]/70 border-b border-[#a6c4a1] flex items-start justify-between gap-3 shrink-0">
+          <div className="p-4 sm:p-6 bg-matcha-sub-dark/70 border-b-2 border-[#a6c4a1] flex items-start justify-between gap-3 shrink-0 backdrop-blur-md">
             <div>
               <div className="flex items-center gap-2 flex-wrap mb-1">
-                <span className="text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-['JetBrains_Mono'] flex items-center gap-1">
+                <span className="text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs">
                   <AlertCircle className="w-3.5 h-3.5" />
                   <span>Struggle & Error Logger</span>
                 </span>
-                <span className="text-xs font-bold text-slate-700 font-['JetBrains_Mono']">
+                <span className="text-xs font-bold text-[#122810] font-['JetBrains_Mono'] bg-matcha-input/80 px-2.5 py-0.5 rounded-md border border-[#a6c4a1]">
                   {actualDayNumber ? `Day #${actualDayNumber}` : 'Rest / Special Day'} &bull; {actualFormattedDate}
                 </span>
               </div>
-              <h3 className="text-lg sm:text-xl font-extrabold text-slate-950 font-luxury">
+              <h3 className="text-lg sm:text-xl font-extrabold text-[#122810] font-luxury">
                 Log Stuck Concept or Trap
               </h3>
-              <p className="text-xs text-slate-700 font-medium mt-0.5">
-                Pinpoint the exact lesson, chapter formula, or trap where you got stuck. Automatically syncs with your <strong className="text-rose-700">Error Log</strong> and <strong className="text-emerald-800">Core Info</strong>.
+              <p className="text-xs text-[#274624] font-medium mt-0.5">
+                Pinpoint the exact lesson, chapter formula, or trap where you got stuck. Automatically syncs with your <strong className="text-rose-700">Error Log</strong> and <strong className="text-emerald-900">Core Info</strong>.
               </p>
             </div>
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-full hover:bg-black/10 text-slate-700 hover:text-slate-950 transition cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-black/10 text-[#122810] hover:text-black transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -327,14 +327,14 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                     value={customConcept}
                     onChange={(e) => setCustomConcept(e.target.value)}
                     placeholder="e.g. Cofunction identity in right triangle with supplementary angle"
-                    className="w-full text-xs bg-white border border-[#a6c4a1] rounded-xl p-2.5 text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                    className="w-full text-xs bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 text-[#122810] placeholder:text-[#3d5a39] font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none backdrop-blur-md"
                   />
                 )}
               </div>
 
               {/* Row 3: Why Missed / Root Cause */}
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-1 font-['JetBrains_Mono']">
+                <label className="block text-xs font-black uppercase tracking-wider text-[#122810] mb-1 font-['JetBrains_Mono']">
                   4. Root Cause: Why Did You Get Stuck?
                 </label>
                 <textarea
@@ -343,13 +343,13 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Describe where the confusion happened (e.g. I squared both sides of the radical equation but forgot to check for extraneous solutions; or I forgot to divide diameter by 2 before calculating volume)..."
-                  className="w-full text-xs bg-white border border-[#a6c4a1] rounded-xl p-3 text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-rose-500 focus:outline-none leading-relaxed"
+                  className="w-full text-xs bg-matcha-input border border-[#a6c4a1] rounded-xl p-3 text-[#122810] placeholder:text-[#3d5a39] font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none leading-relaxed backdrop-blur-md"
                 />
               </div>
 
               {/* Row 4: Takeaway Rule */}
               <div>
-                <label className="block text-xs font-black uppercase tracking-wider text-slate-800 mb-1 font-['JetBrains_Mono']">
+                <label className="block text-xs font-black uppercase tracking-wider text-[#122810] mb-1 font-['JetBrains_Mono']">
                   5. Takeaway Rule / Mental Shortcut to Prevent Repeating
                 </label>
                 <input
@@ -357,20 +357,20 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                   value={takeawayRule}
                   onChange={(e) => setTakeawayRule(e.target.value)}
                   placeholder="e.g. Always plug answers back into the original radical equation!"
-                  className="w-full text-xs bg-white border border-[#a6c4a1] rounded-xl p-2.5 text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-rose-500 focus:outline-none"
+                  className="w-full text-xs bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 text-[#122810] placeholder:text-[#3d5a39] font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none backdrop-blur-md"
                 />
               </div>
 
               {/* Sync Toggle */}
-              <div className="flex items-center gap-2 p-3 bg-rose-50 rounded-xl border border-rose-200">
+              <div className="flex items-center gap-2.5 p-3 bg-matcha-sub rounded-xl border border-[#a6c4a1] backdrop-blur-md shadow-xs">
                 <input
                   type="checkbox"
                   id="syncErrorLog"
                   checked={syncToErrorLog}
                   onChange={(e) => setSyncToErrorLog(e.target.checked)}
-                  className="w-4 h-4 text-rose-600 rounded focus:ring-rose-500 cursor-pointer"
+                  className="w-4 h-4 text-emerald-700 rounded focus:ring-emerald-600 cursor-pointer"
                 />
-                <label htmlFor="syncErrorLog" className="text-xs font-bold text-rose-950 cursor-pointer">
+                <label htmlFor="syncErrorLog" className="text-xs font-bold text-[#122810] cursor-pointer">
                   Sync directly to Mistake Autopsy & Error Log tab (/error-log)
                 </label>
               </div>
@@ -380,7 +380,7 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-xs font-bold text-slate-700 hover:text-slate-950 cursor-pointer"
+                  className="px-4 py-2 text-xs font-bold text-[#122810] hover:text-black cursor-pointer"
                 >
                   Close
                 </button>
@@ -397,40 +397,40 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
             {/* List of Previously Logged Struggles for This Day */}
             {existingStruggles.length > 0 && (
               <div className="pt-4 border-t border-[#a6c4a1]/60 space-y-3">
-                <h4 className="text-xs font-black uppercase tracking-wider text-slate-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                <h4 className="text-xs font-black uppercase tracking-wider text-[#122810] font-['JetBrains_Mono'] flex items-center gap-1.5">
                   <BookOpen className="w-3.5 h-3.5 text-rose-600" />
-                  <span>Logged Struggles for {formattedDate} ({existingStruggles.length})</span>
+                  <span>Logged Struggles for {actualFormattedDate} ({existingStruggles.length})</span>
                 </h4>
 
                 <div className="space-y-2">
                   {existingStruggles.map((st) => (
                     <div
                       key={st.id}
-                      className={`p-3.5 rounded-2xl border transition-all duration-150 ${
+                      className={`p-3.5 rounded-2xl border transition-all duration-150 backdrop-blur-md ${
                         st.resolved
-                          ? 'bg-emerald-50/70 border-emerald-300 opacity-80'
-                          : 'bg-rose-50/70 border-rose-200 shadow-xs'
+                          ? 'bg-matcha-sub/80 border-emerald-500/40 opacity-85 shadow-xs'
+                          : 'bg-rose-500/10 border-rose-500/30 shadow-grave-card'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div>
                           <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-white border border-[#a6c4a1] text-slate-900 font-['JetBrains_Mono']">
+                            <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-matcha-sub-dark border border-[#a6c4a1] text-[#122810] font-['JetBrains_Mono']">
                               {st.lessonCode}
                             </span>
-                            <span className="text-[10px] font-bold text-slate-600">
+                            <span className="text-[10px] font-bold text-[#274624]">
                               {st.chapter}
                             </span>
                             {st.resolved && (
-                              <span className="text-[10px] font-black text-emerald-700 flex items-center gap-0.5">
+                              <span className="text-[10px] font-black text-emerald-800 flex items-center gap-0.5">
                                 <CheckCircle2 className="w-3 h-3" /> Mastered
                               </span>
                             )}
                           </div>
-                          <h5 className="text-xs font-bold text-slate-950">
+                          <h5 className="text-xs font-bold text-[#122810]">
                             {st.conceptFormula}
                           </h5>
-                          <p className="text-xs text-slate-700 mt-1 leading-relaxed">
+                          <p className="text-xs text-[#274624] mt-1 leading-relaxed">
                             {st.notes}
                           </p>
                           {st.takeawayRule && (
@@ -448,8 +448,8 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                               onClick={() => onToggleResolved(st.id)}
                               className={`p-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                                 st.resolved
-                                  ? 'bg-emerald-200 text-emerald-950'
-                                  : 'bg-white border border-slate-300 text-slate-700 hover:bg-emerald-100'
+                                  ? 'bg-emerald-700 text-white shadow-xs'
+                                  : 'bg-matcha-input border border-[#a6c4a1] text-[#122810] hover:bg-emerald-100'
                               }`}
                               title={st.resolved ? 'Mark unresolved' : 'Mark mastered'}
                             >
@@ -460,7 +460,7 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
                             <button
                               type="button"
                               onClick={() => onDeleteStruggle(st.id)}
-                              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-100 transition cursor-pointer"
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-100 transition cursor-pointer"
                               title="Delete struggle"
                             >
                               <Trash2 className="w-3.5 h-3.5" />

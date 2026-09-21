@@ -230,7 +230,7 @@ export const FormulasSection: React.FC = () => {
             className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black border-2 transition-all cursor-pointer whitespace-nowrap active:scale-95 shadow-xs ${
               hideFormulasMode
                 ? 'bg-purple-700 text-white border-purple-500 shadow-md ring-2 ring-purple-300'
-                : 'bg-matcha-input text-slate-900 border-[#a6c4a1] hover:bg-white'
+                : 'bg-matcha-input text-slate-900 border-[#a6c4a1] hover:bg-matcha-sub'
             }`}
           >
             {hideFormulasMode ? (
@@ -259,7 +259,7 @@ export const FormulasSection: React.FC = () => {
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                 selectedDomain === 'all'
                   ? 'bg-[#1a3717] text-white shadow-xs'
-                  : 'bg-matcha-input text-slate-800 hover:bg-white border border-[#a6c4a1]'
+                  : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
               }`}
             >
               All 4 Chapters ({SAT_FORMULAS_DATA.length})
@@ -273,7 +273,7 @@ export const FormulasSection: React.FC = () => {
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                     selectedDomain === domain.id
                       ? 'bg-[#1a3717] text-white shadow-xs'
-                      : 'bg-matcha-input text-slate-800 hover:bg-white border border-[#a6c4a1]'
+                      : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
                   }`}
                 >
                   {domain.title} ({count})
@@ -295,7 +295,7 @@ export const FormulasSection: React.FC = () => {
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                 selectedDifficulty === 'all'
                   ? 'bg-[#1a3717] text-white shadow-xs'
-                  : 'bg-matcha-input text-slate-800 hover:bg-white border border-[#a6c4a1]'
+                  : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
               }`}
             >
               All Tiers ({SAT_FORMULAS_DATA.length})
@@ -391,7 +391,7 @@ export const FormulasSection: React.FC = () => {
                     <button
                       onClick={() => handleCopyFormula(item.id, item.formula)}
                       title="Copy formula"
-                      className="p-2.5 rounded-xl bg-white hover:bg-slate-100 border border-[#a6c4a1] text-slate-700 hover:text-slate-950 transition active:scale-95 cursor-pointer shrink-0 shadow-xs"
+                      className="p-2.5 rounded-xl bg-matcha-input hover:bg-matcha-sub border border-[#a6c4a1] text-slate-700 hover:text-[#122810] transition active:scale-95 cursor-pointer shrink-0 shadow-xs"
                     >
                       {isCopied ? (
                         <span className="flex items-center gap-1 text-[11px] font-black text-emerald-700 font-['JetBrains_Mono']">
@@ -405,7 +405,7 @@ export const FormulasSection: React.FC = () => {
                   </div>
 
                   {/* FORMULA DISPLAY BOX - HIGH CONTRAST & CRISP */}
-                  <div className="relative overflow-hidden rounded-2xl bg-white/95 border-2 border-[#a6c4a1] p-4 text-center shadow-xs">
+                  <div className="relative overflow-hidden rounded-2xl bg-matcha-sub/90 backdrop-blur-md border-2 border-[#a6c4a1] p-4 text-center shadow-grave-card">
                     {isHidden ? (
                       <div className="py-2.5 space-y-2">
                         <p className="text-xs font-black text-purple-900 font-['JetBrains_Mono']">
@@ -431,7 +431,7 @@ export const FormulasSection: React.FC = () => {
                   </div>
 
                   {/* WHY DIFFICULTY DIFFERS (THE CORE EXPLANATION) */}
-                  <div className="p-3.5 rounded-2xl bg-white/80 border border-[#a6c4a1] space-y-2 text-xs">
+                  <div className="p-3.5 rounded-2xl bg-matcha-sub/80 backdrop-blur-md border border-[#a6c4a1] space-y-2 text-xs">
                     <div className="font-black text-slate-900 flex items-center gap-1.5 font-['JetBrains_Mono']">
                       <Sparkles className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
                       <span>How Question Complexity Scales:</span>
@@ -485,7 +485,7 @@ export const FormulasSection: React.FC = () => {
                 <div className="pt-3 border-t border-[#a6c4a1]/60">
                   <button
                     onClick={() => toggleExample(item.id)}
-                    className="w-full flex items-center justify-between py-2 px-3 rounded-xl bg-white/70 hover:bg-white text-xs font-black text-slate-800 transition cursor-pointer border border-[#a6c4a1] shadow-xs"
+                    className="w-full flex items-center justify-between py-2 px-3 rounded-xl bg-matcha-input/90 hover:bg-matcha-sub text-xs font-black text-[#122810] transition cursor-pointer border border-[#a6c4a1] shadow-xs"
                   >
                     <span className="flex items-center gap-1.5">
                       <BookOpen className="w-3.5 h-3.5 text-indigo-600" />
@@ -503,7 +503,7 @@ export const FormulasSection: React.FC = () => {
                         transition={{ duration: 0.2 }}
                         className="overflow-hidden pt-2.5 space-y-2 text-xs"
                       >
-                        <div className="p-3.5 rounded-2xl bg-white border-2 border-[#a6c4a1] space-y-2 shadow-xs">
+                        <div className="p-3.5 rounded-2xl bg-matcha-sub/90 backdrop-blur-md border-2 border-[#a6c4a1] space-y-2 shadow-grave-card">
                           <p className="font-medium text-slate-900 leading-relaxed">
                             <strong className="text-[#1a3717] font-black font-['JetBrains_Mono'] block mb-1">📝 SAT Problem:</strong>
                             {item.satExample.question}

@@ -1193,7 +1193,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                         .map((sc) => (
                           <div
                             key={sc.id}
-                            className="text-xs p-2 rounded-xl bg-white/70 border border-rose-200 flex items-start justify-between gap-2"
+                            className="text-xs p-2.5 rounded-xl bg-matcha-input/90 backdrop-blur-md border border-[#a6c4a1] flex items-start justify-between gap-2 shadow-xs"
                           >
                             <div>
                               <div className="font-bold text-slate-800">{sc.conceptFormula}</div>

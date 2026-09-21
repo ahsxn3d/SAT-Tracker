@@ -313,7 +313,7 @@ export const DayCard: React.FC<DayCardProps> = ({
               className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 ${
                 strugglesCount > 0
                   ? 'bg-rose-100 text-rose-900 border border-rose-300 shadow-xs'
-                  : 'bg-white/80 text-slate-800 border border-[#a6c4a1] hover:bg-rose-50 hover:text-rose-900 hover:border-rose-300'
+                  : 'bg-matcha-input text-slate-800 border border-[#a6c4a1] hover:bg-rose-50 hover:text-rose-900 hover:border-rose-300'
               }`}
               title="Log stuck concept, trap, or formula struggle"
             >
