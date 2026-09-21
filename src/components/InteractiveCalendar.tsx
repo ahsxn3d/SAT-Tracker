@@ -1223,17 +1223,22 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
               )}
 
               {/* Day Notes */}
-              <div className="space-y-1.5">
-                <label className="text-xs font-black uppercase text-slate-700 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-indigo-600" />
-                  <span>Personal Notes for this Day</span>
-                </label>
+              <div className="space-y-1.5 p-3 rounded-2xl bg-matcha-sub/90 backdrop-blur-md border border-[#a6c4a1]">
+                <div className="flex items-center justify-between gap-2">
+                  <label className="text-xs font-black uppercase text-[#122810] font-['JetBrains_Mono'] flex items-center gap-1.5">
+                    <FileText className="w-3.5 h-3.5 text-emerald-700" />
+                    <span>Personal Notes & Reflections</span>
+                  </label>
+                  <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-['JetBrains_Mono']">
+                    ⚡ Dual-syncs to Error Log
+                  </span>
+                </div>
                 <textarea
                   value={dayNotes[inspectedDay.id] || ''}
                   onChange={(e) => onSaveNotes(inspectedDay.id, e.target.value)}
                   rows={3}
-                  placeholder="Record questions missed, Desmos shortcuts used, or energy level for this day..."
-                  className="w-full text-xs p-2.5 rounded-xl bg-matcha-sub border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-800 placeholder:text-slate-600 resize-none"
+                  placeholder="Record missed traps, takeaways, or concepts for this day (auto-saves to Master Error Log)..."
+                  className="w-full text-xs p-2.5 rounded-xl bg-matcha-input border border-[#a6c4a1] focus:outline-none focus:ring-2 focus:ring-emerald-600 font-medium text-[#122810] placeholder:text-[#3d5a39] resize-none"
                 />
               </div>
             </div>

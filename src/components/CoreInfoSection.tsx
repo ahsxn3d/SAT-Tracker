@@ -26,11 +26,13 @@ import { CHEAT_CODES } from '../data/cheatCodes';
 import { FormulasSection } from './FormulasSection';
 import { StuckConceptRecord } from '../types';
 
+export type CoreInfoSubTab = 'important-info' | 'formulas' | 'cheat-codes';
+
 interface CoreInfoSectionProps {
   stuckConcepts?: StuckConceptRecord[];
   onOpenDesmosModal?: (tab?: 'desmos' | 'rw-grammar' | 'rw-strategies') => void;
   onOpenModal?: (tab?: any) => void;
-  initialSubTab?: 'curriculum' | 'formulas' | 'blueprints';
+  initialSubTab?: 'important-info' | 'formulas' | 'cheat-codes' | 'curriculum' | 'blueprints';
   onToggleResolveStruggle?: (id: string) => void;
   onDeleteStruggle?: (id: string) => void;
 }
@@ -39,15 +41,43 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   stuckConcepts = [],
   onOpenDesmosModal,
   onOpenModal,
-  initialSubTab = 'curriculum',
+  initialSubTab = 'important-info',
   onToggleResolveStruggle,
   onDeleteStruggle,
 }) => {
   const openModalHandler = onOpenDesmosModal || onOpenModal;
-  const [mainPageTab, setMainPageTab] = useState<'curriculum' | 'formulas' | 'blueprints'>(initialSubTab);
+  
+  const normalizeTab = (tab?: string): CoreInfoSubTab => {
+    if (tab === 'formulas') return 'formulas';
+    if (tab === 'cheat-codes' || tab === 'blueprints') return 'cheat-codes';
+    return 'important-info';
+  };
+
+  const [mainPageTab, setMainPageTab] = useState<CoreInfoSubTab>(() => normalizeTab(initialSubTab));
   const [selectedChapterId, setSelectedChapterId] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
+
+  // Sync tab from URL if user visits /core-info?tab=formulas etc.
+  React.useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlTab = params.get('tab');
+      if (urlTab) {
+        setMainPageTab(normalizeTab(urlTab));
+      }
+    }
+  }, []);
+
+  const handleSwitchTab = (tab: CoreInfoSubTab) => {
+    setMainPageTab(tab);
+    if (typeof window !== 'undefined' && window.history) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
+
   const [expandedLessons, setExpandedLessons] = useState<Record<string, boolean>>({
     'alg-linear-systems': true,
     'psda-unit-conversion': true,
@@ -155,46 +185,46 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
       </div>
 
       {/* Main Sub-Page Switcher Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#a6c4a1]/50 pb-2 overflow-x-auto scrollbar-none">
+      <div className="flex items-center gap-2.5 border-b border-[#a6c4a1]/50 pb-3 overflow-x-auto scrollbar-none">
         <button
-          onClick={() => setMainPageTab('curriculum')}
+          onClick={() => handleSwitchTab('important-info')}
           className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
-            mainPageTab === 'curriculum'
-              ? 'bg-[#1a3717] text-white shadow-sm'
+            mainPageTab === 'important-info'
+              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-emerald-500/50'
               : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
           }`}
         >
-          <BookOpen className="w-4 h-4" />
-          <span>Page 1: Core Concepts & Lessons</span>
+          <BookOpen className="w-4 h-4 text-emerald-300" />
+          <span>Important Info</span>
         </button>
 
         <button
-          onClick={() => setMainPageTab('formulas')}
+          onClick={() => handleSwitchTab('formulas')}
           className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
             mainPageTab === 'formulas'
-              ? 'bg-emerald-700 text-white shadow-sm'
+              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-emerald-500/50'
               : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
           }`}
         >
-          <Calculator className="w-4 h-4" />
-          <span>Page 2: Formula Vault (Reference Sheet)</span>
+          <Calculator className="w-4 h-4 text-emerald-300" />
+          <span>Formulas</span>
         </button>
 
         <button
-          onClick={() => setMainPageTab('blueprints')}
+          onClick={() => handleSwitchTab('cheat-codes')}
           className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
-            mainPageTab === 'blueprints'
-              ? 'bg-amber-600 text-white shadow-sm'
+            mainPageTab === 'cheat-codes'
+              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-amber-500/50'
               : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
           }`}
         >
-          <Zap className="w-4 h-4" />
-          <span>Tactical Blueprints (Desmos & R&W)</span>
+          <Zap className="w-4 h-4 text-amber-300" />
+          <span>Cheat Codes</span>
         </button>
       </div>
 
-      {/* PAGE 1: CORE CONCEPTS & LESSONS */}
-      {mainPageTab === 'curriculum' && (
+      {/* SUB-PAGE 1: IMPORTANT INFO (CORE CONCEPTS & LESSONS) */}
+      {mainPageTab === 'important-info' && (
         <div className="space-y-6">
           {/* Controls: Chapter Selector & Real-Time Search */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
@@ -492,8 +522,8 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
         </div>
       )}
 
-      {/* PAGE 3: TACTICAL BLUEPRINTS (DESMOS & R&W) */}
-      {mainPageTab === 'blueprints' && (
+      {/* SUB-PAGE 3: CHEAT CODES (TACTICAL BLUEPRINTS) */}
+      {mainPageTab === 'cheat-codes' && (
         <div className="space-y-4">
           <div className="p-4 bg-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/30 shadow-grave-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div>

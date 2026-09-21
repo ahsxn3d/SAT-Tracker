@@ -101,16 +101,6 @@ const NAV_PAGES: NavPageItem[] = [
     activeIconColor: 'text-slate-950 fill-slate-950'
   },
   { 
-    id: 'formulas', 
-    label: 'Formulas', 
-    href: '/formulas', 
-    icon: Calculator,
-    activeClass: 'bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-400 border-emerald-500 font-bold',
-    inactiveClass: 'text-emerald-950 bg-emerald-100/80 border-emerald-300 hover:bg-emerald-200/90',
-    iconColor: 'text-emerald-600',
-    activeIconColor: 'text-white'
-  },
-  { 
     id: 'error-log', 
     label: 'Error Log', 
     href: '/error-log', 

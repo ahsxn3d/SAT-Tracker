@@ -398,6 +398,40 @@ export default function App({ initialSection = 'all' }: AppProps) {
       ...prev,
       [dayId]: notes,
     }));
+
+    // Find date and info for this day to dual-sync into Master Error Log
+    const dayObj = allDays.find((d) => d.id === dayId || d.dateStr === dayId);
+    const dateStr = dayObj?.dateStr || (dayId.includes('-') ? dayId : new Date().toISOString().split('T')[0]);
+    const formattedDate = dayObj?.formattedDate || dateStr;
+    const noteErrorId = `note-err-${dayId}`;
+
+    if (notes && notes.trim()) {
+      setErrorLogs((prev) => {
+        const existingIdx = prev.findIndex((e) => e.id === noteErrorId);
+        const updatedEntry: ErrorLogEntry = {
+          id: noteErrorId,
+          date: dateStr,
+          testOrSection: `Calendar Note (${formattedDate})`,
+          questionRef: `Daily Reflection / Note`,
+          domain: 'Math',
+          whyMissed: notes.trim(),
+          takeawayRule: `Calendar note from ${formattedDate}: ${notes.trim().slice(0, 100)}${notes.trim().length > 100 ? '...' : ''}`,
+          reviewed: false,
+          createdAt: existingIdx >= 0 ? prev[existingIdx].createdAt : Date.now(),
+        };
+
+        if (existingIdx >= 0) {
+          const next = [...prev];
+          next[existingIdx] = updatedEntry;
+          return next;
+        } else {
+          return [updatedEntry, ...prev];
+        }
+      });
+    } else {
+      // If user cleared the note, remove the auto-synced entry
+      setErrorLogs((prev) => prev.filter((e) => e.id !== noteErrorId));
+    }
   };
 
   const handleLaunchTimer = (dayTitle?: string, dateStr?: string, taskId?: string) => {
@@ -604,8 +638,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'schedule': '/phase-1',
       'bluebook': '/phase-2',
       'phase-2': '/phase-2',
-      'cheat-codes': '/cheat-codes',
-      'formulas': '/formulas',
+      'cheat-codes': '/core-info',
+      'formulas': '/core-info?tab=formulas',
       'error-log': '/error-log',
       'crescent': '/test-center',
       'rules': '/rules',
@@ -680,8 +714,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
                 {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
                 {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)'}
-                {activeSection === 'cheat-codes' && '📖 Core Info & Must-Master Curriculum Hub (2-Page Vault)'}
-                {activeSection === 'formulas' && '📐 SAT Math Formula Vault (4 Chapters • 3 Difficulty Tiers)'}
+                {(activeSection === 'cheat-codes' || activeSection === 'formulas') && '📖 Core Info Vault (Important Info • Formulas • Cheat Codes)'}
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
                 {activeSection === 'rules' && '🛡️ The Core Anti-Burnout Rules'}
@@ -1048,20 +1081,20 @@ export default function App({ initialSection = 'all' }: AppProps) {
         )}
 
         {/* ============================================================ */}
-        {/* SECTION: TACTICAL CHEAT CODES & BLUEPRINTS (Desmos & R&W)    */}
+        {/* SECTION 5: CORE INFO VAULT (Important Info • Formulas • Cheat Codes) */}
         {/* ============================================================ */}
-        {(activeSection === 'all' || activeSection === 'cheat-codes') && (
-          <ScrollReveal id="section-cheat-codes">
+        {(activeSection === 'all' || activeSection === 'cheat-codes' || activeSection === 'formulas') && (
+          <ScrollReveal id="section-core-info">
             <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
-                <span className="text-xs font-black uppercase tracking-wider text-amber-900 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Core Info &bull; Must-Master SAT Curriculum Hub &bull; 2-Page Knowledge Vault</span>
+                <span className="text-xs font-black uppercase tracking-wider text-[#122810] font-['JetBrains_Mono'] flex items-center gap-1.5">
+                  <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Section 5 &bull; Core Info Vault (Important Info &bull; Formulas &bull; Cheat Codes)</span>
                 </span>
                 {activeSection !== 'all' && (
                   <button
-                    onClick={() => setActiveSection('all')}
-                    className="text-xs font-bold text-slate-600 hover:text-slate-950"
+                    onClick={() => handleSelectSection('all')}
+                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
                   >
                     View Full Dashboard &rarr;
                   </button>
@@ -1070,34 +1103,12 @@ export default function App({ initialSection = 'all' }: AppProps) {
               <CoreInfoSection
                 onOpenModal={() => setDesmosModalOpen(true)}
                 stuckConcepts={stuckConcepts}
+                initialSubTab={activeSection === 'formulas' ? 'formulas' : 'important-info'}
                 onToggleResolveStruggle={handleToggleResolvedStruggle}
                 onDeleteStruggle={handleDeleteStruggle}
               />
             </div>
           </ScrollReveal>
-        )}
-
-        {/* ============================================================ */}
-        {/* SECTION: FORMULA VAULT (Aligned Chapter & Difficulty Wise)   */}
-        {/* ============================================================ */}
-        {(activeSection === 'all' || activeSection === 'formulas') && (
-          <div id="section-formulas" className="space-y-2">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                <Calculator className="w-3.5 h-3.5 text-emerald-600" />
-                <span>SAT Math Formula Vault &bull; 4 Chapters &bull; 3 Difficulty Tiers</span>
-              </span>
-              {activeSection !== 'all' && (
-                <button
-                  onClick={() => handleSelectSection('all')}
-                  className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
-                >
-                  View Full Dashboard &rarr;
-                </button>
-              )}
-            </div>
-            <FormulasSection />
-          </div>
         )}
 
         {/* ============================================================ */}

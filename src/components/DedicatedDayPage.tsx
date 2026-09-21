@@ -750,23 +750,28 @@ export function DedicatedDayPage({
         {/* ============================================================ */}
         {/* DAILY NOTES & MISTAKE REFLECTION (Room for Breathing)        */}
         {/* ============================================================ */}
-        <section className="bg-matcha-input rounded-3xl border-2 border-slate-300 shadow-grave p-6 sm:p-8 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+        <section className="ios-glass-card rounded-3xl border-2 border-[#a6c4a1] shadow-grave p-6 sm:p-8 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#a6c4a1]/50 pb-3 flex-wrap gap-2">
             <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-indigo-600" />
-              <h3 className="text-xl font-black font-['Space_Grotesk'] text-slate-900">
+              <FileText className="w-5 h-5 text-emerald-700" />
+              <h3 className="text-xl font-black font-['Space_Grotesk'] text-[#122810]">
                 Daily Reflection & Error Log
               </h3>
             </div>
-            {notesSavedAlert && (
-              <span className="text-xs font-black font-['JetBrains_Mono'] text-emerald-700 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
-                <Check className="w-3 h-3" /> Saved
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black uppercase px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-['JetBrains_Mono']">
+                ⚡ Dual-syncs to Master Error Log
               </span>
-            )}
+              {notesSavedAlert && (
+                <span className="text-xs font-black font-['JetBrains_Mono'] text-emerald-700 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full flex items-center gap-1 animate-pulse">
+                  <Check className="w-3 h-3" /> Saved
+                </span>
+              )}
+            </div>
           </div>
 
-          <p className="text-xs text-slate-600 font-medium">
-            Record tricky traps, missed formulas, or vocabulary encountered during this session. Auto-saves when you click away.
+          <p className="text-xs text-[#274624] font-medium">
+            Record tricky traps, missed formulas, or vocabulary encountered during this session. Auto-saves directly to today's schedule and the Master Error Log when you click away.
           </p>
 
           <textarea
@@ -775,7 +780,7 @@ export function DedicatedDayPage({
             onBlur={handleNotesBlur}
             placeholder={`Jot down formulas or mistakes for ${day.formattedDate}... (e.g. Remember to check discriminant b² - 4ac before solving quadratic, Desmos regression syntax y1 ~ mx1 + b)`}
             rows={4}
-            className="w-full p-4 rounded-2xl border-2 border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-300 text-xs sm:text-sm text-slate-900 font-medium leading-relaxed bg-slate-50/50 shadow-inner focus:outline-none transition"
+            className="w-full p-4 rounded-2xl border-2 border-[#a6c4a1] focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/30 text-xs sm:text-sm text-[#122810] font-medium leading-relaxed bg-matcha-sub/90 shadow-inner focus:outline-none transition"
           />
 
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">

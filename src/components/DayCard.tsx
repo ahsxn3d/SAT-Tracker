@@ -335,14 +335,20 @@ export const DayCard: React.FC<DayCardProps> = ({
 
       {/* Note Expandable Area */}
       {showNotes && (
-        <div className="p-3 bg-matcha-sub border-t border-[#a6c4a1]/60">
+        <div className="p-3 bg-matcha-sub border-t border-[#a6c4a1]/60 space-y-1.5">
+          <div className="flex items-center justify-between text-[10px] font-['JetBrains_Mono']">
+            <span className="font-bold text-[#122810]">Personal Reflection</span>
+            <span className="text-emerald-900 bg-emerald-100/90 border border-emerald-300 px-1.5 py-0.5 rounded font-black">
+              ⚡ Dual-syncs to Error Log
+            </span>
+          </div>
           <textarea
             rows={2}
             value={notesText}
             onChange={(e) => setNotesText(e.target.value)}
             onBlur={handleNotesBlur}
-            placeholder="Reflections, questions to revisit, or energy level..."
-            className="w-full text-xs bg-matcha-input border border-[#a6c4a1]/70 rounded-xl p-2.5 font-medium text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-600 focus:outline-none"
+            placeholder="Reflections, missed questions, or key takeaways (auto-saves to Error Log)..."
+            className="w-full text-xs bg-matcha-input border border-[#a6c4a1] rounded-xl p-2.5 font-medium text-[#122810] placeholder:text-[#3d5a39] focus:ring-2 focus:ring-emerald-600 focus:outline-none resize-none"
           />
         </div>
       )}
