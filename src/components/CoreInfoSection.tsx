@@ -30,8 +30,6 @@ export type CoreInfoSubTab = 'important-info' | 'formulas' | 'cheat-codes';
 
 interface CoreInfoSectionProps {
   stuckConcepts?: StuckConceptRecord[];
-  onOpenDesmosModal?: (tab?: 'desmos' | 'rw-grammar' | 'rw-strategies') => void;
-  onOpenModal?: (tab?: any) => void;
   initialSubTab?: 'important-info' | 'formulas' | 'cheat-codes' | 'curriculum' | 'blueprints';
   onToggleResolveStruggle?: (id: string) => void;
   onDeleteStruggle?: (id: string) => void;
@@ -39,14 +37,10 @@ interface CoreInfoSectionProps {
 
 export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   stuckConcepts = [],
-  onOpenDesmosModal,
-  onOpenModal,
   initialSubTab = 'important-info',
   onToggleResolveStruggle,
   onDeleteStruggle,
 }) => {
-  const openModalHandler = onOpenDesmosModal || onOpenModal;
-  
   const normalizeTab = (tab?: string): CoreInfoSubTab => {
     if (tab === 'formulas') return 'formulas';
     if (tab === 'cheat-codes' || tab === 'blueprints') return 'cheat-codes';
@@ -57,6 +51,32 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   const [selectedChapterId, setSelectedChapterId] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
+
+  // Cheat Codes in-page filter and search state (zero modal popups)
+  const [cheatCodeCategory, setCheatCodeCategory] = useState<'all' | 'desmos' | 'rw-grammar' | 'rw-strategies'>('all');
+  const [cheatCodeSearch, setCheatCodeSearch] = useState<string>('');
+  const [copiedCheatCodeId, setCopiedCheatCodeId] = useState<string | null>(null);
+
+  const filteredCheatCodes = useMemo(() => {
+    return CHEAT_CODES.filter((item) => {
+      if (cheatCodeCategory !== 'all' && item.category !== cheatCodeCategory) return false;
+      if (!cheatCodeSearch.trim()) return true;
+      const q = cheatCodeSearch.toLowerCase();
+      return (
+        item.title.toLowerCase().includes(q) ||
+        item.ruleSummary.toLowerCase().includes(q) ||
+        item.detailedGuidance.toLowerCase().includes(q) ||
+        (item.recommendedSyntax && item.recommendedSyntax.toLowerCase().includes(q)) ||
+        (item.exampleSnippet && item.exampleSnippet.toLowerCase().includes(q))
+      );
+    });
+  }, [cheatCodeCategory, cheatCodeSearch]);
+
+  const handleCopyCheatCode = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCheatCodeId(id);
+    setTimeout(() => setCopiedCheatCodeId(null), 2000);
+  };
 
   // Sync tab from URL if user visits /core-info?tab=formulas etc.
   React.useEffect(() => {
@@ -171,54 +191,49 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
             Synchronized, lesson-by-lesson knowledge base covering all essential SAT Math concepts, formulas, dimensional analysis rules, factoring identities, volume reference sheet tips, extraneous radical warnings, and complete unit circle trigonometry.
           </p>
         </div>
-
-        {/* Action Button */}
-        {onOpenDesmosModal && (
-          <button
-            onClick={() => onOpenDesmosModal('desmos')}
-            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-[#264e22] hover:bg-[#1a3717] hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-2 min-h-[44px] cursor-pointer shrink-0 self-start lg:self-auto"
-          >
-            <Zap className="w-4 h-4 text-amber-300 fill-amber-300" />
-            <span>Open Desmos & Grammar Studio</span>
-          </button>
-        )}
       </div>
 
-      {/* Main Sub-Page Switcher Tabs */}
-      <div className="flex items-center gap-2.5 border-b border-[#a6c4a1]/50 pb-3 overflow-x-auto scrollbar-none">
+      {/* Main Sub-Page Switcher Tabs with Smooth Oval Pill Buttons (Zero Outline Clipping) */}
+      <div className="flex items-center gap-3 border-b border-[#a6c4a1]/50 pb-4 pt-1.5 px-1.5 overflow-x-auto scrollbar-none">
+        {/* 1. Important Info Button - Signature Forest Matcha Green */}
         <button
+          type="button"
           onClick={() => handleSwitchTab('important-info')}
-          className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
+          className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer min-h-[44px] shrink-0 active:scale-95 ${
             mainPageTab === 'important-info'
-              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-emerald-500/50'
-              : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
+              ? 'bg-[#122810] text-white border-2 border-emerald-500 shadow-md shadow-emerald-950/20'
+              : 'bg-[#e5f0e1]/90 text-[#122810] border-2 border-[#a6c4a1] hover:bg-[#d7e5d2] hover:border-emerald-700'
           }`}
         >
-          <BookOpen className="w-4 h-4 text-emerald-300" />
+          <BookOpen className={`w-4 h-4 ${mainPageTab === 'important-info' ? 'text-emerald-400' : 'text-emerald-800'}`} />
           <span>Important Info</span>
         </button>
 
+        {/* 2. Formulas Button - Bluish / Indigo Theme */}
         <button
+          type="button"
           onClick={() => handleSwitchTab('formulas')}
-          className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
+          className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer min-h-[44px] shrink-0 active:scale-95 ${
             mainPageTab === 'formulas'
-              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-emerald-500/50'
-              : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
+              ? 'bg-[#1e3a8a] text-white border-2 border-blue-400 shadow-md shadow-blue-950/20'
+              : 'bg-blue-50/80 text-blue-950 border-2 border-blue-200 hover:bg-blue-100 hover:border-blue-400'
           }`}
         >
-          <Calculator className="w-4 h-4 text-emerald-300" />
+          <Calculator className={`w-4 h-4 ${mainPageTab === 'formulas' ? 'text-cyan-300' : 'text-blue-600'}`} />
           <span>Formulas</span>
         </button>
 
+        {/* 3. Cheat Codes Button - Orangish / Amber / Yellowish Theme */}
         <button
+          type="button"
           onClick={() => handleSwitchTab('cheat-codes')}
-          className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-black transition-all duration-150 flex items-center gap-2 min-h-[44px] cursor-pointer active:scale-[0.98] ${
+          className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-black transition-all duration-200 cursor-pointer min-h-[44px] shrink-0 active:scale-95 ${
             mainPageTab === 'cheat-codes'
-              ? 'bg-[#1a3717] text-white shadow-sm ring-2 ring-amber-500/50'
-              : 'bg-[#e5f0e1]/70 text-[#122810] hover:bg-[#d7e5d2] border border-[#a6c4a1]'
+              ? 'bg-[#b45309] text-white border-2 border-amber-300 shadow-md shadow-amber-950/20'
+              : 'bg-amber-50/80 text-amber-950 border-2 border-amber-200 hover:bg-amber-100 hover:border-amber-400'
           }`}
         >
-          <Zap className="w-4 h-4 text-amber-300" />
+          <Zap className={`w-4 h-4 ${mainPageTab === 'cheat-codes' ? 'text-amber-200 fill-amber-300' : 'text-amber-600 fill-amber-500'}`} />
           <span>Cheat Codes</span>
         </button>
       </div>
@@ -524,48 +539,190 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
 
       {/* SUB-PAGE 3: CHEAT CODES (TACTICAL BLUEPRINTS) */}
       {mainPageTab === 'cheat-codes' && (
-        <div className="space-y-4">
-          <div className="p-4 bg-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-500/30 shadow-grave-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div className="space-y-5">
+          {/* Header Banner */}
+          <div className="p-4 sm:p-5 bg-amber-500/10 backdrop-blur-md rounded-3xl border-2 border-amber-500/30 shadow-grave-card flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <span className="text-xs font-black uppercase text-amber-950 font-['JetBrains_Mono']">
-                ⚡ Tactical Blueprints & Shortcuts
-              </span>
-              <h3 className="text-lg font-bold text-[#122810] font-luxury">
-                Desmos Regression & Grammar Traps
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <span className="text-xs font-black uppercase text-amber-950 font-['JetBrains_Mono'] px-2.5 py-0.5 rounded-full bg-amber-200/80 border border-amber-400">
+                  ⚡ Bluebook Verified Shortcuts &amp; Tactics
+                </span>
+                <span className="text-xs font-bold text-amber-900 font-['JetBrains_Mono']">
+                  {CHEAT_CODES.length} Tactics Memorized Cold
+                </span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-[#122810] font-luxury">
+                Desmos 10× Speed Drills &amp; R&amp;W Blueprints
               </h3>
-              <p className="text-xs text-[#274624] font-medium mt-0.5">
-                Master the exact 8 Desmos shortcuts and 6 Reading & Writing grammar blueprints.
+              <p className="text-xs text-[#274624] font-medium mt-0.5 max-w-2xl">
+                Master the exact 8 Desmos regression shortcuts, 6 Reading &amp; Writing punctuation &amp; grammar rules, and 5 passage strategy blueprints. Everything is built directly on this page with zero popups.
               </p>
             </div>
-            {openModalHandler && (
-              <button
-                onClick={() => openModalHandler('desmos')}
-                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black transition cursor-pointer self-start sm:self-auto shadow-xs"
-              >
-                Open Studio Modal
-              </button>
-            )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {CHEAT_CODES.map((item) => (
-              <div key={item.id} className="p-4.5 ios-glass-card rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card space-y-2.5">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-950 font-['JetBrains_Mono']">
-                    {item.category.toUpperCase()}
-                  </span>
-                  <h4 className="text-sm font-bold text-[#122810] font-luxury">{item.title}</h4>
-                </div>
-                <p className="text-xs text-[#122810] font-semibold">{item.ruleSummary}</p>
-                <p className="text-xs text-[#274624] font-medium leading-relaxed">{item.detailedGuidance}</p>
-                {item.recommendedSyntax && (
-                  <pre className="text-xs p-2.5 bg-[#122810]/95 backdrop-blur-md text-emerald-300 rounded-lg font-mono border border-emerald-500/30 shadow-inner overflow-x-auto">
-                    {item.recommendedSyntax}
-                  </pre>
-                )}
-              </div>
-            ))}
+          {/* In-Page Filter Pills & Live Search Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+              <button
+                type="button"
+                onClick={() => setCheatCodeCategory('all')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 ${
+                  cheatCodeCategory === 'all'
+                    ? 'bg-[#122810] text-white shadow-xs'
+                    : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
+                }`}
+              >
+                All Codes ({CHEAT_CODES.length})
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCheatCodeCategory('desmos')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                  cheatCodeCategory === 'desmos'
+                    ? 'bg-indigo-700 text-white shadow-xs'
+                    : 'bg-indigo-50/80 text-indigo-900 hover:bg-indigo-100 border border-indigo-300'
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-300" />
+                <span>Desmos Math ({CHEAT_CODES.filter((c) => c.category === 'desmos').length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCheatCodeCategory('rw-grammar')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                  cheatCodeCategory === 'rw-grammar'
+                    ? 'bg-amber-700 text-white shadow-xs'
+                    : 'bg-amber-50/80 text-amber-950 hover:bg-amber-100 border border-amber-300'
+                }`}
+              >
+                <BookOpen className="w-3.5 h-3.5 text-amber-600" />
+                <span>R&amp;W Grammar ({CHEAT_CODES.filter((c) => c.category === 'rw-grammar').length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setCheatCodeCategory('rw-strategies')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                  cheatCodeCategory === 'rw-strategies'
+                    ? 'bg-emerald-800 text-white shadow-xs'
+                    : 'bg-emerald-50/80 text-emerald-950 hover:bg-emerald-100 border border-emerald-300'
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Strategies ({CHEAT_CODES.filter((c) => c.category === 'rw-strategies').length})</span>
+              </button>
+            </div>
+
+            {/* Real-Time Live Search */}
+            <div className="relative min-w-[200px] sm:w-64 shrink-0">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <input
+                type="text"
+                placeholder="Search shortcuts, syntax, rules..."
+                value={cheatCodeSearch}
+                onChange={(e) => setCheatCodeSearch(e.target.value)}
+                className="w-full pl-9 pr-3 py-2 bg-matcha-input border border-[#a6c4a1] rounded-xl text-xs text-[#122810] placeholder:text-[#3d5a39] font-medium focus:ring-2 focus:ring-amber-600 focus:outline-none backdrop-blur-md"
+              />
+            </div>
           </div>
+
+          {/* Cards Grid */}
+          {filteredCheatCodes.length === 0 ? (
+            <div className="p-8 text-center rounded-2xl bg-matcha-sub/80 border-2 border-dashed border-[#a6c4a1] text-xs font-bold text-[#274624]">
+              No cheat codes match "{cheatCodeSearch}". Clear the search to view all {CHEAT_CODES.length} blueprints.
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {filteredCheatCodes.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-5 ios-glass-card rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card hover:shadow-grave-hover transition-all duration-200 space-y-3 flex flex-col justify-between"
+                >
+                  <div className="space-y-2.5">
+                    {/* Top Row: Category Pill & Title */}
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full border font-['JetBrains_Mono'] ${item.badgeColor}`}>
+                          {item.badge}
+                        </span>
+                      </div>
+                    </div>
+
+                    <h4 className="text-base font-bold text-[#122810] font-luxury">
+                      {item.title}
+                    </h4>
+
+                    {/* Summary Rule */}
+                    <p className="text-xs text-[#122810] font-bold bg-matcha-sub/90 p-2.5 rounded-xl border border-[#a6c4a1]/70 leading-relaxed">
+                      {item.ruleSummary}
+                    </p>
+
+                    {/* Detailed Guidance */}
+                    <p className="text-xs text-[#274624] font-medium leading-relaxed">
+                      {item.detailedGuidance}
+                    </p>
+
+                    {/* Recommended Syntax Block */}
+                    {item.recommendedSyntax && (
+                      <div className="relative group">
+                        <pre className="text-xs p-3 bg-[#122810]/95 backdrop-blur-md text-emerald-300 rounded-xl font-mono border border-emerald-500/30 shadow-inner overflow-x-auto whitespace-pre-wrap leading-relaxed">
+                          {item.recommendedSyntax}
+                        </pre>
+                        <button
+                          type="button"
+                          onClick={() => handleCopyCheatCode(item.recommendedSyntax!, item.id)}
+                          className="absolute right-2 top-2 p-1.5 rounded-lg bg-emerald-800/80 hover:bg-emerald-700 text-emerald-200 transition cursor-pointer flex items-center gap-1 text-[10px] font-['JetBrains_Mono'] font-bold"
+                          title="Copy syntax"
+                        >
+                          {copiedCheatCodeId === item.id ? (
+                            <>
+                              <Check className="w-3.5 h-3.5 text-emerald-300" />
+                              <span>Copied!</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3.5 h-3.5" />
+                              <span>Copy</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Worked Example / Blueprint */}
+                    {item.exampleSnippet && (
+                      <div className="p-3 rounded-xl bg-matcha-input/90 border-2 border-indigo-200/80 space-y-1">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-indigo-950 font-['JetBrains_Mono'] block">
+                          Worked Example / Blueprint:
+                        </span>
+                        <p className="text-xs text-[#122810] font-medium leading-relaxed font-mono whitespace-pre-wrap">
+                          {item.exampleSnippet}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* College Board Trap Alert */}
+                    {item.trapAlert && (
+                      <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-2">
+                        <AlertTriangle className="w-3.5 h-3.5 text-rose-600 shrink-0 mt-0.5" />
+                        <div className="space-y-0.5">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-rose-950 font-['JetBrains_Mono'] block">
+                            College Board Trap Alert:
+                          </span>
+                          <p className="text-xs text-rose-950 font-semibold leading-snug">
+                            {item.trapAlert}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </motion.section>

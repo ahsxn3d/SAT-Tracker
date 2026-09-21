@@ -28,7 +28,6 @@ import { ErrorLogSection } from './components/ErrorLogSection';
 import { DayCard } from './components/DayCard';
 import { ErrorLogModal } from './components/ErrorLogModal';
 import { PackingModal } from './components/PackingModal';
-import { DesmosGuideModal } from './components/DesmosGuideModal';
 import { CheatCodesSection } from './components/CheatCodesSection';
 import { CoreInfoSection } from './components/CoreInfoSection';
 import { StuckConceptModal } from './components/StuckConceptModal';
@@ -146,7 +145,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [selectedTimerDateStr, setSelectedTimerDateStr] = useState<string>('2026-09-14');
   const [errorLogModalOpen, setErrorLogModalOpen] = useState(false);
   const [packingModalOpen, setPackingModalOpen] = useState(false);
-  const [desmosModalOpen, setDesmosModalOpen] = useState(false);
   const [stuckModalDay, setStuckModalDay] = useState<DayPlan | null>(null);
 
   // 1. Fetch user data from DB when signed in
@@ -1101,7 +1099,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 )}
               </div>
               <CoreInfoSection
-                onOpenModal={() => setDesmosModalOpen(true)}
                 stuckConcepts={stuckConcepts}
                 initialSubTab={activeSection === 'formulas' ? 'formulas' : 'important-info'}
                 onToggleResolveStruggle={handleToggleResolvedStruggle}
@@ -1246,12 +1243,6 @@ export default function App({ initialSection = 'all' }: AppProps) {
         items={packingList}
         onToggleItem={handleTogglePackingItem}
         onAddItem={handleAddPackingItem}
-      />
-
-      {/* Desmos Speed Drills Guide Modal */}
-      <DesmosGuideModal
-        isOpen={desmosModalOpen}
-        onClose={() => setDesmosModalOpen(false)}
       />
     </div>
   );
