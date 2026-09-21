@@ -36,6 +36,8 @@ interface InteractiveCalendarProps {
   onDeleteSessionTiming?: (dateStr: string) => void;
   onSelectDay?: (dateStr: string) => void;
   taskTimings?: Record<string, TaskTimingRecord>;
+  onOpenStruggleModal?: (day: DayPlan) => void;
+  stuckConcepts?: import('../types').StuckConceptRecord[];
 }
 
 type CalendarMonth = 'all' | '2026-09' | '2026-10' | '2026-11';
@@ -51,6 +53,8 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
   onDeleteSessionTiming,
   onSelectDay,
   taskTimings = {},
+  onOpenStruggleModal,
+  stuckConcepts = [],
 }) => {
   const [selectedMonth, setSelectedMonth] = useState<CalendarMonth>('2026-09');
   const [activeInspectDayId, setActiveInspectDayId] = useState<string | null>(null);
@@ -1163,6 +1167,60 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                   );
                 })}
               </div>
+
+              {/* Stuck Concepts / Struggle Logger */}
+              {onOpenStruggleModal && inspectedDay.tasks.length > 0 && (
+                <div className="space-y-2 p-3 bg-rose-500/10 border border-rose-500/25 rounded-2xl">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-black text-rose-800 uppercase font-['JetBrains_Mono'] flex items-center gap-1.5">
+                      <AlertCircle className="w-3.5 h-3.5 text-rose-600" />
+                      <span>Stuck Concepts & Error Log Sync</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onOpenStruggleModal(inspectedDay);
+                      }}
+                      className="px-2.5 py-1 text-2xs font-black uppercase tracking-wider rounded-lg bg-rose-600 hover:bg-rose-700 text-white transition shadow-xs cursor-pointer"
+                    >
+                      + Log Struggle
+                    </button>
+                  </div>
+                  {stuckConcepts.filter((s) => s.dateStr === inspectedDay.dateStr).length > 0 ? (
+                    <div className="space-y-1 pt-1">
+                      {stuckConcepts
+                        .filter((s) => s.dateStr === inspectedDay.dateStr)
+                        .map((sc) => (
+                          <div
+                            key={sc.id}
+                            className="text-xs p-2 rounded-xl bg-white/70 border border-rose-200 flex items-start justify-between gap-2"
+                          >
+                            <div>
+                              <div className="font-bold text-slate-800">{sc.conceptFormula}</div>
+                              <div className="text-2xs text-rose-600 font-medium">
+                                {sc.chapter} &bull; {sc.lessonTitle}
+                              </div>
+                              {sc.notes && <div className="text-2xs text-slate-600 mt-0.5">{sc.notes}</div>}
+                            </div>
+                            <span
+                              className={`text-3xs font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider ${
+                                sc.resolved
+                                  ? 'bg-emerald-100 text-emerald-700 border border-emerald-300'
+                                  : 'bg-rose-100 text-rose-700 border border-rose-300'
+                              }`}
+                            >
+                              {sc.resolved ? 'Resolved' : 'Active'}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <p className="text-2xs text-rose-700/80 font-medium">
+                      Did you get stuck on any formula, rule, or question today? Log it to automatically bookmark in Core Info and Master Error Log.
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Day Notes */}
               <div className="space-y-1.5">

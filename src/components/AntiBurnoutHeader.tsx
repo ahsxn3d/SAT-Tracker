@@ -92,12 +92,12 @@ const NAV_PAGES: NavPageItem[] = [
   },
   { 
     id: 'cheat-codes', 
-    label: 'Cheat Codes', 
-    href: '/cheat-codes', 
-    icon: Zap,
-    activeClass: 'bg-yellow-400 text-slate-950 shadow-sm ring-2 ring-yellow-500 border-yellow-500 font-bold',
-    inactiveClass: 'text-yellow-950 bg-yellow-100/90 border-yellow-300 hover:bg-yellow-200',
-    iconColor: 'text-yellow-600 fill-yellow-500',
+    label: 'Core Info', 
+    href: '/core-info', 
+    icon: BookOpen,
+    activeClass: 'bg-amber-500 text-slate-950 shadow-sm ring-2 ring-amber-400 border-amber-500 font-bold',
+    inactiveClass: 'text-amber-950 bg-amber-100/90 border-amber-300 hover:bg-amber-200',
+    iconColor: 'text-amber-600 fill-amber-500',
     activeIconColor: 'text-slate-950 fill-slate-950'
   },
   { 

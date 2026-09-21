@@ -24,6 +24,8 @@ interface DayCardProps {
   onLaunchTimer?: (dayTitle: string) => void;
   onSaveNotes: (dayId: string, notes: string) => void;
   allPrecedingDaysCompleted?: boolean;
+  onOpenStruggleModal?: (day: DayPlan) => void;
+  strugglesCount?: number;
 }
 
 export const DayCard: React.FC<DayCardProps> = ({
@@ -34,6 +36,8 @@ export const DayCard: React.FC<DayCardProps> = ({
   onLaunchTimer,
   onSaveNotes,
   allPrecedingDaysCompleted = true,
+  onOpenStruggleModal,
+  strugglesCount = 0,
 }) => {
   const [showNotes, setShowNotes] = useState(false);
   const [notesText, setNotesText] = useState(day.userNotes || '');
@@ -288,8 +292,8 @@ export const DayCard: React.FC<DayCardProps> = ({
         ))}
       </div>
 
-      {/* Footer toolbar: Pacing check + Day reflection notes */}
-      <div className="px-4 py-2.5 bg-matcha-sub border-t border-[#a6c4a1]/50 flex items-center justify-between text-xs text-slate-700 font-semibold">
+      {/* Footer toolbar: Pacing check + Day reflection notes / Log Struggle */}
+      <div className="px-4 py-2.5 bg-matcha-sub border-t border-[#a6c4a1]/50 flex items-center justify-between text-xs text-slate-700 font-semibold gap-2">
         <div className="flex items-center gap-1.5 font-['JetBrains_Mono']">
           {isWeekday && (mathCount > 0 || rwCount > 0) && (
             <span className="text-[11px] text-slate-700 font-bold">
@@ -298,14 +302,35 @@ export const DayCard: React.FC<DayCardProps> = ({
           )}
         </div>
 
-        <button
-          onClick={() => setShowNotes(!showNotes)}
-          className="inline-flex items-center gap-1 text-slate-700 hover:text-slate-950 transition font-bold"
-        >
-          <FileText className="w-3.5 h-3.5 text-indigo-600" />
-          <span>{notesText ? 'Notes (1)' : 'Add note'}</span>
-          {showNotes ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          {onOpenStruggleModal && !day.isBuffer && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenStruggleModal(day);
+              }}
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition cursor-pointer active:scale-95 ${
+                strugglesCount > 0
+                  ? 'bg-rose-100 text-rose-900 border border-rose-300 shadow-xs'
+                  : 'bg-white/80 text-slate-800 border border-[#a6c4a1] hover:bg-rose-50 hover:text-rose-900 hover:border-rose-300'
+              }`}
+              title="Log stuck concept, trap, or formula struggle"
+            >
+              <AlertCircle className={`w-3.5 h-3.5 ${strugglesCount > 0 ? 'text-rose-600 fill-rose-100' : 'text-slate-500'}`} />
+              <span>{strugglesCount > 0 ? `Struggles (${strugglesCount})` : 'Log Struggle'}</span>
+            </button>
+          )}
+
+          <button
+            onClick={() => setShowNotes(!showNotes)}
+            className="inline-flex items-center gap-1 text-slate-700 hover:text-slate-950 transition font-bold cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5 text-indigo-600" />
+            <span>{notesText ? 'Notes (1)' : 'Note'}</span>
+            {showNotes ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+        </div>
       </div>
 
       {/* Note Expandable Area */}

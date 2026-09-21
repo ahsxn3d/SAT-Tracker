@@ -29,6 +29,9 @@ export async function GET(req: NextRequest) {
           testScores: true,
           packingItems: true,
           cheatCodeBookmarks: true,
+          stuckConcepts: {
+            orderBy: { createdAt: 'desc' },
+          },
         },
       });
 
@@ -100,6 +103,21 @@ export async function GET(req: NextRequest) {
           };
         });
 
+        const formattedStuckConcepts = user.stuckConcepts?.map((sc) => ({
+          id: sc.id,
+          dateStr: sc.dateStr,
+          dayNumber: sc.dayNumber ?? undefined,
+          lessonCode: sc.lessonCode,
+          lessonTitle: sc.lessonTitle,
+          chapter: sc.chapter,
+          conceptFormula: sc.conceptFormula,
+          notes: sc.notes,
+          takeawayRule: sc.takeawayRule || undefined,
+          errorLogId: sc.errorLogId || undefined,
+          resolved: sc.resolved,
+          createdAt: sc.createdAt.getTime(),
+        })) || [];
+
         return NextResponse.json({
           source: 'database',
           completedTaskIds: user.progress?.completedTaskIds || {},
@@ -110,6 +128,7 @@ export async function GET(req: NextRequest) {
           errorLogs: formattedErrorLogs,
           sessionTimings: sessionTimingsMap,
           mockTestScores: testScoresMap,
+          stuckConcepts: formattedStuckConcepts,
           targetScore: user.progress?.targetScore || 1550,
           examDate: user.progress?.examDate || '2026-11-07',
         });
@@ -156,6 +175,7 @@ export async function POST(req: NextRequest) {
       errorLogs,
       sessionTimings,
       mockTestScores,
+      stuckConcepts,
       lastActiveDate,
       targetScore,
       examDate,
@@ -171,6 +191,7 @@ export async function POST(req: NextRequest) {
       errorLogs: errorLogs || [],
       sessionTimings: sessionTimings || {},
       mockTestScores: mockTestScores || inMemoryProgressStore[email]?.mockTestScores || {},
+      stuckConcepts: stuckConcepts || inMemoryProgressStore[email]?.stuckConcepts || [],
       lastActiveDate: lastActiveDate || new Date().toISOString().split('T')[0],
       targetScore: targetScore || 1550,
       examDate: examDate || '2026-11-07',
@@ -388,6 +409,65 @@ export async function POST(req: NextRequest) {
               });
             } catch (tsErr) {
               console.warn(`Failed to upsert test score #${testNum}:`, tsErr);
+            }
+          }
+        }
+      }
+
+      // 6. Persist Stuck Concepts
+      if (Array.isArray(stuckConcepts)) {
+        for (const sc of stuckConcepts) {
+          if (sc && (sc.lessonCode || sc.conceptFormula)) {
+            try {
+              if (sc.id && !sc.id.startsWith('stuck-temp')) {
+                await prisma.userStuckConcept.upsert({
+                  where: { id: sc.id },
+                  update: {
+                    dateStr: sc.dateStr || '',
+                    dayNumber: sc.dayNumber ?? null,
+                    lessonCode: sc.lessonCode || '',
+                    lessonTitle: sc.lessonTitle || '',
+                    chapter: sc.chapter || '',
+                    conceptFormula: sc.conceptFormula || '',
+                    notes: sc.notes || '',
+                    takeawayRule: sc.takeawayRule || null,
+                    errorLogId: sc.errorLogId || null,
+                    resolved: Boolean(sc.resolved),
+                  },
+                  create: {
+                    id: sc.id,
+                    userId: user.id,
+                    dateStr: sc.dateStr || '',
+                    dayNumber: sc.dayNumber ?? null,
+                    lessonCode: sc.lessonCode || '',
+                    lessonTitle: sc.lessonTitle || '',
+                    chapter: sc.chapter || '',
+                    conceptFormula: sc.conceptFormula || '',
+                    notes: sc.notes || '',
+                    takeawayRule: sc.takeawayRule || null,
+                    errorLogId: sc.errorLogId || null,
+                    resolved: Boolean(sc.resolved),
+                  },
+                });
+              } else {
+                await prisma.userStuckConcept.create({
+                  data: {
+                    userId: user.id,
+                    dateStr: sc.dateStr || '',
+                    dayNumber: sc.dayNumber ?? null,
+                    lessonCode: sc.lessonCode || '',
+                    lessonTitle: sc.lessonTitle || '',
+                    chapter: sc.chapter || '',
+                    conceptFormula: sc.conceptFormula || '',
+                    notes: sc.notes || '',
+                    takeawayRule: sc.takeawayRule || null,
+                    errorLogId: sc.errorLogId || null,
+                    resolved: Boolean(sc.resolved),
+                  },
+                });
+              }
+            } catch (scErr) {
+              console.warn('Failed to upsert stuck concept:', scErr);
             }
           }
         }

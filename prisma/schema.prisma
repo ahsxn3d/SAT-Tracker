@@ -68,6 +68,7 @@ model User {
   packingItems       UserPackingItem[]
   cheatCodeBookmarks UserCheatCodeBookmark[]
   testScores         BluebookTestScore[]
+  stuckConcepts      UserStuckConcept[]
 }
 
 model Account {
@@ -293,4 +294,31 @@ model SystemAnnouncement {
   createdById String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ------------------------------------------------------------------------------
+// STUCK CONCEPTS & STRUGGLE TRACKER (Linked with Core Info & Calendar)
+// ------------------------------------------------------------------------------
+
+model UserStuckConcept {
+  id             String   @id @default(cuid())
+  userId         String
+  dateStr        String   // e.g. "2026-09-14"
+  dayNumber      Int?     // e.g. 1
+  lessonCode     String   // e.g. "MATH U3.2"
+  lessonTitle    String   // e.g. "Unit conversion"
+  chapter        String   // e.g. "Problem Solving & Data Analysis", "Algebra", "Advanced Math", "Geometry & Trigonometry"
+  conceptFormula String   // e.g. "Dimensional analysis diagonal canceling", "Slope formula"
+  notes          String   @db.Text // What caused you to get stuck / root cause
+  takeawayRule   String?  @db.Text // Takeaway rule / formula to remember
+  resolved       Boolean  @default(false) // Whether student mastered this concept later
+  errorLogId     String?  // Linked UserErrorLog entry if synchronized
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, dateStr])
+  @@index([userId, chapter])
+  @@index([userId, resolved])
 }

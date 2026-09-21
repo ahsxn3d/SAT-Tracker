@@ -100,3 +100,18 @@ export interface PackingItem {
   required: boolean;
   packed: boolean;
 }
+
+export interface StuckConceptRecord {
+  id: string;
+  dateStr: string;
+  dayNumber?: number;
+  lessonCode: string;
+  lessonTitle: string;
+  chapter: string;
+  conceptFormula: string;
+  notes: string;
+  takeawayRule?: string;
+  resolved: boolean;
+  errorLogId?: string;
+  createdAt: number;
+}

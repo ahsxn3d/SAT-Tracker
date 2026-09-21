@@ -14,7 +14,8 @@ import {
   ErrorLogEntry, 
   PackingItem,
   DaySessionTiming,
-  TaskTimingRecord
+  TaskTimingRecord,
+  StuckConceptRecord
 } from './types';
 import { AntiBurnoutHeader } from './components/AntiBurnoutHeader';
 import { TomorrowFocusCard } from './components/TomorrowFocusCard';
@@ -29,6 +30,8 @@ import { ErrorLogModal } from './components/ErrorLogModal';
 import { PackingModal } from './components/PackingModal';
 import { DesmosGuideModal } from './components/DesmosGuideModal';
 import { CheatCodesSection } from './components/CheatCodesSection';
+import { CoreInfoSection } from './components/CoreInfoSection';
+import { StuckConceptModal } from './components/StuckConceptModal';
 import { DedicatedDayPage } from './components/DedicatedDayPage';
 import { ScrollReveal } from './components/ScrollReveal';
 import { ExamPrepSection } from './components/ExamPrepSection';
@@ -63,6 +66,7 @@ const STORAGE_KEYS = {
   SESSION_TIMINGS: 'anti_burnout_session_timings_clean_v3',
   TASK_COMPLETION_DAYS: 'anti_burnout_task_completion_days_v3',
   TASK_TIMINGS: 'anti_burnout_task_timings_clean_v3',
+  STUCK_CONCEPTS: 'anti_burnout_stuck_concepts_v1',
 };
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
@@ -93,6 +97,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [dayNotes, setDayNotes] = useState<Record<string, string>>({});
   const [sessionTimings, setSessionTimings] = useState<Record<string, DaySessionTiming>>(DEFAULT_SESSION_TIMINGS);
   const [taskTimings, setTaskTimings] = useState<Record<string, TaskTimingRecord>>({});
+  const [stuckConcepts, setStuckConcepts] = useState<StuckConceptRecord[]>([]);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
   // Load saved data from localStorage after client mounts to avoid hydration mismatch
@@ -122,6 +127,9 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
       const savedTaskTimings = localStorage.getItem(STORAGE_KEYS.TASK_TIMINGS);
       if (savedTaskTimings) setTaskTimings(JSON.parse(savedTaskTimings));
+
+      const savedStuck = localStorage.getItem(STORAGE_KEYS.STUCK_CONCEPTS);
+      if (savedStuck) setStuckConcepts(JSON.parse(savedStuck));
     } catch (e) {
       console.error('Error loading saved progress from localStorage', e);
     }
@@ -139,6 +147,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [errorLogModalOpen, setErrorLogModalOpen] = useState(false);
   const [packingModalOpen, setPackingModalOpen] = useState(false);
   const [desmosModalOpen, setDesmosModalOpen] = useState(false);
+  const [stuckModalDay, setStuckModalDay] = useState<DayPlan | null>(null);
 
   // 1. Fetch user data from DB when signed in
   useEffect(() => {
@@ -162,6 +171,10 @@ export default function App({ initialSection = 'all' }: AppProps) {
             if (data.sessionTimings && Object.keys(data.sessionTimings).length > 0) {
               setSessionTimings((prev) => ({ ...prev, ...data.sessionTimings }));
             }
+            if (data.stuckConcepts && data.stuckConcepts.length > 0) {
+              setStuckConcepts(data.stuckConcepts);
+              localStorage.setItem(STORAGE_KEYS.STUCK_CONCEPTS, JSON.stringify(data.stuckConcepts));
+            }
             if (data.packingList && data.packingList.length > 0) {
               const merged = mergePackingListWithDefaults(data.packingList);
               setPackingList(merged);
@@ -175,7 +188,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
   // 2. Cloud sync helper
   const syncToCloud = useCallback(
-    (tasks: any, notes: any, errors: any, timings: any, packing: any, completionDays: any) => {
+    (tasks: any, notes: any, errors: any, timings: any, packing: any, completionDays: any, stuck?: any) => {
       if (status === 'authenticated' && session?.user?.email) {
         fetch('/api/user/progress', {
           method: 'POST',
@@ -187,12 +200,13 @@ export default function App({ initialSection = 'all' }: AppProps) {
             errorLogs: errors,
             sessionTimings: timings,
             packingList: packing,
+            stuckConcepts: stuck || stuckConcepts,
             lastActiveDate: new Date().toISOString().split('T')[0],
           }),
         }).catch((err) => console.warn('Cloud sync push error:', err));
       }
     },
-    [status, session]
+    [status, session, stuckConcepts]
   );
 
   // Sync with localStorage & trigger cloud sync (only after client has mounted)
@@ -200,11 +214,11 @@ export default function App({ initialSection = 'all' }: AppProps) {
     if (!hasMounted) return;
     try {
       localStorage.setItem(STORAGE_KEYS.COMPLETED_TASKS, JSON.stringify(completedTaskIds));
-      syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay);
+      syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts);
     } catch (e) {
       console.error('Failed to save tasks', e);
     }
-  }, [completedTaskIds, syncToCloud, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, hasMounted]);
+  }, [completedTaskIds, syncToCloud, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, hasMounted]);
 
   useEffect(() => {
     if (!hasMounted) return;
@@ -250,6 +264,15 @@ export default function App({ initialSection = 'all' }: AppProps) {
       console.error('Failed to save task completion days', e);
     }
   }, [taskCompletionDay, hasMounted]);
+
+  useEffect(() => {
+    if (!hasMounted) return;
+    try {
+      localStorage.setItem(STORAGE_KEYS.STUCK_CONCEPTS, JSON.stringify(stuckConcepts));
+    } catch (e) {
+      console.error('Failed to save stuck concepts', e);
+    }
+  }, [stuckConcepts, hasMounted]);
 
   const currentTrackerDate = useMemo(() => {
     try {
@@ -443,6 +466,62 @@ export default function App({ initialSection = 'all' }: AppProps) {
     );
   };
 
+  const handleSaveStruggle = (record: Omit<StuckConceptRecord, 'id' | 'createdAt'>, syncToErrorLog: boolean) => {
+    const struggleId = `stuck-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+    let linkedErrorLogId: string | undefined = undefined;
+
+    if (syncToErrorLog) {
+      linkedErrorLogId = `err-struggle-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
+      const isRW = record.chapter.includes('Reading') || record.chapter.includes('Writing') || record.lessonCode.includes('R&W');
+      const newErrorLog: ErrorLogEntry = {
+        id: linkedErrorLogId,
+        date: record.dateStr || new Date().toISOString().split('T')[0],
+        testOrSection: `${record.chapter} - ${record.lessonTitle}`,
+        questionRef: `${record.lessonCode}: ${record.conceptFormula}`,
+        domain: isRW ? 'Reading/Writing' : 'Math',
+        whyMissed: record.notes || `Stuck on concept: ${record.conceptFormula}`,
+        takeawayRule: record.takeawayRule || `Master ${record.conceptFormula}. Review core notes in Core Info hub.`,
+        reviewed: false,
+        createdAt: Date.now(),
+      };
+      setErrorLogs((prev) => [newErrorLog, ...prev]);
+    }
+
+    const newStruggle: StuckConceptRecord = {
+      ...record,
+      id: struggleId,
+      errorLogId: linkedErrorLogId,
+      createdAt: Date.now(),
+    };
+
+    setStuckConcepts((prev) => [newStruggle, ...prev]);
+
+    // Also append to day's reflection notes if not already present
+    if (record.dateStr && record.notes) {
+      setDayNotes((prev) => {
+        const existing = prev[record.dateStr] || '';
+        const struggleBullet = `• Stuck on ${record.conceptFormula}: ${record.notes}`;
+        if (!existing.includes(record.conceptFormula)) {
+          return {
+            ...prev,
+            [record.dateStr]: existing ? `${existing}\n${struggleBullet}` : struggleBullet,
+          };
+        }
+        return prev;
+      });
+    }
+  };
+
+  const handleDeleteStruggle = (id: string) => {
+    setStuckConcepts((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  const handleToggleResolvedStruggle = (id: string) => {
+    setStuckConcepts((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, resolved: !s.resolved } : s))
+    );
+  };
+
   const handleTogglePackingItem = (id: string) => {
     setPackingList((prev) =>
       prev.map((item) => (item.id === id ? { ...item, packed: !item.packed } : item))
@@ -578,6 +657,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
           onOpenDesmosModal={() => handleSelectSection('cheat-codes')}
           onOpenPackingModal={() => handleSelectSection('exam-prep')}
           taskTimings={taskTimings}
+          onOpenStruggleModal={(d) => setStuckModalDay(d)}
+          stuckCount={stuckConcepts.filter((s) => s.dateStr === dedicatedDay.dateStr).length}
         />
       ) : (
         /* Main Container */
@@ -599,7 +680,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
                 {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
                 {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)'}
-                {activeSection === 'cheat-codes' && '⚡ Tactical Cheat Codes (Desmos & R&W)'}
+                {activeSection === 'cheat-codes' && '📖 Core Info & Must-Master Curriculum Hub (2-Page Vault)'}
                 {activeSection === 'formulas' && '📐 SAT Math Formula Vault (4 Chapters • 3 Difficulty Tiers)'}
                 {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
                 {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
@@ -716,6 +797,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 onDeleteSessionTiming={handleDeleteSessionTiming}
                 onSelectDay={(dateStr) => setDedicatedDayDateStr(dateStr)}
                 taskTimings={taskTimings}
+                onOpenStruggleModal={(day) => setStuckModalDay(day)}
+                stuckConcepts={stuckConcepts}
               />
             </div>
           </ScrollReveal>
@@ -917,6 +1000,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
                                 onLaunchTimer={handleLaunchTimer}
                                 onSaveNotes={handleSaveNotes}
                                 allPrecedingDaysCompleted={allPrecedingDone}
+                                onOpenStruggleModal={() => setStuckModalDay(day)}
+                                strugglesCount={stuckConcepts.filter((s) => s.dateStr === day.dateStr).length}
                               />
                             ))}
                           </div>
@@ -970,8 +1055,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
             <div className="space-y-2">
               <div className="flex items-center justify-between px-1">
                 <span className="text-xs font-black uppercase tracking-wider text-amber-900 font-['JetBrains_Mono'] flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
-                  <span>Tactical Cheat Codes & Shortcuts (Desmos & R&W)</span>
+                  <BookOpen className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Core Info &bull; Must-Master SAT Curriculum Hub &bull; 2-Page Knowledge Vault</span>
                 </span>
                 {activeSection !== 'all' && (
                   <button
@@ -982,8 +1067,11 @@ export default function App({ initialSection = 'all' }: AppProps) {
                   </button>
                 )}
               </div>
-              <CheatCodesSection
+              <CoreInfoSection
                 onOpenModal={() => setDesmosModalOpen(true)}
+                stuckConcepts={stuckConcepts}
+                onToggleResolveStruggle={handleToggleResolvedStruggle}
+                onDeleteStruggle={handleDeleteStruggle}
               />
             </div>
           </ScrollReveal>
@@ -1129,6 +1217,15 @@ export default function App({ initialSection = 'all' }: AppProps) {
         onAddEntry={handleAddErrorLog}
         onDeleteEntry={handleDeleteErrorLog}
         onToggleReviewed={handleToggleReviewedErrorLog}
+      />
+
+      {/* Stuck Concept / Struggle Logger Subsection Modal */}
+      <StuckConceptModal
+        isOpen={!!stuckModalDay}
+        day={stuckModalDay}
+        onClose={() => setStuckModalDay(null)}
+        onSave={handleSaveStruggle}
+        existingStruggles={stuckConcepts.filter((s) => s.dateStr === stuckModalDay?.dateStr)}
       />
 
       {/* Bag Packing & Crescent Model Protocol Modal */}
