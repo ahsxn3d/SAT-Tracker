@@ -122,6 +122,50 @@ function findTaskInSyllabus(query: string, fromDateOrDay?: string) {
   return null;
 }
 
+// Helper: Search all tasks in an entire chapter or unit (e.g. Unit 5, Chapter 5, U5, etc.)
+function findTasksForChapterOrUnit(query: string) {
+  const q = query.toLowerCase().trim();
+  const allDays = STUDY_PLAN_WEEKS.flatMap((w) => w.days);
+  const matchedTasks: { task: any; day: any }[] = [];
+
+  const unitMatch = q.match(/u(\d+)/i) || q.match(/unit\s*#?\s*(\d+)/i) || q.match(/chapter\s*#?\s*(\d+)/i) || q.match(/ch\s*#?\s*(\d+)/i);
+  if (unitMatch) {
+    const num = unitMatch[1];
+    for (const day of allDays) {
+      for (const task of day.tasks) {
+        if (
+          task.label.toLowerCase().includes(`math u${num}.`) ||
+          task.label.toLowerCase().includes(`[math u${num}`) ||
+          task.label.toLowerCase().includes(`chapter ${num}`) ||
+          (task.code && task.code.toLowerCase().includes(`u${num}`))
+        ) {
+          if (!matchedTasks.some((m) => m.task.id === task.id)) {
+            matchedTasks.push({ task, day });
+          }
+        }
+      }
+    }
+  }
+
+  // Also check subject keywords if no unit match
+  if (matchedTasks.length === 0) {
+    for (const day of allDays) {
+      for (const task of day.tasks) {
+        if (
+          task.label.toLowerCase().includes(q) ||
+          (task.topic && task.topic.toLowerCase().includes(q))
+        ) {
+          if (!matchedTasks.some((m) => m.task.id === task.id)) {
+            matchedTasks.push({ task, day });
+          }
+        }
+      }
+    }
+  }
+
+  return matchedTasks;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
@@ -347,47 +391,89 @@ Whenever the student tells you about a mistake they made (e.g. "I missed Q14 on 
           const targetParam = args.targetDate || 'Sunday';
           const resolvedDate = resolveTargetDate(targetParam, currentDateStr);
 
-          // Find task in syllabus
-          const found = findTaskInSyllabus(topic, fromParam);
-          const taskId = found ? found.task.id : `custom-shift-${Date.now()}`;
-          const taskLabel = found ? found.task.label : topic;
-          const origDate = found ? found.day.dateStr : fromParam;
+          // Check if user requested an entire chapter / unit (e.g. Chapter 5, Unit 5, Geometry, etc.)
+          const chapterTasks = findTasksForChapterOrUnit(topic);
 
-          // Update user's taskScheduleOverrides in Database if logged in
-          if (user) {
-            const currentProgress = await prisma.userProgress.findUnique({
-              where: { userId: user.id },
-            });
-            const existingOverrides = (currentProgress?.taskScheduleOverrides as Record<string, string>) || {};
-            const updatedOverrides = {
-              ...existingOverrides,
-              [taskId]: resolvedDate,
+          if (chapterTasks.length > 1) {
+            // Batch shift entire chapter across all its lessons!
+            if (user) {
+              const currentProgress = await prisma.userProgress.findUnique({
+                where: { userId: user.id },
+              });
+              const existingOverrides = (currentProgress?.taskScheduleOverrides as Record<string, string>) || {};
+              const updatedOverrides = { ...existingOverrides };
+              for (const item of chapterTasks) {
+                updatedOverrides[item.task.id] = resolvedDate;
+              }
+
+              await prisma.userProgress.upsert({
+                where: { userId: user.id },
+                update: { taskScheduleOverrides: updatedOverrides },
+                create: { userId: user.id, taskScheduleOverrides: updatedOverrides },
+              });
+            }
+
+            executedActionData = {
+              action: 'shift_chapter',
+              unitName: topic,
+              count: chapterTasks.length,
+              tasks: chapterTasks.map((m) => ({
+                id: m.task.id,
+                label: m.task.label,
+                from: m.day.dateStr,
+                to: resolvedDate,
+              })),
+              to: resolvedDate,
+              success: true,
+              summary: `Shifted all ${chapterTasks.length} lessons of "${topic}" to ${resolvedDate}.`,
             };
 
-            await prisma.userProgress.upsert({
-              where: { userId: user.id },
-              update: {
-                taskScheduleOverrides: updatedOverrides,
-              },
-              create: {
-                userId: user.id,
-                taskScheduleOverrides: updatedOverrides,
-              },
-            });
-          }
+            if (!assistantText) {
+              assistantText = `✅ **Full Chapter Shifted!** I have successfully moved all **${chapterTasks.length} lessons** of **${topic}** to **${resolvedDate}**.\n\nAll ${chapterTasks.length} tasks have been updated in your calendar, roadmap, and rollover system in the database.`;
+            }
+          } else {
+            // Find single task in syllabus
+            const found = findTaskInSyllabus(topic, fromParam);
+            const taskId = found ? found.task.id : `custom-shift-${Date.now()}`;
+            const taskLabel = found ? found.task.label : topic;
+            const origDate = found ? found.day.dateStr : fromParam;
 
-          executedActionData = {
-            action: 'shift_lesson',
-            taskId,
-            taskLabel,
-            from: origDate,
-            to: resolvedDate,
-            success: true,
-            summary: `Shifted "${taskLabel}" from ${origDate} to ${resolvedDate}.`,
-          };
+            // Update user's taskScheduleOverrides in Database if logged in
+            if (user) {
+              const currentProgress = await prisma.userProgress.findUnique({
+                where: { userId: user.id },
+              });
+              const existingOverrides = (currentProgress?.taskScheduleOverrides as Record<string, string>) || {};
+              const updatedOverrides = {
+                ...existingOverrides,
+                [taskId]: resolvedDate,
+              };
 
-          if (!assistantText) {
-            assistantText = `✅ **Schedule Updated!** I have successfully shifted **${taskLabel}** from **${origDate}** to **${resolvedDate}**. Your calendar, daily roadmap, and rollover checklist have been synchronized in the database.`;
+              await prisma.userProgress.upsert({
+                where: { userId: user.id },
+                update: {
+                  taskScheduleOverrides: updatedOverrides,
+                },
+                create: {
+                  userId: user.id,
+                  taskScheduleOverrides: updatedOverrides,
+                },
+              });
+            }
+
+            executedActionData = {
+              action: 'shift_lesson',
+              taskId,
+              taskLabel,
+              from: origDate,
+              to: resolvedDate,
+              success: true,
+              summary: `Shifted "${taskLabel}" from ${origDate} to ${resolvedDate}.`,
+            };
+
+            if (!assistantText) {
+              assistantText = `✅ **Schedule Updated!** I have successfully shifted **${taskLabel}** from **${origDate}** to **${resolvedDate}**. Your calendar, daily roadmap, and rollover checklist have been synchronized in the database.`;
+            }
           }
         } else if (call.name === 'log_error') {
           const testOrSection = args.testOrSection || 'Practice Drill';

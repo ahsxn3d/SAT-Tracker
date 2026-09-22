@@ -1233,6 +1233,14 @@ export default function App({ initialSection = 'all' }: AppProps) {
                     return next;
                   });
                 }}
+                onBatchTaskShifted={(batch) => {
+                  setTaskScheduleOverrides((prev) => {
+                    const next = { ...prev, ...batch };
+                    localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(next));
+                    syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, next);
+                    return next;
+                  });
+                }}
                 onErrorLogged={(newError) => {
                   setErrorLogs((prev) => [newError, ...prev]);
                 }}

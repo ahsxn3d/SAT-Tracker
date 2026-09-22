@@ -27,10 +27,36 @@ import { AIMode, AIChatMessageItem, AIChatSessionItem, ErrorLogEntry } from '../
 interface AICopilotSectionProps {
   currentDateStr?: string;
   onTaskShifted?: (taskId: string, targetDate: string) => void;
+  onBatchTaskShifted?: (batch: Record<string, string>) => void;
   onErrorLogged?: (error: ErrorLogEntry) => void;
   onNavigateToCalendar?: () => void;
   onNavigateToErrorLog?: () => void;
 }
+
+export const CHAPTER_OPTIONS = [
+  { id: 'U5', label: 'Unit 5 / Chapter 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)' },
+  { id: 'U3', label: 'Unit 3 / Chapter 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)' },
+  { id: 'U4', label: 'Unit 4 / Chapter 4: Advanced Math (Quadratics & Parabolas — 13 lessons)' },
+  { id: 'U6', label: 'Unit 6 / Chapter 6: Algebra (Linear Equations & Systems — 8 lessons)' },
+  { id: 'U7', label: 'Unit 7 / Chapter 7: Problem Solving (Complex Probability & Data — 10 lessons)' },
+  { id: 'U8', label: 'Unit 8 / Chapter 8: Advanced Math (Polynomials & Exponents — 13 lessons)' },
+  { id: 'U9', label: 'Unit 9 / Chapter 9: Geometry & Trig (Right Triangles & Circles — 6 lessons)' },
+  { id: 'U10', label: 'Unit 10 / Chapter 10: Algebra (Advanced Linear Modeling — 8 lessons)' },
+  { id: 'U11', label: 'Unit 11 / Chapter 11: Problem Solving (Statistics & Spread — 10 lessons)' },
+  { id: 'U12', label: 'Unit 12 / Chapter 12: Advanced Math (Radicals & Rational Equations — 13 lessons)' },
+  { id: 'U13', label: 'Unit 13 / Chapter 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)' },
+];
+
+export const DESTINATION_OPTIONS = [
+  { id: '2026-09-27', label: 'Next Sunday, Sep 27 (Week 2 Buffer Day)' },
+  { id: '2026-10-04', label: 'Sunday, Oct 4 (Week 3 Buffer Day)' },
+  { id: '2026-10-11', label: 'Final Sunday, Oct 11 (Week 4 Buffer Day)' },
+  { id: '2026-09-20', label: 'Sunday, Sep 20 (Week 1 Buffer Day)' },
+  { id: 'tomorrow', label: 'Tomorrow' },
+  { id: 'day-20', label: 'Day 20 (Fri Oct 2)' },
+  { id: 'day-22', label: 'Day 22 (Sun Oct 4)' },
+  { id: 'day-25', label: 'Day 25 (Wed Oct 7)' },
+];
 
 const AI_MODES: {
   id: AIMode;
@@ -107,6 +133,7 @@ const AI_MODES: {
 export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   currentDateStr = '2026-09-22',
   onTaskShifted,
+  onBatchTaskShifted,
   onErrorLogged,
   onNavigateToCalendar,
   onNavigateToErrorLog
@@ -119,6 +146,10 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   const [loading, setLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  // Upper Dropdown Chapter Shift state (Plan Modifier mode)
+  const [selectedChapterUnit, setSelectedChapterUnit] = useState<string>('U5');
+  const [selectedDestination, setSelectedDestination] = useState<string>('2026-09-27');
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -177,6 +208,14 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     } catch (err) {
       console.error('Error deleting session:', err);
     }
+  };
+
+  // Push full chapter / unit to target destination
+  const handlePushChapter = () => {
+    const chObj = CHAPTER_OPTIONS.find((c) => c.id === selectedChapterUnit) || CHAPTER_OPTIONS[0];
+    const destObj = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination) || DESTINATION_OPTIONS[0];
+    const prompt = `Please shift all lessons in ${chObj.label.split('(')[0].trim()} to ${destObj.label.split('(')[0].trim()}`;
+    handleSendMessage(prompt);
   };
 
   // 5. Send message
@@ -239,7 +278,13 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
 
         // Trigger parent state updates for tools
         if (data.actionData) {
-          if (data.actionData.action === 'shift_lesson' && onTaskShifted) {
+          if (data.actionData.action === 'shift_chapter' && onBatchTaskShifted && Array.isArray(data.actionData.tasks)) {
+            const batch: Record<string, string> = {};
+            for (const t of data.actionData.tasks) {
+              batch[t.id] = data.actionData.to;
+            }
+            onBatchTaskShifted(batch);
+          } else if (data.actionData.action === 'shift_lesson' && onTaskShifted) {
             onTaskShifted(data.actionData.taskId, data.actionData.to);
           } else if (data.actionData.action === 'log_error' && onErrorLogged) {
             onErrorLogged(data.actionData.errorLog);
@@ -356,6 +401,81 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
               );
             })}
           </div>
+
+          {/* INTERACTIVE CHAPTER / UNIT QUICK-SHIFT BAR (PLAN MODIFIER EXCLUSIVE) */}
+          <AnimatePresence>
+            {activeMode === 'plan_modifier' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.22 }}
+                className="pt-4 border-t border-[#a6c4a1]/50 mt-3 space-y-3 overflow-hidden"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-indigo-950 font-['JetBrains_Mono']">
+                    <Zap className="w-3.5 h-3.5 text-indigo-600 fill-indigo-600" />
+                    <span>Chapter / Unit Fast-Shift Control:</span>
+                  </div>
+                  <span className="text-[11px] font-bold text-slate-600">
+                    Batch-shift all lessons of a unit to Sunday or a specific day
+                  </span>
+                </div>
+
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-indigo-50/90 border-2 border-indigo-300 grid grid-cols-1 md:grid-cols-12 gap-3 items-center shadow-xs">
+                  {/* Chapter Dropdown */}
+                  <div className="md:col-span-5 space-y-1">
+                    <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                      <BookOpen className="w-3 h-3 text-indigo-700" />
+                      <span>Select Chapter / Unit:</span>
+                    </label>
+                    <select
+                      value={selectedChapterUnit}
+                      onChange={(e) => setSelectedChapterUnit(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
+                    >
+                      {CHAPTER_OPTIONS.map((opt) => (
+                        <option key={opt.id} value={opt.id}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Destination Dropdown */}
+                  <div className="md:col-span-4 space-y-1">
+                    <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                      <Calendar className="w-3 h-3 text-indigo-700" />
+                      <span>Target Destination:</span>
+                    </label>
+                    <select
+                      value={selectedDestination}
+                      onChange={(e) => setSelectedDestination(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
+                    >
+                      {DESTINATION_OPTIONS.map((dest) => (
+                        <option key={dest.id} value={dest.id}>
+                          {dest.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Push Chapter Button */}
+                  <div className="md:col-span-3 pt-2 sm:pt-0 sm:self-end">
+                    <button
+                      onClick={handlePushChapter}
+                      disabled={loading}
+                      className="w-full py-2.5 px-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    >
+                      <Zap className="w-3.5 h-3.5 text-indigo-200 fill-indigo-200" />
+                      <span>Push Full Chapter &rarr;</span>
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
@@ -502,6 +622,58 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         {/* INTERACTIVE ACTION CARDS (TOOL EXECUTIONS) */}
                         {msg.actionData && (
                           <div className="space-y-2 w-full">
+                            {msg.actionData.action === 'shift_chapter' && (
+                              <div className="p-3.5 rounded-2xl bg-indigo-50 border-2 border-indigo-400 text-slate-950 space-y-2.5 shadow-xs">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-1.5 text-xs font-black text-indigo-950 font-['JetBrains_Mono']">
+                                    <CheckCircle2 className="w-4 h-4 text-indigo-600" />
+                                    <span>Full Chapter Shift Executed ({msg.actionData.count} Lessons)</span>
+                                  </div>
+                                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-200 text-indigo-950 font-['JetBrains_Mono']">
+                                    Batch Shifted
+                                  </span>
+                                </div>
+                                <div className="text-xs space-y-1">
+                                  <div>
+                                    <span className="font-bold text-slate-600">Chapter:</span>{' '}
+                                    <span className="font-black text-indigo-950">{msg.actionData.unitName}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <span className="font-bold text-slate-600">Target Date:</span>
+                                    <span className="px-2 py-0.5 rounded-lg bg-indigo-200 text-indigo-950 text-[11px] font-black font-mono">
+                                      {msg.actionData.to}
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {Array.isArray(msg.actionData.tasks) && msg.actionData.tasks.length > 0 && (
+                                  <div className="p-2.5 rounded-xl bg-white/90 border border-indigo-200 space-y-1">
+                                    <div className="text-[10px] font-black uppercase text-indigo-900 font-['JetBrains_Mono']">
+                                      All Moved Lessons ({msg.actionData.tasks.length}):
+                                    </div>
+                                    <div className="max-h-28 overflow-y-auto space-y-1 text-[11px] pr-1">
+                                      {msg.actionData.tasks.map((t: any, i: number) => (
+                                        <div key={i} className="flex items-center justify-between text-slate-800 font-medium">
+                                          <span className="truncate">&bull; {t.label}</span>
+                                          <span className="text-[10px] text-slate-500 shrink-0 font-mono ml-2">from {t.from}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {onNavigateToCalendar && (
+                                  <button
+                                    onClick={onNavigateToCalendar}
+                                    className="text-[11px] font-black text-indigo-800 hover:underline flex items-center gap-1 cursor-pointer pt-1"
+                                  >
+                                    <span>View on Calendar</span>
+                                    <ChevronRight className="w-3 h-3" />
+                                  </button>
+                                )}
+                              </div>
+                            )}
+
                             {msg.actionData.action === 'shift_lesson' && (
                               <div className="p-3.5 rounded-2xl bg-emerald-50 border-2 border-emerald-400 text-slate-950 space-y-2 shadow-xs">
                                 <div className="flex items-center gap-1.5 text-xs font-black text-emerald-900 font-['JetBrains_Mono']">
