@@ -19,7 +19,8 @@ export function computeWeeksWithRollover(
   completedTaskIds: Record<string, boolean>,
   taskCompletionDay: Record<string, string>,
   dayNotes: Record<string, string> = {},
-  todayDateStr: string = '2026-09-14'
+  todayDateStr: string = '2026-09-14',
+  taskScheduleOverrides: Record<string, string> = {}
 ): WeekPlan[] {
   // 1. Flatten all days in chronological order
   const allRawDays: DayPlan[] = rawWeeks.flatMap((w) => w.days);
@@ -48,15 +49,42 @@ export function computeWeeksWithRollover(
   const updatedDaysMap = new Map<string, DayPlan>();
 
   allRawDays.forEach((day, dayIndex) => {
-    // A. Native tasks of this day
-    const nativeTasks: TaskItem[] = day.tasks.map((task) => ({
-      ...task,
-      completed: !!completedTaskIds[task.id],
-      isCarriedOver: false,
-    }));
+    // A. Native tasks of this day (exclude tasks shifted away to another date)
+    const nativeTasks: TaskItem[] = day.tasks
+      .filter((task) => {
+        const targetDate = taskScheduleOverrides[task.id];
+        return !targetDate || targetDate === day.dateStr;
+      })
+      .map((task) => ({
+        ...task,
+        completed: !!completedTaskIds[task.id],
+        isCarriedOver: false,
+      }));
 
     const nativeTaskIds = new Set(nativeTasks.map((t) => t.id));
     const carriedOverTasks: TaskItem[] = [];
+
+    // Explicit Schedule Overrides (AI or manual shifts to this specific date)
+    allRawDays.forEach((otherDay) => {
+      if (otherDay.dateStr === day.dateStr) return;
+      otherDay.tasks.forEach((origTask) => {
+        const targetDate = taskScheduleOverrides[origTask.id];
+        if (targetDate === day.dateStr) {
+          if (!nativeTaskIds.has(origTask.id) && !carriedOverTasks.some((t) => t.id === origTask.id)) {
+            const isDone = !!completedTaskIds[origTask.id];
+            carriedOverTasks.push({
+              ...origTask,
+              completed: isDone,
+              isCarriedOver: true,
+              originalDayId: otherDay.id,
+              originalDateStr: otherDay.dateStr,
+              originalFormattedDate: otherDay.formattedDate,
+              completedOnDateStr: isDone ? (taskCompletionDay[origTask.id] || day.dateStr) : undefined,
+            });
+          }
+        }
+      });
+    });
 
     // B. Check earlier days (j < dayIndex) for rollover
     for (let j = 0; j < dayIndex; j++) {

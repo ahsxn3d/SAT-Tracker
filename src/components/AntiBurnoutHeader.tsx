@@ -25,7 +25,8 @@ import {
   Zap,
   Layers,
   MapPin,
-  Calculator
+  Calculator,
+  Bot
 } from 'lucide-react';
 
 interface NavPageItem {
@@ -59,6 +60,16 @@ const NAV_PAGES: NavPageItem[] = [
     inactiveClass: 'text-blue-950 bg-blue-100/80 border-blue-300 hover:bg-blue-200/90',
     iconColor: 'text-blue-600',
     activeIconColor: 'text-white'
+  },
+  { 
+    id: 'ai-copilot', 
+    label: 'AI Co-Pilot', 
+    href: '/ai-copilot', 
+    icon: Bot,
+    activeClass: 'bg-[#1a3717] text-white shadow-sm ring-2 ring-[#8ec284] border-[#1a3717] font-black',
+    inactiveClass: 'text-emerald-950 bg-emerald-100/90 border-emerald-300 hover:bg-emerald-200 font-black ring-1 ring-emerald-400/50',
+    iconColor: 'text-emerald-700',
+    activeIconColor: 'text-emerald-300'
   },
   { 
     id: 'tomorrow', 

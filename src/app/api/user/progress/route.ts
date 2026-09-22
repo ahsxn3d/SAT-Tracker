@@ -122,6 +122,7 @@ export async function GET(req: NextRequest) {
           source: 'database',
           completedTaskIds: user.progress?.completedTaskIds || {},
           taskCompletionDays: user.progress?.taskCompletionDays || {},
+          taskScheduleOverrides: user.progress?.taskScheduleOverrides || {},
           packingList: user.progress?.packingList || null,
           anchorTime: user.progress?.anchorTime || '20:30',
           dayNotes: dayNotesMap,
@@ -169,6 +170,7 @@ export async function POST(req: NextRequest) {
     const {
       completedTaskIds,
       taskCompletionDays,
+      taskScheduleOverrides,
       packingList,
       anchorTime,
       dayNotes,
@@ -185,6 +187,7 @@ export async function POST(req: NextRequest) {
     inMemoryProgressStore[email] = {
       completedTaskIds: completedTaskIds || {},
       taskCompletionDays: taskCompletionDays || {},
+      taskScheduleOverrides: taskScheduleOverrides || {},
       packingList: packingList || null,
       anchorTime: anchorTime || '20:30',
       dayNotes: dayNotes || {},
@@ -215,12 +218,13 @@ export async function POST(req: NextRequest) {
       });
 
       // 1. Persist User Progress
-      if (completedTaskIds !== undefined || packingList !== undefined || taskCompletionDays !== undefined) {
+      if (completedTaskIds !== undefined || packingList !== undefined || taskCompletionDays !== undefined || taskScheduleOverrides !== undefined) {
         await prisma.userProgress.upsert({
           where: { userId: user.id },
           update: {
             completedTaskIds: completedTaskIds ?? undefined,
             taskCompletionDays: taskCompletionDays ?? undefined,
+            taskScheduleOverrides: taskScheduleOverrides ?? undefined,
             packingList: packingList ?? undefined,
             anchorTime: anchorTime ?? undefined,
             targetScore: targetScore ?? undefined,
@@ -231,6 +235,7 @@ export async function POST(req: NextRequest) {
             userId: user.id,
             completedTaskIds: completedTaskIds || {},
             taskCompletionDays: taskCompletionDays || {},
+            taskScheduleOverrides: taskScheduleOverrides || {},
             packingList: packingList || [],
             anchorTime: anchorTime || '20:30',
             targetScore: targetScore || 1550,

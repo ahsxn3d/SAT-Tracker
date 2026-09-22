@@ -69,6 +69,7 @@ model User {
   cheatCodeBookmarks UserCheatCodeBookmark[]
   testScores         BluebookTestScore[]
   stuckConcepts      UserStuckConcept[]
+  aiChatSessions     AIChatSession[]
 }
 
 model Account {
@@ -116,9 +117,10 @@ model VerificationToken {
 model UserProgress {
   id                 String   @id @default(cuid())
   userId             String   @unique
-  completedTaskIds   Json     @default("{}") // Map of taskId -> boolean (e.g. {"w1-d1-math": true})
-  taskCompletionDays Json?    @default("{}") // Map of taskId -> completedDateStr (for dynamic rollover)
-  packingList        Json?    @default("[]") // Array of packing items state
+  completedTaskIds      Json     @default("{}") // Map of taskId -> boolean (e.g. {"w1-d1-math": true})
+  taskCompletionDays    Json?    @default("{}") // Map of taskId -> completedDateStr (for dynamic rollover)
+  taskScheduleOverrides Json?    @default("{}") // Map of taskId -> targetDateStr (explicit manual/AI shifts)
+  packingList           Json?    @default("[]") // Array of packing items state
   anchorTime         String?  @default("20:30") // Daily start anchor time (e.g. "20:30" 8:30 PM)
   targetScore        Int?     @default(1550) // Student target SAT score
   examDate           String?  @default("2026-11-07") // Target SAT exam date (Nov 7, 2026)
@@ -321,4 +323,36 @@ model UserStuckConcept {
   @@index([userId, dateStr])
   @@index([userId, chapter])
   @@index([userId, resolved])
+}
+
+// ------------------------------------------------------------------------------
+// AI ASSISTANT & CHAT SESSIONS (Gemini Co-Pilot)
+// ------------------------------------------------------------------------------
+
+model AIChatSession {
+  id        String          @id @default(cuid())
+  userId    String
+  mode      String          @default("plan_modifier") // "plan_modifier" | "teacher" | "coach" | "error_worker"
+  title     String          @default("New Chat")
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  AIChatMessage[]
+
+  @@index([userId, mode])
+  @@index([userId, createdAt])
+}
+
+model AIChatMessage {
+  id         String        @id @default(cuid())
+  sessionId  String
+  role       String        // "user" | "assistant" | "system"
+  content    String        @db.Text
+  actionData Json?         // Action execution payload e.g. shifted task or logged error
+  createdAt  DateTime      @default(now())
+
+  session    AIChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId, createdAt])
 }

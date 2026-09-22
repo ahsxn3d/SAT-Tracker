@@ -115,3 +115,23 @@ export interface StuckConceptRecord {
   errorLogId?: string;
   createdAt: number;
 }
+
+export type AIMode = 'plan_modifier' | 'teacher' | 'coach' | 'error_worker';
+
+export interface AIChatMessageItem {
+  id: string;
+  sessionId: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  actionData?: any;
+  createdAt: string | number;
+}
+
+export interface AIChatSessionItem {
+  id: string;
+  mode: AIMode;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  messages?: AIChatMessageItem[];
+}

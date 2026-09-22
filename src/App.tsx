@@ -36,6 +36,7 @@ import { ScrollReveal } from './components/ScrollReveal';
 import { ExamPrepSection } from './components/ExamPrepSection';
 import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
 import { FormulasSection } from './components/FormulasSection';
+import { AICopilotSection } from './components/AICopilotSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -64,13 +65,14 @@ const STORAGE_KEYS = {
   DAY_NOTES: 'anti_burnout_notes_clean_v3',
   SESSION_TIMINGS: 'anti_burnout_session_timings_clean_v3',
   TASK_COMPLETION_DAYS: 'anti_burnout_task_completion_days_v3',
+  TASK_SCHEDULE_OVERRIDES: 'anti_burnout_task_schedule_overrides_v1',
   TASK_TIMINGS: 'anti_burnout_task_timings_clean_v3',
   STUCK_CONCEPTS: 'anti_burnout_stuck_concepts_v1',
 };
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator';
+type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator' | 'ai-copilot';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -91,6 +93,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   // SSR-safe state defaults matching server and client initial render
   const [completedTaskIds, setCompletedTaskIds] = useState<Record<string, boolean>>({});
   const [taskCompletionDay, setTaskCompletionDay] = useState<Record<string, string>>({});
+  const [taskScheduleOverrides, setTaskScheduleOverrides] = useState<Record<string, string>>({});
   const [errorLogs, setErrorLogs] = useState<ErrorLogEntry[]>([]);
   const [packingList, setPackingList] = useState<PackingItem[]>(() => mergePackingListWithDefaults(INITIAL_PACKING_LIST));
   const [dayNotes, setDayNotes] = useState<Record<string, string>>({});
@@ -107,6 +110,9 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
       const savedDays = localStorage.getItem(STORAGE_KEYS.TASK_COMPLETION_DAYS);
       if (savedDays) setTaskCompletionDay(JSON.parse(savedDays));
+
+      const savedOverrides = localStorage.getItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES);
+      if (savedOverrides) setTaskScheduleOverrides(JSON.parse(savedOverrides));
 
       const savedLogs = localStorage.getItem(STORAGE_KEYS.ERROR_LOG);
       if (savedLogs) setErrorLogs(JSON.parse(savedLogs));
@@ -160,6 +166,10 @@ export default function App({ initialSection = 'all' }: AppProps) {
             if (data.taskCompletionDays && Object.keys(data.taskCompletionDays).length > 0) {
               setTaskCompletionDay((prev) => ({ ...prev, ...data.taskCompletionDays }));
             }
+            if (data.taskScheduleOverrides && Object.keys(data.taskScheduleOverrides).length > 0) {
+              setTaskScheduleOverrides((prev) => ({ ...prev, ...data.taskScheduleOverrides }));
+              localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(data.taskScheduleOverrides));
+            }
             if (data.dayNotes && Object.keys(data.dayNotes).length > 0) {
               setDayNotes((prev) => ({ ...prev, ...data.dayNotes }));
             }
@@ -186,7 +196,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
   // 2. Cloud sync helper
   const syncToCloud = useCallback(
-    (tasks: any, notes: any, errors: any, timings: any, packing: any, completionDays: any, stuck?: any) => {
+    (tasks: any, notes: any, errors: any, timings: any, packing: any, completionDays: any, stuck?: any, overrides?: any) => {
       if (status === 'authenticated' && session?.user?.email) {
         fetch('/api/user/progress', {
           method: 'POST',
@@ -194,6 +204,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
           body: JSON.stringify({
             completedTaskIds: tasks,
             taskCompletionDays: completionDays,
+            taskScheduleOverrides: overrides || taskScheduleOverrides,
             dayNotes: notes,
             errorLogs: errors,
             sessionTimings: timings,
@@ -204,7 +215,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
         }).catch((err) => console.warn('Cloud sync push error:', err));
       }
     },
-    [status, session, stuckConcepts]
+    [status, session, stuckConcepts, taskScheduleOverrides]
   );
 
   // Sync with localStorage & trigger cloud sync (only after client has mounted)
@@ -212,11 +223,12 @@ export default function App({ initialSection = 'all' }: AppProps) {
     if (!hasMounted) return;
     try {
       localStorage.setItem(STORAGE_KEYS.COMPLETED_TASKS, JSON.stringify(completedTaskIds));
-      syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts);
+      localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(taskScheduleOverrides));
+      syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, taskScheduleOverrides);
     } catch (e) {
       console.error('Failed to save tasks', e);
     }
-  }, [completedTaskIds, syncToCloud, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, hasMounted]);
+  }, [completedTaskIds, taskScheduleOverrides, syncToCloud, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, hasMounted]);
 
   useEffect(() => {
     if (!hasMounted) return;
@@ -292,9 +304,10 @@ export default function App({ initialSection = 'all' }: AppProps) {
       completedTaskIds,
       taskCompletionDay,
       dayNotes,
-      currentTrackerDate
+      currentTrackerDate,
+      taskScheduleOverrides
     );
-  }, [completedTaskIds, taskCompletionDay, dayNotes, currentTrackerDate]);
+  }, [completedTaskIds, taskCompletionDay, dayNotes, currentTrackerDate, taskScheduleOverrides]);
 
   // Flattened all days list
   const allDays = useMemo(() => {
@@ -644,6 +657,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
       'timer': '/timer',
       'exam-prep': '/exam-prep',
       'score-calculator': '/score-calculator',
+      'ai-copilot': '/ai-copilot',
     };
     const targetHref = hrefMap[section] || '/';
     if (typeof window !== 'undefined' && window.location.pathname !== targetHref) {
@@ -1187,6 +1201,44 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 </button>
               </div>
               <ScoreCalculatorSection onNavigateToErrorLog={() => handleSelectSection('error-log')} />
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* ============================================================ */}
+        {/* DEDICATED FULL PAGE VIEW: GEMINI AI CO-PILOT                 */}
+        {/* ============================================================ */}
+        {activeSection === 'ai-copilot' && (
+          <ScrollReveal id="section-ai-copilot-page">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Dedicated Gemini AI Assistant &amp; Co-Pilot</span>
+                </span>
+                <button
+                  onClick={() => handleSelectSection('calendar')}
+                  className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
+                >
+                  &larr; Back to Calendar
+                </button>
+              </div>
+              <AICopilotSection
+                currentDateStr={currentTrackerDate}
+                onTaskShifted={(taskId, targetDate) => {
+                  setTaskScheduleOverrides((prev) => {
+                    const next = { ...prev, [taskId]: targetDate };
+                    localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(next));
+                    syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, next);
+                    return next;
+                  });
+                }}
+                onErrorLogged={(newError) => {
+                  setErrorLogs((prev) => [newError, ...prev]);
+                }}
+                onNavigateToCalendar={() => handleSelectSection('calendar')}
+                onNavigateToErrorLog={() => handleSelectSection('error-log')}
+              />
             </div>
           </ScrollReveal>
         )}
