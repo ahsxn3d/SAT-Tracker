@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Bot, 
@@ -20,12 +20,21 @@ import {
   Zap,
   RotateCcw,
   Check,
-  ChevronRight
+  ChevronRight,
+  CheckSquare,
+  Square,
+  Search,
+  Filter,
+  Layers,
+  Undo2,
+  ExternalLink
 } from 'lucide-react';
 import { AIMode, AIChatMessageItem, AIChatSessionItem, ErrorLogEntry } from '../types';
+import { STUDY_PLAN_WEEKS } from '../data/studyPlan';
 
 interface AICopilotSectionProps {
   currentDateStr?: string;
+  taskScheduleOverrides?: Record<string, string>;
   onTaskShifted?: (taskId: string, targetDate: string) => void;
   onBatchTaskShifted?: (batch: Record<string, string>) => void;
   onErrorLogged?: (error: ErrorLogEntry) => void;
@@ -33,30 +42,85 @@ interface AICopilotSectionProps {
   onNavigateToErrorLog?: () => void;
 }
 
-export const CHAPTER_OPTIONS = [
-  { id: 'U5', label: 'Unit 5 / Chapter 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)' },
-  { id: 'U3', label: 'Unit 3 / Chapter 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)' },
-  { id: 'U4', label: 'Unit 4 / Chapter 4: Advanced Math (Quadratics & Parabolas — 13 lessons)' },
-  { id: 'U6', label: 'Unit 6 / Chapter 6: Algebra (Linear Equations & Systems — 8 lessons)' },
-  { id: 'U7', label: 'Unit 7 / Chapter 7: Problem Solving (Complex Probability & Data — 10 lessons)' },
-  { id: 'U8', label: 'Unit 8 / Chapter 8: Advanced Math (Polynomials & Exponents — 13 lessons)' },
-  { id: 'U9', label: 'Unit 9 / Chapter 9: Geometry & Trig (Right Triangles & Circles — 6 lessons)' },
-  { id: 'U10', label: 'Unit 10 / Chapter 10: Algebra (Advanced Linear Modeling — 8 lessons)' },
-  { id: 'U11', label: 'Unit 11 / Chapter 11: Problem Solving (Statistics & Spread — 10 lessons)' },
-  { id: 'U12', label: 'Unit 12 / Chapter 12: Advanced Math (Radicals & Rational Equations — 13 lessons)' },
-  { id: 'U13', label: 'Unit 13 / Chapter 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)' },
+export interface SyllabusLesson {
+  id: string;
+  label: string;
+  code: string;
+  topic: string;
+  subject: string;
+  unitKey: string;
+  durationMinutes: number;
+  originalDayNumber: number;
+  originalDateStr: string;
+  originalFormattedDate: string;
+}
+
+export const UNIT_OPTIONS: {
+  id: string;
+  category: 'Math Chapters' | 'Reading & Writing Units' | 'All Lessons';
+  label: string;
+  shortTitle: string;
+}[] = [
+  // Math Units (Chapters)
+  { id: 'MATH_U5', category: 'Math Chapters', label: 'Unit 5 / Chapter 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)', shortTitle: 'Math Ch 5: Geometry & Trig' },
+  { id: 'MATH_U3', category: 'Math Chapters', label: 'Unit 3 / Chapter 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)', shortTitle: 'Math Ch 3: Problem Solving' },
+  { id: 'MATH_U4', category: 'Math Chapters', label: 'Unit 4 / Chapter 4: Advanced Math (Quadratics & Parabolas — 13 lessons)', shortTitle: 'Math Ch 4: Quadratics' },
+  { id: 'MATH_U6', category: 'Math Chapters', label: 'Unit 6 / Chapter 6: Algebra (Linear Equations & Systems — 8 lessons)', shortTitle: 'Math Ch 6: Linear Systems' },
+  { id: 'MATH_U7', category: 'Math Chapters', label: 'Unit 7 / Chapter 7: Problem Solving (Complex Probability & Data — 10 lessons)', shortTitle: 'Math Ch 7: Scatterplots & Data' },
+  { id: 'MATH_U8', category: 'Math Chapters', label: 'Unit 8 / Chapter 8: Advanced Math (Polynomials & Exponents — 13 lessons)', shortTitle: 'Math Ch 8: Polynomials' },
+  { id: 'MATH_U9', category: 'Math Chapters', label: 'Unit 9 / Chapter 9: Geometry & Trig (Right Triangles & Circles — 6 lessons)', shortTitle: 'Math Ch 9: Right Triangles' },
+  { id: 'MATH_U10', category: 'Math Chapters', label: 'Unit 10 / Chapter 10: Algebra (Advanced Linear Modeling — 8 lessons)', shortTitle: 'Math Ch 10: Linear Modeling' },
+  { id: 'MATH_U11', category: 'Math Chapters', label: 'Unit 11 / Chapter 11: Problem Solving (Statistics & Spread — 10 lessons)', shortTitle: 'Math Ch 11: Statistics' },
+  { id: 'MATH_U12', category: 'Math Chapters', label: 'Unit 12 / Chapter 12: Advanced Math (Radicals & Rational Equations — 13 lessons)', shortTitle: 'Math Ch 12: Radicals & Rationals' },
+  { id: 'MATH_U13', category: 'Math Chapters', label: 'Unit 13 / Chapter 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)', shortTitle: 'Math Ch 13: Circle Eq & Radians' },
+  
+  // Reading & Writing Units
+  { id: 'RW_U3', category: 'Reading & Writing Units', label: 'R&W Unit 3: Standard English Conventions (3 lessons)', shortTitle: 'R&W Ch 3: Conventions' },
+  { id: 'RW_U4', category: 'Reading & Writing Units', label: 'R&W Unit 4: Form, Structure & Sense (4 lessons)', shortTitle: 'R&W Ch 4: Structure' },
+  { id: 'RW_U5', category: 'Reading & Writing Units', label: 'R&W Unit 5: Inferences & Evidence (4 lessons)', shortTitle: 'R&W Ch 5: Inferences' },
+  { id: 'RW_U6', category: 'Reading & Writing Units', label: 'R&W Unit 6: Transitions & Rhetorical Synthesis (3 lessons)', shortTitle: 'R&W Ch 6: Transitions' },
+  { id: 'RW_U7', category: 'Reading & Writing Units', label: 'R&W Unit 7: Words in Context (4 lessons)', shortTitle: 'R&W Ch 7: Words in Context' },
+  { id: 'RW_U8', category: 'Reading & Writing Units', label: 'R&W Unit 8: Text Structure & Purpose (4 lessons)', shortTitle: 'R&W Ch 8: Text Structure' },
+  { id: 'RW_U9', category: 'Reading & Writing Units', label: 'R&W Unit 9: Cross-Text Connections (3 lessons)', shortTitle: 'R&W Ch 9: Cross-Text' },
+  { id: 'RW_U10', category: 'Reading & Writing Units', label: 'R&W Unit 10: Central Ideas & Details (4 lessons)', shortTitle: 'R&W Ch 10: Central Ideas' },
+  { id: 'RW_U11', category: 'Reading & Writing Units', label: 'R&W Unit 11: Quantitative Evidence (6 lessons)', shortTitle: 'R&W Ch 11: Quantitative Evidence' },
+  { id: 'RW_U12', category: 'Reading & Writing Units', label: 'R&W Unit 12: Complex Evidence & Arguments (8 lessons)', shortTitle: 'R&W Ch 12: Complex Evidence' },
+
+  // All
+  { id: 'ALL', category: 'All Lessons', label: 'All Units / Full Syllabus (145 lessons)', shortTitle: 'All 145 Lessons' },
 ];
 
-export const DESTINATION_OPTIONS = [
-  { id: '2026-09-27', label: 'Next Sunday, Sep 27 (Week 2 Buffer Day)' },
-  { id: '2026-10-04', label: 'Sunday, Oct 4 (Week 3 Buffer Day)' },
-  { id: '2026-10-11', label: 'Final Sunday, Oct 11 (Week 4 Buffer Day)' },
-  { id: '2026-09-20', label: 'Sunday, Sep 20 (Week 1 Buffer Day)' },
-  { id: 'tomorrow', label: 'Tomorrow' },
-  { id: 'day-20', label: 'Day 20 (Fri Oct 2)' },
-  { id: 'day-22', label: 'Day 22 (Sun Oct 4)' },
-  { id: 'day-25', label: 'Day 25 (Wed Oct 7)' },
+export const DESTINATION_OPTIONS: {
+  id: string;
+  label: string;
+  group: string;
+}[] = [
+  { id: '2026-09-27', label: 'Next Sunday, Sep 27 (Week 2 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-10-04', label: 'Sunday, Oct 4 (Week 3 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-10-11', label: 'Sunday, Oct 11 (Week 4 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-10-18', label: 'Sunday, Oct 18 (Week 5 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-09-20', label: 'Sunday, Sep 20 (Week 1 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: 'tomorrow', label: 'Tomorrow', group: 'Relative Days' },
+  { id: 'today', label: 'Today (Current Tracker Date)', group: 'Relative Days' },
+  { id: '2026-10-02', label: 'Day 20 (Fri Oct 2)', group: 'Specific Study Days' },
+  { id: '2026-10-04', label: 'Day 22 (Sun Oct 4)', group: 'Specific Study Days' },
+  { id: '2026-10-07', label: 'Day 25 (Wed Oct 7)', group: 'Specific Study Days' },
+  { id: 'custom', label: '📅 Pick a Custom Date...', group: 'Custom' },
 ];
+
+export function resolveDestinationDate(destId: string, refDateStr: string = '2026-09-22', customDate?: string): string {
+  if (destId === 'custom' && customDate) return customDate;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(destId)) return destId;
+  if (destId === 'tomorrow') {
+    const d = new Date(refDateStr);
+    d.setDate(d.getDate() + 1);
+    return d.toISOString().split('T')[0];
+  }
+  if (destId === 'today') {
+    return refDateStr;
+  }
+  return destId;
+}
 
 const AI_MODES: {
   id: AIMode;
@@ -132,6 +196,7 @@ const AI_MODES: {
 
 export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   currentDateStr = '2026-09-22',
+  taskScheduleOverrides = {},
   onTaskShifted,
   onBatchTaskShifted,
   onErrorLogged,
@@ -147,12 +212,168 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
-  // Upper Dropdown Chapter Shift state (Plan Modifier mode)
-  const [selectedChapterUnit, setSelectedChapterUnit] = useState<string>('U5');
+  // Manual Lesson & Chapter Shift Studio State
+  const [selectedUnit, setSelectedUnit] = useState<string>('MATH_U5');
+  const [selectedLessonIds, setSelectedLessonIds] = useState<string[]>([]);
   const [selectedDestination, setSelectedDestination] = useState<string>('2026-09-27');
+  const [customDestinationDate, setCustomDestinationDate] = useState<string>('2026-09-27');
+  const [lessonSearchQuery, setLessonSearchQuery] = useState<string>('');
+  const [feedbackNotice, setFeedbackNotice] = useState<{
+    type: 'success' | 'reset' | 'error';
+    message: string;
+  } | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Extract all 145 curriculum lessons dynamically from STUDY_PLAN_WEEKS
+  const allSyllabusLessons = useMemo(() => {
+    const list: SyllabusLesson[] = [];
+    STUDY_PLAN_WEEKS.forEach((week) => {
+      week.days.forEach((day) => {
+        day.tasks.forEach((t) => {
+          if (t.subject === 'buffer' || t.subject === 'logistics' || t.id.startsWith('break-')) return;
+
+          let unitKey = 'OTHER';
+          const mathMatch = t.label.match(/\[MATH\s+U(\d+)/i) || (t.code && t.code.match(/Math\s+U(\d+)/i));
+          const rwMatch = t.label.match(/\[(?:R&W|W)\s+U(\d+)/i) || (t.code && t.code.match(/(?:R&W|W)\s+U(\d+)/i));
+
+          if (mathMatch) {
+            unitKey = `MATH_U${mathMatch[1]}`;
+          } else if (rwMatch) {
+            unitKey = `RW_U${rwMatch[1]}`;
+          }
+
+          list.push({
+            id: t.id,
+            label: t.label,
+            code: t.code || '',
+            topic: t.topic || t.label,
+            subject: t.subject,
+            unitKey,
+            durationMinutes: t.durationMinutes || 20,
+            originalDayNumber: day.dayNumber,
+            originalDateStr: day.dateStr,
+            originalFormattedDate: day.formattedDate,
+          });
+        });
+      });
+    });
+    return list;
+  }, []);
+
+  // Filter lessons for selected unit and search query
+  const filteredLessons = useMemo(() => {
+    return allSyllabusLessons.filter((lesson) => {
+      const matchesUnit = selectedUnit === 'ALL' || lesson.unitKey === selectedUnit;
+      if (!matchesUnit) return false;
+      if (!lessonSearchQuery.trim()) return true;
+      const q = lessonSearchQuery.toLowerCase();
+      return (
+        lesson.label.toLowerCase().includes(q) ||
+        lesson.code.toLowerCase().includes(q) ||
+        lesson.topic.toLowerCase().includes(q) ||
+        lesson.originalFormattedDate.toLowerCase().includes(q)
+      );
+    });
+  }, [allSyllabusLessons, selectedUnit, lessonSearchQuery]);
+
+  // Auto-select all lessons of the unit when unit changes
+  useEffect(() => {
+    if (selectedUnit !== 'ALL') {
+      const unitLessons = allSyllabusLessons.filter((l) => l.unitKey === selectedUnit);
+      setSelectedLessonIds(unitLessons.map((l) => l.id));
+    } else {
+      setSelectedLessonIds([]);
+    }
+    setFeedbackNotice(null);
+  }, [selectedUnit, allSyllabusLessons]);
+
+  // Toggle single lesson checkbox
+  const handleToggleLesson = (id: string) => {
+    setSelectedLessonIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  // Select / Deselect All
+  const handleSelectAll = () => {
+    setSelectedLessonIds(filteredLessons.map((l) => l.id));
+  };
+  const handleDeselectAll = () => {
+    setSelectedLessonIds([]);
+  };
+
+  // Instant Manual Batch Shift Execution (NO AI LATENCY)
+  const handleApplyManualShift = () => {
+    if (selectedLessonIds.length === 0) {
+      setFeedbackNotice({
+        type: 'error',
+        message: 'Please select at least 1 lesson using the checkboxes below to shift.'
+      });
+      return;
+    }
+
+    const targetDate = resolveDestinationDate(selectedDestination, currentDateStr, customDestinationDate);
+    const destOption = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination);
+    const targetLabel = destOption ? destOption.label.split('(')[0].trim() : targetDate;
+
+    const batch: Record<string, string> = {};
+    selectedLessonIds.forEach((id) => {
+      batch[id] = targetDate;
+    });
+
+    if (onBatchTaskShifted) {
+      onBatchTaskShifted(batch);
+    }
+
+    const currentUnitObj = UNIT_OPTIONS.find((u) => u.id === selectedUnit);
+    const unitTitle = currentUnitObj ? currentUnitObj.shortTitle : 'Selected Unit';
+
+    setFeedbackNotice({
+      type: 'success',
+      message: `Successfully shifted ${selectedLessonIds.length} lesson${selectedLessonIds.length > 1 ? 's' : ''} from ${unitTitle} to ${targetLabel} (${targetDate})! Your Phase 1 schedule and Calendar are updated instantly.`
+    });
+  };
+
+  // Reset Selected Lessons back to original days
+  const handleResetSelected = () => {
+    if (selectedLessonIds.length === 0) {
+      setFeedbackNotice({
+        type: 'error',
+        message: 'Please select the lessons you wish to restore to their original schedule.'
+      });
+      return;
+    }
+
+    const batch: Record<string, string> = {};
+    selectedLessonIds.forEach((id) => {
+      batch[id] = '__RESET__';
+    });
+
+    if (onBatchTaskShifted) {
+      onBatchTaskShifted(batch);
+    }
+
+    setFeedbackNotice({
+      type: 'reset',
+      message: `Restored ${selectedLessonIds.length} lesson${selectedLessonIds.length > 1 ? 's' : ''} back to their original scheduled days.`
+    });
+  };
+
+  // Restore single lesson inline
+  const handleRestoreSingleLesson = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onTaskShifted) {
+      onTaskShifted(id, '__RESET__');
+    } else if (onBatchTaskShifted) {
+      onBatchTaskShifted({ [id]: '__RESET__' });
+    }
+    setFeedbackNotice({
+      type: 'reset',
+      message: `Restored lesson back to its original day.`
+    });
+  };
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -208,14 +429,6 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     } catch (err) {
       console.error('Error deleting session:', err);
     }
-  };
-
-  // Push full chapter / unit to target destination
-  const handlePushChapter = () => {
-    const chObj = CHAPTER_OPTIONS.find((c) => c.id === selectedChapterUnit) || CHAPTER_OPTIONS[0];
-    const destObj = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination) || DESTINATION_OPTIONS[0];
-    const prompt = `Please shift all lessons in ${chObj.label.split('(')[0].trim()} to ${destObj.label.split('(')[0].trim()}`;
-    handleSendMessage(prompt);
   };
 
   // 5. Send message
@@ -402,7 +615,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
             })}
           </div>
 
-          {/* INTERACTIVE CHAPTER / UNIT QUICK-SHIFT BAR (PLAN MODIFIER EXCLUSIVE) */}
+          {/* INTERACTIVE MANUAL LESSON & CHAPTER SHIFT STUDIO (PLAN MODIFIER EXCLUSIVE) */}
           <AnimatePresence>
             {activeMode === 'plan_modifier' && (
               <motion.div
@@ -410,68 +623,313 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.22 }}
-                className="pt-4 border-t border-[#a6c4a1]/50 mt-3 space-y-3 overflow-hidden"
+                className="pt-4 border-t border-[#a6c4a1]/50 mt-3 space-y-4 overflow-hidden"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                  <div className="flex items-center gap-1.5 text-xs font-black text-indigo-950 font-['JetBrains_Mono']">
-                    <Zap className="w-3.5 h-3.5 text-indigo-600 fill-indigo-600" />
-                    <span>Chapter / Unit Fast-Shift Control:</span>
+                {/* Header title */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 bg-gradient-to-r from-indigo-50 to-emerald-50/50 p-3 rounded-2xl border border-indigo-200 shadow-xs">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                      <Zap className="w-4 h-4 fill-white" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs sm:text-sm font-black text-indigo-950 font-luxury">
+                          Manual Lesson &amp; Chapter Shift Studio
+                        </span>
+                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white font-['JetBrains_Mono']">
+                          Instant Manual Sync
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-700 font-medium">
+                        Select any unit or chapter, choose individual lessons via checkboxes, and shift them to Sunday or any day with 1 click.
+                      </p>
+                    </div>
                   </div>
-                  <span className="text-[11px] font-bold text-slate-600">
-                    Batch-shift all lessons of a unit to Sunday or a specific day
-                  </span>
+
+                  <div className="flex items-center gap-1.5 self-end sm:self-center">
+                    <span className="text-[11px] font-black font-['JetBrains_Mono'] text-indigo-900 bg-indigo-100 px-2.5 py-1 rounded-xl border border-indigo-300">
+                      {selectedLessonIds.length} of {filteredLessons.length} selected
+                    </span>
+                  </div>
                 </div>
 
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-indigo-50/90 border-2 border-indigo-300 grid grid-cols-1 md:grid-cols-12 gap-3 items-center shadow-xs">
-                  {/* Chapter Dropdown */}
-                  <div className="md:col-span-5 space-y-1">
-                    <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
-                      <BookOpen className="w-3 h-3 text-indigo-700" />
-                      <span>Select Chapter / Unit:</span>
-                    </label>
-                    <select
-                      value={selectedChapterUnit}
-                      onChange={(e) => setSelectedChapterUnit(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
-                    >
-                      {CHAPTER_OPTIONS.map((opt) => (
-                        <option key={opt.id} value={opt.id}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
+                {/* Top Control Bar: Unit Selector + Destination Selector (+ Custom Date Picker) */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-indigo-300 shadow-xs space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                    {/* Chapter / Unit Dropdown with Optgroups */}
+                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1' : 'md:col-span-6 space-y-1'}>
+                      <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                        <BookOpen className="w-3 h-3 text-indigo-700" />
+                        <span>Select Chapter / Unit:</span>
+                      </label>
+                      <select
+                        value={selectedUnit}
+                        onChange={(e) => setSelectedUnit(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl bg-indigo-50/50 hover:bg-indigo-50 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
+                      >
+                        <optgroup label="SAT Math Chapters">
+                          {UNIT_OPTIONS.filter((u) => u.category === 'Math Chapters').map((opt) => (
+                            <option key={opt.id} value={opt.id}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="Reading & Writing Units">
+                          {UNIT_OPTIONS.filter((u) => u.category === 'Reading & Writing Units').map((opt) => (
+                            <option key={opt.id} value={opt.id}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="Entire Syllabus">
+                          {UNIT_OPTIONS.filter((u) => u.category === 'All Lessons').map((opt) => (
+                            <option key={opt.id} value={opt.id}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                      </select>
+                    </div>
+
+                    {/* Destination Dropdown */}
+                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1' : 'md:col-span-6 space-y-1'}>
+                      <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                        <Calendar className="w-3 h-3 text-indigo-700" />
+                        <span>Shift Destination:</span>
+                      </label>
+                      <select
+                        value={selectedDestination}
+                        onChange={(e) => setSelectedDestination(e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl bg-indigo-50/50 hover:bg-indigo-50 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
+                      >
+                        <optgroup label="Sundays / Buffer Days (Recommended)">
+                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Sundays / Buffer Days').map((dest) => (
+                            <option key={dest.id} value={dest.id}>
+                              {dest.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="Quick Relative Days">
+                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Relative Days').map((dest) => (
+                            <option key={dest.id} value={dest.id}>
+                              {dest.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="Specific Study Days">
+                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Specific Study Days').map((dest) => (
+                            <option key={dest.id} value={dest.id}>
+                              {dest.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                        <optgroup label="Custom Date">
+                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Custom').map((dest) => (
+                            <option key={dest.id} value={dest.id}>
+                              {dest.label}
+                            </option>
+                          ))}
+                        </optgroup>
+                      </select>
+                    </div>
+
+                    {/* Optional Custom Date Picker */}
+                    {selectedDestination === 'custom' && (
+                      <div className="md:col-span-4 space-y-1">
+                        <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                          <Clock className="w-3 h-3 text-indigo-700" />
+                          <span>Choose Exact Date:</span>
+                        </label>
+                        <input
+                          type="date"
+                          value={customDestinationDate}
+                          onChange={(e) => setCustomDestinationDate(e.target.value)}
+                          className="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
+                        />
+                      </div>
+                    )}
                   </div>
 
-                  {/* Destination Dropdown */}
-                  <div className="md:col-span-4 space-y-1">
-                    <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-indigo-700" />
-                      <span>Target Destination:</span>
-                    </label>
-                    <select
-                      value={selectedDestination}
-                      onChange={(e) => setSelectedDestination(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
-                    >
-                      {DESTINATION_OPTIONS.map((dest) => (
-                        <option key={dest.id} value={dest.id}>
-                          {dest.label}
-                        </option>
-                      ))}
-                    </select>
+                  {/* SELECTABLE LESSONS LIST HEADER */}
+                  <div className="pt-2 border-t border-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] font-black text-slate-900 uppercase font-['JetBrains_Mono'] flex items-center gap-1">
+                        <CheckSquare className="w-3.5 h-3.5 text-indigo-600" />
+                        <span>Select Lessons to Shift:</span>
+                      </span>
+                      <button
+                        onClick={handleSelectAll}
+                        className="px-2.5 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-900 text-[10px] font-black transition cursor-pointer border border-indigo-300 active:scale-95"
+                      >
+                        Select All ({filteredLessons.length})
+                      </button>
+                      <button
+                        onClick={handleDeselectAll}
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition cursor-pointer border border-slate-300 active:scale-95"
+                      >
+                        Deselect All
+                      </button>
+                    </div>
+
+                    {/* Quick search input */}
+                    <div className="relative min-w-[200px]">
+                      <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        placeholder="Search lesson in this unit..."
+                        value={lessonSearchQuery}
+                        onChange={(e) => setLessonSearchQuery(e.target.value)}
+                        className="w-full pl-7 pr-2.5 py-1 rounded-lg bg-white border border-slate-300 text-[11px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+                      />
+                    </div>
                   </div>
 
-                  {/* Push Chapter Button */}
-                  <div className="md:col-span-3 pt-2 sm:pt-0 sm:self-end">
-                    <button
-                      onClick={handlePushChapter}
-                      disabled={loading}
-                      className="w-full py-2.5 px-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
-                    >
-                      <Zap className="w-3.5 h-3.5 text-indigo-200 fill-indigo-200" />
-                      <span>Push Full Chapter &rarr;</span>
-                    </button>
+                  {/* LESSON CHECKBOX ITEMS CONTAINER */}
+                  <div className="max-h-[260px] overflow-y-auto pr-1 space-y-1.5 custom-scrollbar border rounded-xl p-2 bg-slate-50/70 border-indigo-100">
+                    {filteredLessons.length === 0 ? (
+                      <div className="p-4 text-center text-xs text-slate-500 font-medium">
+                        No lessons match your search criteria.
+                      </div>
+                    ) : (
+                      filteredLessons.map((lesson) => {
+                        const isSelected = selectedLessonIds.includes(lesson.id);
+                        const currentOverride = taskScheduleOverrides[lesson.id];
+                        const isShifted = !!currentOverride && currentOverride !== lesson.originalDateStr;
+
+                        return (
+                          <div
+                            key={lesson.id}
+                            onClick={() => handleToggleLesson(lesson.id)}
+                            className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                              isSelected
+                                ? 'bg-indigo-50/90 border-indigo-400 shadow-xs'
+                                : 'bg-white hover:bg-slate-100/70 border-slate-200'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                              <input
+                                type="checkbox"
+                                checked={isSelected}
+                                onChange={() => handleToggleLesson(lesson.id)}
+                                onClick={(e) => e.stopPropagation()}
+                                className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer shrink-0"
+                              />
+
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
+                                    lesson.subject === 'math'
+                                      ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                                      : 'bg-sky-100 text-sky-900 border border-sky-300'
+                                  }`}>
+                                    {lesson.code || lesson.subject}
+                                  </span>
+                                  <span className="text-xs font-black text-slate-900 truncate">
+                                    {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-600">
+                                  <span className="font-semibold">
+                                    Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
+                                  </span>
+                                  <span>&bull;</span>
+                                  <span>{lesson.durationMinutes} min</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Status or Shifted Pill */}
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {isShifted ? (
+                                <div className="flex items-center gap-1">
+                                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
+                                    <span>Shifted: {currentOverride}</span>
+                                  </span>
+                                  <button
+                                    onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
+                                    title="Restore back to original scheduled day"
+                                    className="p-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-bold transition cursor-pointer"
+                                  >
+                                    <RotateCcw className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <span className="text-[10px] font-bold text-slate-500">
+                                  Day {lesson.originalDayNumber}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
                   </div>
+
+                  {/* ACTION BUTTONS ROW */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <button
+                        onClick={handleApplyManualShift}
+                        disabled={selectedLessonIds.length === 0}
+                        className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <Zap className="w-4 h-4 text-indigo-200 fill-indigo-200" />
+                        <span>Shift Selected ({selectedLessonIds.length}) Lessons Now (Instant)</span>
+                      </button>
+
+                      <button
+                        onClick={handleResetSelected}
+                        disabled={selectedLessonIds.length === 0}
+                        className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer border border-slate-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+                        <span>Reset Selected to Original</span>
+                      </button>
+                    </div>
+
+                    <div className="text-[11px] text-slate-600 font-medium text-right hidden sm:block">
+                      Instant update &bull; Syncs with Phase 1 &amp; Calendar
+                    </div>
+                  </div>
+
+                  {/* FEEDBACK NOTICE BANNER */}
+                  <AnimatePresence>
+                    {feedbackNotice && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${
+                          feedbackNotice.type === 'success'
+                            ? 'bg-emerald-50 text-emerald-950 border-emerald-300 shadow-xs'
+                            : feedbackNotice.type === 'reset'
+                            ? 'bg-amber-50 text-amber-950 border-amber-300'
+                            : 'bg-rose-50 text-rose-950 border-rose-300'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          {feedbackNotice.type === 'success' ? (
+                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          ) : feedbackNotice.type === 'reset' ? (
+                            <RotateCcw className="w-4 h-4 text-amber-600 shrink-0" />
+                          ) : (
+                            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                          )}
+                          <span className="font-bold leading-tight">{feedbackNotice.message}</span>
+                        </div>
+
+                        {onNavigateToCalendar && feedbackNotice.type === 'success' && (
+                          <button
+                            onClick={onNavigateToCalendar}
+                            className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shrink-0 transition flex items-center gap-1 cursor-pointer"
+                          >
+                            <span>View in Calendar</span>
+                            <ChevronRight className="w-3 h-3" />
+                          </button>
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.div>
             )}

@@ -1225,9 +1225,15 @@ export default function App({ initialSection = 'all' }: AppProps) {
               </div>
               <AICopilotSection
                 currentDateStr={currentTrackerDate}
+                taskScheduleOverrides={taskScheduleOverrides}
                 onTaskShifted={(taskId, targetDate) => {
                   setTaskScheduleOverrides((prev) => {
-                    const next = { ...prev, [taskId]: targetDate };
+                    const next = { ...prev };
+                    if (!targetDate || targetDate === '__RESET__') {
+                      delete next[taskId];
+                    } else {
+                      next[taskId] = targetDate;
+                    }
                     localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(next));
                     syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, next);
                     return next;
@@ -1235,7 +1241,14 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 }}
                 onBatchTaskShifted={(batch) => {
                   setTaskScheduleOverrides((prev) => {
-                    const next = { ...prev, ...batch };
+                    const next = { ...prev };
+                    Object.entries(batch).forEach(([k, v]) => {
+                      if (!v || v === '__RESET__') {
+                        delete next[k];
+                      } else {
+                        next[k] = v;
+                      }
+                    });
                     localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(next));
                     syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, next);
                     return next;
