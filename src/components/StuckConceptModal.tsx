@@ -169,7 +169,13 @@ export const StuckConceptModal: React.FC<StuckConceptModalProps> = ({
 
   // Get concepts for the currently selected chapter
   const availableConcepts = useMemo(() => {
-    const chapterObj = CORE_CURRICULUM_CHAPTERS.find((ch) => ch.title === selectedChapter);
+    const chapterObj = CORE_CURRICULUM_CHAPTERS.find(
+      (ch) =>
+        ch.title === selectedChapter ||
+        ch.id === selectedChapter ||
+        ch.title.toLowerCase().includes(selectedChapter.toLowerCase()) ||
+        selectedChapter.toLowerCase().includes(ch.title.toLowerCase())
+    );
     if (!chapterObj) return [];
     return chapterObj.lessons.flatMap((l) => l.conceptsForLogging);
   }, [selectedChapter]);

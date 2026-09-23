@@ -23,7 +23,6 @@ import {
   Compass,
   Lightbulb
 } from 'lucide-react';
-import { CORE_CURRICULUM_CHAPTERS, CoreCurriculumLesson } from '../data/coreCurriculum';
 import { CHEAT_CODES } from '../data/cheatCodes';
 import { FormulasSection } from './FormulasSection';
 import { ReadingWritingInfoSection } from './ReadingWritingInfoSection';
@@ -45,7 +44,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   initialSubTab = 'important-info',
   initialSubject,
   onToggleResolveStruggle,
-  onDeleteStruggle,
+  onDeleteStruggle
 }) => {
   const normalizeTab = (tab?: string): CoreInfoSubTab => {
     if (tab === 'formulas') return 'formulas';
@@ -58,9 +57,6 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     if (initialSubject) return initialSubject;
     return 'math';
   });
-  const [selectedChapterId, setSelectedChapterId] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
 
   // Cheat Codes in-page filter and search state (zero modal popups)
   const [cheatCodeCategory, setCheatCodeCategory] = useState<'all' | 'desmos' | 'rw-grammar' | 'rw-strategies'>('all');
@@ -124,17 +120,6 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     }
   };
 
-  const [expandedLessons, setExpandedLessons] = useState<Record<string, boolean>>({
-    'alg-linear-systems': true,
-    'psda-unit-conversion': true,
-    'adv-isolating-quantities': true,
-    'adv-factoring-identities': true,
-    'geom-volume-formulas': true,
-    'geom-right-triangle-trig': true,
-    'geom-unit-circle': true,
-    'geom-medium-to-hard-shift': true,
-  });
-
   // Calculate struggle count per lesson
   const struggleCountByLesson = useMemo(() => {
     const map: Record<string, number> = {};
@@ -144,48 +129,6 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     });
     return map;
   }, [stuckConcepts]);
-
-  // Filter lessons based on chapter and search query
-  const filteredChapters = useMemo(() => {
-    return CORE_CURRICULUM_CHAPTERS.map((ch) => {
-      if (selectedChapterId !== 'all' && ch.id !== selectedChapterId) {
-        return null;
-      }
-
-      const matchingLessons = ch.lessons.filter((l) => {
-        if (!searchQuery.trim()) return true;
-        const q = searchQuery.toLowerCase();
-        return (
-          l.lessonTitle.toLowerCase().includes(q) ||
-          l.chapterTitle.toLowerCase().includes(q) ||
-          (l.definition && l.definition.toLowerCase().includes(q)) ||
-          l.formulas.some((f) => f.label.toLowerCase().includes(q) || f.formula.toLowerCase().includes(q)) ||
-          l.conceptsForLogging.some((c) => c.toLowerCase().includes(q)) ||
-          (l.goldenRules && l.goldenRules.some((r) => r.toLowerCase().includes(q)))
-        );
-      });
-
-      if (matchingLessons.length === 0) return null;
-
-      return {
-        ...ch,
-        lessons: matchingLessons,
-      };
-    }).filter(Boolean) as typeof CORE_CURRICULUM_CHAPTERS;
-  }, [selectedChapterId, searchQuery]);
-
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedFormula(text);
-    setTimeout(() => setCopiedFormula(null), 2000);
-  };
-
-  const toggleLesson = (id: string) => {
-    setExpandedLessons((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   return (
     <motion.section
@@ -285,7 +228,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                 <span className={`text-[10px] px-2 py-0.5 rounded ${
                   importantInfoSubject === 'math' ? 'bg-[#2b5825] text-[#c9f6c2]' : 'bg-[#e2f0de] text-[#2a5025]'
                 }`}>
-                  4 Chapters &bull; Formulas
+                  4 Domains &bull; 37 Lessons
                 </span>
               </button>
 
