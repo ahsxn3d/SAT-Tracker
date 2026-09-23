@@ -27,7 +27,9 @@ import {
   Filter,
   Layers,
   Undo2,
-  ExternalLink
+  ExternalLink,
+  Maximize2,
+  Minimize2
 } from 'lucide-react';
 import { AIMode, AIChatMessageItem, AIChatSessionItem, ErrorLogEntry } from '../types';
 import { STUDY_PLAN_WEEKS } from '../data/studyPlan';
@@ -65,9 +67,7 @@ export const UNIT_OPTIONS: {
   shortTitle: string;
   badge?: string;
 }[] = [
-  // Math Units (13 Units in Curriculum)
-  { id: 'MATH_U1', category: 'Math Chapters', label: 'Unit 1: Diagnostic Assessment & Baseline Prep', shortTitle: 'Math Ch 1: Diagnostic', badge: 'Diagnostic' },
-  { id: 'MATH_U2', category: 'Math Chapters', label: 'Unit 2: Math Foundations & Number Sense', shortTitle: 'Math Ch 2: Foundations', badge: 'Foundations' },
+  // Math Chapters (All 11 Active Curriculum Chapters in Study Plan: Units 3 to 13)
   { id: 'MATH_U3', category: 'Math Chapters', label: 'Unit 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)', shortTitle: 'Math Ch 3: Problem Solving', badge: '9 lessons' },
   { id: 'MATH_U4', category: 'Math Chapters', label: 'Unit 4: Advanced Math (Quadratics & Parabolas — 13 lessons)', shortTitle: 'Math Ch 4: Quadratics', badge: '13 lessons' },
   { id: 'MATH_U5', category: 'Math Chapters', label: 'Unit 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)', shortTitle: 'Math Ch 5: Geometry & Trig', badge: '6 lessons' },
@@ -79,10 +79,9 @@ export const UNIT_OPTIONS: {
   { id: 'MATH_U11', category: 'Math Chapters', label: 'Unit 11: Problem Solving (Statistics & Spread — 10 lessons)', shortTitle: 'Math Ch 11: Statistics', badge: '10 lessons' },
   { id: 'MATH_U12', category: 'Math Chapters', label: 'Unit 12: Advanced Math (Radicals & Rational Equations — 13 lessons)', shortTitle: 'Math Ch 12: Radicals & Rationals', badge: '13 lessons' },
   { id: 'MATH_U13', category: 'Math Chapters', label: 'Unit 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)', shortTitle: 'Math Ch 13: Circle Eq & Radians', badge: '6 lessons' },
+  { id: 'MATH_ALL', category: 'Math Chapters', label: 'All 11 Math Chapters (102 Total Lessons)', shortTitle: 'All Math Chapters', badge: '102 lessons' },
   
-  // Reading & Writing Units (12 Units in Curriculum)
-  { id: 'RW_U1', category: 'Reading & Writing Units', label: 'Unit 1: Reading Diagnostic & Baseline Prep', shortTitle: 'R&W Ch 1: Diagnostic', badge: 'Diagnostic' },
-  { id: 'RW_U2', category: 'Reading & Writing Units', label: 'Unit 2: Vocabulary & Structure Foundations', shortTitle: 'R&W Ch 2: Foundations', badge: 'Foundations' },
+  // Reading & Writing Units (All 10 Active Curriculum Units in Study Plan: Units 3 to 12)
   { id: 'RW_U3', category: 'Reading & Writing Units', label: 'Unit 3: Standard English Conventions (3 lessons)', shortTitle: 'R&W Ch 3: Conventions', badge: '3 lessons' },
   { id: 'RW_U4', category: 'Reading & Writing Units', label: 'Unit 4: Form, Structure & Sense (4 lessons)', shortTitle: 'R&W Ch 4: Structure', badge: '4 lessons' },
   { id: 'RW_U5', category: 'Reading & Writing Units', label: 'Unit 5: Inferences & Command of Evidence (4 lessons)', shortTitle: 'R&W Ch 5: Inferences', badge: '4 lessons' },
@@ -93,9 +92,7 @@ export const UNIT_OPTIONS: {
   { id: 'RW_U10', category: 'Reading & Writing Units', label: 'Unit 10: Central Ideas & Details (4 lessons)', shortTitle: 'R&W Ch 10: Central Ideas', badge: '4 lessons' },
   { id: 'RW_U11', category: 'Reading & Writing Units', label: 'Unit 11: Quantitative Evidence (6 lessons)', shortTitle: 'R&W Ch 11: Quantitative Evidence', badge: '6 lessons' },
   { id: 'RW_U12', category: 'Reading & Writing Units', label: 'Unit 12: Complex Evidence & Arguments (8 lessons)', shortTitle: 'R&W Ch 12: Complex Evidence', badge: '8 lessons' },
-
-  // All
-  { id: 'ALL', category: 'All Lessons', label: 'All Units / Full Syllabus (145 lessons)', shortTitle: 'All 145 Lessons', badge: '145 lessons' },
+  { id: 'RW_ALL', category: 'Reading & Writing Units', label: 'All 10 Reading & Writing Units (43 Total Lessons)', shortTitle: 'All R&W Units', badge: '43 lessons' },
 ];
 
 export const DESTINATION_OPTIONS: {
@@ -235,6 +232,8 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     type: 'success' | 'reset' | 'error' | 'undo';
     message: string;
   } | null>(null);
+  // Default to showing all lessons without truncation or cut-off
+  const [expandAllLessons, setExpandAllLessons] = useState<boolean>(true);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -290,7 +289,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     return [
       {
         value: '',
-        label: `— Select a ${selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} —`,
+        label: `— Select a ${selectedSubject === 'math' ? 'Math Chapter (Units 3–13)' : 'Reading & Writing Unit (Units 3–12)'} —`,
         badge: 'Required'
       },
       ...availableUnits.map((u) => ({
@@ -311,11 +310,17 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     }));
   }, []);
 
-  // Filter lessons for selected unit and search query
+  // Filter lessons for selected unit and search query (supports ALL lessons)
   const filteredLessons = useMemo(() => {
     if (!selectedUnit) return [];
     return allSyllabusLessons.filter((lesson) => {
-      if (lesson.unitKey !== selectedUnit) return false;
+      if (selectedUnit === 'MATH_ALL') {
+        if (lesson.subject !== 'math') return false;
+      } else if (selectedUnit === 'RW_ALL') {
+        if (lesson.subject !== 'rw') return false;
+      } else if (lesson.unitKey !== selectedUnit) {
+        return false;
+      }
       if (!lessonSearchQuery.trim()) return true;
       const q = lessonSearchQuery.toLowerCase();
       return (
@@ -341,6 +346,12 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     setSelectedUnit(unitId);
     if (!unitId) {
       setSelectedLessonIds([]);
+    } else if (unitId === 'MATH_ALL') {
+      const unitLessons = allSyllabusLessons.filter((l) => l.subject === 'math');
+      setSelectedLessonIds(unitLessons.map((l) => l.id));
+    } else if (unitId === 'RW_ALL') {
+      const unitLessons = allSyllabusLessons.filter((l) => l.subject === 'rw');
+      setSelectedLessonIds(unitLessons.map((l) => l.id));
     } else {
       const unitLessons = allSyllabusLessons.filter((l) => l.unitKey === unitId);
       setSelectedLessonIds(unitLessons.map((l) => l.id));
@@ -787,7 +798,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
                           selectedSubject === 'math' ? 'bg-[#2b5825] text-[#c9f6c2]' : 'bg-white/60 text-[#2a5025]'
                         }`}>
-                          Units 1 – 13 (Math)
+                          Units 3 – 13 (11 Chapters)
                         </span>
                       </button>
 
@@ -804,7 +815,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
                           selectedSubject === 'rw' ? 'bg-[#22575c] text-[#cbf4f8]' : 'bg-white/60 text-[#2a5025]'
                         }`}>
-                          Units 1 – 12 (English)
+                          Units 3 – 12 (10 Units)
                         </span>
                       </button>
                     </div>
@@ -818,13 +829,16 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                   {/* QUICK UNIT SELECTION PILLS (SHOWS ALL UNITS VISIBLY AT ONCE) */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono']">
-                      <span>Quick Chapter Selector (Units 1–{selectedSubject === 'math' ? '13' : '12'}):</span>
+                      <span>Quick Chapter Selector ({selectedSubject === 'math' ? 'Units 3–13 & All Math' : 'Units 3–12 & All English'}):</span>
                       <span className="text-[#4f7847] font-semibold lowercase">click any unit to jump instantly</span>
                     </div>
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      {availableUnits.map((unit, uIdx) => {
+                      {availableUnits.map((unit) => {
                         const isCurrent = selectedUnit === unit.id;
-                        const shortName = `Unit ${uIdx + 1}`;
+                        const isAll = unit.id === 'MATH_ALL' || unit.id === 'RW_ALL';
+                        const shortName = isAll
+                          ? (selectedSubject === 'math' ? 'All Math (102L)' : 'All English (43L)')
+                          : `Unit ${unit.id.replace('MATH_U', '').replace('RW_U', '')}`;
 
                         return (
                           <button
@@ -839,7 +853,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             title={unit.label}
                           >
                             <span>{shortName}</span>
-                            {unit.badge ? (
+                            {!isAll && unit.badge ? (
                               <span className={`ml-1 text-[9px] px-1 py-0.2 rounded ${
                                 isCurrent ? 'bg-emerald-800 text-emerald-200' : 'bg-[#e2f0de] text-[#1a3717]'
                               }`}>
@@ -858,7 +872,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                     <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
                       <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
                         <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
-                        <span>Select {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'}:</span>
+                        <span>Select {selectedSubject === 'math' ? 'Math Chapter (Units 3–13)' : 'Reading & Writing Unit (Units 3–12)'}:</span>
                       </label>
                       <MatchaSelect
                         value={selectedUnit}
@@ -917,7 +931,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         No Chapter Selected (Zero Dummy Data)
                       </div>
                       <p className="text-xs text-[#355f30] max-w-md mx-auto">
-                        Please choose a {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} using the dropdown or quick unit buttons above to view and shift lessons.
+                        Please choose a {selectedSubject === 'math' ? 'Math Chapter (Units 3–13)' : 'Reading & Writing Unit (Units 3–12)'} using the dropdown or quick unit buttons above to view and shift lessons.
                       </p>
                     </div>
                   ) : (
@@ -943,6 +957,24 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                           >
                             Deselect All
                           </button>
+                          <button
+                            type="button"
+                            onClick={() => setExpandAllLessons(!expandAllLessons)}
+                            className="px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-[#122810] border border-[#a6c4a1] text-[11px] font-bold transition cursor-pointer active:scale-95 shadow-xs flex items-center gap-1.5"
+                            title={expandAllLessons ? 'Switch to compact scroll view' : 'Show all lessons without scrolling'}
+                          >
+                            {expandAllLessons ? (
+                              <>
+                                <Minimize2 className="w-3.5 h-3.5 text-emerald-700" />
+                                <span>Compact View</span>
+                              </>
+                            ) : (
+                              <>
+                                <Maximize2 className="w-3.5 h-3.5 text-emerald-700" />
+                                <span>Show All ({filteredLessons.length})</span>
+                              </>
+                            )}
+                          </button>
                         </div>
 
                         {/* Quick search input */}
@@ -959,98 +991,111 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                       </div>
 
                       {/* LESSON CHECKBOX ITEMS CONTAINER (ENLARGED TO SHOW ALL LESSONS CLEARLY) */}
-                      <div className="max-h-[440px] overflow-y-auto pr-1.5 space-y-2 rounded-2xl p-2.5 bg-[#f6fbf5]/90 border-2 border-[#a6c4a1]">
+                      <div
+                        data-lenis-prevent="true"
+                        onWheel={(e) => e.stopPropagation()}
+                        className={`${
+                          expandAllLessons ? 'max-h-none overflow-visible' : 'max-h-[540px] overflow-y-auto visible-scrollbar'
+                        } pr-1.5 space-y-2 rounded-2xl p-2.5 bg-[#f6fbf5]/90 border-2 border-[#a6c4a1]`}
+                      >
                         {filteredLessons.length === 0 ? (
                           <div className="p-5 text-center text-xs text-[#527d4c] font-medium">
                             No lessons match your search criteria.
                           </div>
                         ) : (
-                          filteredLessons.map((lesson, index) => {
-                            const isSelected = selectedLessonIds.includes(lesson.id);
-                            const currentOverride = taskScheduleOverrides[lesson.id];
-                            const isShifted = !!currentOverride && currentOverride !== lesson.originalDateStr;
+                          <>
+                            {filteredLessons.map((lesson, index) => {
+                              const isSelected = selectedLessonIds.includes(lesson.id);
+                              const currentOverride = taskScheduleOverrides[lesson.id];
+                              const isShifted = !!currentOverride && currentOverride !== lesson.originalDateStr;
 
-                            return (
-                              <div
-                                key={lesson.id}
-                                onClick={() => handleToggleLesson(lesson.id)}
-                                className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
-                                  isSelected
-                                    ? 'bg-[#d8eed4] border-2 border-emerald-600 shadow-xs'
-                                    : 'bg-white hover:bg-[#edf7ec] border border-[#bfd7bc]'
-                                }`}
-                              >
-                                <div className="flex items-center gap-3 min-w-0 flex-1">
-                                  <input
-                                    type="checkbox"
-                                    checked={isSelected}
-                                    onChange={() => handleToggleLesson(lesson.id)}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="w-4 h-4 text-emerald-700 rounded border-[#a6c4a1] focus:ring-emerald-600 cursor-pointer shrink-0 accent-emerald-700"
-                                  />
+                              return (
+                                <div
+                                  key={lesson.id}
+                                  onClick={() => handleToggleLesson(lesson.id)}
+                                  className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                                    isSelected
+                                      ? 'bg-[#d8eed4] border-2 border-emerald-600 shadow-xs'
+                                      : 'bg-white hover:bg-[#edf7ec] border border-[#bfd7bc]'
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                                    <input
+                                      type="checkbox"
+                                      checked={isSelected}
+                                      onChange={() => handleToggleLesson(lesson.id)}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="w-4 h-4 text-emerald-700 rounded border-[#a6c4a1] focus:ring-emerald-600 cursor-pointer shrink-0 accent-emerald-700"
+                                    />
 
-                                  <div className="min-w-0 flex-1">
-                                    <div className="flex items-center gap-1.5 flex-wrap">
-                                      <span className="text-[10px] font-black text-[#325a2e] font-['JetBrains_Mono']">
-                                        #{index + 1} of {filteredLessons.length}
-                                      </span>
-                                      <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
-                                        lesson.subject === 'math'
-                                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                                          : 'bg-teal-100 text-teal-900 border border-teal-300'
-                                      }`}>
-                                        {lesson.code || lesson.subject}
-                                      </span>
-                                      <span className="text-xs font-black text-[#122810] truncate">
-                                        {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
-                                      </span>
-                                    </div>
-                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#426a3e]">
-                                      <span className="font-semibold">
-                                        Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
-                                      </span>
-                                      <span>&bull;</span>
-                                      <span>{lesson.durationMinutes} min</span>
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-center gap-1.5 flex-wrap">
+                                        <span className="text-[10px] font-black text-[#325a2e] font-['JetBrains_Mono']">
+                                          #{index + 1} of {filteredLessons.length}
+                                        </span>
+                                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
+                                          lesson.subject === 'math'
+                                            ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                                            : 'bg-teal-100 text-teal-900 border border-teal-300'
+                                        }`}>
+                                          {lesson.code || lesson.subject}
+                                        </span>
+                                        <span className="text-xs font-black text-[#122810] truncate">
+                                          {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
+                                        </span>
+                                      </div>
+                                      <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#426a3e]">
+                                        <span className="font-semibold">
+                                          Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
+                                        </span>
+                                        <span>&bull;</span>
+                                        <span>{lesson.durationMinutes} min</span>
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
 
-                                {/* Status, Shift Single Button & Shifted Pill */}
-                                <div className="flex items-center gap-2 shrink-0">
-                                  {/* Quick Shift Just This Single Lesson */}
-                                  <button
-                                    type="button"
-                                    onClick={(e) => handleShiftSingleLesson(lesson.id, e)}
-                                    title="Shift this single lesson directly to target day"
-                                    className="px-2.5 py-1 rounded-lg bg-[#1a3717] hover:bg-[#254f21] text-emerald-200 border border-[#3b7235] text-[10px] font-black transition cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs"
-                                  >
-                                    <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
-                                    <span className="hidden sm:inline">Shift Single</span>
-                                  </button>
+                                  {/* Status, Shift Single Button & Shifted Pill */}
+                                  <div className="flex items-center gap-2 shrink-0">
+                                    {/* Quick Shift Just This Single Lesson */}
+                                    <button
+                                      type="button"
+                                      onClick={(e) => handleShiftSingleLesson(lesson.id, e)}
+                                      title="Shift this single lesson directly to target day"
+                                      className="px-2.5 py-1 rounded-lg bg-[#1a3717] hover:bg-[#254f21] text-emerald-200 border border-[#3b7235] text-[10px] font-black transition cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs"
+                                    >
+                                      <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
+                                      <span className="hidden sm:inline">Shift Single</span>
+                                    </button>
 
-                                  {isShifted ? (
-                                    <div className="flex items-center gap-1">
-                                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
-                                        <span>Shifted: {currentOverride}</span>
+                                    {isShifted ? (
+                                      <div className="flex items-center gap-1">
+                                        <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
+                                          <span>Shifted: {currentOverride}</span>
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
+                                          title="Restore back to original scheduled day"
+                                          className="p-1 rounded bg-[#f4faf2] hover:bg-[#e2f0de] text-amber-800 border border-amber-300 text-[10px] font-bold transition cursor-pointer"
+                                        >
+                                          <RotateCcw className="w-3 h-3" />
+                                        </button>
+                                      </div>
+                                    ) : (
+                                      <span className="text-[10px] font-bold text-[#55814e] hidden md:inline">
+                                        Day {lesson.originalDayNumber}
                                       </span>
-                                      <button
-                                        type="button"
-                                        onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
-                                        title="Restore back to original scheduled day"
-                                        className="p-1 rounded bg-[#f4faf2] hover:bg-[#e2f0de] text-amber-800 border border-amber-300 text-[10px] font-bold transition cursor-pointer"
-                                      >
-                                        <RotateCcw className="w-3 h-3" />
-                                      </button>
-                                    </div>
-                                  ) : (
-                                    <span className="text-[10px] font-bold text-[#55814e] hidden md:inline">
-                                      Day {lesson.originalDayNumber}
-                                    </span>
-                                  )}
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            );
-                          })
+                              );
+                            })}
+
+                            <div className="pt-2 pb-1 text-center text-[11px] font-bold text-[#355f30] flex items-center justify-center gap-2 border-t border-[#a6c4a1]/40">
+                              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                              <span>All {filteredLessons.length} lessons in this chapter are loaded and accessible ({selectedLessonIds.length} selected)</span>
+                            </div>
+                          </>
                         )}
                       </div>
 

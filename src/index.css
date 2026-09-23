@@ -74,6 +74,31 @@ html.lenis, html.lenis body {
   height: 0 !important;
 }
 
+/* Custom scrollbar override for interactive menus, popovers, and lesson rosters */
+.visible-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #88b781 rgba(166, 196, 161, 0.2) !important;
+  -ms-overflow-style: auto !important;
+}
+.visible-scrollbar::-webkit-scrollbar {
+  display: block !important;
+  width: 6px !important;
+  height: 6px !important;
+}
+.visible-scrollbar::-webkit-scrollbar-track {
+  display: block !important;
+  background: rgba(166, 196, 161, 0.15) !important;
+  border-radius: 9999px !important;
+}
+.visible-scrollbar::-webkit-scrollbar-thumb {
+  display: block !important;
+  background: #88b781 !important;
+  border-radius: 9999px !important;
+}
+.visible-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #5e9556 !important;
+}
+
 /* Deep dark grave drop shadows for dramatic elevation with subtle organic depth */
 .shadow-grave {
   box-shadow: 0 20px 50px -12px rgba(18, 40, 16, 0.25), 0 10px 25px -5px rgba(0, 0, 0, 0.14);

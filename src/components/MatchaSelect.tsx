@@ -154,6 +154,8 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
             initial={{ opacity: 0, y: openUpwards ? 4 : -4, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: openUpwards ? 4 : -4, scale: 0.98 }}
@@ -197,8 +199,13 @@ export const MatchaSelect: React.FC<MatchaSelectProps> = ({
               </div>
             )}
 
-            {/* Scrollable Items Container */}
-            <div className="overflow-y-auto flex-1 pr-0.5 space-y-0.5" style={{ maxHeight: '260px' }}>
+            {/* Scrollable Items Container (Lenis-Prevented + Visible Scrollbar) */}
+            <div
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              className="overflow-y-auto visible-scrollbar flex-1 pr-1 space-y-0.5"
+              style={{ maxHeight: '280px' }}
+            >
               {filteredOptions.length === 0 ? (
                 <div className="p-4 text-center text-xs text-[#527d4c] font-medium">
                   No matching options found.
