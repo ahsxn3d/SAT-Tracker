@@ -77,9 +77,11 @@ type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' |
 
 interface AppProps {
   initialSection?: ActiveSection;
+  initialSubTab?: 'important-info' | 'formulas' | 'cheat-codes' | 'curriculum' | 'blueprints';
+  initialSubject?: 'math' | 'rw';
 }
 
-export default function App({ initialSection = 'all' }: AppProps) {
+export default function App({ initialSection = 'all', initialSubTab, initialSubject }: AppProps) {
   const { data: session, status } = useSession();
 
   // Active Section Navigation
@@ -1168,7 +1170,8 @@ export default function App({ initialSection = 'all' }: AppProps) {
               </div>
               <CoreInfoSection
                 stuckConcepts={stuckConcepts}
-                initialSubTab={activeSection === 'formulas' ? 'formulas' : 'important-info'}
+                initialSubTab={initialSubTab || (activeSection === 'formulas' ? 'formulas' : 'important-info')}
+                initialSubject={initialSubject}
                 onToggleResolveStruggle={handleToggleResolvedStruggle}
                 onDeleteStruggle={handleDeleteStruggle}
               />

@@ -24,6 +24,7 @@ import {
 import { CORE_CURRICULUM_CHAPTERS, CoreCurriculumLesson } from '../data/coreCurriculum';
 import { CHEAT_CODES } from '../data/cheatCodes';
 import { FormulasSection } from './FormulasSection';
+import { ReadingWritingInfoSection } from './ReadingWritingInfoSection';
 import { StuckConceptRecord } from '../types';
 
 export type CoreInfoSubTab = 'important-info' | 'formulas' | 'cheat-codes';
@@ -31,6 +32,7 @@ export type CoreInfoSubTab = 'important-info' | 'formulas' | 'cheat-codes';
 interface CoreInfoSectionProps {
   stuckConcepts?: StuckConceptRecord[];
   initialSubTab?: 'important-info' | 'formulas' | 'cheat-codes' | 'curriculum' | 'blueprints';
+  initialSubject?: 'math' | 'rw';
   onToggleResolveStruggle?: (id: string) => void;
   onDeleteStruggle?: (id: string) => void;
 }
@@ -38,6 +40,7 @@ interface CoreInfoSectionProps {
 export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   stuckConcepts = [],
   initialSubTab = 'important-info',
+  initialSubject,
   onToggleResolveStruggle,
   onDeleteStruggle,
 }) => {
@@ -48,6 +51,10 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
   };
 
   const [mainPageTab, setMainPageTab] = useState<CoreInfoSubTab>(() => normalizeTab(initialSubTab));
+  const [importantInfoSubject, setImportantInfoSubject] = useState<'math' | 'rw'>(() => {
+    if (initialSubject) return initialSubject;
+    return 'math';
+  });
   const [selectedChapterId, setSelectedChapterId] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
@@ -78,13 +85,19 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     setTimeout(() => setCopiedCheatCodeId(null), 2000);
   };
 
-  // Sync tab from URL if user visits /core-info?tab=formulas etc.
+  // Sync tab and subject from URL if user visits /core-info?tab=formulas or /core-info?subject=rw etc.
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const urlTab = params.get('tab');
+      const urlSubject = params.get('subject');
       if (urlTab) {
         setMainPageTab(normalizeTab(urlTab));
+      }
+      if (urlSubject === 'rw' || urlSubject === 'english' || urlSubject === 'reading-writing') {
+        setImportantInfoSubject('rw');
+      } else if (urlSubject === 'math') {
+        setImportantInfoSubject('math');
       }
     }
   }, []);
@@ -94,6 +107,16 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     if (typeof window !== 'undefined' && window.history) {
       const url = new URL(window.location.href);
       url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
+
+  const handleSwitchSubject = (subj: 'math' | 'rw') => {
+    setImportantInfoSubject(subj);
+    if (typeof window !== 'undefined' && window.history) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', 'important-info');
+      url.searchParams.set('subject', subj);
       window.history.replaceState({}, '', url.toString());
     }
   };
@@ -241,18 +264,71 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
       {/* SUB-PAGE 1: IMPORTANT INFO (CORE CONCEPTS & LESSONS) */}
       {mainPageTab === 'important-info' && (
         <div className="space-y-6">
-          {/* Controls: Chapter Selector & Real-Time Search */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
-            {/* Chapter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+          {/* DUAL SUBJECT TAB SWITCHER (MATH VS READING & WRITING ENGLISH) */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-2 bg-[#f0f7ee] rounded-2xl border-2 border-[#a6c4a1] shadow-xs">
+            <div className="flex items-center gap-2 p-1 bg-white/80 rounded-xl border border-[#a6c4a1] w-full sm:w-auto">
+              {/* Tab 1: SAT Math */}
               <button
-                onClick={() => setSelectedChapterId('all')}
-                className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 ${
-                  selectedChapterId === 'all'
-                    ? 'bg-[#1a3717] text-white shadow-xs'
-                    : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
+                type="button"
+                onClick={() => handleSwitchSubject('math')}
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-black transition-all cursor-pointer font-['JetBrains_Mono'] ${
+                  importantInfoSubject === 'math'
+                    ? 'bg-[#1a3717] text-white shadow-sm border border-[#2b5825]'
+                    : 'text-[#2a5025] hover:text-[#122810] hover:bg-[#d5e7d1]'
                 }`}
               >
+                <span>📐 SAT Math</span>
+                <span className={`text-[10px] px-2 py-0.5 rounded ${
+                  importantInfoSubject === 'math' ? 'bg-[#2b5825] text-[#c9f6c2]' : 'bg-[#e2f0de] text-[#2a5025]'
+                }`}>
+                  4 Chapters &bull; Formulas
+                </span>
+              </button>
+
+              {/* Tab 2: Reading & Writing (English) */}
+              <button
+                type="button"
+                onClick={() => handleSwitchSubject('rw')}
+                className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-xs font-black transition-all cursor-pointer font-['JetBrains_Mono'] ${
+                  importantInfoSubject === 'rw'
+                    ? 'bg-[#133b3e] text-white shadow-sm border border-[#22575c]'
+                    : 'text-[#2a5025] hover:text-[#122810] hover:bg-[#d5e7d1]'
+                }`}
+              >
+                <span>📖 Reading &amp; Writing (English)</span>
+                <span className={`text-[10px] px-2 py-0.5 rounded ${
+                  importantInfoSubject === 'rw' ? 'bg-[#22575c] text-[#cbf4f8]' : 'bg-[#e2f0de] text-[#2a5025]'
+                }`}>
+                  Units 2–4 &bull; Strategies
+                </span>
+              </button>
+            </div>
+
+            <div className="text-[11px] font-bold text-[#2d5528] flex items-center gap-1.5 px-2">
+              <span className={`w-2 h-2 rounded-full ${importantInfoSubject === 'math' ? 'bg-emerald-600' : 'bg-teal-600'}`} />
+              <span>
+                {importantInfoSubject === 'math'
+                  ? 'Showing core SAT Math curriculum, definitions, formulas & traps'
+                  : 'Showing official Reading & Writing units, test steps, Bare-Bones method & traps'}
+              </span>
+            </div>
+          </div>
+
+          {/* MATH IMPORTANT INFO CONTENT */}
+          {importantInfoSubject === 'math' && (
+            <div className="space-y-6">
+              {/* Controls: Chapter Selector & Real-Time Search */}
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
+                {/* Chapter Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+                  <button
+                    onClick={() => setSelectedChapterId('all')}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 ${
+                      selectedChapterId === 'all'
+                        ? 'bg-[#1a3717] text-white shadow-xs'
+                        : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
+                    }`}
+                  >
                 All Chapters
               </button>
               {CORE_CURRICULUM_CHAPTERS.map((ch) => (
@@ -526,9 +602,16 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
                 </div>
               </div>
             ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* READING & WRITING (ENGLISH) IMPORTANT INFO CONTENT */}
+        {importantInfoSubject === 'rw' && (
+          <ReadingWritingInfoSection />
+        )}
+      </div>
+    )}
 
       {/* PAGE 2: FORMULA VAULT */}
       {mainPageTab === 'formulas' && (
