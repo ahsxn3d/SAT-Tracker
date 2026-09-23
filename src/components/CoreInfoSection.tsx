@@ -19,7 +19,9 @@ import {
   ShieldCheck,
   Flame,
   ArrowRight,
-  Info
+  Info,
+  Compass,
+  Lightbulb
 } from 'lucide-react';
 import { CORE_CURRICULUM_CHAPTERS, CoreCurriculumLesson } from '../data/coreCurriculum';
 import { CHEAT_CODES } from '../data/cheatCodes';
@@ -129,6 +131,7 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
     'geom-volume-formulas': true,
     'geom-right-triangle-trig': true,
     'geom-unit-circle': true,
+    'geom-medium-to-hard-shift': true,
   });
 
   // Calculate struggle count per lesson
@@ -358,6 +361,169 @@ export const CoreInfoSection: React.FC<CoreInfoSectionProps> = ({
               />
             </div>
           </div>
+
+          {/* FEATURED MASTERCLASS: PART 3: SAT MATH — MASTERING GEOMETRY & THE MEDIUM-TO-HARD SHIFT */}
+          {(selectedChapterId === 'all' || selectedChapterId === 'geometry-trig') && !searchQuery.trim() && (
+            <div className="p-5 sm:p-6 bg-gradient-to-br from-[#122810] via-[#1a3717] to-[#254f21] rounded-3xl border-2 border-[#a6c4a1] shadow-grave text-white relative overflow-hidden space-y-4">
+              <div className="absolute right-0 top-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 space-y-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-emerald-700/80 text-emerald-100 border border-emerald-500/40 font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+                    <span>Part 3 &bull; SAT Math Masterclass</span>
+                  </span>
+                  <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-['JetBrains_Mono']">
+                    GEOMETRY MEDIUM-TO-HARD SHIFT
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-extrabold text-white font-luxury flex items-center gap-2.5">
+                  <Compass className="w-6 h-6 text-emerald-300" />
+                  <span>Mastering Geometry &amp; The Medium-to-Hard Shift</span>
+                </h3>
+
+                <p className="text-xs sm:text-sm text-emerald-100/90 max-w-3xl leading-relaxed font-medium">
+                  The exact architectural changes College Board uses to turn simple medium geometry into hard 750+ score filters, plus the 3 actionable rules to bypass algebraic traps using Desmos.
+                </p>
+
+                {/* 1. What Changes from Medium to Hard in Geometry? */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
+                  {/* Medium Questions Box */}
+                  <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black uppercase text-emerald-300 font-['JetBrains_Mono']">
+                        📗 Medium Questions (Direct)
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-200 font-mono font-bold">Standard</span>
+                    </div>
+                    <ul className="text-xs text-slate-100/90 space-y-1.5 leading-relaxed font-medium">
+                      <li className="flex items-start gap-1.5">
+                        <span className="text-emerald-400 font-bold">&bull;</span>
+                        <span><strong>Diagram Provided:</strong> You are usually given a pre-drawn diagram.</span>
+                      </li>
+                      <li className="flex items-start gap-1.5">
+                        <span className="text-emerald-400 font-bold">&bull;</span>
+                        <span><strong>Single Formula Directly:</strong> Basic area, circumference, or 30°-60°-90° / 45°-45°-90° ratios.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Hard Questions Box */}
+                  <div className="p-4 rounded-2xl bg-amber-500/15 backdrop-blur-md border border-amber-400/30 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black uppercase text-amber-300 font-['JetBrains_Mono']">
+                        ⚡ Hard / Challenging Questions
+                      </span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-amber-400/20 text-amber-200 font-mono font-bold">750+ Filter</span>
+                    </div>
+                    <ul className="text-xs text-slate-100/90 space-y-1.5 leading-relaxed font-medium">
+                      <li className="flex items-start gap-1.5">
+                        <span className="text-amber-400 font-bold">&bull;</span>
+                        <span><strong>No Figure Provided:</strong> You must construct the geometric figure yourself using written coordinates and angle constraints.</span>
+                      </li>
+                      <li className="flex items-start gap-1.5">
+                        <span className="text-amber-400 font-bold">&bull;</span>
+                        <span><strong>Multi-Concept Synthesis:</strong> Circle equation with a tangent line (forms 90° angle with radius), or right triangle nested inside a circular sector.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Core Hard Formulas Breakdown */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+                  {/* 1. Completing the square for circles */}
+                  <div className="p-3.5 rounded-2xl bg-[#0f1f0e]/90 border border-emerald-500/30 space-y-1.5">
+                    <span className="text-[11px] font-black uppercase text-emerald-300 font-['JetBrains_Mono'] block">
+                      1. Circle via Completing Square
+                    </span>
+                    <div className="p-2 rounded-lg bg-black/40 font-mono text-[11px] text-amber-200 border border-white/10 overflow-x-auto">
+                      x² + y² + Ax + By + C = 0 ➔ (x - h)² + (y - k)² = r²
+                    </div>
+                    <p className="text-[11px] text-emerald-100/80 leading-normal">
+                      Complete square for both x and y to find center (h, k) and radius r.
+                    </p>
+                  </div>
+
+                  {/* 2. Complementary Angle Identity */}
+                  <div className="p-3.5 rounded-2xl bg-[#0f1f0e]/90 border border-emerald-500/30 space-y-1.5">
+                    <span className="text-[11px] font-black uppercase text-emerald-300 font-['JetBrains_Mono'] block">
+                      2. Complementary Angle Identity
+                    </span>
+                    <div className="p-2 rounded-lg bg-black/40 font-mono text-[11px] text-amber-200 border border-white/10 overflow-x-auto">
+                      sin(x) = cos(90° - x)  or  cos(π/2 - x)
+                    </div>
+                    <p className="text-[11px] text-emerald-100/80 leading-normal">
+                      If sin(3x - 10) = cos(2x + 20), then (3x - 10) + (2x + 20) = 90°.
+                    </p>
+                  </div>
+
+                  {/* 3. Scale Factor Area/Volume Multipliers */}
+                  <div className="p-3.5 rounded-2xl bg-[#0f1f0e]/90 border border-emerald-500/30 space-y-1.5">
+                    <span className="text-[11px] font-black uppercase text-emerald-300 font-['JetBrains_Mono'] block">
+                      3. Scale Factor Multipliers
+                    </span>
+                    <div className="p-2 rounded-lg bg-black/40 font-mono text-[11px] text-amber-200 border border-white/10 overflow-x-auto">
+                      Linear a : b  ➔  Area a² : b²  ➔  Volume a³ : b³
+                    </div>
+                    <p className="text-[11px] text-emerald-100/80 leading-normal">
+                      If linear ratio is 2 : 3, surface area scales by 4 : 9, and volume by 8 : 27.
+                    </p>
+                  </div>
+                </div>
+
+                {/* 2. Actionable Rules to Ace Hard SAT Geometry */}
+                <div className="space-y-2 pt-2">
+                  <span className="text-xs font-black uppercase tracking-wider text-amber-300 font-['JetBrains_Mono'] block">
+                    2. Actionable Rules to Ace Hard SAT Geometry
+                  </span>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+                    {/* Rule 1: Desmos Calculator Hacks */}
+                    <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <Zap className="w-4 h-4 text-amber-300 fill-amber-300" />
+                        <span className="text-xs font-black text-white font-luxury">Leverage Built-In Desmos</span>
+                      </div>
+                      <p className="text-[11px] text-slate-100/90 leading-relaxed font-medium">
+                        Type the entire equation <code className="text-amber-200 font-mono">x² + y² + Ax + By + C = 0</code> directly into Desmos. It will plot the circle immediately. Click the center or find radius visually without completing squares by hand!
+                      </p>
+                      <div className="p-2 rounded-lg bg-black/30 text-[10px] text-emerald-300 font-mono">
+                        Lines intersecting curves: Graph both and click intersection points to read (x, y) in seconds.
+                      </div>
+                    </div>
+
+                    {/* Rule 2: Core Circle Proportions */}
+                    <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <Compass className="w-4 h-4 text-emerald-300" />
+                        <span className="text-xs font-black text-white font-luxury">Core Circle Proportions</span>
+                      </div>
+                      <div className="p-2 rounded-xl bg-black/40 font-mono text-[10px] text-emerald-300 border border-emerald-500/30 overflow-x-auto leading-relaxed">
+                        (θ / 360°) = (Arc / 2πr) = (Sector / πr²) = (rad / 2π)
+                      </div>
+                      <p className="text-[11px] text-slate-100/90 leading-relaxed font-medium">
+                        Nearly every circle geometry question on the SAT is solved using this four-way proportion. Set any two fractions equal to solve.
+                      </p>
+                    </div>
+
+                    {/* Rule 3: Always Draw and Label */}
+                    <div className="p-3.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <Lightbulb className="w-4 h-4 text-amber-300" />
+                        <span className="text-xs font-black text-white font-luxury">Always Draw and Label</span>
+                      </div>
+                      <p className="text-[11px] text-slate-100/90 leading-relaxed font-medium">
+                        If a question describes an altitude drawn inside an equilateral triangle or a chord in a circle, spend <strong>5 seconds drawing it on your scratch paper</strong>. Label every known length and mark all right angles immediately!
+                      </p>
+                      <div className="p-2 rounded-lg bg-amber-500/20 text-[10px] text-amber-200 font-bold border border-amber-400/30">
+                        ⚠️ Tangent Rule: Tangent line forms a 90° angle with the radius.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Chapter & Lesson Stream */}
           <div className="space-y-8">

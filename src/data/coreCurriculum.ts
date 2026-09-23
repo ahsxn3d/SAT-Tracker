@@ -476,6 +476,76 @@ export const CORE_CURRICULUM_CHAPTERS: CoreCurriculumChapter[] = [
           'Unit circle coordinates: x = cos θ, y = sin θ, y / x = tan θ',
           'Special angles trig values: 0, π/6, π/4, π/3, π/2'
         ]
+      },
+      {
+        id: 'geom-medium-to-hard-shift',
+        chapterId: 'geometry-trig',
+        chapterTitle: 'Geometry & Trigonometry',
+        lessonTitle: 'Mastering Geometry & The Medium-to-Hard Shift',
+        satDomain: 'Math',
+        definition: 'Deconstructing the architectural shift from medium geometry to hard multi-concept synthesis, completing the square for circles, complementary trig identities, scale factor multipliers, and Desmos bypass tactics.',
+        formulas: [
+          {
+            label: 'Equation of a Circle via Completing the Square',
+            formula: 'x² + y² + Ax + By + C = 0 ──► (x - h)² + (y - k)² = r²',
+            explanation: 'Group x-terms and y-terms, add (A/2)² and (B/2)² to both sides to find center (h, k) and radius r.'
+          },
+          {
+            label: 'Complementary Angle Trigonometric Identity',
+            formula: 'sin(x) = cos(90° - x)  or  sin(x) = cos(π/2 - x)',
+            explanation: 'Hard SAT questions repeatedly test this in algebraic formats: if sin(3x - 10) = cos(2x + 20), then (3x - 10) + (2x + 20) = 90°.'
+          },
+          {
+            label: 'Scale Factor Area & Volume Multipliers',
+            formula: 'Linear ratio a : b ──► Surface Area a² : b² ──► Volume a³ : b³',
+            explanation: 'If length doubles (2x), area quadruples (4x), and volume octuples (8x).'
+          },
+          {
+            label: 'Core Four-Way Circle Proportion (The Master Formula)',
+            formula: '(Central Angle / 360°) = (Arc Length / 2πr) = (Sector Area / πr²) = (Angle in Radians / 2π)',
+            explanation: 'Nearly every circle geometry question on the SAT is solved using this four-way proportion.'
+          }
+        ],
+        methods: [
+          {
+            title: 'What Changes from Medium to Hard in Geometry?',
+            steps: [
+              '1. In Medium Questions: You are usually given a diagram and apply a single formula directly (basic 30°-60°-90° or 45°-45°-90° ratios).',
+              '2. In Hard Questions: No figure is provided. You must construct the geometric figure yourself using written coordinates and angle constraints.',
+              '3. Multi-Concept Synthesis: Combining a circle equation with a tangent line (which forms a 90° angle with the radius), or nesting a right triangle inside a circular sector.',
+              '4. Completing the Square: Transforming x² + y² + Ax + By + C = 0 into standard form (x - h)² + (y - k)² = r².',
+              '5. Algebraic Complementary Angles: Setting the inside expressions to sum to 90° when sin(A) = cos(B).'
+            ]
+          },
+          {
+            title: 'Actionable Rules to Ace Hard SAT Geometry',
+            steps: [
+              '1. Leverage Built-In Desmos: Type the entire circle equation x² + y² + Ax + By + C = 0 directly into Desmos. It plots instantly. Click the center or find the radius visually without doing completion of squares by hand.',
+              '2. Intersecting Lines & Curves in Desmos: Graph lines and circles/parabolas together. Click the gray intersection points to read (x, y) coordinates in seconds.',
+              '3. Always Draw and Label: If a question describes an altitude inside an equilateral triangle or a chord in a circle, spend 5 seconds drawing it on scratch paper. Label every length and mark all 90° right angles immediately.'
+            ]
+          }
+        ],
+        goldenRules: [
+          'Nearly every circle geometry question on the SAT is solved using the four-way proportion: (Central Angle / 360°) = (Arc Length / 2πr) = (Sector Area / πr²) = (Angle in Radians / 2π).',
+          'Tangent Line Perpendicularity: A tangent line to a circle always forms a 90° right angle with the radius at the point of contact.',
+          'Complementary Angle Shortcut: If sin(expression 1) = cos(expression 2), then (expression 1) + (expression 2) = 90° (or π/2 in radians).',
+          'Always spend 5 seconds drawing figures on scratch paper when no diagram is provided.'
+        ],
+        trapsAndWarnings: [
+          'Attempting to solve "no figure provided" hard geometry in your head without a sketch.',
+          'Forgetting that linear scale ratio must be squared (a²:b²) for surface area and cubed (a³:b³) for volume.',
+          'Wasting 3 minutes completing the square by hand when Desmos can graph the raw circle equation and show center and radius immediately.'
+        ],
+        conceptsForLogging: [
+          'Circle equation: completing the square x² + y² + Ax + By + C = 0',
+          'Complementary angles: sin(A) = cos(B) → A + B = 90°',
+          'Similar solids scale factors: linear a:b → area a²:b² → volume a³:b³',
+          'Four-way circle proportion: θ/360 = Arc/2πr = Sector/πr² = rad/2π',
+          'Circle tangent perpendicularity: tangent forms 90° with radius',
+          'Desmos circle plotting shortcut for center & radius',
+          'Hard geometry: multi-concept synthesis without figure'
+        ]
       }
     ]
   }
