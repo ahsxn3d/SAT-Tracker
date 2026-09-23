@@ -145,103 +145,109 @@ export const ReadingWritingInfoSection: React.FC = () => {
         </div>
       </div>
 
-      {/* QUICK VIEW SELECTOR & SEARCH BAR */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
-        {/* Navigation Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+      {/* 1. SEPARATE PROMINENT SEARCH BAR (PLACED FULLY ABOVE FILTER PILLS) */}
+      <div className="relative w-full">
+        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-emerald-800 pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Search Reading & Writing lessons, official steps, top tips, trap warnings, grammar rules..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-11 pr-12 py-3 bg-white/95 border-2 border-[#a6c4a1] rounded-2xl text-xs sm:text-sm text-[#122810] placeholder:text-[#3d5a39]/70 font-medium focus:ring-2 focus:ring-emerald-600 focus:bg-white focus:outline-none transition shadow-sm font-['JetBrains_Mono']"
+        />
+        {searchQuery && (
           <button
             type="button"
+            onClick={() => setSearchQuery('')}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 hover:text-black font-mono cursor-pointer bg-slate-100 px-2 py-0.5 rounded-md"
+          >
+            Clear
+          </button>
+        )}
+      </div>
+
+      {/* 2. DEDICATED FULL-WIDTH NAVIGATION PILLS (FULL SPACE FOR NAMES - ZERO CROPPING) */}
+      <div className="flex flex-wrap items-center gap-2 p-3 sm:p-4 bg-matcha-sub/90 backdrop-blur-md rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card w-full">
+        <button
+          type="button"
+          onClick={() => {
+            setSelectedUnitId('all');
+            setActiveSpecialView('all');
+          }}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            selectedUnitId === 'all' && activeSpecialView === 'all'
+              ? 'bg-[#1a3717] text-white shadow-xs'
+              : 'bg-white/90 text-[#122810] hover:bg-white border border-[#a6c4a1]'
+          }`}
+        >
+          All English Units (10 Lessons)
+        </button>
+
+        {READING_WRITING_UNITS.map((unit) => (
+          <button
+            key={unit.id}
+            type="button"
             onClick={() => {
-              setSelectedUnitId('all');
+              setSelectedUnitId(unit.id);
               setActiveSpecialView('all');
             }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              selectedUnitId === 'all' && activeSpecialView === 'all'
+            className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+              selectedUnitId === unit.id && activeSpecialView === 'all'
                 ? 'bg-[#1a3717] text-white shadow-xs'
-                : 'bg-white/80 text-[#122810] hover:bg-white border border-[#a6c4a1]'
+                : 'bg-white/90 text-[#122810] hover:bg-white border border-[#a6c4a1]'
             }`}
           >
-            All English Units (10 Lessons)
+            Unit {unit.unitNumber}: {unit.title.split('&')[0].trim()}
           </button>
+        ))}
 
-          {READING_WRITING_UNITS.map((unit) => (
-            <button
-              key={unit.id}
-              type="button"
-              onClick={() => {
-                setSelectedUnitId(unit.id);
-                setActiveSpecialView('all');
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-                selectedUnitId === unit.id && activeSpecialView === 'all'
-                  ? 'bg-[#1a3717] text-white shadow-xs'
-                  : 'bg-white/80 text-[#122810] hover:bg-white border border-[#a6c4a1]'
-              }`}
-            >
-              Unit {unit.unitNumber}: {unit.title.split('&')[0].trim()}
-            </button>
-          ))}
+        <button
+          type="button"
+          onClick={() => {
+            setActiveSpecialView('bare-bones');
+            setSelectedUnitId('all');
+          }}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] flex items-center gap-1.5 ${
+            activeSpecialView === 'bare-bones'
+              ? 'bg-amber-600 text-white shadow-xs'
+              : 'bg-amber-50 text-amber-950 hover:bg-amber-100 border border-amber-300'
+          }`}
+        >
+          <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+          <span>Bare-Bones Method</span>
+        </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setActiveSpecialView('bare-bones');
-              setSelectedUnitId('all');
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] flex items-center gap-1 ${
-              activeSpecialView === 'bare-bones'
-                ? 'bg-amber-600 text-white shadow-xs'
-                : 'bg-amber-50 text-amber-950 hover:bg-amber-100 border border-amber-300'
-            }`}
-          >
-            <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
-            <span>Bare-Bones Method</span>
-          </button>
+        <button
+          type="button"
+          onClick={() => {
+            setActiveSpecialView('transitions');
+            setSelectedUnitId('all');
+          }}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] flex items-center gap-1.5 ${
+            activeSpecialView === 'transitions'
+              ? 'bg-indigo-600 text-white shadow-xs'
+              : 'bg-indigo-50 text-indigo-950 hover:bg-indigo-100 border border-indigo-200'
+          }`}
+        >
+          <Compass className="w-3.5 h-3.5" />
+          <span>5 Transition Types</span>
+        </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setActiveSpecialView('transitions');
-              setSelectedUnitId('all');
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] flex items-center gap-1 ${
-              activeSpecialView === 'transitions'
-                ? 'bg-indigo-600 text-white shadow-xs'
-                : 'bg-indigo-50 text-indigo-950 hover:bg-indigo-100 border border-indigo-200'
-            }`}
-          >
-            <Compass className="w-3 h-3" />
-            <span>5 Transition Types</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setActiveSpecialView('difficulty');
-              setSelectedUnitId('all');
-            }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] flex items-center gap-1 ${
-              activeSpecialView === 'difficulty'
-                ? 'bg-teal-700 text-white shadow-xs'
-                : 'bg-teal-50 text-teal-950 hover:bg-teal-100 border border-teal-300'
-            }`}
-          >
-            <Layers className="w-3 h-3" />
-            <span>Difficulty Matrix</span>
-          </button>
-        </div>
-
-        {/* Real-time search */}
-        <div className="relative min-w-[200px] sm:w-64 shrink-0">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
-          <input
-            type="text"
-            placeholder="Search R&amp;W lessons, tips, traps..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 bg-white border border-[#a6c4a1] rounded-xl text-xs text-[#122810] placeholder:text-[#527d4c] font-medium focus:ring-2 focus:ring-emerald-600 focus:outline-none"
-          />
-        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setActiveSpecialView('difficulty');
+            setSelectedUnitId('all');
+          }}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] flex items-center gap-1.5 ${
+            activeSpecialView === 'difficulty'
+              ? 'bg-teal-700 text-white shadow-xs'
+              : 'bg-teal-50 text-teal-950 hover:bg-teal-100 border border-teal-300'
+          }`}
+        >
+          <Layers className="w-3.5 h-3.5" />
+          <span>Difficulty Matrix</span>
+        </button>
       </div>
 
       {/* SPECIAL FEATURE 1: UNIVERSAL NON-NATIVE SPEAKER STRATEGY ("BARE-BONES" METHOD) */}

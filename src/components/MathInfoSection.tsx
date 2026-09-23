@@ -222,78 +222,84 @@ export const MathInfoSection: React.FC<MathInfoSectionProps> = ({
         </div>
       </div>
 
-      {/* QUICK VIEW SELECTOR & SEARCH BAR */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 bg-matcha-sub/90 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card">
-        {/* Navigation Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-0.5">
+      {/* 1. SEPARATE PROMINENT SEARCH BAR (PLACED FULLY ABOVE FILTER PILLS) */}
+      <div className="relative w-full">
+        <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-emerald-800 pointer-events-none" />
+        <input
+          type="text"
+          placeholder="Search SAT Math formulas, theorems, rules, Desmos shortcuts..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-11 pr-12 py-3 bg-white/95 border-2 border-[#a6c4a1] rounded-2xl text-xs sm:text-sm text-[#122810] placeholder:text-[#3d5a39]/70 font-medium focus:ring-2 focus:ring-emerald-600 focus:bg-white focus:outline-none transition shadow-sm font-['JetBrains_Mono']"
+        />
+        {searchQuery && (
           <button
             type="button"
-            onClick={() => setActiveSectionView('all')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              activeSectionView === 'all'
-                ? 'bg-[#1a3717] text-white shadow-xs'
-                : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
-            }`}
+            onClick={() => setSearchQuery('')}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 hover:text-black font-mono cursor-pointer bg-slate-100 px-2 py-0.5 rounded-md"
           >
-            All Math Blueprint
+            Clear
           </button>
-          <button
-            type="button"
-            onClick={() => setActiveSectionView('sec1-geom')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              activeSectionView === 'sec1-geom'
-                ? 'bg-[#1a3717] text-white shadow-xs'
-                : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
-            }`}
-          >
-            📐 Sec 1: Geometry &amp; Trig
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveSectionView('sec2-algebra')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              activeSectionView === 'sec2-algebra'
-                ? 'bg-[#1a3717] text-white shadow-xs'
-                : 'bg-matcha-input/80 text-[#122810] hover:bg-matcha-sub border border-[#a6c4a1]'
-            }`}
-          >
-            ⚡ Sec 2: Algebra &amp; Data
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveSectionView('sec3-difficulty')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              activeSectionView === 'sec3-difficulty'
-                ? 'bg-amber-800 text-white shadow-xs'
-                : 'bg-amber-50 text-amber-950 hover:bg-amber-100 border border-amber-300'
-            }`}
-          >
-            📊 Sec 3: Difficulty Graph (Matrix)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveSectionView('sec4-desmos')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-black transition cursor-pointer shrink-0 font-['JetBrains_Mono'] ${
-              activeSectionView === 'sec4-desmos'
-                ? 'bg-blue-800 text-white shadow-xs'
-                : 'bg-blue-50 text-blue-950 hover:bg-blue-100 border border-blue-300'
-            }`}
-          >
-            🚀 Sec 4: Desmos Cheats
-          </button>
-        </div>
+        )}
+      </div>
 
-        {/* Real-time Search */}
-        <div className="relative w-full lg:w-72 shrink-0">
-          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-matcha-primary pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search formulas, rules, Desmos..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-3.5 py-1.5 text-xs bg-matcha-input/80 border-2 border-[#a6c4a1] rounded-xl focus:border-matcha-primary focus:bg-white transition-all text-[#122810] placeholder:text-[#274624]/60 font-medium font-['JetBrains_Mono'] shadow-inner"
-          />
-        </div>
+      {/* 2. DEDICATED FULL-WIDTH NAVIGATION PILLS (FULL SPACE FOR NAMES - ZERO CROPPING) */}
+      <div className="flex flex-wrap items-center gap-2 p-3 sm:p-4 bg-matcha-sub/90 backdrop-blur-md rounded-2xl border-2 border-[#a6c4a1] shadow-grave-card w-full">
+        <button
+          type="button"
+          onClick={() => setActiveSectionView('all')}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            activeSectionView === 'all'
+              ? 'bg-[#1a3717] text-white shadow-xs'
+              : 'bg-white/90 text-[#122810] hover:bg-white border border-[#a6c4a1]'
+          }`}
+        >
+          All Math Blueprint
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSectionView('sec1-geom')}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            activeSectionView === 'sec1-geom'
+              ? 'bg-[#1a3717] text-white shadow-xs'
+              : 'bg-white/90 text-[#122810] hover:bg-white border border-[#a6c4a1]'
+          }`}
+        >
+          📐 Sec 1: Geometry &amp; Trig
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSectionView('sec2-algebra')}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            activeSectionView === 'sec2-algebra'
+              ? 'bg-[#1a3717] text-white shadow-xs'
+              : 'bg-white/90 text-[#122810] hover:bg-white border border-[#a6c4a1]'
+          }`}
+        >
+          ⚡ Sec 2: Algebra &amp; Data
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSectionView('sec3-difficulty')}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            activeSectionView === 'sec3-difficulty'
+              ? 'bg-amber-800 text-white shadow-xs'
+              : 'bg-amber-50 text-amber-950 hover:bg-amber-100 border border-amber-300'
+          }`}
+        >
+          📊 Sec 3: Difficulty Graph (Matrix)
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSectionView('sec4-desmos')}
+          className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer font-['JetBrains_Mono'] ${
+            activeSectionView === 'sec4-desmos'
+              ? 'bg-blue-800 text-white shadow-xs'
+              : 'bg-blue-50 text-blue-950 hover:bg-blue-100 border border-blue-300'
+          }`}
+        >
+          🚀 Sec 4: Desmos Cheats
+        </button>
       </div>
 
       {/* ========================================================================= */}
