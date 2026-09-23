@@ -143,13 +143,29 @@ export default function App({ initialSection = 'all' }: AppProps) {
       if (savedDays) setTaskCompletionDay(JSON.parse(savedDays));
 
       const savedOverrides = localStorage.getItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES);
-      if (savedOverrides) setTaskScheduleOverrides(JSON.parse(savedOverrides));
+      let parsedOverrides: Record<string, string> = {};
+      if (savedOverrides) {
+        try {
+          parsedOverrides = JSON.parse(savedOverrides);
+          setTaskScheduleOverrides(parsedOverrides);
+        } catch (e) {}
+      }
 
       const savedUndo = localStorage.getItem(STORAGE_KEYS.TASK_OVERRIDES_UNDO_STACK);
-      if (savedUndo) {
+      if (savedUndo && Object.keys(parsedOverrides).length > 0) {
         try {
-          setUndoStack(JSON.parse(savedUndo));
-        } catch (e) {}
+          const parsed = JSON.parse(savedUndo);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setUndoStack(parsed);
+          } else {
+            setUndoStack([]);
+          }
+        } catch (e) {
+          setUndoStack([]);
+        }
+      } else {
+        localStorage.removeItem(STORAGE_KEYS.TASK_OVERRIDES_UNDO_STACK);
+        setUndoStack([]);
       }
 
       const savedLogs = localStorage.getItem(STORAGE_KEYS.ERROR_LOG);

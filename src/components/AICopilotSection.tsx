@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { AIMode, AIChatMessageItem, AIChatSessionItem, ErrorLogEntry } from '../types';
 import { STUDY_PLAN_WEEKS } from '../data/studyPlan';
+import { MatchaSelect } from './MatchaSelect';
 
 interface AICopilotSectionProps {
   currentDateStr?: string;
@@ -62,34 +63,39 @@ export const UNIT_OPTIONS: {
   category: 'Math Chapters' | 'Reading & Writing Units' | 'All Lessons';
   label: string;
   shortTitle: string;
+  badge?: string;
 }[] = [
-  // Math Units (Chapters)
-  { id: 'MATH_U5', category: 'Math Chapters', label: 'Unit 5 / Chapter 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)', shortTitle: 'Math Ch 5: Geometry & Trig' },
-  { id: 'MATH_U3', category: 'Math Chapters', label: 'Unit 3 / Chapter 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)', shortTitle: 'Math Ch 3: Problem Solving' },
-  { id: 'MATH_U4', category: 'Math Chapters', label: 'Unit 4 / Chapter 4: Advanced Math (Quadratics & Parabolas — 13 lessons)', shortTitle: 'Math Ch 4: Quadratics' },
-  { id: 'MATH_U6', category: 'Math Chapters', label: 'Unit 6 / Chapter 6: Algebra (Linear Equations & Systems — 8 lessons)', shortTitle: 'Math Ch 6: Linear Systems' },
-  { id: 'MATH_U7', category: 'Math Chapters', label: 'Unit 7 / Chapter 7: Problem Solving (Complex Probability & Data — 10 lessons)', shortTitle: 'Math Ch 7: Scatterplots & Data' },
-  { id: 'MATH_U8', category: 'Math Chapters', label: 'Unit 8 / Chapter 8: Advanced Math (Polynomials & Exponents — 13 lessons)', shortTitle: 'Math Ch 8: Polynomials' },
-  { id: 'MATH_U9', category: 'Math Chapters', label: 'Unit 9 / Chapter 9: Geometry & Trig (Right Triangles & Circles — 6 lessons)', shortTitle: 'Math Ch 9: Right Triangles' },
-  { id: 'MATH_U10', category: 'Math Chapters', label: 'Unit 10 / Chapter 10: Algebra (Advanced Linear Modeling — 8 lessons)', shortTitle: 'Math Ch 10: Linear Modeling' },
-  { id: 'MATH_U11', category: 'Math Chapters', label: 'Unit 11 / Chapter 11: Problem Solving (Statistics & Spread — 10 lessons)', shortTitle: 'Math Ch 11: Statistics' },
-  { id: 'MATH_U12', category: 'Math Chapters', label: 'Unit 12 / Chapter 12: Advanced Math (Radicals & Rational Equations — 13 lessons)', shortTitle: 'Math Ch 12: Radicals & Rationals' },
-  { id: 'MATH_U13', category: 'Math Chapters', label: 'Unit 13 / Chapter 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)', shortTitle: 'Math Ch 13: Circle Eq & Radians' },
+  // Math Units (13 Units in Curriculum)
+  { id: 'MATH_U1', category: 'Math Chapters', label: 'Unit 1: Diagnostic Assessment & Baseline Prep', shortTitle: 'Math Ch 1: Diagnostic', badge: 'Diagnostic' },
+  { id: 'MATH_U2', category: 'Math Chapters', label: 'Unit 2: Math Foundations & Number Sense', shortTitle: 'Math Ch 2: Foundations', badge: 'Foundations' },
+  { id: 'MATH_U3', category: 'Math Chapters', label: 'Unit 3: Problem Solving & Data (Ratios & Percentages — 9 lessons)', shortTitle: 'Math Ch 3: Problem Solving', badge: '9 lessons' },
+  { id: 'MATH_U4', category: 'Math Chapters', label: 'Unit 4: Advanced Math (Quadratics & Parabolas — 13 lessons)', shortTitle: 'Math Ch 4: Quadratics', badge: '13 lessons' },
+  { id: 'MATH_U5', category: 'Math Chapters', label: 'Unit 5: Geometry & Trig (Area, Circles & Angles — 6 lessons)', shortTitle: 'Math Ch 5: Geometry & Trig', badge: '6 lessons' },
+  { id: 'MATH_U6', category: 'Math Chapters', label: 'Unit 6: Algebra (Linear Equations & Systems — 8 lessons)', shortTitle: 'Math Ch 6: Linear Systems', badge: '8 lessons' },
+  { id: 'MATH_U7', category: 'Math Chapters', label: 'Unit 7: Problem Solving (Rates, Ratios & Percentages — 10 lessons)', shortTitle: 'Math Ch 7: Scatterplots & Data', badge: '10 lessons' },
+  { id: 'MATH_U8', category: 'Math Chapters', label: 'Unit 8: Advanced Math (Polynomials & Nonlinear Functions — 13 lessons)', shortTitle: 'Math Ch 8: Polynomials', badge: '13 lessons' },
+  { id: 'MATH_U9', category: 'Math Chapters', label: 'Unit 9: Geometry & Trig (Right Triangles & Circles — 6 lessons)', shortTitle: 'Math Ch 9: Right Triangles', badge: '6 lessons' },
+  { id: 'MATH_U10', category: 'Math Chapters', label: 'Unit 10: Algebra (Advanced Linear Modeling — 8 lessons)', shortTitle: 'Math Ch 10: Linear Modeling', badge: '8 lessons' },
+  { id: 'MATH_U11', category: 'Math Chapters', label: 'Unit 11: Problem Solving (Statistics & Spread — 10 lessons)', shortTitle: 'Math Ch 11: Statistics', badge: '10 lessons' },
+  { id: 'MATH_U12', category: 'Math Chapters', label: 'Unit 12: Advanced Math (Radicals & Rational Equations — 13 lessons)', shortTitle: 'Math Ch 12: Radicals & Rationals', badge: '13 lessons' },
+  { id: 'MATH_U13', category: 'Math Chapters', label: 'Unit 13: Geometry & Trig (Circle Equations & Radians — 6 lessons)', shortTitle: 'Math Ch 13: Circle Eq & Radians', badge: '6 lessons' },
   
-  // Reading & Writing Units
-  { id: 'RW_U3', category: 'Reading & Writing Units', label: 'R&W Unit 3: Standard English Conventions (3 lessons)', shortTitle: 'R&W Ch 3: Conventions' },
-  { id: 'RW_U4', category: 'Reading & Writing Units', label: 'R&W Unit 4: Form, Structure & Sense (4 lessons)', shortTitle: 'R&W Ch 4: Structure' },
-  { id: 'RW_U5', category: 'Reading & Writing Units', label: 'R&W Unit 5: Inferences & Evidence (4 lessons)', shortTitle: 'R&W Ch 5: Inferences' },
-  { id: 'RW_U6', category: 'Reading & Writing Units', label: 'R&W Unit 6: Transitions & Rhetorical Synthesis (3 lessons)', shortTitle: 'R&W Ch 6: Transitions' },
-  { id: 'RW_U7', category: 'Reading & Writing Units', label: 'R&W Unit 7: Words in Context (4 lessons)', shortTitle: 'R&W Ch 7: Words in Context' },
-  { id: 'RW_U8', category: 'Reading & Writing Units', label: 'R&W Unit 8: Text Structure & Purpose (4 lessons)', shortTitle: 'R&W Ch 8: Text Structure' },
-  { id: 'RW_U9', category: 'Reading & Writing Units', label: 'R&W Unit 9: Cross-Text Connections (3 lessons)', shortTitle: 'R&W Ch 9: Cross-Text' },
-  { id: 'RW_U10', category: 'Reading & Writing Units', label: 'R&W Unit 10: Central Ideas & Details (4 lessons)', shortTitle: 'R&W Ch 10: Central Ideas' },
-  { id: 'RW_U11', category: 'Reading & Writing Units', label: 'R&W Unit 11: Quantitative Evidence (6 lessons)', shortTitle: 'R&W Ch 11: Quantitative Evidence' },
-  { id: 'RW_U12', category: 'Reading & Writing Units', label: 'R&W Unit 12: Complex Evidence & Arguments (8 lessons)', shortTitle: 'R&W Ch 12: Complex Evidence' },
+  // Reading & Writing Units (12 Units in Curriculum)
+  { id: 'RW_U1', category: 'Reading & Writing Units', label: 'Unit 1: Reading Diagnostic & Baseline Prep', shortTitle: 'R&W Ch 1: Diagnostic', badge: 'Diagnostic' },
+  { id: 'RW_U2', category: 'Reading & Writing Units', label: 'Unit 2: Vocabulary & Structure Foundations', shortTitle: 'R&W Ch 2: Foundations', badge: 'Foundations' },
+  { id: 'RW_U3', category: 'Reading & Writing Units', label: 'Unit 3: Standard English Conventions (3 lessons)', shortTitle: 'R&W Ch 3: Conventions', badge: '3 lessons' },
+  { id: 'RW_U4', category: 'Reading & Writing Units', label: 'Unit 4: Form, Structure & Sense (4 lessons)', shortTitle: 'R&W Ch 4: Structure', badge: '4 lessons' },
+  { id: 'RW_U5', category: 'Reading & Writing Units', label: 'Unit 5: Inferences & Command of Evidence (4 lessons)', shortTitle: 'R&W Ch 5: Inferences', badge: '4 lessons' },
+  { id: 'RW_U6', category: 'Reading & Writing Units', label: 'Unit 6: Transitions & Rhetorical Synthesis (3 lessons)', shortTitle: 'R&W Ch 6: Transitions', badge: '3 lessons' },
+  { id: 'RW_U7', category: 'Reading & Writing Units', label: 'Unit 7: Words in Context & Boundaries (4 lessons)', shortTitle: 'R&W Ch 7: Words in Context', badge: '4 lessons' },
+  { id: 'RW_U8', category: 'Reading & Writing Units', label: 'Unit 8: Text Structure & Purpose (4 lessons)', shortTitle: 'R&W Ch 8: Text Structure', badge: '4 lessons' },
+  { id: 'RW_U9', category: 'Reading & Writing Units', label: 'Unit 9: Cross-Text Connections (3 lessons)', shortTitle: 'R&W Ch 9: Cross-Text', badge: '3 lessons' },
+  { id: 'RW_U10', category: 'Reading & Writing Units', label: 'Unit 10: Central Ideas & Details (4 lessons)', shortTitle: 'R&W Ch 10: Central Ideas', badge: '4 lessons' },
+  { id: 'RW_U11', category: 'Reading & Writing Units', label: 'Unit 11: Quantitative Evidence (6 lessons)', shortTitle: 'R&W Ch 11: Quantitative Evidence', badge: '6 lessons' },
+  { id: 'RW_U12', category: 'Reading & Writing Units', label: 'Unit 12: Complex Evidence & Arguments (8 lessons)', shortTitle: 'R&W Ch 12: Complex Evidence', badge: '8 lessons' },
 
   // All
-  { id: 'ALL', category: 'All Lessons', label: 'All Units / Full Syllabus (145 lessons)', shortTitle: 'All 145 Lessons' },
+  { id: 'ALL', category: 'All Lessons', label: 'All Units / Full Syllabus (145 lessons)', shortTitle: 'All 145 Lessons', badge: '145 lessons' },
 ];
 
 export const DESTINATION_OPTIONS: {
@@ -279,6 +285,32 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     }
   }, [selectedSubject]);
 
+  // Options formatted for dark MatchaSelect dropdown
+  const unitOptionsForSelect = useMemo(() => {
+    return [
+      {
+        value: '',
+        label: `— Select a ${selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} —`,
+        badge: 'Required'
+      },
+      ...availableUnits.map((u) => ({
+        value: u.id,
+        label: u.label,
+        badge: u.badge || u.shortTitle,
+        sublabel: selectedSubject === 'math' ? 'SAT Math Chapter' : 'Reading & Writing Unit'
+      }))
+    ];
+  }, [availableUnits, selectedSubject]);
+
+  const destinationOptionsForSelect = useMemo(() => {
+    return DESTINATION_OPTIONS.map((d) => ({
+      value: d.id,
+      label: d.label,
+      badge: d.group === 'Sundays / Buffer Days' ? 'Buffer' : d.group === 'Relative Days' ? 'Relative' : d.group === 'Custom' ? 'Custom' : 'Study Day',
+      sublabel: d.group
+    }));
+  }, []);
+
   // Filter lessons for selected unit and search query
   const filteredLessons = useMemo(() => {
     if (!selectedUnit) return [];
@@ -321,6 +353,28 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     setSelectedLessonIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+
+  // Shift single lesson directly with 1 click
+  const handleShiftSingleLesson = (lessonId: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    const targetDate = resolveDestinationDate(selectedDestination, currentDateStr, customDestinationDate);
+    const destOption = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination);
+    const targetLabel = destOption ? destOption.label.split('(')[0].trim() : targetDate;
+
+    if (onBatchTaskShifted) {
+      onBatchTaskShifted({ [lessonId]: targetDate });
+    } else if (onTaskShifted) {
+      onTaskShifted(lessonId, targetDate);
+    }
+
+    const lessonObj = allSyllabusLessons.find((l) => l.id === lessonId);
+    const lessonTitle = lessonObj ? (lessonObj.code || lessonObj.label) : 'Lesson';
+
+    setFeedbackNotice({
+      type: 'success',
+      message: `Shifted single lesson "${lessonTitle}" to ${targetLabel} (${targetDate})!`
+    });
   };
 
   // Select / Deselect All
@@ -661,72 +715,79 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.22 }}
-                className="pt-4 border-t border-[#a6c4a1]/50 mt-3 space-y-4 overflow-hidden"
+                className="pt-4 border-t border-[#2d5227]/60 mt-3 space-y-4"
               >
                 {/* Header title */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-gradient-to-r from-indigo-50/90 via-emerald-50/40 to-indigo-50/80 p-3.5 rounded-2xl border border-indigo-200 shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-gradient-to-r from-[#142912] via-[#1a3818] to-[#122410] border-2 border-[#2b5124] rounded-2xl p-3.5 sm:p-4 shadow-lg">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md border border-emerald-400 shrink-0">
                       <Zap className="w-4 h-4 fill-white" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs sm:text-sm font-black text-indigo-950 font-luxury">
+                        <span className="text-xs sm:text-sm font-black text-[#f0f8ee] font-luxury">
                           Manual Lesson &amp; Chapter Shift Studio
                         </span>
-                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white font-['JetBrains_Mono']">
+                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-['JetBrains_Mono']">
                           Instant Manual Sync
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-700 font-medium">
-                        Choose a chapter, check individual lessons, and shift them to any Sunday or buffer day with 1 click.
+                      <p className="text-[11px] text-[#a5cca0] font-medium">
+                        Choose a chapter, check single or multiple lessons, and shift them to any Sunday or buffer day with 1 click.
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
-                    <button
-                      type="button"
-                      onClick={handleUndoClick}
-                      disabled={!undoCount || undoCount === 0}
-                      title={undoCount > 0 ? `Undo last shift (${undoCount} step${undoCount > 1 ? 's' : ''} stored in history)` : 'No shifts to undo'}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer ${
-                        undoCount > 0
-                          ? 'bg-amber-400 hover:bg-amber-500 text-slate-950 shadow-sm active:scale-95 border border-amber-500 ring-2 ring-amber-300/60'
-                          : 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
-                      }`}
-                    >
-                      <Undo2 className="w-3.5 h-3.5" />
-                      <span>Undo ({undoCount})</span>
-                    </button>
+                    {undoCount > 0 ? (
+                      <button
+                        type="button"
+                        onClick={handleUndoClick}
+                        title={`Undo last shift (${undoCount} step${undoCount > 1 ? 's' : ''} stored in history)`}
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md active:scale-95 border border-amber-300 ring-2 ring-amber-300/60"
+                      >
+                        <Undo2 className="w-3.5 h-3.5" />
+                        <span>Undo ({undoCount})</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled
+                        title="No shifts to undo in this session"
+                        className="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-not-allowed bg-[#182e16]/60 text-emerald-300/40 border border-[#234220] opacity-50"
+                      >
+                        <Undo2 className="w-3.5 h-3.5" />
+                        <span>Undo</span>
+                      </button>
+                    )}
 
                     {selectedUnit && (
-                      <span className="text-[11px] font-black font-['JetBrains_Mono'] text-indigo-900 bg-indigo-100 px-2.5 py-1.5 rounded-xl border border-indigo-300">
+                      <span className="text-[11px] font-black font-['JetBrains_Mono'] text-[#baf2b0] bg-[#1a3617] px-2.5 py-1.5 rounded-xl border border-[#2d5c28]">
                         {selectedLessonIds.length} of {filteredLessons.length} selected
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Top Control Bar: Subject Tabs + Selectors */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-indigo-200 shadow-xs space-y-3.5">
-                  {/* SUBJECT SELECTION TABS: MATH VS READING & WRITING */}
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-3 border-b border-indigo-100">
-                    <div className="flex items-center gap-2 p-1 bg-slate-100/90 rounded-xl border border-slate-200">
+                {/* Top Control Bar: Subject Tabs + MatchaSelect Dropdowns */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-[#122411]/95 border-2 border-[#264a20] shadow-lg space-y-4">
+                  {/* SUBJECT SELECTION TABS: MATH (13 UNITS) VS READING & WRITING (12 UNITS) */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-3 border-b border-[#23451e]">
+                    <div className="flex items-center gap-2 p-1.5 bg-[#0e1d0d] rounded-xl border border-[#234220]">
                       <button
                         type="button"
                         onClick={() => handleSubjectChange('math')}
                         className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                           selectedSubject === 'math'
-                            ? 'bg-emerald-600 text-white shadow-xs'
-                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/60'
+                            ? 'bg-[#245420] text-[#c2f7b8] border border-[#479639] shadow-sm'
+                            : 'text-[#82aa7b] hover:text-[#d4edd0] hover:bg-[#183116]'
                         }`}
                       >
                         <span>📐 SAT Math Chapters</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
-                          selectedSubject === 'math' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-700'
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
+                          selectedSubject === 'math' ? 'bg-[#316a2b] text-[#e8fae6]' : 'bg-[#152a13] text-[#789d72]'
                         }`}>
-                          11 Chapters
+                          Units 1 – 13 (Math)
                         </span>
                       </button>
 
@@ -735,141 +796,113 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         onClick={() => handleSubjectChange('rw')}
                         className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                           selectedSubject === 'rw'
-                            ? 'bg-sky-600 text-white shadow-xs'
-                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/60'
+                            ? 'bg-[#164448] text-[#a4f0f7] border border-[#2f838b] shadow-sm'
+                            : 'text-[#82aa7b] hover:text-[#d4edd0] hover:bg-[#183116]'
                         }`}
                       >
                         <span>📖 Reading &amp; Writing Units</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
-                          selectedSubject === 'rw' ? 'bg-sky-700 text-white' : 'bg-slate-200 text-slate-700'
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
+                          selectedSubject === 'rw' ? 'bg-[#21575c] text-[#e4fbfe]' : 'bg-[#152a13] text-[#789d72]'
                         }`}>
-                          10 Units
+                          Units 1 – 12 (English)
                         </span>
                       </button>
                     </div>
 
-                    <div className="text-[11px] font-bold text-slate-500 flex items-center gap-1.5">
-                      <span className={`w-2 h-2 rounded-full ${selectedSubject === 'math' ? 'bg-emerald-500' : 'bg-sky-500'}`} />
+                    <div className="text-[11px] font-bold text-[#8bb883] flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${selectedSubject === 'math' ? 'bg-emerald-400' : 'bg-cyan-400'}`} />
                       <span>{selectedSubject === 'math' ? 'Math Chapters strictly isolated (Never shifts English)' : 'Reading & Writing isolated (Never shifts Math)'}</span>
                     </div>
                   </div>
 
-                  {/* DROPDOWN SELECTORS ROW */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                    {/* Chapter / Unit Dropdown */}
-                    <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1' : 'md:col-span-6 space-y-1'}>
-                      <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
-                        <BookOpen className="w-3 h-3 text-indigo-700" />
-                        <span>Select {selectedSubject === 'math' ? 'Math Chapter' : 'Reading & Writing Unit'}:</span>
+                  {/* MATCHA THEMED DROPDOWN SELECTORS ROW */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
+                    {/* Chapter / Unit Dropdown (MatchaSelect) */}
+                    <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
+                      <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                        <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Select {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'}:</span>
                       </label>
-                      <select
+                      <MatchaSelect
                         value={selectedUnit}
-                        onChange={(e) => handleUnitChange(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-xl bg-indigo-50/40 hover:bg-indigo-50/80 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
-                      >
-                        <option value="">
-                          — Select a {selectedSubject === 'math' ? 'Math Chapter (e.g. Chapter 5: Geometry & Trig)' : 'R&W Unit (e.g. Unit 5: Inferences)'} —
-                        </option>
-                        {availableUnits.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.label}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={(val) => handleUnitChange(String(val))}
+                        options={unitOptionsForSelect}
+                        placeholder={`— Select a ${selectedSubject === 'math' ? 'Math Chapter' : 'R&W Unit'} —`}
+                        variant="dark"
+                        size="md"
+                        fullWidth
+                        icon={<BookOpen className="w-4 h-4 text-emerald-400" />}
+                      />
                     </div>
 
-                    {/* Destination Dropdown */}
-                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1' : 'md:col-span-6 space-y-1'}>
-                      <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
-                        <Calendar className="w-3 h-3 text-indigo-700" />
+                    {/* Destination Dropdown (MatchaSelect) */}
+                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
+                      <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                         <span>Shift Destination (Target Buffer Day):</span>
                       </label>
-                      <select
+                      <MatchaSelect
                         value={selectedDestination}
-                        onChange={(e) => setSelectedDestination(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-xl bg-indigo-50/40 hover:bg-indigo-50/80 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
-                      >
-                        <optgroup label="Sundays / Buffer Days (Recommended)">
-                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Sundays / Buffer Days').map((dest) => (
-                            <option key={dest.id} value={dest.id}>
-                              {dest.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Quick Relative Days">
-                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Relative Days').map((dest) => (
-                            <option key={dest.id} value={dest.id}>
-                              {dest.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Specific Study Days">
-                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Specific Study Days').map((dest) => (
-                            <option key={dest.id} value={dest.id}>
-                              {dest.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Custom Date">
-                          {DESTINATION_OPTIONS.filter((d) => d.group === 'Custom').map((dest) => (
-                            <option key={dest.id} value={dest.id}>
-                              {dest.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                      </select>
+                        onChange={(val) => setSelectedDestination(String(val))}
+                        options={destinationOptionsForSelect}
+                        placeholder="Select Target Buffer Day..."
+                        variant="dark"
+                        size="md"
+                        fullWidth
+                        icon={<Calendar className="w-4 h-4 text-emerald-400" />}
+                      />
                     </div>
 
                     {/* Custom Date Picker */}
                     {selectedDestination === 'custom' && (
-                      <div className="md:col-span-3 space-y-1">
-                        <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-indigo-700" />
+                      <div className="md:col-span-3 space-y-1.5">
+                        <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-emerald-400" />
                           <span>Choose Exact Date:</span>
                         </label>
                         <input
                           type="date"
                           value={customDestinationDate}
                           onChange={(e) => setCustomDestinationDate(e.target.value)}
-                          className="w-full px-3 py-2 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#0c180b] border-2 border-[#284f23] text-xs font-bold text-[#eef7ec] focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-xs cursor-pointer min-h-[44px]"
                         />
                       </div>
                     )}
                   </div>
 
-                  {/* LESSONS DISPLAY: EMPTY STATE OR LIST */}
+                  {/* LESSONS DISPLAY: CLEAN EMPTY STATE OR MATCHA THEMED LIST */}
                   {!selectedUnit ? (
-                    <div className="p-8 text-center rounded-2xl bg-indigo-50/40 border-2 border-dashed border-indigo-200/80 space-y-2">
-                      <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto">
-                        <BookOpen className="w-5 h-5" />
+                    <div className="p-7 text-center rounded-2xl bg-[#0b170a]/90 border-2 border-dashed border-[#22421e] space-y-2.5">
+                      <div className="w-12 h-12 rounded-2xl bg-[#173315] text-emerald-400 flex items-center justify-center mx-auto border border-[#2b5526] shadow-sm">
+                        <BookOpen className="w-6 h-6" />
                       </div>
-                      <div className="text-sm font-black text-indigo-950">
+                      <div className="text-sm font-black text-[#eef7ec]">
                         No Chapter Selected (Zero Dummy Data)
                       </div>
-                      <p className="text-xs text-slate-600 max-w-md mx-auto">
-                        Please choose a {selectedSubject === 'math' ? 'Math Chapter' : 'Reading & Writing Unit'} from the dropdown above to view and shift all its individual lessons.
+                      <p className="text-xs text-[#8cb584] max-w-md mx-auto">
+                        Please choose a {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} from the dropdown above to view and shift individual lessons.
                       </p>
                     </div>
                   ) : (
                     <>
                       {/* Header for lessons list */}
-                      <div className="pt-2 border-t border-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="pt-2 border-t border-[#23451e] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[11px] font-black text-slate-900 uppercase font-['JetBrains_Mono'] flex items-center gap-1">
-                            <CheckSquare className="w-3.5 h-3.5 text-indigo-600" />
+                          <span className="text-[11px] font-black text-[#d7edd2] uppercase font-['JetBrains_Mono'] flex items-center gap-1">
+                            <CheckSquare className="w-3.5 h-3.5 text-emerald-400" />
                             <span>Select Lessons to Shift ({filteredLessons.length} Total):</span>
                           </span>
                           <button
                             type="button"
                             onClick={handleSelectAll}
-                            className="px-2.5 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-900 text-[10px] font-black transition cursor-pointer border border-indigo-300 active:scale-95"
+                            className="px-3 py-1.5 rounded-lg bg-[#224b1e] hover:bg-[#2c5f27] text-[#c2f7b8] border border-[#3d7d35] text-[11px] font-black transition cursor-pointer active:scale-95"
                           >
                             Select All ({filteredLessons.length})
                           </button>
                           <button
                             type="button"
                             onClick={handleDeselectAll}
-                            className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition cursor-pointer border border-slate-300 active:scale-95"
+                            className="px-3 py-1.5 rounded-lg bg-[#142813] hover:bg-[#1a3418] text-[#8cb885] border border-[#254620] text-[11px] font-bold transition cursor-pointer active:scale-95"
                           >
                             Deselect All
                           </button>
@@ -877,21 +910,21 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
 
                         {/* Quick search input */}
                         <div className="relative min-w-[200px]">
-                          <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                          <Search className="w-3.5 h-3.5 text-[#5e8257] absolute left-3 top-1/2 -translate-y-1/2" />
                           <input
                             type="text"
                             placeholder="Search within this chapter..."
                             value={lessonSearchQuery}
                             onChange={(e) => setLessonSearchQuery(e.target.value)}
-                            className="w-full pl-7 pr-2.5 py-1 rounded-lg bg-white border border-slate-300 text-[11px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+                            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#0e1d0d] border border-[#294f24] text-xs font-medium text-[#eef7ec] placeholder:text-[#5e8257] focus:outline-none focus:ring-1 focus:ring-emerald-500"
                           />
                         </div>
                       </div>
 
-                      {/* LESSON CHECKBOX ITEMS CONTAINER (ENLARGED TO SHOW ALL 6 LESSONS CLEARLY) */}
-                      <div className="max-h-[380px] overflow-y-auto pr-1 space-y-1.5 custom-scrollbar border rounded-xl p-2 bg-slate-50/70 border-indigo-100">
+                      {/* LESSON CHECKBOX ITEMS CONTAINER (ENLARGED TO SHOW ALL LESSONS CLEARLY) */}
+                      <div className="max-h-[420px] overflow-y-auto pr-1.5 space-y-2 custom-scrollbar border rounded-2xl p-2.5 bg-[#0a160a]/95 border-[#1f3f1c]">
                         {filteredLessons.length === 0 ? (
-                          <div className="p-4 text-center text-xs text-slate-500 font-medium">
+                          <div className="p-5 text-center text-xs text-[#7d9f78] font-medium">
                             No lessons match your search criteria.
                           </div>
                         ) : (
@@ -904,38 +937,38 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                               <div
                                 key={lesson.id}
                                 onClick={() => handleToggleLesson(lesson.id)}
-                                className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                                className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
                                   isSelected
-                                    ? 'bg-indigo-50/90 border-indigo-400 shadow-xs'
-                                    : 'bg-white hover:bg-slate-100/70 border-slate-200'
+                                    ? 'bg-[#1b3d18] border-2 border-[#4fa844] shadow-sm'
+                                    : 'bg-[#122410] hover:bg-[#162c14] border border-[#203e1c]'
                                 }`}
                               >
-                                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                <div className="flex items-center gap-3 min-w-0 flex-1">
                                   <input
                                     type="checkbox"
                                     checked={isSelected}
                                     onChange={() => handleToggleLesson(lesson.id)}
                                     onClick={(e) => e.stopPropagation()}
-                                    className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer shrink-0"
+                                    className="w-4 h-4 text-emerald-600 rounded border-[#315729] focus:ring-emerald-500 cursor-pointer shrink-0 accent-emerald-500"
                                   />
 
                                   <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-1.5 flex-wrap">
-                                      <span className="text-[10px] font-black text-slate-500 font-['JetBrains_Mono']">
+                                      <span className="text-[10px] font-black text-[#7fae78] font-['JetBrains_Mono']">
                                         #{index + 1} of {filteredLessons.length}
                                       </span>
                                       <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
                                         lesson.subject === 'math'
-                                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                                          : 'bg-sky-100 text-sky-900 border border-sky-300'
+                                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-700/80'
+                                          : 'bg-teal-950 text-teal-300 border border-teal-700/80'
                                       }`}>
                                         {lesson.code || lesson.subject}
                                       </span>
-                                      <span className="text-xs font-black text-slate-900 truncate">
+                                      <span className="text-xs font-black text-[#f0f8ee] truncate">
                                         {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
                                       </span>
                                     </div>
-                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-600">
+                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#8cb584]">
                                       <span className="font-semibold">
                                         Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
                                       </span>
@@ -945,24 +978,35 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                                   </div>
                                 </div>
 
-                                {/* Status or Shifted Pill */}
-                                <div className="flex items-center gap-1.5 shrink-0">
+                                {/* Status, Shift Single Button & Shifted Pill */}
+                                <div className="flex items-center gap-2 shrink-0">
+                                  {/* Quick Shift Just This Single Lesson */}
+                                  <button
+                                    type="button"
+                                    onClick={(e) => handleShiftSingleLesson(lesson.id, e)}
+                                    title="Shift this single lesson directly to target day"
+                                    className="px-2.5 py-1 rounded-lg bg-[#1f421c] hover:bg-[#2a5926] text-[#baf2b0] border border-[#397430] text-[10px] font-black transition cursor-pointer flex items-center gap-1 active:scale-95"
+                                  >
+                                    <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
+                                    <span className="hidden sm:inline">Shift Single</span>
+                                  </button>
+
                                   {isShifted ? (
                                     <div className="flex items-center gap-1">
-                                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
+                                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-600 font-['JetBrains_Mono'] flex items-center gap-1">
                                         <span>Shifted: {currentOverride}</span>
                                       </span>
                                       <button
                                         type="button"
                                         onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
                                         title="Restore back to original scheduled day"
-                                        className="p-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-bold transition cursor-pointer"
+                                        className="p-1 rounded bg-[#1f3a1b] hover:bg-[#2b4f26] text-amber-300 border border-amber-500/50 text-[10px] font-bold transition cursor-pointer"
                                       >
                                         <RotateCcw className="w-3 h-3" />
                                       </button>
                                     </div>
                                   ) : (
-                                    <span className="text-[10px] font-bold text-slate-500">
+                                    <span className="text-[10px] font-bold text-[#6f9567] hidden md:inline">
                                       Day {lesson.originalDayNumber}
                                     </span>
                                   )}
@@ -980,74 +1024,77 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             type="button"
                             onClick={handleApplyManualShift}
                             disabled={selectedLessonIds.length === 0}
-                            className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-2 border border-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed"
                           >
-                            <Zap className="w-4 h-4 text-indigo-200 fill-indigo-200" />
-                            <span>Shift Selected ({selectedLessonIds.length}) Lessons Now (Instant)</span>
+                            <Zap className="w-4 h-4 text-amber-300 fill-amber-300" />
+                            <span>
+                              Shift Selected ({selectedLessonIds.length}) Lesson{selectedLessonIds.length !== 1 ? 's' : ''} Now (Instant)
+                            </span>
                           </button>
 
                           <button
                             type="button"
                             onClick={handleResetSelected}
                             disabled={selectedLessonIds.length === 0}
-                            className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer border border-slate-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="px-3.5 py-2.5 rounded-xl bg-[#162c14] hover:bg-[#203e1c] text-[#c5e6bd] text-xs font-bold transition cursor-pointer border border-[#2d5628] active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
                           >
-                            <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+                            <RotateCcw className="w-3.5 h-3.5 text-[#8eb585]" />
                             <span>Reset Selected to Original</span>
                           </button>
 
-                          <button
-                            type="button"
-                            onClick={handleUndoClick}
-                            disabled={!undoCount || undoCount === 0}
-                            className="px-3.5 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-black transition cursor-pointer border border-amber-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
-                          >
-                            <Undo2 className="w-3.5 h-3.5 text-amber-800" />
-                            <span>Undo Last Shift ({undoCount})</span>
-                          </button>
+                          {undoCount > 0 && (
+                            <button
+                              type="button"
+                              onClick={handleUndoClick}
+                              className="px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black transition cursor-pointer border border-amber-300 active:scale-95 flex items-center justify-center gap-1.5 shadow-sm"
+                            >
+                              <Undo2 className="w-3.5 h-3.5 text-slate-950" />
+                              <span>Undo Last Shift ({undoCount})</span>
+                            </button>
+                          )}
                         </div>
 
-                        <div className="text-[11px] text-slate-600 font-medium text-right hidden sm:block">
+                        <div className="text-[11px] text-[#86af80] font-medium text-right hidden sm:block">
                           Instant update &bull; Syncs with Phase 1 &amp; Calendar
                         </div>
                       </div>
                     </>
                   )}
 
-                  {/* FEEDBACK NOTICE BANNER */}
+                  {/* FEEDBACK NOTICE BANNER (MATCHA THEMED) */}
                   <AnimatePresence>
                     {feedbackNotice && (
                       <motion.div
                         initial={{ opacity: 0, y: -6 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
-                        className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${
+                        className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs font-bold ${
                           feedbackNotice.type === 'success'
-                            ? 'bg-emerald-50 text-emerald-950 border-emerald-300 shadow-xs'
+                            ? 'bg-[#153416] text-[#c7fac1] border-[#397632] shadow-md'
                             : feedbackNotice.type === 'undo'
-                            ? 'bg-amber-50 text-amber-950 border-amber-300 shadow-xs'
+                            ? 'bg-[#332508] text-[#fde49e] border-[#8a681c] shadow-md'
                             : feedbackNotice.type === 'reset'
-                            ? 'bg-blue-50 text-blue-950 border-blue-300'
-                            : 'bg-rose-50 text-rose-950 border-rose-300'
+                            ? 'bg-[#102a33] text-[#a4eaf3] border-[#256877]'
+                            : 'bg-[#331111] text-[#fca5a5] border-[#802424]'
                         }`}
                       >
-                        <div className="flex items-center gap-2 min-w-0">
+                        <div className="flex items-center gap-2.5 min-w-0">
                           {feedbackNotice.type === 'success' ? (
-                            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                           ) : feedbackNotice.type === 'undo' ? (
-                            <Undo2 className="w-4 h-4 text-amber-600 shrink-0" />
+                            <Undo2 className="w-4 h-4 text-amber-400 shrink-0" />
                           ) : feedbackNotice.type === 'reset' ? (
-                            <RotateCcw className="w-4 h-4 text-blue-600 shrink-0" />
+                            <RotateCcw className="w-4 h-4 text-cyan-400 shrink-0" />
                           ) : (
-                            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
                           )}
-                          <span className="font-bold leading-tight">{feedbackNotice.message}</span>
+                          <span className="leading-tight">{feedbackNotice.message}</span>
                         </div>
 
                         {onNavigateToCalendar && feedbackNotice.type === 'success' && (
                           <button
                             onClick={onNavigateToCalendar}
-                            className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shrink-0 transition flex items-center gap-1 cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-black text-[11px] shrink-0 transition flex items-center gap-1 cursor-pointer border border-emerald-400 shadow-sm"
                           >
                             <span>View in Calendar</span>
                             <ChevronRight className="w-3 h-3" />
