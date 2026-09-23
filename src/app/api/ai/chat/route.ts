@@ -101,17 +101,22 @@ function findTaskInSyllabus(query: string, fromDateOrDay?: string) {
     }
   }
 
-  // 3. Fallback: match chapter numbers e.g. "chapter 5" or "ch 5"
-  const chMatch = q.match(/ch(?:apter)?\s*#?\s*(\d+)/i);
+  // 3. Fallback: match chapter numbers e.g. "chapter 5" or "ch 5" or "unit 5"
+  const chMatch = q.match(/ch(?:apter)?\s*#?\s*(\d+)/i) || q.match(/unit\s*#?\s*(\d+)/i) || q.match(/\bu(\d+)\b/i);
   if (chMatch) {
     const chNum = chMatch[1];
+    const isRw = q.includes('reading') || q.includes('writing') || q.includes('english') || q.includes('r&w');
     const targetPool = prioritizedDays.length > 0 ? prioritizedDays : allDays;
     for (const day of targetPool) {
       for (const task of day.tasks) {
+        if (task.subject === 'buffer' || task.subject === 'logistics') continue;
+        if (isRw && task.subject !== 'rw') continue;
+        if (!isRw && task.subject !== 'math') continue;
         if (
+          task.label.toLowerCase().includes(`u${chNum}`) ||
           task.label.toLowerCase().includes(`chapter ${chNum}`) ||
           task.label.toLowerCase().includes(`ch ${chNum}`) ||
-          (task.code && task.code.includes(chNum))
+          (task.code && task.code.toLowerCase().includes(`u${chNum}`))
         ) {
           return { task, day };
         }
@@ -123,24 +128,54 @@ function findTaskInSyllabus(query: string, fromDateOrDay?: string) {
 }
 
 // Helper: Search all tasks in an entire chapter or unit (e.g. Unit 5, Chapter 5, U5, etc.)
-function findTasksForChapterOrUnit(query: string) {
+function findTasksForChapterOrUnit(query: string, requestedSubject?: string) {
   const q = query.toLowerCase().trim();
   const allDays = STUDY_PLAN_WEEKS.flatMap((w) => w.days);
   const matchedTasks: { task: any; day: any }[] = [];
 
-  const unitMatch = q.match(/u(\d+)/i) || q.match(/unit\s*#?\s*(\d+)/i) || q.match(/chapter\s*#?\s*(\d+)/i) || q.match(/ch\s*#?\s*(\d+)/i);
+  const isRwExplicit =
+    requestedSubject === 'rw' ||
+    q.includes('reading') ||
+    q.includes('writing') ||
+    q.includes('r&w') ||
+    q.includes('english') ||
+    q.includes('rw');
+
+  const unitMatch =
+    q.match(/u(\d+)/i) ||
+    q.match(/unit\s*#?\s*(\d+)/i) ||
+    q.match(/chapter\s*#?\s*(\d+)/i) ||
+    q.match(/ch\s*#?\s*(\d+)/i);
+
   if (unitMatch) {
     const num = unitMatch[1];
     for (const day of allDays) {
       for (const task of day.tasks) {
-        if (
-          task.label.toLowerCase().includes(`math u${num}.`) ||
-          task.label.toLowerCase().includes(`[math u${num}`) ||
-          task.label.toLowerCase().includes(`chapter ${num}`) ||
-          (task.code && task.code.toLowerCase().includes(`u${num}`))
-        ) {
-          if (!matchedTasks.some((m) => m.task.id === task.id)) {
-            matchedTasks.push({ task, day });
+        if (task.subject === 'buffer' || task.subject === 'logistics') continue;
+
+        if (isRwExplicit) {
+          // Strictly English / Reading & Writing
+          if (
+            task.subject === 'rw' &&
+            (task.label.toLowerCase().includes(`r&w u${num}`) ||
+              task.label.toLowerCase().includes(`w u${num}`) ||
+              (task.code && task.code.toLowerCase().includes(`u${num}`)))
+          ) {
+            if (!matchedTasks.some((m) => m.task.id === task.id)) {
+              matchedTasks.push({ task, day });
+            }
+          }
+        } else {
+          // Strictly Math (Default for Chapters 3-13)
+          if (
+            task.subject === 'math' &&
+            (task.label.toLowerCase().includes(`math u${num}`) ||
+              task.label.toLowerCase().includes(`[math u${num}`) ||
+              (task.code && task.code.toLowerCase().includes(`math u${num}`)))
+          ) {
+            if (!matchedTasks.some((m) => m.task.id === task.id)) {
+              matchedTasks.push({ task, day });
+            }
           }
         }
       }
@@ -151,6 +186,10 @@ function findTasksForChapterOrUnit(query: string) {
   if (matchedTasks.length === 0) {
     for (const day of allDays) {
       for (const task of day.tasks) {
+        if (task.subject === 'buffer' || task.subject === 'logistics') continue;
+        if (isRwExplicit && task.subject !== 'rw') continue;
+        if (!isRwExplicit && q.includes('math') && task.subject !== 'math') continue;
+
         if (
           task.label.toLowerCase().includes(q) ||
           (task.topic && task.topic.toLowerCase().includes(q))
@@ -320,6 +359,10 @@ Whenever the student tells you about a mistake they made (e.g. "I missed Q14 on 
                 type: Type.STRING,
                 description: 'The target date or day of the week to move the lesson to (e.g., "Sunday", "2026-09-27")',
               },
+              subject: {
+                type: Type.STRING,
+                description: 'Subject domain: "math" or "rw" (defaults to "math" for SAT Math chapters unless English/Reading/Writing is specified)',
+              },
               reason: {
                 type: Type.STRING,
                 description: 'Optional student reason for shifting',
@@ -392,7 +435,7 @@ Whenever the student tells you about a mistake they made (e.g. "I missed Q14 on 
           const resolvedDate = resolveTargetDate(targetParam, currentDateStr);
 
           // Check if user requested an entire chapter / unit (e.g. Chapter 5, Unit 5, Geometry, etc.)
-          const chapterTasks = findTasksForChapterOrUnit(topic);
+          const chapterTasks = findTasksForChapterOrUnit(topic, args.subject);
 
           if (chapterTasks.length > 1) {
             // Batch shift entire chapter across all its lessons!

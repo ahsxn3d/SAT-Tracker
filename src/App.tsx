@@ -66,6 +66,7 @@ const STORAGE_KEYS = {
   SESSION_TIMINGS: 'anti_burnout_session_timings_clean_v3',
   TASK_COMPLETION_DAYS: 'anti_burnout_task_completion_days_v3',
   TASK_SCHEDULE_OVERRIDES: 'anti_burnout_task_schedule_overrides_v1',
+  TASK_OVERRIDES_UNDO_STACK: 'anti_burnout_task_overrides_undo_stack_v1',
   TASK_TIMINGS: 'anti_burnout_task_timings_clean_v3',
   STUCK_CONCEPTS: 'anti_burnout_stuck_concepts_v1',
 };
@@ -94,6 +95,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [completedTaskIds, setCompletedTaskIds] = useState<Record<string, boolean>>({});
   const [taskCompletionDay, setTaskCompletionDay] = useState<Record<string, string>>({});
   const [taskScheduleOverrides, setTaskScheduleOverrides] = useState<Record<string, string>>({});
+  const [undoStack, setUndoStack] = useState<Record<string, string>[]>([]);
   const [errorLogs, setErrorLogs] = useState<ErrorLogEntry[]>([]);
   const [packingList, setPackingList] = useState<PackingItem[]>(() => mergePackingListWithDefaults(INITIAL_PACKING_LIST));
   const [dayNotes, setDayNotes] = useState<Record<string, string>>({});
@@ -101,6 +103,35 @@ export default function App({ initialSection = 'all' }: AppProps) {
   const [taskTimings, setTaskTimings] = useState<Record<string, TaskTimingRecord>>({});
   const [stuckConcepts, setStuckConcepts] = useState<StuckConceptRecord[]>([]);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
+
+  // Push snapshot to undo stack (up to 25 historical snapshots)
+  const pushUndoSnapshot = (snapshot: Record<string, string>) => {
+    setUndoStack((prev) => {
+      const next = [...prev, snapshot].slice(-25);
+      try {
+        localStorage.setItem(STORAGE_KEYS.TASK_OVERRIDES_UNDO_STACK, JSON.stringify(next));
+      } catch (e) {}
+      return next;
+    });
+  };
+
+  // Step-by-step undo handler
+  const handleUndoShift = () => {
+    setUndoStack((prev) => {
+      if (prev.length === 0) return prev;
+      const lastSnapshot = prev[prev.length - 1];
+      const newStack = prev.slice(0, -1);
+      
+      setTaskScheduleOverrides(lastSnapshot);
+      try {
+        localStorage.setItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES, JSON.stringify(lastSnapshot));
+        localStorage.setItem(STORAGE_KEYS.TASK_OVERRIDES_UNDO_STACK, JSON.stringify(newStack));
+      } catch (e) {}
+      syncToCloud(completedTaskIds, dayNotes, errorLogs, sessionTimings, packingList, taskCompletionDay, stuckConcepts, lastSnapshot);
+      
+      return newStack;
+    });
+  };
 
   // Load saved data from localStorage after client mounts to avoid hydration mismatch
   useEffect(() => {
@@ -113,6 +144,13 @@ export default function App({ initialSection = 'all' }: AppProps) {
 
       const savedOverrides = localStorage.getItem(STORAGE_KEYS.TASK_SCHEDULE_OVERRIDES);
       if (savedOverrides) setTaskScheduleOverrides(JSON.parse(savedOverrides));
+
+      const savedUndo = localStorage.getItem(STORAGE_KEYS.TASK_OVERRIDES_UNDO_STACK);
+      if (savedUndo) {
+        try {
+          setUndoStack(JSON.parse(savedUndo));
+        } catch (e) {}
+      }
 
       const savedLogs = localStorage.getItem(STORAGE_KEYS.ERROR_LOG);
       if (savedLogs) setErrorLogs(JSON.parse(savedLogs));
@@ -1226,8 +1264,11 @@ export default function App({ initialSection = 'all' }: AppProps) {
               <AICopilotSection
                 currentDateStr={currentTrackerDate}
                 taskScheduleOverrides={taskScheduleOverrides}
+                undoCount={undoStack.length}
+                onUndo={handleUndoShift}
                 onTaskShifted={(taskId, targetDate) => {
                   setTaskScheduleOverrides((prev) => {
+                    pushUndoSnapshot(prev);
                     const next = { ...prev };
                     if (!targetDate || targetDate === '__RESET__') {
                       delete next[taskId];
@@ -1241,6 +1282,7 @@ export default function App({ initialSection = 'all' }: AppProps) {
                 }}
                 onBatchTaskShifted={(batch) => {
                   setTaskScheduleOverrides((prev) => {
+                    pushUndoSnapshot(prev);
                     const next = { ...prev };
                     Object.entries(batch).forEach(([k, v]) => {
                       if (!v || v === '__RESET__') {

@@ -35,6 +35,8 @@ import { STUDY_PLAN_WEEKS } from '../data/studyPlan';
 interface AICopilotSectionProps {
   currentDateStr?: string;
   taskScheduleOverrides?: Record<string, string>;
+  undoCount?: number;
+  onUndo?: () => void;
   onTaskShifted?: (taskId: string, targetDate: string) => void;
   onBatchTaskShifted?: (batch: Record<string, string>) => void;
   onErrorLogged?: (error: ErrorLogEntry) => void;
@@ -197,6 +199,8 @@ const AI_MODES: {
 export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   currentDateStr = '2026-09-22',
   taskScheduleOverrides = {},
+  undoCount = 0,
+  onUndo,
   onTaskShifted,
   onBatchTaskShifted,
   onErrorLogged,
@@ -213,13 +217,16 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   // Manual Lesson & Chapter Shift Studio State
-  const [selectedUnit, setSelectedUnit] = useState<string>('MATH_U5');
+  // Subject Filter: 'math' or 'rw' - separate tabs so they never collide!
+  const [selectedSubject, setSelectedSubject] = useState<'math' | 'rw'>('math');
+  // Clean initial state (NO dummy prefilled chapter)
+  const [selectedUnit, setSelectedUnit] = useState<string>('');
   const [selectedLessonIds, setSelectedLessonIds] = useState<string[]>([]);
   const [selectedDestination, setSelectedDestination] = useState<string>('2026-09-27');
   const [customDestinationDate, setCustomDestinationDate] = useState<string>('2026-09-27');
   const [lessonSearchQuery, setLessonSearchQuery] = useState<string>('');
   const [feedbackNotice, setFeedbackNotice] = useState<{
-    type: 'success' | 'reset' | 'error';
+    type: 'success' | 'reset' | 'error' | 'undo';
     message: string;
   } | null>(null);
 
@@ -227,6 +234,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Extract all 145 curriculum lessons dynamically from STUDY_PLAN_WEEKS
+  // Strict Subject Isolation: Math is ONLY MATH_U*, RW is ONLY RW_U*
   const allSyllabusLessons = useMemo(() => {
     const list: SyllabusLesson[] = [];
     STUDY_PLAN_WEEKS.forEach((week) => {
@@ -238,9 +246,9 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
           const mathMatch = t.label.match(/\[MATH\s+U(\d+)/i) || (t.code && t.code.match(/Math\s+U(\d+)/i));
           const rwMatch = t.label.match(/\[(?:R&W|W)\s+U(\d+)/i) || (t.code && t.code.match(/(?:R&W|W)\s+U(\d+)/i));
 
-          if (mathMatch) {
+          if (t.subject === 'math' && mathMatch) {
             unitKey = `MATH_U${mathMatch[1]}`;
-          } else if (rwMatch) {
+          } else if (t.subject === 'rw' && rwMatch) {
             unitKey = `RW_U${rwMatch[1]}`;
           }
 
@@ -262,11 +270,20 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     return list;
   }, []);
 
+  // Available units filtered by active subject
+  const availableUnits = useMemo(() => {
+    if (selectedSubject === 'math') {
+      return UNIT_OPTIONS.filter((u) => u.category === 'Math Chapters');
+    } else {
+      return UNIT_OPTIONS.filter((u) => u.category === 'Reading & Writing Units');
+    }
+  }, [selectedSubject]);
+
   // Filter lessons for selected unit and search query
   const filteredLessons = useMemo(() => {
+    if (!selectedUnit) return [];
     return allSyllabusLessons.filter((lesson) => {
-      const matchesUnit = selectedUnit === 'ALL' || lesson.unitKey === selectedUnit;
-      if (!matchesUnit) return false;
+      if (lesson.unitKey !== selectedUnit) return false;
       if (!lessonSearchQuery.trim()) return true;
       const q = lessonSearchQuery.toLowerCase();
       return (
@@ -278,16 +295,26 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     });
   }, [allSyllabusLessons, selectedUnit, lessonSearchQuery]);
 
-  // Auto-select all lessons of the unit when unit changes
-  useEffect(() => {
-    if (selectedUnit !== 'ALL') {
-      const unitLessons = allSyllabusLessons.filter((l) => l.unitKey === selectedUnit);
-      setSelectedLessonIds(unitLessons.map((l) => l.id));
-    } else {
+  // Handle switching between Math and Reading & Writing
+  const handleSubjectChange = (subj: 'math' | 'rw') => {
+    setSelectedSubject(subj);
+    setSelectedUnit('');
+    setSelectedLessonIds([]);
+    setLessonSearchQuery('');
+    setFeedbackNotice(null);
+  };
+
+  // Handle selecting a unit / chapter
+  const handleUnitChange = (unitId: string) => {
+    setSelectedUnit(unitId);
+    if (!unitId) {
       setSelectedLessonIds([]);
+    } else {
+      const unitLessons = allSyllabusLessons.filter((l) => l.unitKey === unitId);
+      setSelectedLessonIds(unitLessons.map((l) => l.id));
     }
     setFeedbackNotice(null);
-  }, [selectedUnit, allSyllabusLessons]);
+  };
 
   // Toggle single lesson checkbox
   const handleToggleLesson = (id: string) => {
@@ -302,6 +329,17 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   };
   const handleDeselectAll = () => {
     setSelectedLessonIds([]);
+  };
+
+  // Step-by-Step Undo Last Shift
+  const handleUndoClick = () => {
+    if (onUndo && undoCount > 0) {
+      onUndo();
+      setFeedbackNotice({
+        type: 'undo',
+        message: `↩ Successfully reverted your last shift action! (${undoCount - 1} undo step${undoCount - 1 !== 1 ? 's' : ''} remaining)`
+      });
+    }
   };
 
   // Instant Manual Batch Shift Execution (NO AI LATENCY)
@@ -626,13 +664,13 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                 className="pt-4 border-t border-[#a6c4a1]/50 mt-3 space-y-4 overflow-hidden"
               >
                 {/* Header title */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 bg-gradient-to-r from-indigo-50 to-emerald-50/50 p-3 rounded-2xl border border-indigo-200 shadow-xs">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-gradient-to-r from-indigo-50/90 via-emerald-50/40 to-indigo-50/80 p-3.5 rounded-2xl border border-indigo-200 shadow-xs">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow-xs shrink-0">
                       <Zap className="w-4 h-4 fill-white" />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-xs sm:text-sm font-black text-indigo-950 font-luxury">
                           Manual Lesson &amp; Chapter Shift Studio
                         </span>
@@ -641,53 +679,102 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-700 font-medium">
-                        Select any unit or chapter, choose individual lessons via checkboxes, and shift them to Sunday or any day with 1 click.
+                        Choose a chapter, check individual lessons, and shift them to any Sunday or buffer day with 1 click.
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1.5 self-end sm:self-center">
-                    <span className="text-[11px] font-black font-['JetBrains_Mono'] text-indigo-900 bg-indigo-100 px-2.5 py-1 rounded-xl border border-indigo-300">
-                      {selectedLessonIds.length} of {filteredLessons.length} selected
-                    </span>
+                  <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleUndoClick}
+                      disabled={!undoCount || undoCount === 0}
+                      title={undoCount > 0 ? `Undo last shift (${undoCount} step${undoCount > 1 ? 's' : ''} stored in history)` : 'No shifts to undo'}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer ${
+                        undoCount > 0
+                          ? 'bg-amber-400 hover:bg-amber-500 text-slate-950 shadow-sm active:scale-95 border border-amber-500 ring-2 ring-amber-300/60'
+                          : 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60'
+                      }`}
+                    >
+                      <Undo2 className="w-3.5 h-3.5" />
+                      <span>Undo ({undoCount})</span>
+                    </button>
+
+                    {selectedUnit && (
+                      <span className="text-[11px] font-black font-['JetBrains_Mono'] text-indigo-900 bg-indigo-100 px-2.5 py-1.5 rounded-xl border border-indigo-300">
+                        {selectedLessonIds.length} of {filteredLessons.length} selected
+                      </span>
+                    )}
                   </div>
                 </div>
 
-                {/* Top Control Bar: Unit Selector + Destination Selector (+ Custom Date Picker) */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-indigo-300 shadow-xs space-y-3">
+                {/* Top Control Bar: Subject Tabs + Selectors */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-white border-2 border-indigo-200 shadow-xs space-y-3.5">
+                  {/* SUBJECT SELECTION TABS: MATH VS READING & WRITING */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-3 border-b border-indigo-100">
+                    <div className="flex items-center gap-2 p-1 bg-slate-100/90 rounded-xl border border-slate-200">
+                      <button
+                        type="button"
+                        onClick={() => handleSubjectChange('math')}
+                        className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
+                          selectedSubject === 'math'
+                            ? 'bg-emerald-600 text-white shadow-xs'
+                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/60'
+                        }`}
+                      >
+                        <span>📐 SAT Math Chapters</span>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
+                          selectedSubject === 'math' ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-700'
+                        }`}>
+                          11 Chapters
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleSubjectChange('rw')}
+                        className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
+                          selectedSubject === 'rw'
+                            ? 'bg-sky-600 text-white shadow-xs'
+                            : 'text-slate-600 hover:text-slate-950 hover:bg-slate-200/60'
+                        }`}
+                      >
+                        <span>📖 Reading &amp; Writing Units</span>
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded font-['JetBrains_Mono'] ${
+                          selectedSubject === 'rw' ? 'bg-sky-700 text-white' : 'bg-slate-200 text-slate-700'
+                        }`}>
+                          10 Units
+                        </span>
+                      </button>
+                    </div>
+
+                    <div className="text-[11px] font-bold text-slate-500 flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${selectedSubject === 'math' ? 'bg-emerald-500' : 'bg-sky-500'}`} />
+                      <span>{selectedSubject === 'math' ? 'Math Chapters strictly isolated (Never shifts English)' : 'Reading & Writing isolated (Never shifts Math)'}</span>
+                    </div>
+                  </div>
+
+                  {/* DROPDOWN SELECTORS ROW */}
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                    {/* Chapter / Unit Dropdown with Optgroups */}
-                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1' : 'md:col-span-6 space-y-1'}>
+                    {/* Chapter / Unit Dropdown */}
+                    <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1' : 'md:col-span-6 space-y-1'}>
                       <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
                         <BookOpen className="w-3 h-3 text-indigo-700" />
-                        <span>Select Chapter / Unit:</span>
+                        <span>Select {selectedSubject === 'math' ? 'Math Chapter' : 'Reading & Writing Unit'}:</span>
                       </label>
                       <select
                         value={selectedUnit}
-                        onChange={(e) => setSelectedUnit(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-indigo-50/50 hover:bg-indigo-50 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
+                        onChange={(e) => handleUnitChange(e.target.value)}
+                        className="w-full px-3 py-2.5 rounded-xl bg-indigo-50/40 hover:bg-indigo-50/80 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
                       >
-                        <optgroup label="SAT Math Chapters">
-                          {UNIT_OPTIONS.filter((u) => u.category === 'Math Chapters').map((opt) => (
-                            <option key={opt.id} value={opt.id}>
-                              {opt.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Reading & Writing Units">
-                          {UNIT_OPTIONS.filter((u) => u.category === 'Reading & Writing Units').map((opt) => (
-                            <option key={opt.id} value={opt.id}>
-                              {opt.label}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label="Entire Syllabus">
-                          {UNIT_OPTIONS.filter((u) => u.category === 'All Lessons').map((opt) => (
-                            <option key={opt.id} value={opt.id}>
-                              {opt.label}
-                            </option>
-                          ))}
-                        </optgroup>
+                        <option value="">
+                          — Select a {selectedSubject === 'math' ? 'Math Chapter (e.g. Chapter 5: Geometry & Trig)' : 'R&W Unit (e.g. Unit 5: Inferences)'} —
+                        </option>
+                        {availableUnits.map((opt) => (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -695,12 +782,12 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                     <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1' : 'md:col-span-6 space-y-1'}>
                       <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
                         <Calendar className="w-3 h-3 text-indigo-700" />
-                        <span>Shift Destination:</span>
+                        <span>Shift Destination (Target Buffer Day):</span>
                       </label>
                       <select
                         value={selectedDestination}
                         onChange={(e) => setSelectedDestination(e.target.value)}
-                        className="w-full px-3 py-2 rounded-xl bg-indigo-50/50 hover:bg-indigo-50 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
+                        className="w-full px-3 py-2.5 rounded-xl bg-indigo-50/40 hover:bg-indigo-50/80 border-2 border-indigo-200 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer transition"
                       >
                         <optgroup label="Sundays / Buffer Days (Recommended)">
                           {DESTINATION_OPTIONS.filter((d) => d.group === 'Sundays / Buffer Days').map((dest) => (
@@ -733,9 +820,9 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                       </select>
                     </div>
 
-                    {/* Optional Custom Date Picker */}
+                    {/* Custom Date Picker */}
                     {selectedDestination === 'custom' && (
-                      <div className="md:col-span-4 space-y-1">
+                      <div className="md:col-span-3 space-y-1">
                         <label className="text-[10px] font-black uppercase text-indigo-950 tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
                           <Clock className="w-3 h-3 text-indigo-700" />
                           <span>Choose Exact Date:</span>
@@ -744,153 +831,188 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                           type="date"
                           value={customDestinationDate}
                           onChange={(e) => setCustomDestinationDate(e.target.value)}
-                          className="w-full px-3 py-1.5 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
+                          className="w-full px-3 py-2 rounded-xl bg-white border-2 border-indigo-300 text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow-xs cursor-pointer"
                         />
                       </div>
                     )}
                   </div>
 
-                  {/* SELECTABLE LESSONS LIST HEADER */}
-                  <div className="pt-2 border-t border-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[11px] font-black text-slate-900 uppercase font-['JetBrains_Mono'] flex items-center gap-1">
-                        <CheckSquare className="w-3.5 h-3.5 text-indigo-600" />
-                        <span>Select Lessons to Shift:</span>
-                      </span>
-                      <button
-                        onClick={handleSelectAll}
-                        className="px-2.5 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-900 text-[10px] font-black transition cursor-pointer border border-indigo-300 active:scale-95"
-                      >
-                        Select All ({filteredLessons.length})
-                      </button>
-                      <button
-                        onClick={handleDeselectAll}
-                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition cursor-pointer border border-slate-300 active:scale-95"
-                      >
-                        Deselect All
-                      </button>
-                    </div>
-
-                    {/* Quick search input */}
-                    <div className="relative min-w-[200px]">
-                      <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        placeholder="Search lesson in this unit..."
-                        value={lessonSearchQuery}
-                        onChange={(e) => setLessonSearchQuery(e.target.value)}
-                        className="w-full pl-7 pr-2.5 py-1 rounded-lg bg-white border border-slate-300 text-[11px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600"
-                      />
-                    </div>
-                  </div>
-
-                  {/* LESSON CHECKBOX ITEMS CONTAINER */}
-                  <div className="max-h-[260px] overflow-y-auto pr-1 space-y-1.5 custom-scrollbar border rounded-xl p-2 bg-slate-50/70 border-indigo-100">
-                    {filteredLessons.length === 0 ? (
-                      <div className="p-4 text-center text-xs text-slate-500 font-medium">
-                        No lessons match your search criteria.
+                  {/* LESSONS DISPLAY: EMPTY STATE OR LIST */}
+                  {!selectedUnit ? (
+                    <div className="p-8 text-center rounded-2xl bg-indigo-50/40 border-2 border-dashed border-indigo-200/80 space-y-2">
+                      <div className="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center mx-auto">
+                        <BookOpen className="w-5 h-5" />
                       </div>
-                    ) : (
-                      filteredLessons.map((lesson) => {
-                        const isSelected = selectedLessonIds.includes(lesson.id);
-                        const currentOverride = taskScheduleOverrides[lesson.id];
-                        const isShifted = !!currentOverride && currentOverride !== lesson.originalDateStr;
-
-                        return (
-                          <div
-                            key={lesson.id}
-                            onClick={() => handleToggleLesson(lesson.id)}
-                            className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
-                              isSelected
-                                ? 'bg-indigo-50/90 border-indigo-400 shadow-xs'
-                                : 'bg-white hover:bg-slate-100/70 border-slate-200'
-                            }`}
+                      <div className="text-sm font-black text-indigo-950">
+                        No Chapter Selected (Zero Dummy Data)
+                      </div>
+                      <p className="text-xs text-slate-600 max-w-md mx-auto">
+                        Please choose a {selectedSubject === 'math' ? 'Math Chapter' : 'Reading & Writing Unit'} from the dropdown above to view and shift all its individual lessons.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Header for lessons list */}
+                      <div className="pt-2 border-t border-indigo-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-[11px] font-black text-slate-900 uppercase font-['JetBrains_Mono'] flex items-center gap-1">
+                            <CheckSquare className="w-3.5 h-3.5 text-indigo-600" />
+                            <span>Select Lessons to Shift ({filteredLessons.length} Total):</span>
+                          </span>
+                          <button
+                            type="button"
+                            onClick={handleSelectAll}
+                            className="px-2.5 py-1 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-900 text-[10px] font-black transition cursor-pointer border border-indigo-300 active:scale-95"
                           >
-                            <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                              <input
-                                type="checkbox"
-                                checked={isSelected}
-                                onChange={() => handleToggleLesson(lesson.id)}
-                                onClick={(e) => e.stopPropagation()}
-                                className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer shrink-0"
-                              />
+                            Select All ({filteredLessons.length})
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleDeselectAll}
+                            className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[10px] font-bold transition cursor-pointer border border-slate-300 active:scale-95"
+                          >
+                            Deselect All
+                          </button>
+                        </div>
 
-                              <div className="min-w-0 flex-1">
-                                <div className="flex items-center gap-1.5 flex-wrap">
-                                  <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
-                                    lesson.subject === 'math'
-                                      ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                                      : 'bg-sky-100 text-sky-900 border border-sky-300'
-                                  }`}>
-                                    {lesson.code || lesson.subject}
-                                  </span>
-                                  <span className="text-xs font-black text-slate-900 truncate">
-                                    {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
-                                  </span>
+                        {/* Quick search input */}
+                        <div className="relative min-w-[200px]">
+                          <Search className="w-3 h-3 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            placeholder="Search within this chapter..."
+                            value={lessonSearchQuery}
+                            onChange={(e) => setLessonSearchQuery(e.target.value)}
+                            className="w-full pl-7 pr-2.5 py-1 rounded-lg bg-white border border-slate-300 text-[11px] font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-indigo-600"
+                          />
+                        </div>
+                      </div>
+
+                      {/* LESSON CHECKBOX ITEMS CONTAINER (ENLARGED TO SHOW ALL 6 LESSONS CLEARLY) */}
+                      <div className="max-h-[380px] overflow-y-auto pr-1 space-y-1.5 custom-scrollbar border rounded-xl p-2 bg-slate-50/70 border-indigo-100">
+                        {filteredLessons.length === 0 ? (
+                          <div className="p-4 text-center text-xs text-slate-500 font-medium">
+                            No lessons match your search criteria.
+                          </div>
+                        ) : (
+                          filteredLessons.map((lesson, index) => {
+                            const isSelected = selectedLessonIds.includes(lesson.id);
+                            const currentOverride = taskScheduleOverrides[lesson.id];
+                            const isShifted = !!currentOverride && currentOverride !== lesson.originalDateStr;
+
+                            return (
+                              <div
+                                key={lesson.id}
+                                onClick={() => handleToggleLesson(lesson.id)}
+                                className={`p-2.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
+                                  isSelected
+                                    ? 'bg-indigo-50/90 border-indigo-400 shadow-xs'
+                                    : 'bg-white hover:bg-slate-100/70 border-slate-200'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                  <input
+                                    type="checkbox"
+                                    checked={isSelected}
+                                    onChange={() => handleToggleLesson(lesson.id)}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer shrink-0"
+                                  />
+
+                                  <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="text-[10px] font-black text-slate-500 font-['JetBrains_Mono']">
+                                        #{index + 1} of {filteredLessons.length}
+                                      </span>
+                                      <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
+                                        lesson.subject === 'math'
+                                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                                          : 'bg-sky-100 text-sky-900 border border-sky-300'
+                                      }`}>
+                                        {lesson.code || lesson.subject}
+                                      </span>
+                                      <span className="text-xs font-black text-slate-900 truncate">
+                                        {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-600">
+                                      <span className="font-semibold">
+                                        Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
+                                      </span>
+                                      <span>&bull;</span>
+                                      <span>{lesson.durationMinutes} min</span>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-600">
-                                  <span className="font-semibold">
-                                    Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
-                                  </span>
-                                  <span>&bull;</span>
-                                  <span>{lesson.durationMinutes} min</span>
+
+                                {/* Status or Shifted Pill */}
+                                <div className="flex items-center gap-1.5 shrink-0">
+                                  {isShifted ? (
+                                    <div className="flex items-center gap-1">
+                                      <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
+                                        <span>Shifted: {currentOverride}</span>
+                                      </span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
+                                        title="Restore back to original scheduled day"
+                                        className="p-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-bold transition cursor-pointer"
+                                      >
+                                        <RotateCcw className="w-3 h-3" />
+                                      </button>
+                                    </div>
+                                  ) : (
+                                    <span className="text-[10px] font-bold text-slate-500">
+                                      Day {lesson.originalDayNumber}
+                                    </span>
+                                  )}
                                 </div>
                               </div>
-                            </div>
+                            );
+                          })
+                        )}
+                      </div>
 
-                            {/* Status or Shifted Pill */}
-                            <div className="flex items-center gap-1.5 shrink-0">
-                              {isShifted ? (
-                                <div className="flex items-center gap-1">
-                                  <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
-                                    <span>Shifted: {currentOverride}</span>
-                                  </span>
-                                  <button
-                                    onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
-                                    title="Restore back to original scheduled day"
-                                    className="p-1 rounded bg-slate-200 hover:bg-slate-300 text-slate-700 text-[10px] font-bold transition cursor-pointer"
-                                  >
-                                    <RotateCcw className="w-3 h-3" />
-                                  </button>
-                                </div>
-                              ) : (
-                                <span className="text-[10px] font-bold text-slate-500">
-                                  Day {lesson.originalDayNumber}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })
-                    )}
-                  </div>
+                      {/* ACTION BUTTONS ROW */}
+                      <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <button
+                            type="button"
+                            onClick={handleApplyManualShift}
+                            disabled={selectedLessonIds.length === 0}
+                            className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <Zap className="w-4 h-4 text-indigo-200 fill-indigo-200" />
+                            <span>Shift Selected ({selectedLessonIds.length}) Lessons Now (Instant)</span>
+                          </button>
 
-                  {/* ACTION BUTTONS ROW */}
-                  <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <button
-                        onClick={handleApplyManualShift}
-                        disabled={selectedLessonIds.length === 0}
-                        className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <Zap className="w-4 h-4 text-indigo-200 fill-indigo-200" />
-                        <span>Shift Selected ({selectedLessonIds.length}) Lessons Now (Instant)</span>
-                      </button>
+                          <button
+                            type="button"
+                            onClick={handleResetSelected}
+                            disabled={selectedLessonIds.length === 0}
+                            className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer border border-slate-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
+                            <span>Reset Selected to Original</span>
+                          </button>
 
-                      <button
-                        onClick={handleResetSelected}
-                        disabled={selectedLessonIds.length === 0}
-                        className="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer border border-slate-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5 text-slate-600" />
-                        <span>Reset Selected to Original</span>
-                      </button>
-                    </div>
+                          <button
+                            type="button"
+                            onClick={handleUndoClick}
+                            disabled={!undoCount || undoCount === 0}
+                            className="px-3.5 py-2.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-black transition cursor-pointer border border-amber-300 active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+                          >
+                            <Undo2 className="w-3.5 h-3.5 text-amber-800" />
+                            <span>Undo Last Shift ({undoCount})</span>
+                          </button>
+                        </div>
 
-                    <div className="text-[11px] text-slate-600 font-medium text-right hidden sm:block">
-                      Instant update &bull; Syncs with Phase 1 &amp; Calendar
-                    </div>
-                  </div>
+                        <div className="text-[11px] text-slate-600 font-medium text-right hidden sm:block">
+                          Instant update &bull; Syncs with Phase 1 &amp; Calendar
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   {/* FEEDBACK NOTICE BANNER */}
                   <AnimatePresence>
@@ -902,16 +1024,20 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         className={`p-3 rounded-xl border flex items-center justify-between gap-3 text-xs ${
                           feedbackNotice.type === 'success'
                             ? 'bg-emerald-50 text-emerald-950 border-emerald-300 shadow-xs'
+                            : feedbackNotice.type === 'undo'
+                            ? 'bg-amber-50 text-amber-950 border-amber-300 shadow-xs'
                             : feedbackNotice.type === 'reset'
-                            ? 'bg-amber-50 text-amber-950 border-amber-300'
+                            ? 'bg-blue-50 text-blue-950 border-blue-300'
                             : 'bg-rose-50 text-rose-950 border-rose-300'
                         }`}
                       >
                         <div className="flex items-center gap-2 min-w-0">
                           {feedbackNotice.type === 'success' ? (
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                          ) : feedbackNotice.type === 'undo' ? (
+                            <Undo2 className="w-4 h-4 text-amber-600 shrink-0" />
                           ) : feedbackNotice.type === 'reset' ? (
-                            <RotateCcw className="w-4 h-4 text-amber-600 shrink-0" />
+                            <RotateCcw className="w-4 h-4 text-blue-600 shrink-0" />
                           ) : (
                             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
                           )}
