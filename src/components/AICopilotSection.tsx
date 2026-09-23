@@ -632,7 +632,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   return (
     <div className="w-full space-y-5">
       {/* TOP CO-PILOT BANNER */}
-      <div className="ios-glass-card rounded-3xl p-5 sm:p-6 border-2 border-[#a6c4a1] shadow-grave-card relative overflow-hidden">
+      <div className="ios-glass-card rounded-3xl p-5 sm:p-6 border-2 border-[#a6c4a1] shadow-grave-card relative overflow-visible">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-12 h-12 rounded-2xl bg-[#1a3717] text-white flex items-center justify-center shadow-md border border-[#8ec284] shrink-0">
@@ -715,24 +715,24 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.22 }}
-                className="pt-4 border-t border-[#2d5227]/60 mt-3 space-y-4"
+                className="pt-4 border-t border-[#a6c4a1]/60 mt-3 space-y-4 overflow-visible"
               >
-                {/* Header title */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-gradient-to-r from-[#142912] via-[#1a3818] to-[#122410] border-2 border-[#2b5124] rounded-2xl p-3.5 sm:p-4 shadow-lg">
+                {/* Header title banner */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-gradient-to-r from-[#e8f3e5] via-[#f2faf0] to-[#e4f1e1] border-2 border-[#a6c4a1] rounded-2xl p-3.5 sm:p-4 shadow-grave-card">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md border border-emerald-400 shrink-0">
-                      <Zap className="w-4 h-4 fill-white" />
+                    <div className="w-9 h-9 rounded-xl bg-[#1a3717] text-white flex items-center justify-center shadow-md border border-[#3c7835] shrink-0">
+                      <Zap className="w-4 h-4 fill-emerald-300 text-emerald-300" />
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xs sm:text-sm font-black text-[#f0f8ee] font-luxury">
+                        <span className="text-xs sm:text-sm font-black text-[#122810] font-luxury">
                           Manual Lesson &amp; Chapter Shift Studio
                         </span>
-                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-['JetBrains_Mono']">
+                        <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-['JetBrains_Mono']">
                           Instant Manual Sync
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#a5cca0] font-medium">
+                      <p className="text-[11px] text-[#2f552a] font-medium">
                         Choose a chapter, check single or multiple lessons, and shift them to any Sunday or buffer day with 1 click.
                       </p>
                     </div>
@@ -744,7 +744,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         type="button"
                         onClick={handleUndoClick}
                         title={`Undo last shift (${undoCount} step${undoCount > 1 ? 's' : ''} stored in history)`}
-                        className="px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md active:scale-95 border border-amber-300 ring-2 ring-amber-300/60"
+                        className="px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all cursor-pointer bg-amber-400 hover:bg-amber-300 text-slate-950 shadow-md active:scale-95 border border-amber-400 ring-2 ring-amber-300/60"
                       >
                         <Undo2 className="w-3.5 h-3.5" />
                         <span>Undo ({undoCount})</span>
@@ -754,7 +754,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         type="button"
                         disabled
                         title="No shifts to undo in this session"
-                        className="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-not-allowed bg-[#182e16]/60 text-emerald-300/40 border border-[#234220] opacity-50"
+                        className="px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-not-allowed bg-[#dce9d8] text-[#6d8a69] border border-[#bfd7bc] opacity-60"
                       >
                         <Undo2 className="w-3.5 h-3.5" />
                         <span>Undo</span>
@@ -762,30 +762,30 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                     )}
 
                     {selectedUnit && (
-                      <span className="text-[11px] font-black font-['JetBrains_Mono'] text-[#baf2b0] bg-[#1a3617] px-2.5 py-1.5 rounded-xl border border-[#2d5c28]">
+                      <span className="text-[11px] font-black font-['JetBrains_Mono'] text-[#1a3717] bg-white/90 px-2.5 py-1.5 rounded-xl border border-[#a6c4a1] shadow-xs">
                         {selectedLessonIds.length} of {filteredLessons.length} selected
                       </span>
                     )}
                   </div>
                 </div>
 
-                {/* Top Control Bar: Subject Tabs + MatchaSelect Dropdowns */}
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-[#122411]/95 border-2 border-[#264a20] shadow-lg space-y-4">
+                {/* Top Control Bar: Subject Tabs + Quick Unit Pills + MatchaSelect Dropdowns */}
+                <div className="p-3.5 sm:p-4 rounded-2xl bg-[#eef7ec]/95 border-2 border-[#a6c4a1] shadow-grave-card space-y-4 overflow-visible">
                   {/* SUBJECT SELECTION TABS: MATH (13 UNITS) VS READING & WRITING (12 UNITS) */}
-                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-3 border-b border-[#23451e]">
-                    <div className="flex items-center gap-2 p-1.5 bg-[#0e1d0d] rounded-xl border border-[#234220]">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pb-3 border-b border-[#a6c4a1]/50">
+                    <div className="flex items-center gap-2 p-1.5 bg-[#dbe8d8] rounded-xl border border-[#a6c4a1]">
                       <button
                         type="button"
                         onClick={() => handleSubjectChange('math')}
                         className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                           selectedSubject === 'math'
-                            ? 'bg-[#245420] text-[#c2f7b8] border border-[#479639] shadow-sm'
-                            : 'text-[#82aa7b] hover:text-[#d4edd0] hover:bg-[#183116]'
+                            ? 'bg-[#1a3717] text-white shadow-sm border border-[#2b5825]'
+                            : 'text-[#2a5025] hover:text-[#122810] hover:bg-[#cfe0cc]'
                         }`}
                       >
                         <span>📐 SAT Math Chapters</span>
                         <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
-                          selectedSubject === 'math' ? 'bg-[#316a2b] text-[#e8fae6]' : 'bg-[#152a13] text-[#789d72]'
+                          selectedSubject === 'math' ? 'bg-[#2b5825] text-[#c9f6c2]' : 'bg-white/60 text-[#2a5025]'
                         }`}>
                           Units 1 – 13 (Math)
                         </span>
@@ -796,31 +796,68 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         onClick={() => handleSubjectChange('rw')}
                         className={`px-3.5 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-2 cursor-pointer ${
                           selectedSubject === 'rw'
-                            ? 'bg-[#164448] text-[#a4f0f7] border border-[#2f838b] shadow-sm'
-                            : 'text-[#82aa7b] hover:text-[#d4edd0] hover:bg-[#183116]'
+                            ? 'bg-[#133b3e] text-white shadow-sm border border-[#22575c]'
+                            : 'text-[#2a5025] hover:text-[#122810] hover:bg-[#cfe0cc]'
                         }`}
                       >
                         <span>📖 Reading &amp; Writing Units</span>
                         <span className={`text-[10px] px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
-                          selectedSubject === 'rw' ? 'bg-[#21575c] text-[#e4fbfe]' : 'bg-[#152a13] text-[#789d72]'
+                          selectedSubject === 'rw' ? 'bg-[#22575c] text-[#cbf4f8]' : 'bg-white/60 text-[#2a5025]'
                         }`}>
                           Units 1 – 12 (English)
                         </span>
                       </button>
                     </div>
 
-                    <div className="text-[11px] font-bold text-[#8bb883] flex items-center gap-1.5">
-                      <span className={`w-2 h-2 rounded-full ${selectedSubject === 'math' ? 'bg-emerald-400' : 'bg-cyan-400'}`} />
+                    <div className="text-[11px] font-bold text-[#2d5528] flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${selectedSubject === 'math' ? 'bg-emerald-600' : 'bg-teal-600'}`} />
                       <span>{selectedSubject === 'math' ? 'Math Chapters strictly isolated (Never shifts English)' : 'Reading & Writing isolated (Never shifts Math)'}</span>
                     </div>
                   </div>
 
+                  {/* QUICK UNIT SELECTION PILLS (SHOWS ALL UNITS VISIBLY AT ONCE) */}
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono']">
+                      <span>Quick Chapter Selector (Units 1–{selectedSubject === 'math' ? '13' : '12'}):</span>
+                      <span className="text-[#4f7847] font-semibold lowercase">click any unit to jump instantly</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      {availableUnits.map((unit, uIdx) => {
+                        const isCurrent = selectedUnit === unit.id;
+                        const shortName = `Unit ${uIdx + 1}`;
+
+                        return (
+                          <button
+                            key={unit.id}
+                            type="button"
+                            onClick={() => handleUnitChange(unit.id)}
+                            className={`px-2.5 py-1 rounded-lg text-xs font-bold font-['JetBrains_Mono'] transition-all cursor-pointer ${
+                              isCurrent
+                                ? 'bg-[#1a3717] text-white font-black shadow-xs ring-2 ring-emerald-500/50'
+                                : 'bg-white/85 hover:bg-white text-[#122810] border border-[#a6c4a1] hover:border-emerald-600 shadow-2xs'
+                            }`}
+                            title={unit.label}
+                          >
+                            <span>{shortName}</span>
+                            {unit.badge ? (
+                              <span className={`ml-1 text-[9px] px-1 py-0.2 rounded ${
+                                isCurrent ? 'bg-emerald-800 text-emerald-200' : 'bg-[#e2f0de] text-[#1a3717]'
+                              }`}>
+                                {unit.badge.replace(' lessons', 'L')}
+                              </span>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {/* MATCHA THEMED DROPDOWN SELECTORS ROW */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end overflow-visible">
                     {/* Chapter / Unit Dropdown (MatchaSelect) */}
                     <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
-                      <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
-                        <BookOpen className="w-3.5 h-3.5 text-emerald-400" />
+                      <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                        <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
                         <span>Select {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'}:</span>
                       </label>
                       <MatchaSelect
@@ -828,17 +865,17 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         onChange={(val) => handleUnitChange(String(val))}
                         options={unitOptionsForSelect}
                         placeholder={`— Select a ${selectedSubject === 'math' ? 'Math Chapter' : 'R&W Unit'} —`}
-                        variant="dark"
+                        variant="matcha"
                         size="md"
                         fullWidth
-                        icon={<BookOpen className="w-4 h-4 text-emerald-400" />}
+                        icon={<BookOpen className="w-4 h-4 text-emerald-700" />}
                       />
                     </div>
 
                     {/* Destination Dropdown (MatchaSelect) */}
                     <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
-                      <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                      <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-emerald-700" />
                         <span>Shift Destination (Target Buffer Day):</span>
                       </label>
                       <MatchaSelect
@@ -846,25 +883,25 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         onChange={(val) => setSelectedDestination(String(val))}
                         options={destinationOptionsForSelect}
                         placeholder="Select Target Buffer Day..."
-                        variant="dark"
+                        variant="matcha"
                         size="md"
                         fullWidth
-                        icon={<Calendar className="w-4 h-4 text-emerald-400" />}
+                        icon={<Calendar className="w-4 h-4 text-emerald-700" />}
                       />
                     </div>
 
                     {/* Custom Date Picker */}
                     {selectedDestination === 'custom' && (
                       <div className="md:col-span-3 space-y-1.5">
-                        <label className="text-[10px] font-black uppercase text-[#a5cca0] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-emerald-400" />
+                        <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5 text-emerald-700" />
                           <span>Choose Exact Date:</span>
                         </label>
                         <input
                           type="date"
                           value={customDestinationDate}
                           onChange={(e) => setCustomDestinationDate(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-[#0c180b] border-2 border-[#284f23] text-xs font-bold text-[#eef7ec] focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-xs cursor-pointer min-h-[44px]"
+                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#a6c4a1] text-xs font-bold text-[#122810] focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs cursor-pointer min-h-[44px]"
                         />
                       </div>
                     )}
@@ -872,37 +909,37 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
 
                   {/* LESSONS DISPLAY: CLEAN EMPTY STATE OR MATCHA THEMED LIST */}
                   {!selectedUnit ? (
-                    <div className="p-7 text-center rounded-2xl bg-[#0b170a]/90 border-2 border-dashed border-[#22421e] space-y-2.5">
-                      <div className="w-12 h-12 rounded-2xl bg-[#173315] text-emerald-400 flex items-center justify-center mx-auto border border-[#2b5526] shadow-sm">
+                    <div className="p-7 text-center rounded-2xl bg-white/70 border-2 border-dashed border-[#a6c4a1] space-y-2.5">
+                      <div className="w-12 h-12 rounded-2xl bg-[#e5f2e2] text-emerald-800 flex items-center justify-center mx-auto border border-[#a6c4a1] shadow-xs">
                         <BookOpen className="w-6 h-6" />
                       </div>
-                      <div className="text-sm font-black text-[#eef7ec]">
+                      <div className="text-sm font-black text-[#122810]">
                         No Chapter Selected (Zero Dummy Data)
                       </div>
-                      <p className="text-xs text-[#8cb584] max-w-md mx-auto">
-                        Please choose a {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} from the dropdown above to view and shift individual lessons.
+                      <p className="text-xs text-[#355f30] max-w-md mx-auto">
+                        Please choose a {selectedSubject === 'math' ? 'Math Chapter (Units 1–13)' : 'Reading & Writing Unit (Units 1–12)'} using the dropdown or quick unit buttons above to view and shift lessons.
                       </p>
                     </div>
                   ) : (
                     <>
                       {/* Header for lessons list */}
-                      <div className="pt-2 border-t border-[#23451e] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="pt-2 border-t border-[#a6c4a1]/50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[11px] font-black text-[#d7edd2] uppercase font-['JetBrains_Mono'] flex items-center gap-1">
-                            <CheckSquare className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-[11px] font-black text-[#122810] uppercase font-['JetBrains_Mono'] flex items-center gap-1">
+                            <CheckSquare className="w-3.5 h-3.5 text-emerald-700" />
                             <span>Select Lessons to Shift ({filteredLessons.length} Total):</span>
                           </span>
                           <button
                             type="button"
                             onClick={handleSelectAll}
-                            className="px-3 py-1.5 rounded-lg bg-[#224b1e] hover:bg-[#2c5f27] text-[#c2f7b8] border border-[#3d7d35] text-[11px] font-black transition cursor-pointer active:scale-95"
+                            className="px-3 py-1.5 rounded-lg bg-[#1a3717] hover:bg-[#254f21] text-white border border-[#3b7235] text-[11px] font-black transition cursor-pointer active:scale-95 shadow-xs"
                           >
                             Select All ({filteredLessons.length})
                           </button>
                           <button
                             type="button"
                             onClick={handleDeselectAll}
-                            className="px-3 py-1.5 rounded-lg bg-[#142813] hover:bg-[#1a3418] text-[#8cb885] border border-[#254620] text-[11px] font-bold transition cursor-pointer active:scale-95"
+                            className="px-3 py-1.5 rounded-lg bg-white/80 hover:bg-white text-[#122810] border border-[#a6c4a1] text-[11px] font-bold transition cursor-pointer active:scale-95 shadow-xs"
                           >
                             Deselect All
                           </button>
@@ -916,15 +953,15 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             placeholder="Search within this chapter..."
                             value={lessonSearchQuery}
                             onChange={(e) => setLessonSearchQuery(e.target.value)}
-                            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-[#0e1d0d] border border-[#294f24] text-xs font-medium text-[#eef7ec] placeholder:text-[#5e8257] focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                            className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-white border border-[#a6c4a1] text-xs font-medium text-[#122810] placeholder:text-[#6e8a69] focus:outline-none focus:ring-1 focus:ring-emerald-600 shadow-2xs"
                           />
                         </div>
                       </div>
 
                       {/* LESSON CHECKBOX ITEMS CONTAINER (ENLARGED TO SHOW ALL LESSONS CLEARLY) */}
-                      <div className="max-h-[420px] overflow-y-auto pr-1.5 space-y-2 custom-scrollbar border rounded-2xl p-2.5 bg-[#0a160a]/95 border-[#1f3f1c]">
+                      <div className="max-h-[440px] overflow-y-auto pr-1.5 space-y-2 rounded-2xl p-2.5 bg-[#f6fbf5]/90 border-2 border-[#a6c4a1]">
                         {filteredLessons.length === 0 ? (
-                          <div className="p-5 text-center text-xs text-[#7d9f78] font-medium">
+                          <div className="p-5 text-center text-xs text-[#527d4c] font-medium">
                             No lessons match your search criteria.
                           </div>
                         ) : (
@@ -939,8 +976,8 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                                 onClick={() => handleToggleLesson(lesson.id)}
                                 className={`p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left ${
                                   isSelected
-                                    ? 'bg-[#1b3d18] border-2 border-[#4fa844] shadow-sm'
-                                    : 'bg-[#122410] hover:bg-[#162c14] border border-[#203e1c]'
+                                    ? 'bg-[#d8eed4] border-2 border-emerald-600 shadow-xs'
+                                    : 'bg-white hover:bg-[#edf7ec] border border-[#bfd7bc]'
                                 }`}
                               >
                                 <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -949,26 +986,26 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                                     checked={isSelected}
                                     onChange={() => handleToggleLesson(lesson.id)}
                                     onClick={(e) => e.stopPropagation()}
-                                    className="w-4 h-4 text-emerald-600 rounded border-[#315729] focus:ring-emerald-500 cursor-pointer shrink-0 accent-emerald-500"
+                                    className="w-4 h-4 text-emerald-700 rounded border-[#a6c4a1] focus:ring-emerald-600 cursor-pointer shrink-0 accent-emerald-700"
                                   />
 
                                   <div className="min-w-0 flex-1">
                                     <div className="flex items-center gap-1.5 flex-wrap">
-                                      <span className="text-[10px] font-black text-[#7fae78] font-['JetBrains_Mono']">
+                                      <span className="text-[10px] font-black text-[#325a2e] font-['JetBrains_Mono']">
                                         #{index + 1} of {filteredLessons.length}
                                       </span>
                                       <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded font-['JetBrains_Mono'] ${
                                         lesson.subject === 'math'
-                                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-700/80'
-                                          : 'bg-teal-950 text-teal-300 border border-teal-700/80'
+                                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                                          : 'bg-teal-100 text-teal-900 border border-teal-300'
                                       }`}>
                                         {lesson.code || lesson.subject}
                                       </span>
-                                      <span className="text-xs font-black text-[#f0f8ee] truncate">
+                                      <span className="text-xs font-black text-[#122810] truncate">
                                         {lesson.label.replace(/\[.*?\]/, '').trim() || lesson.label}
                                       </span>
                                     </div>
-                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#8cb584]">
+                                    <div className="flex items-center gap-2 mt-0.5 text-[10px] text-[#426a3e]">
                                       <span className="font-semibold">
                                         Original: Day {lesson.originalDayNumber} ({lesson.originalFormattedDate})
                                       </span>
@@ -985,7 +1022,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                                     type="button"
                                     onClick={(e) => handleShiftSingleLesson(lesson.id, e)}
                                     title="Shift this single lesson directly to target day"
-                                    className="px-2.5 py-1 rounded-lg bg-[#1f421c] hover:bg-[#2a5926] text-[#baf2b0] border border-[#397430] text-[10px] font-black transition cursor-pointer flex items-center gap-1 active:scale-95"
+                                    className="px-2.5 py-1 rounded-lg bg-[#1a3717] hover:bg-[#254f21] text-emerald-200 border border-[#3b7235] text-[10px] font-black transition cursor-pointer flex items-center gap-1 active:scale-95 shadow-xs"
                                   >
                                     <Zap className="w-3 h-3 text-amber-300 fill-amber-300" />
                                     <span className="hidden sm:inline">Shift Single</span>
@@ -993,20 +1030,20 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
 
                                   {isShifted ? (
                                     <div className="flex items-center gap-1">
-                                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-600 font-['JetBrains_Mono'] flex items-center gap-1">
+                                      <span className="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 font-['JetBrains_Mono'] flex items-center gap-1">
                                         <span>Shifted: {currentOverride}</span>
                                       </span>
                                       <button
                                         type="button"
                                         onClick={(e) => handleRestoreSingleLesson(lesson.id, e)}
                                         title="Restore back to original scheduled day"
-                                        className="p-1 rounded bg-[#1f3a1b] hover:bg-[#2b4f26] text-amber-300 border border-amber-500/50 text-[10px] font-bold transition cursor-pointer"
+                                        className="p-1 rounded bg-[#f4faf2] hover:bg-[#e2f0de] text-amber-800 border border-amber-300 text-[10px] font-bold transition cursor-pointer"
                                       >
                                         <RotateCcw className="w-3 h-3" />
                                       </button>
                                     </div>
                                   ) : (
-                                    <span className="text-[10px] font-bold text-[#6f9567] hidden md:inline">
+                                    <span className="text-[10px] font-bold text-[#55814e] hidden md:inline">
                                       Day {lesson.originalDayNumber}
                                     </span>
                                   )}
@@ -1024,7 +1061,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             type="button"
                             onClick={handleApplyManualShift}
                             disabled={selectedLessonIds.length === 0}
-                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-black text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-2 border border-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed"
+                            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#1a3717] to-[#254f21] hover:from-[#21471d] hover:to-[#2c5f28] text-white font-black text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-2 border border-[#3b7235] disabled:opacity-40 disabled:cursor-not-allowed"
                           >
                             <Zap className="w-4 h-4 text-amber-300 fill-amber-300" />
                             <span>
@@ -1036,9 +1073,9 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             type="button"
                             onClick={handleResetSelected}
                             disabled={selectedLessonIds.length === 0}
-                            className="px-3.5 py-2.5 rounded-xl bg-[#162c14] hover:bg-[#203e1c] text-[#c5e6bd] text-xs font-bold transition cursor-pointer border border-[#2d5628] active:scale-95 flex items-center justify-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed"
+                            className="px-3.5 py-2.5 rounded-xl bg-white hover:bg-[#f6fcf5] text-[#122810] text-xs font-bold transition cursor-pointer border-2 border-[#a6c4a1] active:scale-95 flex items-center justify-center gap-1.5 shadow-2xs disabled:opacity-40 disabled:cursor-not-allowed"
                           >
-                            <RotateCcw className="w-3.5 h-3.5 text-[#8eb585]" />
+                            <RotateCcw className="w-3.5 h-3.5 text-[#355f30]" />
                             <span>Reset Selected to Original</span>
                           </button>
 
@@ -1046,7 +1083,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                             <button
                               type="button"
                               onClick={handleUndoClick}
-                              className="px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black transition cursor-pointer border border-amber-300 active:scale-95 flex items-center justify-center gap-1.5 shadow-sm"
+                              className="px-3.5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black transition cursor-pointer border border-amber-400 active:scale-95 flex items-center justify-center gap-1.5 shadow-sm"
                             >
                               <Undo2 className="w-3.5 h-3.5 text-slate-950" />
                               <span>Undo Last Shift ({undoCount})</span>
@@ -1054,7 +1091,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                           )}
                         </div>
 
-                        <div className="text-[11px] text-[#86af80] font-medium text-right hidden sm:block">
+                        <div className="text-[11px] text-[#355f30] font-medium text-right hidden sm:block">
                           Instant update &bull; Syncs with Phase 1 &amp; Calendar
                         </div>
                       </div>
@@ -1068,25 +1105,25 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         initial={{ opacity: 0, y: -6 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -6 }}
-                        className={`p-3.5 rounded-xl border flex items-center justify-between gap-3 text-xs font-bold ${
+                        className={`p-3.5 rounded-xl border-2 flex items-center justify-between gap-3 text-xs font-bold ${
                           feedbackNotice.type === 'success'
-                            ? 'bg-[#153416] text-[#c7fac1] border-[#397632] shadow-md'
+                            ? 'bg-[#e7f7e4] text-[#11380e] border-[#74b86a] shadow-xs'
                             : feedbackNotice.type === 'undo'
-                            ? 'bg-[#332508] text-[#fde49e] border-[#8a681c] shadow-md'
+                            ? 'bg-[#fffbeb] text-[#78350f] border-[#fcd34d] shadow-xs'
                             : feedbackNotice.type === 'reset'
-                            ? 'bg-[#102a33] text-[#a4eaf3] border-[#256877]'
-                            : 'bg-[#331111] text-[#fca5a5] border-[#802424]'
+                            ? 'bg-[#e0f7fa] text-[#006064] border-[#80deea]'
+                            : 'bg-[#fee2e2] text-[#991b1b] border-[#fca5a5]'
                         }`}
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
                           {feedbackNotice.type === 'success' ? (
-                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                            <CheckCircle2 className="w-4 h-4 text-emerald-700 shrink-0" />
                           ) : feedbackNotice.type === 'undo' ? (
-                            <Undo2 className="w-4 h-4 text-amber-400 shrink-0" />
+                            <Undo2 className="w-4 h-4 text-amber-700 shrink-0" />
                           ) : feedbackNotice.type === 'reset' ? (
-                            <RotateCcw className="w-4 h-4 text-cyan-400 shrink-0" />
+                            <RotateCcw className="w-4 h-4 text-teal-700 shrink-0" />
                           ) : (
-                            <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                            <AlertCircle className="w-4 h-4 text-rose-700 shrink-0" />
                           )}
                           <span className="leading-tight">{feedbackNotice.message}</span>
                         </div>
@@ -1094,7 +1131,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                         {onNavigateToCalendar && feedbackNotice.type === 'success' && (
                           <button
                             onClick={onNavigateToCalendar}
-                            className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-black text-[11px] shrink-0 transition flex items-center gap-1 cursor-pointer border border-emerald-400 shadow-sm"
+                            className="px-2.5 py-1 rounded-lg bg-[#1a3717] hover:bg-[#254f21] text-white font-black text-[11px] shrink-0 transition flex items-center gap-1 cursor-pointer border border-[#3b7235] shadow-xs"
                           >
                             <span>View in Calendar</span>
                             <ChevronRight className="w-3 h-3" />
