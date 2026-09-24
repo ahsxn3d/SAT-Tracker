@@ -1,7 +1,6 @@
-'use client';
-
-import App from '@/App';
+import { redirect } from 'next/navigation';
 
 export default function ScoreCalculatorPage() {
-  return <App initialSection="score-calculator" />;
+  redirect('/phase-2');
 }
+

@@ -250,7 +250,7 @@ export const DailyTimelineTemplate: React.FC<DailyTimelineTemplateProps> = ({
                 }}
                 className={`px-3 py-1.5 rounded-xl text-xs font-black font-['JetBrains_Mono'] transition-all duration-200 cursor-pointer border flex items-center gap-1.5 active:scale-[0.98] ${
                   isActive
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
+                    ? 'bg-[#2b542d] text-white border-[#407444] shadow-xs'
                     : 'bg-matcha-input text-slate-800 border-[#a6c4a1]/70 hover:bg-white/80 hover:border-slate-400'
                 }`}
               >
@@ -415,13 +415,13 @@ export const DailyTimelineTemplate: React.FC<DailyTimelineTemplateProps> = ({
       </div>
 
       {/* Psychology Rule Callout Banner */}
-      <div className="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-grave-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="p-4 rounded-2xl bg-[#254928] text-white border border-[#407444] shadow-grave-card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="space-y-0.5 max-w-xl">
           <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-amber-400 font-['JetBrains_Mono']">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>The Daily Anchor Rule</span>
           </div>
-          <p className="text-xs text-slate-300 font-medium leading-relaxed">
+          <p className="text-xs text-emerald-100/90 font-medium leading-relaxed">
             &ldquo;Consistency of the start time matters more than which hour you pick. The same slot every day trains your brain to switch into study mode faster over time. Pick something that doesn&apos;t collide with college or prayer times and stick to that anchor.&rdquo;
           </p>
         </div>

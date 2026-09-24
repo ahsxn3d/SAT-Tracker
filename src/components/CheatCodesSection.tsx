@@ -86,7 +86,7 @@ export const CheatCodesSection: React.FC<CheatCodesSectionProps> = ({ onOpenModa
         {onOpenModal && (
           <button
             onClick={() => onOpenModal(activeTab === 'all' ? 'desmos' : activeTab)}
-            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-[#264e22] hover:bg-[#1a3717] hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-2 min-h-[44px] cursor-pointer shrink-0 self-start lg:self-auto"
+            className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-[#315d34] hover:bg-[#254928] hover:shadow-md active:scale-[0.98] transition-all duration-150 shadow-xs flex items-center gap-2 min-h-[44px] cursor-pointer shrink-0 self-start lg:self-auto"
           >
             <ExternalLink className="w-4 h-4" />
             <span>Open Studio Modal</span>
@@ -102,7 +102,7 @@ export const CheatCodesSection: React.FC<CheatCodesSectionProps> = ({ onOpenModa
             onClick={() => setActiveTab('all')}
             className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer whitespace-nowrap ${
               activeTab === 'all'
-                ? 'bg-[#1a3717] text-white shadow-xs'
+                ? 'bg-[#2b542d] text-white shadow-xs'
                 : 'bg-matcha-input text-slate-800 hover:bg-white/80 border border-[#a6c4a1]'
             }`}
           >
@@ -259,7 +259,7 @@ export const CheatCodesSection: React.FC<CheatCodesSectionProps> = ({ onOpenModa
       )}
 
       {/* Bottom Summary Bar */}
-      <div className="bg-[#1a3717] text-white p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-grave">
+      <div className="bg-[#254928] border border-[#407444] text-white p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-grave">
         <div className="flex items-center gap-2.5">
           <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
           <p className="text-xs text-emerald-100 font-medium leading-relaxed">

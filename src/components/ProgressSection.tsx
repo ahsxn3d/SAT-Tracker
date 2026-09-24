@@ -26,6 +26,7 @@ import {
   CalendarDays
 } from 'lucide-react';
 import { WeekPlan, DayPlan, DaySessionTiming, TaskItem } from '../types';
+import { DailyProgressChart, DailyProgressEntry } from './DailyProgressChart';
 
 interface ProgressSectionProps {
   weeks: WeekPlan[];
@@ -52,8 +53,6 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
   onLaunchTimer,
   onToggleTask
 }) => {
-  const [graphTimeframe, setGraphTimeframe] = useState<'14d' | '30d' | 'all'>('30d');
-  const [hoveredPointIndex, setHoveredPointIndex] = useState<number | null>(null);
   const [activeLedgerTab, setActiveLedgerTab] = useState<'shifts' | 'completed' | 'upcoming'>('shifts');
 
   // ============================================================================
@@ -204,97 +203,58 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
   }, [allDays, currentTrackerDate, completedTaskIds]);
 
   // ============================================================================
-  // 2. DAILY VELOCITY GRAPH DATA (Study Hours & Task Completions by Day)
+  // 2. DAILY PROGRESS VELOCITY & TELEMETRY ENTRIES
   // ============================================================================
-  const graphData = useMemo(() => {
-    // Filter days based on timeframe
-    let targetDays = [...allDays];
-    if (graphTimeframe === '14d') {
-      targetDays = targetDays.slice(0, 14);
-    } else if (graphTimeframe === '30d') {
-      targetDays = targetDays.slice(0, 30);
-    }
+  const initialProgressEntries: DailyProgressEntry[] = useMemo(() => {
+    if (!allDays || allDays.length === 0) return [];
 
-    return targetDays.map((d, idx) => {
-      // Completed tasks on this specific day
-      const completedOnThisDay = d.tasks.filter((t) => completedTaskIds[t.id]).length;
-      // Actual or estimated hours
+    const sorted = [...allDays].sort((a, b) => a.dateStr.localeCompare(b.dateStr));
+
+    return sorted.map((d) => {
+      const studyTasks = d.tasks.filter((t) => t.code !== 'BREAK' && t.subject !== 'buffer');
+      const assigned = studyTasks.length > 0 ? studyTasks.length : d.tasks.length || 4;
+      const completedTasks = studyTasks.filter((t) => completedTaskIds[t.id]);
+      const completed = completedTasks.length;
+
       let hours = 0;
       if (sessionTimings[d.dateStr]) {
-        hours = +(sessionTimings[d.dateStr].totalSessionMinutes / 60).toFixed(2);
-      } else if (completedOnThisDay > 0) {
-        hours = +(completedOnThisDay * 0.75).toFixed(2);
-      } else if (idx % 4 === 1) {
-        // Natural visual cadence for demo simulation if fresh start
-        hours = 1.2;
-      } else if (idx % 3 === 0) {
-        hours = 0.8;
+        hours = Math.round((sessionTimings[d.dateStr].totalSessionMinutes / 60) * 10) / 10;
+      } else if (completed > 0) {
+        hours = Math.round((completed * 0.75) * 10) / 10;
       }
 
-      // Check if tasks were shifted to or from this day
-      const hasShift = Object.entries(taskScheduleOverrides).some(
-        ([_, targetDayId]) => targetDayId === d.id
-      );
+      const hasMilestone =
+        d.tasks.some(
+          (t) =>
+            (t.topic && /practice|test|exam|diagnostic|milestone/i.test(t.topic)) ||
+            (t.label && /practice|test|exam|diagnostic/i.test(t.label))
+        ) || d.isBuffer;
+
+      const milestoneTitle = hasMilestone
+        ? d.isBuffer
+          ? 'Guaranteed Buffer Rest Window'
+          : d.tasks[0]?.topic || 'Milestone Assessment'
+        : undefined;
+
+      const completedTaskTitles = completedTasks.map((t) => t.topic || t.label || t.code);
+      const pendingTaskTitles = studyTasks
+        .filter((t) => !completedTaskIds[t.id])
+        .map((t) => t.topic || t.label || t.code);
 
       return {
-        day: d,
-        index: idx,
-        dateStr: d.dateStr,
-        dayOfWeek: d.dayOfWeek,
-        formattedDate: d.formattedDate,
-        hours,
-        tasksDone: completedOnThisDay,
-        hasShift
+        date: d.dateStr,
+        dayTitle: d.formattedDate,
+        phaseName: d.phase === 'bluebook' ? 'Phase 2: Bluebook Arena' : 'Phase 1: Foundations',
+        assignedLessons: assigned,
+        completedLessons: completed,
+        hoursSpent: hours,
+        isMilestone: hasMilestone,
+        milestoneTitle,
+        completedTaskTitles,
+        pendingTaskTitles
       };
     });
-  }, [allDays, graphTimeframe, completedTaskIds, sessionTimings, taskScheduleOverrides]);
-
-  // SVG Area Chart Calculations
-  const chartHeight = 160;
-  const chartWidth = 560;
-  const paddingX = 20;
-  const paddingY = 20;
-
-  const maxHours = useMemo(() => {
-    const max = Math.max(...graphData.map((d) => d.hours), 1.6);
-    return Math.ceil(max * 1.25 * 10) / 10;
-  }, [graphData]);
-
-  const svgPoints = useMemo(() => {
-    if (graphData.length === 0) return [];
-    const stepX = (chartWidth - paddingX * 2) / (graphData.length - 1 || 1);
-    return graphData.map((d, i) => {
-      const x = paddingX + i * stepX;
-      const y = chartHeight - paddingY - (d.hours / maxHours) * (chartHeight - paddingY * 2);
-      return { x, y, data: d };
-    });
-  }, [graphData, maxHours, chartWidth, chartHeight, paddingX, paddingY]);
-
-  const svgAreaPath = useMemo(() => {
-    if (svgPoints.length === 0) return '';
-    const first = svgPoints[0];
-    const last = svgPoints[svgPoints.length - 1];
-    const lineCommands = svgPoints.map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`).join(' ');
-    return `${lineCommands} L ${last.x} ${chartHeight - paddingY} L ${first.x} ${chartHeight - paddingY} Z`;
-  }, [svgPoints, chartHeight, paddingY]);
-
-  const svgLinePath = useMemo(() => {
-    if (svgPoints.length === 0) return '';
-    return svgPoints.map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`).join(' ');
-  }, [svgPoints]);
-
-  // Rolling 7-day average path
-  const svgAvgPath = useMemo(() => {
-    if (svgPoints.length < 2) return '';
-    const avgPoints = svgPoints.map((pt, i) => {
-      const windowStart = Math.max(0, i - 3);
-      const windowEnd = Math.min(svgPoints.length - 1, i + 3);
-      const slice = svgPoints.slice(windowStart, windowEnd + 1);
-      const avgY = slice.reduce((sum, p) => sum + p.y, 0) / slice.length;
-      return { x: pt.x, y: avgY };
-    });
-    return avgPoints.map((pt, i) => `${i === 0 ? 'M' : 'L'} ${pt.x} ${pt.y}`).join(' ');
-  }, [svgPoints]);
+  }, [allDays, completedTaskIds, sessionTimings]);
 
   // ============================================================================
   // 3. TASK SHIFTS & ROLLOVER LEDGER (Which Day Which Thing Shifted To)
@@ -553,178 +513,12 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
       {/* 2. MIDDLE ROW: STUDY HOURS AREA GRAPH (LEFT) + PRIMARY GOAL (RIGHT)    */}
       {/* ====================================================================== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Left: Study Hours Velocity Graph (2 Columns) */}
-        <div className="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#a6c4a1]/60 pb-3">
-            <div>
-              <span className="text-xs font-black uppercase text-[#1a3717] font-['JetBrains_Mono'] block">
-                Study Hours &bull; Daily Velocity
-              </span>
-              <p className="text-xs text-[#2e5728] font-semibold">
-                Tracking study volume and lesson completions day-by-day
-              </p>
-            </div>
-
-            {/* Timeframe switchers & legend */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="flex items-center gap-1 text-amber-800 font-bold">
-                  <span className="w-3 h-1.5 rounded-full bg-amber-500 inline-block" />
-                  <span>Hours</span>
-                </span>
-                <span className="flex items-center gap-1 text-emerald-800 font-bold">
-                  <span className="w-3 h-0.5 border-t border-dashed border-emerald-600 inline-block" />
-                  <span>7-day avg</span>
-                </span>
-              </div>
-
-              <div className="flex items-center gap-1 p-0.5 bg-[#d2e4cd] rounded-xl border border-[#a6c4a1] font-['JetBrains_Mono'] text-[11px]">
-                <button
-                  type="button"
-                  onClick={() => setGraphTimeframe('14d')}
-                  className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === '14d' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
-                  }`}
-                >
-                  14D
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setGraphTimeframe('30d')}
-                  className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === '30d' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
-                  }`}
-                >
-                  30D
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setGraphTimeframe('all')}
-                  className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === 'all' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
-                  }`}
-                >
-                  ALL
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* SVG Area Chart */}
-          <div className="relative w-full overflow-x-auto">
-            <svg
-              viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-              className="w-full h-44 overflow-visible"
-            >
-              <defs>
-                <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#d97706" stopOpacity="0.35" />
-                  <stop offset="50%" stopColor="#16a34a" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#16a34a" stopOpacity="0.0" />
-                </linearGradient>
-              </defs>
-
-              {/* Grid Lines */}
-              {[0, 0.4, 0.8, 1.2, 1.6].map((tick) => {
-                const y = chartHeight - paddingY - (tick / maxHours) * (chartHeight - paddingY * 2);
-                return (
-                  <g key={tick}>
-                    <line
-                      x1={paddingX}
-                      y1={y}
-                      x2={chartWidth - paddingX}
-                      y2={y}
-                      stroke="rgba(18, 40, 16, 0.12)"
-                      strokeDasharray="3 3"
-                    />
-                    <text
-                      x={paddingX - 4}
-                      y={y + 3}
-                      fill="rgba(18, 40, 16, 0.6)"
-                      fontSize="9"
-                      fontFamily="monospace"
-                      textAnchor="end"
-                    >
-                      {tick}
-                    </text>
-                  </g>
-                );
-              })}
-
-              {/* Area Gradient Fill */}
-              {svgAreaPath && (
-                <path d={svgAreaPath} fill="url(#areaGradient)" />
-              )}
-
-              {/* 7-Day Rolling Average Line (Dashed) */}
-              {svgAvgPath && (
-                <path
-                  d={svgAvgPath}
-                  fill="none"
-                  stroke="#059669"
-                  strokeWidth="1.5"
-                  strokeDasharray="4 3"
-                  opacity="0.85"
-                />
-              )}
-
-              {/* Main Line Stroke */}
-              {svgLinePath && (
-                <path
-                  d={svgLinePath}
-                  fill="none"
-                  stroke="#d97706"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              )}
-
-              {/* Data Points */}
-              {svgPoints.map((pt, i) => {
-                const isHovered = hoveredPointIndex === i;
-                return (
-                  <g
-                    key={i}
-                    onMouseEnter={() => setHoveredPointIndex(i)}
-                    onMouseLeave={() => setHoveredPointIndex(null)}
-                    className="cursor-pointer"
-                  >
-                    <circle
-                      cx={pt.x}
-                      cy={pt.y}
-                      r={isHovered ? 5.5 : pt.data.hasShift ? 4 : 3}
-                      fill={pt.data.hasShift ? '#db2777' : isHovered ? '#d97706' : '#16a34a'}
-                      stroke="#e5f0e1"
-                      strokeWidth="2"
-                    />
-                  </g>
-                );
-              })}
-            </svg>
-
-            {/* Hover Tooltip Overlay */}
-            {hoveredPointIndex !== null && svgPoints[hoveredPointIndex] && (
-              <div
-                className="absolute -top-3 p-2 rounded-xl bg-[#122810] text-white text-[11px] font-['JetBrains_Mono'] border border-[#a6c4a1] shadow-2xl pointer-events-none transform -translate-x-1/2 z-20 whitespace-nowrap"
-                style={{
-                  left: `${(svgPoints[hoveredPointIndex].x / chartWidth) * 100}%`
-                }}
-              >
-                <div className="font-bold text-amber-300">
-                  {svgPoints[hoveredPointIndex].data.formattedDate}
-                </div>
-                <div>Hours: {svgPoints[hoveredPointIndex].data.hours} hrs</div>
-                <div>Completed: {svgPoints[hoveredPointIndex].data.tasksDone} topics</div>
-                {svgPoints[hoveredPointIndex].data.hasShift && (
-                  <div className="text-pink-300 font-bold text-[10px]">
-                    &bull; Task shifted to this day
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
+        {/* Left: Modern Responsive Daily Progress Velocity Chart (2 Columns) */}
+        <DailyProgressChart
+          initialEntries={initialProgressEntries}
+          currentDate={currentTrackerDate}
+          className="lg:col-span-2"
+        />
 
         {/* Right: Primary Goal & Subject Percentage Gauges */}
         <div className="p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card flex flex-col justify-between space-y-4">

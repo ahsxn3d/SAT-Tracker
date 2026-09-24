@@ -766,11 +766,11 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
       {/* 2. MAIN SCROLLABLE CONTENT WRAPPER (Shifts width smoothly with sidebar) */}
       <div
         className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out pb-24 ${
-          sidebarCollapsed ? 'lg:pl-[74px]' : 'lg:pl-[268px]'
+          sidebarCollapsed ? 'lg:pl-[74px]' : 'lg:pl-[304px]'
         }`}
       >
         {/* Mobile Top Bar (with Hamburger menu to toggle sidebar on small screens) */}
-        <div className="lg:hidden flex items-center justify-between p-3 bg-[#1f3f22]/95 text-white border-b-2 border-[#386439] sticky top-0 z-30 backdrop-blur-md shadow-sm">
+        <div className="lg:hidden flex items-center justify-between p-3 bg-[#315d34]/95 text-white border-b-2 border-[#4d8651] sticky top-0 z-30 backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-2.5">
             <button
               type="button"

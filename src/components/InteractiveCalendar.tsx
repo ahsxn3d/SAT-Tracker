@@ -219,27 +219,27 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
         </div>
 
         {/* Real Tracker Completion Telemetry Strip */}
-        <div className="grid grid-cols-3 gap-2.5 bg-slate-900 text-white p-3 rounded-2xl border border-slate-800 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200 shrink-0">
+        <div className="grid grid-cols-3 gap-2.5 bg-[#254928] text-white p-3 rounded-2xl border border-[#407444] shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200 shrink-0">
           <div className="text-center px-2">
-            <div className="text-[10px] font-bold uppercase text-slate-400 font-['JetBrains_Mono']">
+            <div className="text-[10px] font-bold uppercase text-emerald-200/80 font-['JetBrains_Mono']">
               Overall Done
             </div>
-            <div className="text-lg sm:text-xl font-extrabold text-emerald-400 font-['JetBrains_Mono']">
+            <div className="text-lg sm:text-xl font-extrabold text-emerald-300 font-['JetBrains_Mono']">
               {calendarStats.percent}%
             </div>
-            <div className="text-[10px] text-slate-400 font-semibold font-['JetBrains_Mono']">
+            <div className="text-[10px] text-emerald-200/70 font-semibold font-['JetBrains_Mono']">
               {calendarStats.completedTasksCount}/{calendarStats.totalTasksCount}
             </div>
           </div>
 
-          <div className="text-center px-2 border-x border-slate-700">
-            <div className="text-[10px] font-bold uppercase text-slate-400 font-['JetBrains_Mono']">
+          <div className="text-center px-2 border-x border-[#407444]">
+            <div className="text-[10px] font-bold uppercase text-emerald-200/80 font-['JetBrains_Mono']">
               Days 100%
             </div>
-            <div className="text-lg sm:text-xl font-extrabold text-indigo-300 font-['JetBrains_Mono']">
+            <div className="text-lg sm:text-xl font-extrabold text-amber-300 font-['JetBrains_Mono']">
               {calendarStats.completedDaysCount}
             </div>
-            <div className="text-[10px] text-slate-400 font-semibold font-['JetBrains_Mono']">
+            <div className="text-[10px] text-emerald-200/70 font-semibold font-['JetBrains_Mono']">
               of {calendarStats.totalDays} Days
             </div>
           </div>
@@ -830,7 +830,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
                 ? 'bg-gradient-to-r from-amber-500 to-rose-600 text-white border-amber-400'
                 : inspectedDay.isBuffer
                 ? 'bg-emerald-50 text-emerald-950 border-emerald-200'
-                : 'bg-slate-900 text-white border-slate-800'
+                : 'bg-[#254928] text-white border-[#407444]'
             }`}>
               <div>
                 <div className="flex items-center gap-2 flex-wrap">

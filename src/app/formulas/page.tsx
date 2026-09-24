@@ -1,7 +1,6 @@
-'use client';
-
-import App from '@/App';
+import { redirect } from 'next/navigation';
 
 export default function FormulasPage() {
-  return <App initialSection="formulas" />;
+  redirect('/core-info?tab=formulas');
 }
+

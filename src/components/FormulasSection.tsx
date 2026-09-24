@@ -258,7 +258,7 @@ export const FormulasSection: React.FC = () => {
               onClick={() => setSelectedDomain('all')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                 selectedDomain === 'all'
-                  ? 'bg-[#1a3717] text-white shadow-xs'
+                  ? 'bg-[#2b542d] text-white shadow-xs'
                   : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
               }`}
             >
@@ -272,7 +272,7 @@ export const FormulasSection: React.FC = () => {
                   onClick={() => setSelectedDomain(domain.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                     selectedDomain === domain.id
-                      ? 'bg-[#1a3717] text-white shadow-xs'
+                      ? 'bg-[#2b542d] text-white shadow-xs'
                       : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
                   }`}
                 >
@@ -294,7 +294,7 @@ export const FormulasSection: React.FC = () => {
               onClick={() => setSelectedDifficulty('all')}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
                 selectedDifficulty === 'all'
-                  ? 'bg-[#1a3717] text-white shadow-xs'
+                  ? 'bg-[#2b542d] text-white shadow-xs'
                   : 'bg-matcha-input text-slate-800 hover:bg-matcha-sub border border-[#a6c4a1]'
               }`}
             >
