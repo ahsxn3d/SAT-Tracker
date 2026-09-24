@@ -111,46 +111,46 @@ export const MathInfoSection: React.FC<MathInfoSectionProps> = ({
   return (
     <div className="space-y-7">
       {/* TOP HERO BANNER: 4 CORE DOMAINS & 3-TIER DIFFICULTY ARCHITECTURE */}
-      <div className="p-5 sm:p-6 bg-gradient-to-br from-[#10240e] via-[#163313] to-[#20471b] rounded-3xl border-2 border-[#a6c4a1] shadow-grave text-white relative overflow-hidden">
+      <div className="p-5 sm:p-6 bg-gradient-to-br from-[#e5f0e1] via-[#dcedd9] to-[#d2e4cd] rounded-3xl border-2 border-[#a6c4a1] shadow-grave-card text-[#122810] relative overflow-hidden">
         <div className="absolute right-0 top-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-3">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-emerald-700/80 text-emerald-100 border border-emerald-500/40 font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+            <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-[#c4dcbe] text-[#1a3717] border border-[#a6c4a1] font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
               <span>Official Khan Academy Digital SAT Math Blueprint</span>
             </span>
-            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-['JetBrains_Mono']">
+            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400/25 text-amber-900 border border-amber-500/40 font-['JetBrains_Mono']">
               ALL 4 DOMAINS &bull; 37 LESSONS COMPLETE
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-extrabold text-white font-luxury flex items-center gap-2.5">
-            <Calculator className="w-6 h-6 text-emerald-300" />
+          <h3 className="text-xl sm:text-2xl font-extrabold text-[#122810] font-luxury flex items-center gap-2.5">
+            <Calculator className="w-6 h-6 text-[#15803d]" />
             <span>Complete Curriculum with 3-Tier Difficulty Scaling</span>
           </h3>
 
-          <p className="text-xs sm:text-sm text-emerald-100/90 max-w-3xl leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-[#274624] max-w-3xl leading-relaxed font-medium">
             Every official domain progresses through 3 difficulty tiers: <strong>Foundations</strong> (Units 2–5), repeated with increased complexity in <strong>Medium</strong> (Units 6–9), and synthesized into <strong>Advanced / Hard</strong> (Units 10–13). Every lesson includes formulas, solving methods, difficulty comparisons, and Desmos bypass shortcuts.
           </p>
 
           {/* 4 Domains Quick Stats Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
-            <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-              <div className="text-[10px] uppercase font-bold text-emerald-300 font-['JetBrains_Mono']">Domain 1: Algebra</div>
-              <div className="text-sm font-black text-white">8 Lessons (Units 2, 6, 10)</div>
+            <div className="p-2.5 rounded-xl bg-[#d2e4cd]/80 backdrop-blur-md border border-[#a6c4a1] shadow-xs">
+              <div className="text-[10px] uppercase font-bold text-[#274624] font-['JetBrains_Mono']">Domain 1: Algebra</div>
+              <div className="text-sm font-black text-[#122810]">8 Lessons (Units 2, 6, 10)</div>
             </div>
-            <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-              <div className="text-[10px] uppercase font-bold text-emerald-300 font-['JetBrains_Mono']">Domain 2: Data Analysis</div>
-              <div className="text-sm font-black text-white">10 Lessons (Units 3, 7, 11)</div>
+            <div className="p-2.5 rounded-xl bg-[#d2e4cd]/80 backdrop-blur-md border border-[#a6c4a1] shadow-xs">
+              <div className="text-[10px] uppercase font-bold text-[#274624] font-['JetBrains_Mono']">Domain 2: Data Analysis</div>
+              <div className="text-sm font-black text-[#122810]">10 Lessons (Units 3, 7, 11)</div>
             </div>
-            <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-              <div className="text-[10px] uppercase font-bold text-emerald-300 font-['JetBrains_Mono']">Domain 3: Advanced Math</div>
-              <div className="text-sm font-black text-white">13 Lessons (Units 4, 8, 12)</div>
+            <div className="p-2.5 rounded-xl bg-[#d2e4cd]/80 backdrop-blur-md border border-[#a6c4a1] shadow-xs">
+              <div className="text-[10px] uppercase font-bold text-[#274624] font-['JetBrains_Mono']">Domain 3: Advanced Math</div>
+              <div className="text-sm font-black text-[#122810]">13 Lessons (Units 4, 8, 12)</div>
             </div>
-            <div className="p-2.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15">
-              <div className="text-[10px] uppercase font-bold text-amber-300 font-['JetBrains_Mono']">Domain 4: Geometry &amp; Trig</div>
-              <div className="text-sm font-black text-amber-200">6 Lessons (Units 5, 9, 13)</div>
+            <div className="p-2.5 rounded-xl bg-[#d2e4cd]/80 backdrop-blur-md border border-[#a6c4a1] shadow-xs">
+              <div className="text-[10px] uppercase font-bold text-amber-900 font-['JetBrains_Mono']">Domain 4: Geometry &amp; Trig</div>
+              <div className="text-sm font-black text-amber-900">6 Lessons (Units 5, 9, 13)</div>
             </div>
           </div>
         </div>

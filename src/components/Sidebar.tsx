@@ -263,15 +263,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* TOP SECTION: WINDOW CONTROLS + LOGO + USER CARD               */}
         {/* ============================================================== */}
         <div className="p-3 sm:p-4 space-y-3 shrink-0 border-b border-[#325a34]">
-          {/* 1. macOS Style Colored Window Dots + Collapse Toggle */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 pl-0.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] shadow-xs inline-block" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] shadow-xs inline-block" />
-              <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f] shadow-xs inline-block" />
-            </div>
-
-            {/* Desktop Collapse / Expand Toggle Icon Button */}
+          {/* 1. Sidebar Controls (Mobile Close + Collapse Toggle) */}
+          <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-end'}`}>
             <div className="flex items-center gap-1">
               {/* Mobile Close Button */}
               <button

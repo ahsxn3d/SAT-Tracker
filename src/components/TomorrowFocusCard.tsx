@@ -71,14 +71,14 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="ios-glass-card rounded-3xl !border-indigo-600 shadow-grave hover:shadow-grave-hover overflow-hidden transition-all duration-300"
+      className="ios-glass-card rounded-3xl border-2 border-[#a6c4a1] shadow-grave-card hover:shadow-grave-card-hover overflow-hidden transition-all duration-300"
     >
       {/* High-visibility Dynamic Header Banner */}
-      <div className="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-950 text-white p-5 sm:p-7 border-b-2 border-indigo-500/30">
+      <div className="bg-gradient-to-r from-[#d2e4cd] via-[#e5f0e1] to-[#cbdcc7] text-[#122810] p-5 sm:p-7 border-b-2 border-[#a6c4a1]">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-md font-['JetBrains_Mono'] hover:scale-105 transition-transform duration-200 cursor-default">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-amber-400 text-slate-950 shadow-xs font-['JetBrains_Mono'] hover:scale-105 transition-transform duration-200 cursor-default">
                 <Sparkles className="w-3.5 h-3.5 fill-slate-950 animate-spin-slow" />
                 <span>
                   {isExactTomorrow 
@@ -88,24 +88,24 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                     : `Focus Day • ${tomorrowDay.formattedDate}`}
                 </span>
               </span>
-              <span className="text-xs font-black text-indigo-200 uppercase tracking-wider font-['JetBrains_Mono']">
+              <span className="text-xs font-black text-[#1a3717] uppercase tracking-wider font-['JetBrains_Mono']">
                 {tomorrowDay.isBuffer ? 'Buffer & Rest Window' : `Week ${tomorrowDay.weekNumber || 1} • ${tomorrowDay.tasks.length} Scheduled Tasks`}
               </span>
               {carriedTasks.length > 0 && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase bg-amber-500 text-slate-950 font-['JetBrains_Mono']">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-black uppercase bg-amber-500 text-slate-950 font-['JetBrains_Mono'] shadow-xs">
                   <RotateCcw className="w-3 h-3" />
                   <span>{carriedTasks.length} Carried Over</span>
                 </span>
               )}
             </div>
             
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#122810] font-luxury">
               {tomorrowDay.isBuffer
                 ? `Tomorrow's Mission: Guaranteed Buffer Rest Day`
                 : `Tomorrow's Mission: ${tomorrowDay.formattedDate} Focus`}
             </h2>
             
-            <p className="text-xs sm:text-sm text-slate-200 font-semibold max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#274624] font-semibold max-w-2xl leading-relaxed">
               {tomorrowDay.specialInstructions || 
                 'Strict 90-minute daily cap with screen-free breaks. Work with high intensity, then shut down completely.'}
             </p>
@@ -116,7 +116,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
             {onOpenDedicatedDay && (
               <button
                 onClick={() => onOpenDedicatedDay(tomorrowDay.dateStr)}
-                className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold text-white bg-white/10 hover:bg-white/20 border border-white/20 hover:shadow-sm active:scale-[0.98] transition-all duration-150 min-h-[44px] cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl text-xs sm:text-sm font-extrabold text-[#1a3717] bg-[#c2d7bd] hover:bg-[#b2cbb0] border border-[#a6c4a1] hover:shadow-xs active:scale-[0.98] transition-all duration-150 min-h-[44px] cursor-pointer shadow-xs"
               >
                 <span>Inspect Day Details &rarr;</span>
               </button>
@@ -124,7 +124,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
             <button
               id="tomorrow-launch-timer-btn"
               onClick={() => onLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`)}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-black text-slate-950 bg-emerald-400 hover:bg-emerald-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 min-h-[44px] cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-black text-slate-950 bg-amber-400 hover:bg-amber-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 min-h-[44px] cursor-pointer shadow-xs"
             >
               <Play className="w-4 h-4 fill-slate-950" />
               <span>Start 90-Min Session</span>

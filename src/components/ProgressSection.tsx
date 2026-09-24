@@ -424,26 +424,26 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
       {/* ====================================================================== */}
       {/* SECTION HEADER: PROGRESS & VELOCITY ANALYTICS                          */}
       {/* ====================================================================== */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 sm:p-5 bg-gradient-to-br from-[#10240e] via-[#163313] to-[#20471b] rounded-3xl border-2 border-[#a6c4a1] shadow-grave text-white relative overflow-hidden">
-        <div className="absolute right-0 top-0 w-96 h-96 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 sm:p-5 bg-gradient-to-br from-[#e5f0e1] via-[#dcedd9] to-[#d2e4cd] rounded-3xl border-2 border-[#a6c4a1] shadow-grave-card text-[#122810] relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 space-y-1.5">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-emerald-800 text-emerald-200 border border-emerald-500/40 font-['JetBrains_Mono'] flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
+            <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-[#c4dcbe] text-[#1a3717] border border-[#a6c4a1] font-['JetBrains_Mono'] flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
               <span>Real-Time Study Analytics</span>
             </span>
-            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 font-['JetBrains_Mono']">
+            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-400/25 text-amber-900 border border-amber-500/40 font-['JetBrains_Mono']">
               NOV 7 EXAM PACE
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-black text-white font-luxury flex items-center gap-2.5">
-            <TrendingUp className="w-7 h-7 text-amber-300" />
+          <h2 className="text-2xl sm:text-3xl font-black text-[#122810] font-luxury flex items-center gap-2.5">
+            <TrendingUp className="w-7 h-7 text-[#15803d]" />
             <span>Progress, Velocity &amp; Shift Tracker</span>
           </h2>
 
-          <p className="text-xs sm:text-sm text-emerald-100/90 max-w-2xl font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#274624] max-w-2xl font-semibold leading-relaxed">
             Monitor all-time study hours, consecutive streak, subject percentages, daily velocity, and exact task shift/rollover logs across the entire Anti-Burnout plan.
           </p>
         </div>
@@ -452,98 +452,98 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
           <button
             type="button"
             onClick={() => onSelectSection('calendar')}
-            className="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-black text-xs font-['JetBrains_Mono'] border border-white/20 transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3.5 py-2 rounded-xl bg-[#c2d7bd] hover:bg-[#b2cbb0] text-[#1a3717] font-black text-xs font-['JetBrains_Mono'] border border-[#a6c4a1] transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95"
           >
-            <CalendarDays className="w-4 h-4 text-emerald-300" />
+            <CalendarDays className="w-4 h-4 text-[#15803d]" />
             <span>View Calendar</span>
           </button>
         </div>
       </div>
 
       {/* ====================================================================== */}
-      {/* 1. TOP 4 METRIC STAT CARDS (Direct Match to Reference Image)           */}
+      {/* 1. TOP 4 METRIC STAT CARDS (Light Matcha Cards with Crisp Typography)   */}
       {/* ====================================================================== */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Card 1: Total Hours */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-[#0d1e0c]/95 border-2 border-[#22441f] text-white shadow-grave relative overflow-hidden flex flex-col justify-between group hover:border-emerald-500/50 transition-all">
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card relative overflow-hidden flex flex-col justify-between group hover:border-emerald-600/60 hover:shadow-grave-card-hover transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-black uppercase text-emerald-200/70 font-['JetBrains_Mono']">
+            <span className="text-[11px] font-black uppercase text-[#274624] font-['JetBrains_Mono']">
               Total Hours
             </span>
-            <Clock className="w-4 h-4 text-emerald-400" />
+            <Clock className="w-4 h-4 text-[#15803d]" />
           </div>
           <div className="my-2.5">
-            <div className="text-2xl sm:text-4xl font-black text-white font-['Space_Grotesk'] tracking-tight">
+            <div className="text-2xl sm:text-4xl font-black text-[#122810] font-['Space_Grotesk'] tracking-tight">
               {totalHoursStudied}
             </div>
-            <p className="text-xs text-emerald-300/80 font-medium font-['Plus_Jakarta_Sans'] mt-0.5">
+            <p className="text-xs text-[#355f30] font-semibold font-['Plus_Jakarta_Sans'] mt-0.5">
               all-time studied
             </p>
           </div>
-          <div className="text-[10px] text-emerald-400/90 font-mono font-bold flex items-center gap-1">
+          <div className="text-[10px] text-[#15803d] font-mono font-bold flex items-center gap-1">
             <span>90-min daily cap enforced</span>
           </div>
         </div>
 
         {/* Card 2: Current Streak */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-[#0d1e0c]/95 border-2 border-[#22441f] text-white shadow-grave relative overflow-hidden flex flex-col justify-between group hover:border-amber-400/50 transition-all">
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card relative overflow-hidden flex flex-col justify-between group hover:border-amber-500/60 hover:shadow-grave-card-hover transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-black uppercase text-amber-200/70 font-['JetBrains_Mono']">
+            <span className="text-[11px] font-black uppercase text-amber-900 font-['JetBrains_Mono']">
               Current Streak
             </span>
-            <Flame className="w-4 h-4 text-amber-400 fill-amber-400" />
+            <Flame className="w-4 h-4 text-amber-600 fill-amber-500" />
           </div>
           <div className="my-2.5">
-            <div className="text-2xl sm:text-4xl font-black text-amber-300 font-['Space_Grotesk'] tracking-tight">
+            <div className="text-2xl sm:text-4xl font-black text-amber-900 font-['Space_Grotesk'] tracking-tight">
               {currentStreak}
             </div>
-            <p className="text-xs text-amber-200/80 font-medium font-['Plus_Jakarta_Sans'] mt-0.5">
+            <p className="text-xs text-amber-800 font-semibold font-['Plus_Jakarta_Sans'] mt-0.5">
               days in a row
             </p>
           </div>
-          <div className="text-[10px] text-amber-300/90 font-mono font-bold flex items-center gap-1">
+          <div className="text-[10px] text-amber-900 font-mono font-bold flex items-center gap-1">
             <span>Buffer days protect streak</span>
           </div>
         </div>
 
         {/* Card 3: In Progress */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-[#0d1e0c]/95 border-2 border-[#22441f] text-white shadow-grave relative overflow-hidden flex flex-col justify-between group hover:border-sky-400/50 transition-all">
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card relative overflow-hidden flex flex-col justify-between group hover:border-sky-500/60 hover:shadow-grave-card-hover transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-black uppercase text-sky-200/70 font-['JetBrains_Mono']">
+            <span className="text-[11px] font-black uppercase text-sky-900 font-['JetBrains_Mono']">
               In Progress
             </span>
-            <BookOpen className="w-4 h-4 text-sky-400" />
+            <BookOpen className="w-4 h-4 text-sky-700" />
           </div>
           <div className="my-2.5">
-            <div className="text-2xl sm:text-4xl font-black text-sky-200 font-['Space_Grotesk'] tracking-tight">
+            <div className="text-2xl sm:text-4xl font-black text-sky-950 font-['Space_Grotesk'] tracking-tight">
               4
             </div>
-            <p className="text-xs text-sky-200/80 font-medium font-['Plus_Jakarta_Sans'] mt-0.5">
+            <p className="text-xs text-sky-900 font-semibold font-['Plus_Jakarta_Sans'] mt-0.5">
               SAT domains &amp; units
             </p>
           </div>
-          <div className="text-[10px] text-sky-300/90 font-mono font-bold flex items-center gap-1">
+          <div className="text-[10px] text-sky-800 font-mono font-bold flex items-center gap-1">
             <span>37 Math Lessons &bull; 10 R&amp;W</span>
           </div>
         </div>
 
         {/* Card 4: Due Today */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-[#0d1e0c]/95 border-2 border-[#22441f] text-white shadow-grave relative overflow-hidden flex flex-col justify-between group hover:border-emerald-400/50 transition-all">
+        <div className="p-4 sm:p-5 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card relative overflow-hidden flex flex-col justify-between group hover:border-emerald-600/60 hover:shadow-grave-card-hover transition-all">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-black uppercase text-emerald-200/70 font-['JetBrains_Mono']">
+            <span className="text-[11px] font-black uppercase text-[#274624] font-['JetBrains_Mono']">
               Due Today
             </span>
-            <RotateCcw className="w-4 h-4 text-emerald-400" />
+            <RotateCcw className="w-4 h-4 text-[#15803d]" />
           </div>
           <div className="my-2.5">
-            <div className="text-2xl sm:text-4xl font-black text-white font-['Space_Grotesk'] tracking-tight">
+            <div className="text-2xl sm:text-4xl font-black text-[#122810] font-['Space_Grotesk'] tracking-tight">
               {dueTodayTasks.length || 2}
             </div>
-            <p className="text-xs text-emerald-200/80 font-medium font-['Plus_Jakarta_Sans'] mt-0.5">
+            <p className="text-xs text-[#355f30] font-semibold font-['Plus_Jakarta_Sans'] mt-0.5">
               topics to review &amp; master
             </p>
           </div>
-          <div className="text-[10px] text-emerald-400 font-mono font-bold flex items-center gap-1">
+          <div className="text-[10px] text-[#15803d] font-mono font-bold flex items-center gap-1">
             <span>Phase 1 Foundations</span>
           </div>
         </div>
@@ -554,13 +554,13 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
       {/* ====================================================================== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Left: Study Hours Velocity Graph (2 Columns) */}
-        <div className="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-[#0d1e0c]/98 border-2 border-[#22441f] text-white shadow-grave space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#22441f] pb-3">
+        <div className="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#a6c4a1]/60 pb-3">
             <div>
-              <span className="text-xs font-black uppercase text-emerald-300 font-['JetBrains_Mono'] block">
+              <span className="text-xs font-black uppercase text-[#1a3717] font-['JetBrains_Mono'] block">
                 Study Hours &bull; Daily Velocity
               </span>
-              <p className="text-xs text-emerald-200/70 font-medium">
+              <p className="text-xs text-[#2e5728] font-semibold">
                 Tracking study volume and lesson completions day-by-day
               </p>
             </div>
@@ -568,22 +568,22 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             {/* Timeframe switchers & legend */}
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="flex items-center gap-1 text-amber-300">
-                  <span className="w-3 h-1.5 rounded-full bg-amber-400 inline-block" />
+                <span className="flex items-center gap-1 text-amber-800 font-bold">
+                  <span className="w-3 h-1.5 rounded-full bg-amber-500 inline-block" />
                   <span>Hours</span>
                 </span>
-                <span className="flex items-center gap-1 text-emerald-300/70">
-                  <span className="w-3 h-0.5 border-t border-dashed border-emerald-400 inline-block" />
+                <span className="flex items-center gap-1 text-emerald-800 font-bold">
+                  <span className="w-3 h-0.5 border-t border-dashed border-emerald-600 inline-block" />
                   <span>7-day avg</span>
                 </span>
               </div>
 
-              <div className="flex items-center gap-1 p-0.5 bg-black/40 rounded-xl border border-white/10 font-['JetBrains_Mono'] text-[11px]">
+              <div className="flex items-center gap-1 p-0.5 bg-[#d2e4cd] rounded-xl border border-[#a6c4a1] font-['JetBrains_Mono'] text-[11px]">
                 <button
                   type="button"
                   onClick={() => setGraphTimeframe('14d')}
                   className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === '14d' ? 'bg-emerald-700 text-white' : 'text-emerald-200/60 hover:text-white'
+                    graphTimeframe === '14d' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
                   }`}
                 >
                   14D
@@ -592,7 +592,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                   type="button"
                   onClick={() => setGraphTimeframe('30d')}
                   className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === '30d' ? 'bg-emerald-700 text-white' : 'text-emerald-200/60 hover:text-white'
+                    graphTimeframe === '30d' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
                   }`}
                 >
                   30D
@@ -601,7 +601,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                   type="button"
                   onClick={() => setGraphTimeframe('all')}
                   className={`px-2 py-1 rounded-lg font-bold transition cursor-pointer ${
-                    graphTimeframe === 'all' ? 'bg-emerald-700 text-white' : 'text-emerald-200/60 hover:text-white'
+                    graphTimeframe === 'all' ? 'bg-[#1a3717] text-white shadow-xs' : 'text-[#274624] hover:text-[#122810]'
                   }`}
                 >
                   ALL
@@ -618,9 +618,9 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             >
               <defs>
                 <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.45" />
-                  <stop offset="50%" stopColor="#10b981" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+                  <stop offset="0%" stopColor="#d97706" stopOpacity="0.35" />
+                  <stop offset="50%" stopColor="#16a34a" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#16a34a" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
 
@@ -634,13 +634,13 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                       y1={y}
                       x2={chartWidth - paddingX}
                       y2={y}
-                      stroke="rgba(255,255,255,0.08)"
+                      stroke="rgba(18, 40, 16, 0.12)"
                       strokeDasharray="3 3"
                     />
                     <text
                       x={paddingX - 4}
                       y={y + 3}
-                      fill="rgba(255,255,255,0.4)"
+                      fill="rgba(18, 40, 16, 0.6)"
                       fontSize="9"
                       fontFamily="monospace"
                       textAnchor="end"
@@ -661,10 +661,10 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 <path
                   d={svgAvgPath}
                   fill="none"
-                  stroke="#34d399"
+                  stroke="#059669"
                   strokeWidth="1.5"
                   strokeDasharray="4 3"
-                  opacity="0.8"
+                  opacity="0.85"
                 />
               )}
 
@@ -673,7 +673,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 <path
                   d={svgLinePath}
                   fill="none"
-                  stroke="#fbbf24"
+                  stroke="#d97706"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -694,8 +694,8 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                       cx={pt.x}
                       cy={pt.y}
                       r={isHovered ? 5.5 : pt.data.hasShift ? 4 : 3}
-                      fill={pt.data.hasShift ? '#ec4899' : isHovered ? '#f59e0b' : '#10b981'}
-                      stroke="#0d1e0c"
+                      fill={pt.data.hasShift ? '#db2777' : isHovered ? '#d97706' : '#16a34a'}
+                      stroke="#e5f0e1"
                       strokeWidth="2"
                     />
                   </g>
@@ -706,7 +706,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             {/* Hover Tooltip Overlay */}
             {hoveredPointIndex !== null && svgPoints[hoveredPointIndex] && (
               <div
-                className="absolute -top-3 p-2 rounded-xl bg-black/90 text-white text-[11px] font-['JetBrains_Mono'] border border-emerald-500/50 shadow-2xl pointer-events-none transform -translate-x-1/2 z-20 whitespace-nowrap"
+                className="absolute -top-3 p-2 rounded-xl bg-[#122810] text-white text-[11px] font-['JetBrains_Mono'] border border-[#a6c4a1] shadow-2xl pointer-events-none transform -translate-x-1/2 z-20 whitespace-nowrap"
                 style={{
                   left: `${(svgPoints[hoveredPointIndex].x / chartWidth) * 100}%`
                 }}
@@ -717,7 +717,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 <div>Hours: {svgPoints[hoveredPointIndex].data.hours} hrs</div>
                 <div>Completed: {svgPoints[hoveredPointIndex].data.tasksDone} topics</div>
                 {svgPoints[hoveredPointIndex].data.hasShift && (
-                  <div className="text-pink-400 font-bold text-[10px]">
+                  <div className="text-pink-300 font-bold text-[10px]">
                     &bull; Task shifted to this day
                   </div>
                 )}
@@ -727,12 +727,12 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
         </div>
 
         {/* Right: Primary Goal & Subject Percentage Gauges */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-[#0d1e0c]/98 border-2 border-[#22441f] text-white shadow-grave flex flex-col justify-between space-y-4">
+        <div className="p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card flex flex-col justify-between space-y-4">
           <div>
-            <span className="text-xs font-black uppercase text-amber-300 font-['JetBrains_Mono'] block">
+            <span className="text-xs font-black uppercase text-amber-900 font-['JetBrains_Mono'] block">
               Primary Goal
             </span>
-            <p className="text-xs text-emerald-200/70 font-medium">
+            <p className="text-xs text-[#274624] font-semibold">
               Nov 7 &bull; Target: 1550+ Crescent Model
             </p>
           </div>
@@ -745,7 +745,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                   cx="50"
                   cy="50"
                   r="40"
-                  stroke="#1a3717"
+                  stroke="rgba(18, 40, 16, 0.12)"
                   strokeWidth="9"
                   fill="transparent"
                 />
@@ -753,7 +753,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                   cx="50"
                   cy="50"
                   r="40"
-                  stroke="#fbbf24"
+                  stroke="#16a34a"
                   strokeWidth="9"
                   strokeDasharray={`${2 * Math.PI * 40}`}
                   strokeDashoffset={`${2 * Math.PI * 40 * (1 - overallPercentage / 100)}`}
@@ -763,30 +763,30 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 />
               </svg>
               <div className="absolute flex flex-col items-center text-center">
-                <span className="text-2xl font-black font-['Space_Grotesk'] text-white">
+                <span className="text-2xl font-black font-['Space_Grotesk'] text-[#122810]">
                   {overallPercentage}%
                 </span>
-                <span className="text-[10px] font-black uppercase text-amber-300 font-mono">
+                <span className="text-[10px] font-black uppercase text-amber-800 font-mono">
                   COMPLETE
                 </span>
               </div>
             </div>
-            <p className="text-xs text-emerald-200/80 font-bold font-['Plus_Jakarta_Sans'] mt-2 text-center">
+            <p className="text-xs text-[#274624] font-bold font-['Plus_Jakarta_Sans'] mt-2 text-center">
               {completedCount} of {totalTasks} skills locked in
             </p>
           </div>
 
           {/* Subject Breakdown Bars */}
-          <div className="space-y-2.5 pt-2 border-t border-[#22441f]">
+          <div className="space-y-2.5 pt-2 border-t border-[#a6c4a1]/60">
             {/* Math */}
             <div className="space-y-1">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-emerald-200 font-bold">📐 Math (4 Domains)</span>
-                <span className="text-amber-300 font-bold">{subjectBreakdown.math.pct}%</span>
+                <span className="text-[#122810] font-bold">📐 Math (4 Domains)</span>
+                <span className="text-amber-800 font-bold">{subjectBreakdown.math.pct}%</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-[#cbdcc7] overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-amber-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-emerald-600 to-amber-500 rounded-full transition-all duration-500"
                   style={{ width: `${subjectBreakdown.math.pct}%` }}
                 />
               </div>
@@ -795,12 +795,12 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             {/* Reading & Writing */}
             <div className="space-y-1">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-emerald-200 font-bold">📖 Reading &amp; Writing</span>
-                <span className="text-emerald-300 font-bold">{subjectBreakdown.rw.pct}%</span>
+                <span className="text-[#122810] font-bold">📖 Reading &amp; Writing</span>
+                <span className="text-emerald-800 font-bold">{subjectBreakdown.rw.pct}%</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-[#cbdcc7] overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-teal-600 to-emerald-600 rounded-full transition-all duration-500"
                   style={{ width: `${subjectBreakdown.rw.pct}%` }}
                 />
               </div>
@@ -809,12 +809,12 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             {/* Bluebook Arena */}
             <div className="space-y-1">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-emerald-200 font-bold">🏆 Bluebook Arena</span>
-                <span className="text-sky-300 font-bold">{subjectBreakdown.bluebook.pct}%</span>
+                <span className="text-[#122810] font-bold">🏆 Bluebook Arena</span>
+                <span className="text-sky-800 font-bold">{subjectBreakdown.bluebook.pct}%</span>
               </div>
-              <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-[#cbdcc7] overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-sky-400 rounded-full transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-blue-600 to-sky-500 rounded-full transition-all duration-500"
                   style={{ width: `${subjectBreakdown.bluebook.pct}%` }}
                 />
               </div>
@@ -828,40 +828,40 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
       {/* ====================================================================== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Continue Where You Left Off */}
-        <div className="p-5 sm:p-6 rounded-3xl bg-[#0d1e0c]/98 border-2 border-[#22441f] text-white shadow-grave flex flex-col justify-between space-y-4">
+        <div className="p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card flex flex-col justify-between space-y-4">
           <div>
-            <span className="text-xs font-black uppercase text-amber-300 font-['JetBrains_Mono'] block">
+            <span className="text-xs font-black uppercase text-amber-900 font-['JetBrains_Mono'] block">
               Continue Where You Left Off
             </span>
-            <p className="text-xs text-emerald-200/70 font-medium">
+            <p className="text-xs text-[#274624] font-semibold">
               Next scheduled focus session
             </p>
           </div>
 
           {nextUpTask ? (
-            <div className="p-4 rounded-2xl bg-white/[0.05] border border-emerald-500/30 space-y-3">
+            <div className="p-4 rounded-2xl bg-[#d2e4cd]/80 border border-[#a6c4a1] space-y-3 shadow-xs">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black shrink-0 shadow-xs">
                   <Play className="w-4 h-4 fill-slate-950" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="text-xs font-black text-amber-300 font-mono truncate">
+                  <div className="text-xs font-black text-amber-800 font-mono truncate">
                     {nextUpTask.label}
                   </div>
-                  <h4 className="text-sm font-black text-white font-['Plus_Jakarta_Sans'] truncate">
+                  <h4 className="text-sm font-black text-[#122810] font-['Plus_Jakarta_Sans'] truncate">
                     {nextUpTask.task.topic || nextUpTask.task.label}
                   </h4>
                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-1 text-xs font-mono">
-                <span className="text-emerald-300">
+                <span className="text-[#15803d] font-bold">
                   {nextUpTask.task.durationMinutes || 45} mins &bull; 90-Min Cap
                 </span>
                 <button
                   type="button"
                   onClick={() => onLaunchTimer(nextUpTask.task.topic || nextUpTask.task.label, nextUpTask.day.dateStr)}
-                  className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs font-['JetBrains_Mono'] transition shadow-md flex items-center gap-1 cursor-pointer active:scale-95"
+                  className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs font-['JetBrains_Mono'] transition shadow-xs flex items-center gap-1 cursor-pointer active:scale-95"
                 >
                   <span>Resume</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -869,33 +869,33 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
               </div>
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-white/[0.04] text-xs text-emerald-200 text-center font-mono">
+            <div className="p-4 rounded-2xl bg-[#d2e4cd]/60 border border-[#a6c4a1] text-xs text-[#274624] text-center font-mono">
               All scheduled tasks completed!
             </div>
           )}
 
-          <div className="text-[11px] text-emerald-300/80 font-mono flex items-center gap-1">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="text-[11px] text-[#274624] font-mono font-bold flex items-center gap-1">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#15803d]" />
             <span>Strict 90-min cap protects recovery</span>
           </div>
         </div>
 
         {/* Activity Heatmap Grid • Last 30 Days (2 Columns) */}
-        <div className="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-[#0d1e0c]/98 border-2 border-[#22441f] text-white shadow-grave space-y-4">
-          <div className="flex items-center justify-between border-b border-[#22441f] pb-3">
+        <div className="lg:col-span-2 p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card space-y-4">
+          <div className="flex items-center justify-between border-b border-[#a6c4a1]/60 pb-3">
             <div>
-              <span className="text-xs font-black uppercase text-emerald-300 font-['JetBrains_Mono'] block">
+              <span className="text-xs font-black uppercase text-[#1a3717] font-['JetBrains_Mono'] block">
                 Activity Heatmap &bull; 30-Day Matrix
               </span>
-              <p className="text-xs text-emerald-200/70 font-medium">
+              <p className="text-xs text-[#2e5728] font-semibold">
                 Daily study consistency pattern across weeks
               </p>
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-300/80">
+            <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#274624] font-bold">
               <span>Less</span>
-              <span className="w-2.5 h-2.5 rounded bg-black/60 border border-white/10" />
-              <span className="w-2.5 h-2.5 rounded bg-emerald-900 border border-emerald-700" />
-              <span className="w-2.5 h-2.5 rounded bg-emerald-600 border border-emerald-400" />
+              <span className="w-2.5 h-2.5 rounded bg-[#cbdcc7] border border-[#a6c4a1]" />
+              <span className="w-2.5 h-2.5 rounded bg-emerald-600/70 border border-emerald-700" />
+              <span className="w-2.5 h-2.5 rounded bg-emerald-600 border border-emerald-500" />
               <span className="w-2.5 h-2.5 rounded bg-amber-400 border border-amber-300" />
               <span>More</span>
             </div>
@@ -904,7 +904,7 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
           {/* GitHub / Study Matrix Grid */}
           <div className="flex items-center gap-3 overflow-x-auto py-2">
             {/* Days of Week column labels */}
-            <div className="flex flex-col gap-1.5 text-[10px] font-mono text-emerald-300/60 font-bold select-none pr-1">
+            <div className="flex flex-col gap-1.5 text-[10px] font-mono text-[#274624] font-bold select-none pr-1">
               <span>M</span>
               <span>T</span>
               <span>W</span>
@@ -919,12 +919,12 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
               {heatmapDays.map((item, i) => {
                 const colorClass =
                   item.level === 3
-                    ? 'bg-amber-400 border-amber-300 shadow-xs'
+                    ? 'bg-amber-400 border-amber-500 shadow-xs'
                     : item.level === 2
-                    ? 'bg-emerald-500 border-emerald-400'
+                    ? 'bg-emerald-600 border-emerald-700'
                     : item.level === 1
-                    ? 'bg-emerald-800/80 border-emerald-700'
-                    : 'bg-black/50 border-white/10';
+                    ? 'bg-emerald-700/60 border-emerald-700'
+                    : 'bg-[#cbdcc7] border-[#a6c4a1]';
 
                 return (
                   <div
@@ -937,36 +937,36 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
             </div>
           </div>
 
-          <div className="text-[11px] text-emerald-200/70 font-mono flex items-center justify-between pt-1">
+          <div className="text-[11px] text-[#274624] font-mono flex items-center justify-between pt-1">
             <span>Consistent daily 90 minutes beats weekend cramming</span>
-            <span className="text-amber-300 font-bold">100% Anti-Burnout Compliant</span>
+            <span className="text-amber-800 font-bold">100% Anti-Burnout Compliant</span>
           </div>
         </div>
       </div>
 
       {/* ====================================================================== */}
-      {/* 4. TASK SHIFT & ROLLOVER LOG (Exact User Request)                       */}
+      {/* 4. TASK SHIFT & ROLLOVER LOG (Light Matcha Ledger)                     */}
       {/* ====================================================================== */}
-      <div className="p-5 sm:p-6 rounded-3xl bg-[#0d1e0c]/98 border-2 border-[#22441f] text-white shadow-grave space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#22441f] pb-3">
+      <div className="p-5 sm:p-6 rounded-3xl bg-[#e5f0e1]/95 border-2 border-[#a6c4a1] text-[#122810] shadow-grave-card space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#a6c4a1]/60 pb-3">
           <div>
-            <span className="text-xs font-black uppercase text-amber-300 font-['JetBrains_Mono'] block">
+            <span className="text-xs font-black uppercase text-amber-900 font-['JetBrains_Mono'] block">
               Shift &amp; Rollover Tracker &bull; Which Day Moved to Which
             </span>
-            <p className="text-xs text-emerald-200/70 font-medium">
+            <p className="text-xs text-[#274624] font-semibold">
               Transparent ledger of all shifted and rescheduled lessons across the calendar
             </p>
           </div>
 
           {/* Sub-tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-black/40 rounded-xl border border-white/10 font-['JetBrains_Mono'] text-xs">
+          <div className="flex items-center gap-1.5 p-1 bg-[#d2e4cd] rounded-xl border border-[#a6c4a1] font-['JetBrains_Mono'] text-xs">
             <button
               type="button"
               onClick={() => setActiveLedgerTab('shifts')}
               className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
                 activeLedgerTab === 'shifts'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'text-emerald-200/70 hover:text-white'
+                  ? 'bg-[#1a3717] text-white shadow-xs'
+                  : 'text-[#274624] hover:text-[#122810]'
               }`}
             >
               Shift History ({taskShiftRecords.length})
@@ -976,8 +976,8 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
               onClick={() => setActiveLedgerTab('completed')}
               className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
                 activeLedgerTab === 'completed'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'text-emerald-200/70 hover:text-white'
+                  ? 'bg-[#1a3717] text-white shadow-xs'
+                  : 'text-[#274624] hover:text-[#122810]'
               }`}
             >
               Completed ({completedLessonsList.length})
@@ -987,8 +987,8 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
               onClick={() => setActiveLedgerTab('upcoming')}
               className={`px-3 py-1.5 rounded-lg font-bold transition cursor-pointer ${
                 activeLedgerTab === 'upcoming'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'text-emerald-200/70 hover:text-white'
+                  ? 'bg-[#1a3717] text-white shadow-xs'
+                  : 'text-[#274624] hover:text-[#122810]'
               }`}
             >
               Upcoming Schedule ({upcomingLessonsList.length})
@@ -1004,33 +1004,33 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 {taskShiftRecords.map((record, rIdx) => (
                   <div
                     key={rIdx}
-                    className="p-3.5 rounded-2xl bg-white/[0.05] border border-emerald-500/30 flex items-center justify-between gap-3 font-mono text-xs"
+                    className="p-3.5 rounded-2xl bg-[#d2e4cd]/80 border border-[#a6c4a1] flex items-center justify-between gap-3 font-mono text-xs shadow-xs"
                   >
                     <div>
                       <div className="flex items-center gap-2">
                         {record.taskCode && (
-                          <span className="px-1.5 py-0.5 rounded bg-emerald-800 text-emerald-200 font-bold text-[10px]">
+                          <span className="px-1.5 py-0.5 rounded bg-emerald-800 text-emerald-100 font-bold text-[10px]">
                             {record.taskCode}
                           </span>
                         )}
-                        <span className="font-bold text-white truncate max-w-[200px]">
+                        <span className="font-bold text-[#122810] truncate max-w-[200px]">
                           {record.taskTitle}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2 mt-1 text-[11px] text-emerald-300/80">
+                      <div className="flex items-center gap-2 mt-1 text-[11px] text-[#274624] font-semibold">
                         <span>From: {record.originalDayFormatted}</span>
                         <span>&rarr;</span>
-                        <span className="text-amber-300 font-bold">To: {record.shiftedToDayFormatted}</span>
+                        <span className="text-amber-800 font-bold">To: {record.shiftedToDayFormatted}</span>
                       </div>
                     </div>
 
                     <div className="shrink-0 text-right">
                       {record.isBufferAbsorption && (
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold block">
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-600/20 text-[#15803d] border border-emerald-600/30 text-[10px] font-bold block">
                           Buffer Protected
                         </span>
                       )}
-                      <span className={`text-[10px] mt-1 block font-bold ${record.completed ? 'text-emerald-400' : 'text-slate-400'}`}>
+                      <span className={`text-[10px] mt-1 block font-bold ${record.completed ? 'text-[#15803d]' : 'text-slate-600'}`}>
                         {record.completed ? '✓ Completed' : 'Pending'}
                       </span>
                     </div>
@@ -1038,10 +1038,10 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 ))}
               </div>
             ) : (
-              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/10 text-center space-y-2">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h4 className="text-sm font-black text-white">Zero Schedule Slippage!</h4>
-                <p className="text-xs text-emerald-200/80 max-w-md mx-auto">
+              <div className="p-6 rounded-2xl bg-[#d2e4cd]/50 border border-[#a6c4a1] text-center space-y-2">
+                <CheckCircle2 className="w-8 h-8 text-[#15803d] mx-auto" />
+                <h4 className="text-sm font-black text-[#122810]">Zero Schedule Slippage!</h4>
+                <p className="text-xs text-[#274624] font-medium max-w-md mx-auto">
                   All tasks are currently operating on their original schedule. When life happens and you drag tasks to Sunday Buffer Days in the Calendar, this ledger tracks every shift automatically.
                 </p>
               </div>
@@ -1057,20 +1057,20 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 {completedLessonsList.map((c, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-xl bg-white/[0.04] border border-emerald-500/20 flex items-center justify-between gap-2 text-xs font-mono"
+                    className="p-3 rounded-xl bg-[#d2e4cd]/80 border border-[#a6c4a1] flex items-center justify-between gap-2 text-xs font-mono shadow-xs"
                   >
                     <div className="truncate">
-                      <div className="text-[10px] text-emerald-400 font-bold">{c.code || c.subject.toUpperCase()}</div>
-                      <div className="text-white font-bold truncate">{c.title}</div>
+                      <div className="text-[10px] text-[#15803d] font-bold">{c.code || c.subject.toUpperCase()}</div>
+                      <div className="text-[#122810] font-bold truncate">{c.title}</div>
                     </div>
-                    <span className="text-[10px] text-emerald-300/80 shrink-0 font-mono">
+                    <span className="text-[10px] text-[#274624] font-semibold shrink-0 font-mono">
                       {c.completedDate}
                     </span>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="p-6 rounded-2xl bg-white/[0.03] text-center text-xs text-slate-400 font-mono">
+              <div className="p-6 rounded-2xl bg-[#d2e4cd]/50 border border-[#a6c4a1] text-center text-xs text-[#274624] font-mono">
                 No lessons completed yet. Complete your first task in Dashboard or Calendar!
               </div>
             )}
@@ -1084,14 +1084,14 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
               {upcomingLessonsList.map((u, i) => (
                 <div
                   key={i}
-                  className="p-3 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between gap-2 text-xs font-mono"
+                  className="p-3 rounded-xl bg-[#d2e4cd]/80 border border-[#a6c4a1] flex items-center justify-between gap-2 text-xs font-mono shadow-xs"
                 >
                   <div className="truncate">
-                    <div className="text-[10px] text-amber-300 font-bold">{u.code || u.subject.toUpperCase()}</div>
-                    <div className="text-white font-bold truncate">{u.title}</div>
-                    <div className="text-[10px] text-emerald-300/70">{u.estMinutes} mins</div>
+                    <div className="text-[10px] text-amber-800 font-bold">{u.code || u.subject.toUpperCase()}</div>
+                    <div className="text-[#122810] font-bold truncate">{u.title}</div>
+                    <div className="text-[10px] text-[#274624] font-semibold">{u.estMinutes} mins</div>
                   </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-900 text-emerald-200 shrink-0 font-bold">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-[#c2d7bd] text-[#1a3717] shrink-0 font-bold border border-[#a6c4a1]">
                     {u.scheduledDay}
                   </span>
                 </div>
