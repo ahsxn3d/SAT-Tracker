@@ -11,7 +11,6 @@ import {
   Sparkles, 
   Clock, 
   AlertCircle, 
-  Play, 
   X,
   FileText,
   Target,
@@ -19,8 +18,7 @@ import {
   ArrowUpRight,
   Zap,
   BookOpen,
-  RotateCcw,
-  Timer
+  RotateCcw
 } from 'lucide-react';
 import { DayPlan, TaskItem, DaySessionTiming, TaskTimingRecord } from '../types';
 import { getDayLoadDifficulty, DayLoadDifficulty, DIFFICULTY_CONFIGS, cleanSkillLabel } from '../utils/difficulty';
@@ -30,7 +28,7 @@ interface InteractiveCalendarProps {
   allDays: DayPlan[];
   completedTaskIds: Record<string, boolean>;
   onToggleTask: (dayId: string, taskId: string) => void;
-  onLaunchTimer: (dayTitle: string, dateStr?: string) => void;
+  onLaunchTimer?: (dayTitle: string, dateStr?: string) => void;
   onSaveNotes: (dayId: string, notes: string) => void;
   dayNotes: Record<string, string>;
   sessionTimings?: Record<string, DaySessionTiming>;
@@ -216,7 +214,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
             Master Progress Calendar
           </h2>
           <p className="text-xs sm:text-sm text-slate-700 font-medium max-w-2xl mt-1 leading-relaxed">
-            Click any day to inspect lessons, toggle tasks directly, or launch that day&apos;s 90-minute timer. Every day calculates and shows exact process completion.
+            Click any day to inspect lessons, review study windows, and toggle tasks directly. Every day calculates and shows exact process completion.
           </p>
         </div>
 
@@ -1254,26 +1252,13 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="p-4 sm:p-5 border-t border-slate-200 bg-matcha-sub rounded-b-3xl flex items-center justify-between gap-3">
+            <div className="p-4 sm:p-5 border-t border-slate-200 bg-matcha-sub rounded-b-3xl flex items-center justify-end gap-3">
               <button
                 onClick={() => setActiveInspectDayId(null)}
-                className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-matcha-input hover:bg-[rgba(195,218,190,0.65)] border border-slate-300 transition"
+                className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-matcha-input hover:bg-[rgba(195,218,190,0.65)] border border-slate-300 transition cursor-pointer"
               >
                 Close Window
               </button>
-
-              {!inspectedDay.isBuffer && (
-                <button
-                  onClick={() => {
-                    onLaunchTimer(`${inspectedDay.formattedDate} - 90-Min Session`);
-                    setActiveInspectDayId(null);
-                  }}
-                  className="px-4 py-2.5 rounded-xl text-xs font-black text-white bg-indigo-600 hover:bg-indigo-700 transition flex items-center gap-1.5 shadow-xs"
-                >
-                  <Play className="w-3.5 h-3.5 fill-white" />
-                  <span>Start 90-Min Session</span>
-                </button>
-              )}
             </div>
           </div>
         </div>

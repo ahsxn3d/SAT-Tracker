@@ -36,7 +36,7 @@ interface ProgressSectionProps {
   sessionTimings: Record<string, DaySessionTiming>;
   currentTrackerDate: string;
   onSelectSection: (section: any) => void;
-  onLaunchTimer: (dayTitle: string, dateStr: string) => void;
+  onLaunchTimer?: (dayTitle: string, dateStr: string) => void;
   onToggleTask?: (dayId: string, taskId: string) => void;
 }
 
@@ -860,10 +860,10 @@ export const ProgressSection: React.FC<ProgressSectionProps> = ({
                 </span>
                 <button
                   type="button"
-                  onClick={() => onLaunchTimer(nextUpTask.task.topic || nextUpTask.task.label, nextUpTask.day.dateStr)}
+                  onClick={() => onSelectSection('tomorrow')}
                   className="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs font-['JetBrains_Mono'] transition shadow-xs flex items-center gap-1 cursor-pointer active:scale-95"
                 >
-                  <span>Resume</span>
+                  <span>Focus</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>

@@ -19,8 +19,6 @@ import {
   Luggage,
   MapPin,
   ShieldCheck,
-  Clock,
-  Play,
   PanelLeftClose,
   PanelLeftOpen,
   ChevronLeft,
@@ -90,16 +88,6 @@ export const SIDEBAR_NAV_ITEMS: SidebarNavItem[] = [
     shortLabel: 'Tomorrow',
     href: '/tomorrow',
     icon: Sparkles,
-    category: 'study'
-  },
-  {
-    id: 'timer',
-    label: '90-Min Cap Timer',
-    shortLabel: 'Timer',
-    href: '/timer',
-    icon: Clock,
-    badge: '90m',
-    badgeColor: 'bg-amber-400/20 text-amber-300 border-amber-400/40',
     category: 'study'
   },
   {
@@ -187,7 +175,6 @@ interface SidebarProps {
   onSelectSection: (section: string) => void;
   completedCount?: number;
   totalTasks?: number;
-  onOpenTimer?: () => void;
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
   mobileOpen?: boolean;
@@ -200,7 +187,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectSection,
   completedCount = 0,
   totalTasks = 86,
-  onOpenTimer,
   isCollapsed = false,
   onToggleCollapse,
   mobileOpen = false,
@@ -214,12 +200,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const sidebarBgClass = 'bg-[#214122]/98 text-white border-r-2 border-[#3a693c] shadow-2xl';
 
   const handleItemClick = (e: React.MouseEvent, sectionId: string, href: string) => {
-    if (sectionId === 'timer' && onOpenTimer) {
-      e.preventDefault();
-      onOpenTimer();
-      if (onCloseMobile) onCloseMobile();
-      return;
-    }
     e.preventDefault();
     onSelectSection(sectionId);
     if (onCloseMobile) {
@@ -489,27 +469,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* ============================================================== */}
-        {/* BOTTOM SECTION: 90-MIN TIMER TRIGGER + STATS + COLLAPSE       */}
+        {/* BOTTOM SECTION: STATS + COLLAPSE                               */}
         {/* ============================================================== */}
         <div className="p-3 border-t border-[#325a34] bg-[#19361b] space-y-2 shrink-0">
-          {/* Quick Launch 90-Min Cap Timer Button */}
-          {onOpenTimer && (
-            <button
-              type="button"
-              id="sidebar-timer-trigger-btn"
-              onClick={onOpenTimer}
-              className={`w-full py-2 px-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 hover:brightness-105 active:scale-95 text-slate-950 font-black text-xs transition-all shadow-md flex items-center gap-2 cursor-pointer ${
-                isCollapsed ? 'justify-center px-1' : 'justify-between'
-              }`}
-              title="Launch 90-Min Daily Cap Timer"
-            >
-              <div className="flex items-center gap-2 truncate">
-                <Clock className="w-4 h-4 shrink-0 text-slate-950" />
-                {!isCollapsed && <span className="truncate font-['JetBrains_Mono'] font-black">90-Min Cap Timer</span>}
-              </div>
-              {!isCollapsed && <Play className="w-3 h-3 fill-slate-950 shrink-0" />}
-            </button>
-          )}
 
           {/* Quick Stats or Footer Meta */}
           {!isCollapsed && (

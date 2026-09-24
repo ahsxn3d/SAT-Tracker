@@ -36,7 +36,6 @@ interface DedicatedDayPageProps {
   sessionTiming?: DaySessionTiming;
   onSaveSessionTiming?: (timing: DaySessionTiming) => void;
   onDeleteSessionTiming?: (dateStr: string) => void;
-  onLaunchTimerModal?: (dayTitle: string, dateStr: string, taskId?: string) => void;
   notes: string;
   onSaveNotes: (dateStr: string, text: string) => void;
   onBack: () => void;
@@ -57,7 +56,6 @@ export function DedicatedDayPage({
   sessionTiming,
   onSaveSessionTiming,
   onDeleteSessionTiming,
-  onLaunchTimerModal,
   notes,
   onSaveNotes,
   onBack,

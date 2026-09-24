@@ -7,19 +7,16 @@ import {
   Calculator, 
   CheckCircle2, 
   Sparkles, 
-  Timer, 
   Gamepad2, 
   Footprints, 
   CheckSquare, 
   Laptop,
   Compass,
-  ArrowRight,
   ShieldCheck,
   Zap
 } from 'lucide-react';
 
 interface DailyTimelineTemplateProps {
-  onLaunchTimer?: (dayTitle?: string) => void;
   dayTitle?: string;
 }
 
@@ -133,7 +130,6 @@ const PRESETS: AnchorPreset[] = [
 ];
 
 export const DailyTimelineTemplate: React.FC<DailyTimelineTemplateProps> = ({
-  onLaunchTimer,
   dayTitle = 'Tomorrow (Mon Sep 14) - Day 1 Session'
 }) => {
   // Start time in "HH:mm" (24h) - Default strictly '20:30' on both SSR and initial client render to avoid hydration mismatch
@@ -214,22 +210,9 @@ export const DailyTimelineTemplate: React.FC<DailyTimelineTemplateProps> = ({
           </h3>
 
           <p className="text-xs sm:text-sm text-slate-700 font-medium max-w-2xl leading-relaxed">
-            Adjust the clock times to fit around college and prayers, but <strong>keep the block structure strictly identical</strong>. 
-            Only ~85 minutes is actual studying; the rest is protected recovery.
+            Adjust the clock times to fit around college and prayers, but <strong>keep the block structure strictly identical</strong>. Only ~85 minutes is actual studying; the rest is protected recovery.
           </p>
         </div>
-
-        {/* Action Button: Launch 5-Block Timer */}
-        {onLaunchTimer && (
-          <button
-            onClick={() => onLaunchTimer(dayTitle)}
-            className="px-4 py-2.5 rounded-2xl bg-indigo-700 hover:bg-indigo-800 text-white font-bold text-xs shadow-md hover:shadow-lg flex items-center gap-2 shrink-0 transition-all duration-200 cursor-pointer active:scale-[0.98] self-start md:self-center"
-          >
-            <Timer className="w-4 h-4 text-indigo-200" />
-            <span>Launch 5-Block Timer</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        )}
       </div>
 
       {/* Start Time Anchor Selector */}

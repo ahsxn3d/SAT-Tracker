@@ -233,7 +233,6 @@ interface BluebookArenaSectionProps {
   onToggleTask: (taskId: string, dayId: string) => void;
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
-  onLaunchTimer: (title?: string) => void;
 }
 
 export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
@@ -242,7 +241,6 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   onToggleTask,
   onOpenDesmos,
   onOpenErrorLog,
-  onLaunchTimer,
 }) => {
   const [filterCategory, setFilterCategory] = useState<'all' | 'test' | 'drill' | 'rest'>('all');
   const [selectedMockForScore, setSelectedMockForScore] = useState<string>('bluebook-test-1');

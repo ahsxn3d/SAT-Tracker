@@ -7,7 +7,6 @@ import {
   Sparkles, 
   Coffee, 
   BookOpen, 
-  Play, 
   ShieldCheck,
   Zap,
   RotateCcw,
@@ -22,7 +21,6 @@ interface TomorrowFocusCardProps {
   tomorrowDay: DayPlan;
   completedTaskIds?: Record<string, boolean>;
   onToggleTask: (dayId: string, taskId: string) => void;
-  onLaunchTimer: (dayTitle?: string, dateStr?: string, taskId?: string) => void;
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
   onSaveNotes: (dayId: string, notes: string) => void;
@@ -38,7 +36,6 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
   tomorrowDay,
   completedTaskIds = {},
   onToggleTask,
-  onLaunchTimer,
   onOpenDesmos,
   onOpenErrorLog,
   onSaveNotes,
@@ -121,14 +118,6 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                 <span>Inspect Day Details &rarr;</span>
               </button>
             )}
-            <button
-              id="tomorrow-launch-timer-btn"
-              onClick={() => onLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`)}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-black text-slate-950 bg-amber-400 hover:bg-amber-300 hover:shadow-md active:scale-[0.98] transition-all duration-150 min-h-[44px] cursor-pointer shadow-xs"
-            >
-              <Play className="w-4 h-4 fill-slate-950" />
-              <span>Start 90-Min Session</span>
-            </button>
           </div>
         </div>
       </div>
@@ -366,14 +355,13 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                         )}
                       </button>
 
-                      <button
-                        onClick={() => onLaunchTimer(`${tomorrowDay.formattedDate} - ${task.code || task.label}`, tomorrowDay.dateStr, task.id)}
-                        className="py-2.5 px-3 rounded-xl border border-emerald-600/40 bg-white hover:bg-emerald-50 text-emerald-900 font-black text-xs flex items-center justify-center gap-1.5 transition active:scale-95 min-h-[44px] cursor-pointer shadow-xs"
-                        title={`Start ${task.durationMinutes || 20}-minute timer for this exact lesson`}
+                      <div
+                        className="py-2.5 px-3 rounded-xl border border-[#a6c4a1] bg-[#d2e4cd]/60 text-[#1a3717] font-black text-xs flex items-center justify-center gap-1.5 min-h-[44px] shadow-xs select-none"
+                        title={`Allocated timing window: ${task.durationMinutes || 20} minutes`}
                       >
-                        <Clock className="w-3.5 h-3.5 text-emerald-600" />
+                        <Clock className="w-3.5 h-3.5 text-[#1a3717]" />
                         <span>{task.durationMinutes || 20}m</span>
-                      </button>
+                      </div>
                     </div>
                   </motion.div>
                 );

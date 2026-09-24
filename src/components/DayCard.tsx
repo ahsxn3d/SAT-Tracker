@@ -21,7 +21,6 @@ interface DayCardProps {
   isToday: boolean;
   isTomorrow?: boolean;
   onToggleTask: (dayId: string, taskId: string) => void;
-  onLaunchTimer?: (dayTitle: string) => void;
   onSaveNotes: (dayId: string, notes: string) => void;
   allPrecedingDaysCompleted?: boolean;
   onOpenStruggleModal?: (day: DayPlan) => void;
@@ -33,7 +32,6 @@ export const DayCard: React.FC<DayCardProps> = ({
   isToday,
   isTomorrow = false,
   onToggleTask,
-  onLaunchTimer,
   onSaveNotes,
   allPrecedingDaysCompleted = true,
   onOpenStruggleModal,

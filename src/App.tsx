@@ -76,7 +76,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'progress' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator' | 'ai-copilot';
+type ActiveSection = 'all' | 'progress' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'exam-prep' | 'score-calculator' | 'ai-copilot';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -243,9 +243,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
   const [scheduleFilterType, setScheduleFilterType] = useState<'all' | 'buffers' | 'tests'>('all');
 
   // Modals state
-  const [timerModalOpen, setTimerModalOpen] = useState(false);
-  const [activeTimerDayTitle, setActiveTimerDayTitle] = useState<string>('Tomorrow (Mon Sep 14) - Day 1 Session');
-  const [selectedTimerDateStr, setSelectedTimerDateStr] = useState<string>('2026-09-14');
   const [errorLogModalOpen, setErrorLogModalOpen] = useState(false);
   const [packingModalOpen, setPackingModalOpen] = useState(false);
   const [stuckModalDay, setStuckModalDay] = useState<DayPlan | null>(null);
@@ -542,18 +539,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
     }
   };
 
-  const handleLaunchTimer = (dayTitle?: string, dateStr?: string, taskId?: string) => {
-    if (dateStr) setSelectedTimerDateStr(dateStr);
-    if (typeof window !== 'undefined') {
-      const query = new URLSearchParams();
-      if (dateStr) query.set('date', dateStr);
-      if (dayTitle) query.set('title', dayTitle);
-      if (taskId) query.set('taskId', taskId);
-      const qs = query.toString();
-      window.location.href = `/timer${qs ? `?${qs}` : ''}`;
-    }
-  };
-
   const handleSaveSessionTiming = (timing: DaySessionTiming) => {
     setSessionTimings((prev) => ({
       ...prev,
@@ -752,7 +737,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
       'error-log': '/error-log',
       'crescent': '/test-center',
       'rules': '/rules',
-      'timer': '/timer',
       'exam-prep': '/exam-prep',
       'score-calculator': '/score-calculator',
       'ai-copilot': '/ai-copilot',
@@ -772,7 +756,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
         onSelectSection={handleSelectSection}
         completedCount={completedCount}
         totalTasks={totalTasks}
-        onOpenTimer={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
         isCollapsed={sidebarCollapsed}
         onToggleCollapse={toggleSidebarCollapse}
         mobileOpen={mobileSidebarOpen}
@@ -802,14 +785,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
               <span className="text-sm font-black font-['Space_Grotesk'] text-white">SAT Tracker</span>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
-            className="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1 font-mono cursor-pointer shadow-xs active:scale-95"
-          >
-            <Clock className="w-3.5 h-3.5" />
-            <span>Timer</span>
-          </button>
         </div>
 
       {/* DEDICATED FULL-PAGE VIEW OR MAIN DASHBOARD */}
@@ -822,13 +797,11 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
           sessionTiming={sessionTimings[dedicatedDay.dateStr]}
           onSaveSessionTiming={handleSaveSessionTiming}
           onDeleteSessionTiming={handleDeleteSessionTiming}
-          onLaunchTimerModal={(dayTitle, dateStr) => handleLaunchTimer(dayTitle, dateStr)}
           notes={dayNotes[dedicatedDay.dateStr] || ''}
           onSaveNotes={handleSaveNotes}
           onBack={() => setDedicatedDayDateStr(null)}
           onNavigateDay={(targetDateStr) => setDedicatedDayDateStr(targetDateStr)}
-          onOpenErrorLogModal={(preDate) => {
-            setSelectedTimerDateStr(preDate || dedicatedDay.dateStr);
+          onOpenErrorLogModal={() => {
             setErrorLogModalOpen(true);
           }}
           onOpenDesmosModal={() => handleSelectSection('cheat-codes')}
@@ -904,7 +877,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 sessionTimings={sessionTimings}
                 currentTrackerDate={currentTrackerDate}
                 onSelectSection={handleSelectSection}
-                onLaunchTimer={(dayTitle, dateStr) => handleLaunchTimer(dayTitle, dateStr)}
                 onToggleTask={handleToggleTask}
               />
             </div>
@@ -964,7 +936,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 tomorrowDay={tomorrowDay}
                 completedTaskIds={completedTaskIds}
                 onToggleTask={handleToggleTask}
-                onLaunchTimer={handleLaunchTimer}
                 onOpenDesmos={() => handleSelectSection('cheat-codes')}
                 onOpenErrorLog={() => handleSelectSection('error-log')}
                 onSaveNotes={handleSaveNotes}
@@ -1003,7 +974,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 allDays={allDays}
                 completedTaskIds={completedTaskIds}
                 onToggleTask={handleToggleTask}
-                onLaunchTimer={handleLaunchTimer}
                 onSaveNotes={handleSaveNotes}
                 dayNotes={dayNotes}
                 sessionTimings={sessionTimings}
@@ -1038,9 +1008,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 )}
               </div>
               <AntiBurnoutRulesSection />
-              <DailyTimelineTemplate 
-                onLaunchTimer={(title) => handleLaunchTimer(title || `${tomorrowDay.formattedDate} Session`)} 
-              />
+              <DailyTimelineTemplate />
             </div>
           </ScrollReveal>
         )}
@@ -1210,7 +1178,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                                 isToday={day.dateStr === currentTrackerDate}
                                 isTomorrow={day.dateStr === tomorrowDateStr}
                                 onToggleTask={handleToggleTask}
-                                onLaunchTimer={handleLaunchTimer}
                                 onSaveNotes={handleSaveNotes}
                                 allPrecedingDaysCompleted={allPrecedingDone}
                                 onOpenStruggleModal={() => setStuckModalDay(day)}
@@ -1254,7 +1221,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 onToggleTask={handleToggleTask}
                 onOpenDesmos={() => handleSelectSection('cheat-codes')}
                 onOpenErrorLog={() => handleSelectSection('error-log')}
-                onLaunchTimer={handleLaunchTimer}
               />
             </div>
           </ScrollReveal>
