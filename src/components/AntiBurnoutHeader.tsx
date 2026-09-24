@@ -28,7 +28,8 @@ import {
   Calculator,
   Bot,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  TrendingUp
 } from 'lucide-react';
 
 interface NavPageItem {
@@ -43,6 +44,16 @@ interface NavPageItem {
 }
 
 const NAV_PAGES: NavPageItem[] = [
+  { 
+    id: 'progress', 
+    label: 'Progress', 
+    href: '/progress', 
+    icon: TrendingUp,
+    activeClass: 'bg-amber-400 text-slate-950 shadow-sm ring-2 ring-amber-500 border-amber-500 font-black',
+    inactiveClass: 'text-amber-950 bg-amber-100/90 border-amber-300 hover:bg-amber-200 font-bold',
+    iconColor: 'text-amber-600 fill-amber-500',
+    activeIconColor: 'text-slate-950'
+  },
   { 
     id: 'all', 
     label: 'Home', 

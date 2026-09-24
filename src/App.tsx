@@ -38,6 +38,7 @@ import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
 import { FormulasSection } from './components/FormulasSection';
 import { AICopilotSection } from './components/AICopilotSection';
 import { Sidebar } from './components/Sidebar';
+import { ProgressSection } from './components/ProgressSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -57,7 +58,8 @@ import {
   Target,
   Luggage,
   Calculator,
-  Menu
+  Menu,
+  TrendingUp
 } from 'lucide-react';
 
 const STORAGE_KEYS = {
@@ -75,7 +77,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
 
-type ActiveSection = 'all' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator' | 'ai-copilot';
+type ActiveSection = 'all' | 'progress' | 'tomorrow' | 'calendar' | 'schedule' | 'bluebook' | 'phase-2' | 'cheat-codes' | 'formulas' | 'error-log' | 'crescent' | 'rules' | 'timer' | 'exam-prep' | 'score-calculator' | 'ai-copilot';
 
 interface AppProps {
   initialSection?: ActiveSection;
@@ -740,6 +742,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
     setActiveSection(section);
     const hrefMap: Record<ActiveSection, string> = {
       'all': '/',
+      'progress': '/progress',
       'calendar': '/calendar',
       'tomorrow': '/tomorrow',
       'schedule': '/phase-1',
@@ -866,6 +869,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 <span>/</span>
               </button>
               <span className="text-xs sm:text-sm font-black text-[#1a3717] capitalize font-['Space_Grotesk']">
+                {activeSection === 'progress' && '📈 Study Progress & Daily Velocity Analytics'}
                 {activeSection === 'calendar' && '📅 Master 57-Day Calendar'}
                 {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
                 {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
@@ -885,6 +889,42 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
               <span>← Return to Home (Full Dashboard)</span>
             </button>
           </div>
+        )}
+
+        {/* ============================================================ */}
+        {/* PROGRESS SECTION: VELOCITY GRAPH & SHIFT TRACKER            */}
+        {/* ============================================================ */}
+        {(activeSection === 'all' || activeSection === 'progress') && (
+          <ScrollReveal id="section-progress">
+            <div className="space-y-2">
+              {activeSection !== 'all' && (
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-xs font-black uppercase tracking-wider text-emerald-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
+                    <TrendingUp className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Study Progress &bull; Daily Velocity &bull; Shift History</span>
+                  </span>
+                  <button
+                    onClick={() => handleSelectSection('all')}
+                    className="text-xs font-bold text-slate-600 hover:text-slate-950 cursor-pointer"
+                  >
+                    View Full Dashboard &rarr;
+                  </button>
+                </div>
+              )}
+              <ProgressSection
+                weeks={weeks}
+                allDays={allDays}
+                completedTaskIds={completedTaskIds}
+                taskCompletionDay={taskCompletionDay}
+                taskScheduleOverrides={taskScheduleOverrides}
+                sessionTimings={sessionTimings}
+                currentTrackerDate={currentTrackerDate}
+                onSelectSection={handleSelectSection}
+                onLaunchTimer={(dayTitle, dateStr) => handleLaunchTimer(dayTitle, dateStr)}
+                onToggleTask={handleToggleTask}
+              />
+            </div>
+          </ScrollReveal>
         )}
 
         {/* ============================================================ */}

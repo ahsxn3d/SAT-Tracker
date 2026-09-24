@@ -32,7 +32,8 @@ import {
   LogIn,
   X,
   Menu,
-  GraduationCap
+  GraduationCap,
+  TrendingUp
 } from 'lucide-react';
 
 export interface SidebarNavItem {
@@ -47,6 +48,16 @@ export interface SidebarNavItem {
 }
 
 export const SIDEBAR_NAV_ITEMS: SidebarNavItem[] = [
+  {
+    id: 'progress',
+    label: 'Progress',
+    shortLabel: 'Progress',
+    href: '/progress',
+    icon: TrendingUp,
+    badge: 'LIVE',
+    badgeColor: 'bg-amber-400/20 text-amber-300 border-amber-400/40',
+    category: 'primary'
+  },
   {
     id: 'all',
     label: 'Dashboard',
