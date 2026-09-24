@@ -37,6 +37,7 @@ import { ExamPrepSection } from './components/ExamPrepSection';
 import { ScoreCalculatorSection } from './components/ScoreCalculatorSection';
 import { FormulasSection } from './components/FormulasSection';
 import { AICopilotSection } from './components/AICopilotSection';
+import { Sidebar } from './components/Sidebar';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -55,7 +56,8 @@ import {
   Compass,
   Target,
   Luggage,
-  Calculator
+  Calculator,
+  Menu
 } from 'lucide-react';
 
 const STORAGE_KEYS = {
@@ -92,6 +94,44 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
       setActiveSection(initialSection);
     }
   }, [initialSection]);
+
+  // Sidebar toggle state (persisted to localStorage)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('sat_tracker_sidebar_collapsed');
+      if (saved !== null) {
+        setSidebarCollapsed(saved === 'true');
+      }
+    } catch (e) {}
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        setSidebarCollapsed((prev) => {
+          const next = !prev;
+          try {
+            localStorage.setItem('sat_tracker_sidebar_collapsed', String(next));
+          } catch (err) {}
+          return next;
+        });
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const toggleSidebarCollapse = useCallback(() => {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('sat_tracker_sidebar_collapsed', String(next));
+      } catch (e) {}
+      return next;
+    });
+  }, []);
 
   // SSR-safe state defaults matching server and client initial render
   const [completedTaskIds, setCompletedTaskIds] = useState<Record<string, boolean>>({});
@@ -723,19 +763,67 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-[#122810] flex flex-col font-['Plus_Jakarta_Sans'] antialiased selection:bg-emerald-600 selection:text-white pb-24 relative z-10">
-      {/* Top Header with Nov 7 Exam Countdown & Real Tracker Metrics */}
-      <AntiBurnoutHeader
-        completedCount={completedCount}
-        totalTasks={totalTasks}
-        examDateStr="Nov 7, 2026"
-        onOpenTimer={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
-        onOpenCalendar={() => handleSelectSection('calendar')}
-        onOpenPacking={() => handleSelectSection('exam-prep')}
-        onOpenCheatCodes={() => handleSelectSection('cheat-codes')}
+    <div className="min-h-screen bg-transparent text-[#122810] flex font-['Plus_Jakarta_Sans'] antialiased selection:bg-emerald-600 selection:text-white relative z-10">
+      {/* 1. STICKY COLLAPSIBLE SIDEBAR (Stationary on scroll, collapsible to icon-rail) */}
+      <Sidebar
         activeSection={activeSection}
         onSelectSection={handleSelectSection}
+        completedCount={completedCount}
+        totalTasks={totalTasks}
+        onOpenTimer={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
+        isCollapsed={sidebarCollapsed}
+        onToggleCollapse={toggleSidebarCollapse}
+        mobileOpen={mobileSidebarOpen}
+        onCloseMobile={() => setMobileSidebarOpen(false)}
+        streakCount={15}
       />
+
+      {/* 2. MAIN SCROLLABLE CONTENT WRAPPER (Shifts width smoothly with sidebar) */}
+      <div
+        className={`flex-1 flex flex-col min-w-0 transition-all duration-300 ease-in-out pb-24 ${
+          sidebarCollapsed ? 'lg:pl-[74px]' : 'lg:pl-[268px]'
+        }`}
+      >
+        {/* Mobile Top Bar (with Hamburger menu to toggle sidebar on small screens) */}
+        <div className="lg:hidden flex items-center justify-between p-3 bg-[#0d1e0c]/95 text-white border-b-2 border-[#22441f] sticky top-0 z-30 backdrop-blur-md">
+          <div className="flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => setMobileSidebarOpen(true)}
+              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-300 transition cursor-pointer"
+              title="Open Navigation Menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="Logo" className="w-6 h-6 rounded-lg object-cover" />
+              <span className="text-sm font-black font-['Space_Grotesk'] text-white">SAT Tracker</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
+            className="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1 font-mono cursor-pointer"
+          >
+            <Clock className="w-3.5 h-3.5" />
+            <span>Timer</span>
+          </button>
+        </div>
+
+        {/* Top Header with Nov 7 Exam Countdown & Real Tracker Metrics */}
+        <AntiBurnoutHeader
+          completedCount={completedCount}
+          totalTasks={totalTasks}
+          examDateStr="Nov 7, 2026"
+          onOpenTimer={() => handleLaunchTimer(`${tomorrowDay.formattedDate} - 90-Min Session`, selectedTimerDateStr)}
+          onOpenCalendar={() => handleSelectSection('calendar')}
+          onOpenPacking={() => handleSelectSection('exam-prep')}
+          onOpenCheatCodes={() => handleSelectSection('cheat-codes')}
+          activeSection={activeSection}
+          onSelectSection={handleSelectSection}
+          onToggleSidebar={toggleSidebarCollapse}
+          sidebarCollapsed={sidebarCollapsed}
+        />
 
       {/* DEDICATED FULL-PAGE VIEW OR MAIN DASHBOARD */}
       {dedicatedDayDateStr && dedicatedDay ? (
@@ -1350,6 +1438,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
         </div>
       </main>
       )}
+      </div>
 
       {/* Error Log Mistake Autopsy Modal */}
       <ErrorLogModal

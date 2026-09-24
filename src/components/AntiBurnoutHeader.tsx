@@ -26,7 +26,9 @@ import {
   Layers,
   MapPin,
   Calculator,
-  Bot
+  Bot,
+  PanelLeftClose,
+  PanelLeftOpen
 } from 'lucide-react';
 
 interface NavPageItem {
@@ -164,6 +166,8 @@ interface AntiBurnoutHeaderProps {
   adminEmailConfigured?: string;
   activeSection?: string;
   onSelectSection?: (section: any) => void;
+  onToggleSidebar?: () => void;
+  sidebarCollapsed?: boolean;
 }
 
 export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
@@ -176,6 +180,8 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
   adminEmailConfigured = 'admin@gmail.com',
   activeSection = 'all',
   onSelectSection,
+  onToggleSidebar,
+  sidebarCollapsed = false,
 }) => {
   const { data: session } = useSession();
   const [showRulesDetail, setShowRulesDetail] = useState(false);
@@ -249,6 +255,25 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
             
             {/* Page Navigation Tabs - Strictly in ONE clean single row with ample breathing room for outlines */}
             <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto scrollbar-none py-2 px-1 min-w-0">
+              {onToggleSidebar && (
+                <button
+                  type="button"
+                  id="header-sidebar-toggle-btn"
+                  onClick={onToggleSidebar}
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-black bg-[#1a3717] text-white hover:bg-[#285724] border border-[#a6c4a1] transition-all flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs active:scale-95"
+                  title={sidebarCollapsed ? "Expand Sidebar (All Names)" : "Collapse Sidebar (Icons Only)"}
+                >
+                  {sidebarCollapsed ? (
+                    <PanelLeftOpen className="w-3.5 h-3.5 text-amber-300" />
+                  ) : (
+                    <PanelLeftClose className="w-3.5 h-3.5 text-emerald-300" />
+                  )}
+                  <span className="text-[11px] font-mono hidden sm:inline">
+                    {sidebarCollapsed ? "Sidebar" : "Collapse"}
+                  </span>
+                </button>
+              )}
+
               {NAV_PAGES.map((page) => {
                 const isActive = activeSection === page.id;
                 const Icon = page.icon;
