@@ -29,10 +29,8 @@ import {
   Bot,
   PanelLeftClose,
   PanelLeftOpen,
-  TrendingUp,
-  Palette
+  TrendingUp
 } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
 
 interface NavPageItem {
   id: string;
@@ -197,7 +195,6 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
   sidebarCollapsed = false,
 }) => {
   const { data: session } = useSession();
-  const { theme, toggleTheme, openThemeModal } = useTheme();
   const [showRulesDetail, setShowRulesDetail] = useState(false);
 
   const userEmail = session?.user?.email?.toLowerCase();
@@ -318,12 +315,8 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
               {/* Authentication & Admin Button Group */}
               {session?.user ? (
                 <div className="inline-flex items-center gap-1.5 p-1 bg-[#d2e4cd] border border-[#a6c4a1] rounded-xl shadow-xs whitespace-nowrap shrink-0">
-                  {/* User Avatar & Name - Clickable to open theme selector */}
-                  <div
-                    onClick={openThemeModal}
-                    className="flex items-center gap-1.5 px-1.5 py-0.5 cursor-pointer hover:opacity-85 transition"
-                    title="Click Profile to change Theme (Dark / Mid / Light)"
-                  >
+                  {/* User Avatar & Name */}
+                  <div className="flex items-center gap-1.5 px-1.5 py-0.5">
                     {session.user.image ? (
                       <img
                         src={session.user.image}
@@ -365,23 +358,6 @@ export const AntiBurnoutHeader: React.FC<AntiBurnoutHeaderProps> = ({
                   <span>Sign In</span>
                 </Link>
               )}
-
-              {/* Quick 2-Theme Direct Toggle Button (Dark vs Light) */}
-              <button
-                type="button"
-                id="header-theme-selector-btn"
-                onClick={toggleTheme}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black cursor-pointer shadow-md transition active:scale-95 font-['JetBrains_Mono'] shrink-0 border"
-                style={{
-                  backgroundColor: theme === 'dark' ? '#122e50' : '#ffffff',
-                  borderColor: theme === 'dark' ? '#173d67' : '#e2e8f0',
-                  color: theme === 'dark' ? '#00d2ff' : '#0f172a'
-                }}
-                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-              >
-                <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
-                <span className="capitalize">{theme === 'dark' ? 'Dark' : 'Light'}</span>
-              </button>
 
               {/* Toggle 3 Core Rules Drawer */}
               <button

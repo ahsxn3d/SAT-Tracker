@@ -1,15 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from '../context/ThemeContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  // Ensure any leftover data-theme attributes or stored themes are cleaned up
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.removeAttribute('data-theme');
+      try {
+        localStorage.removeItem('sat_tracker_theme');
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, []);
+
   return (
     <SessionProvider>
-      <ThemeProvider>
-        {children}
-      </ThemeProvider>
+      {children}
     </SessionProvider>
   );
 }

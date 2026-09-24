@@ -38,7 +38,6 @@ import { FormulasSection } from './components/FormulasSection';
 import { AICopilotSection } from './components/AICopilotSection';
 import { Sidebar } from './components/Sidebar';
 import { ProgressSection } from './components/ProgressSection';
-import { ThemeModal } from './components/ThemeModal';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
   Calendar, 
@@ -766,7 +765,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-[var(--theme-text,#f8fafc)] flex font-['Plus_Jakarta_Sans'] antialiased selection:bg-cyan-500 selection:text-white relative z-10">
+    <div className="min-h-screen bg-transparent text-[#122810] flex font-['Plus_Jakarta_Sans'] antialiased selection:bg-emerald-600 selection:text-white relative z-10">
       {/* 1. STICKY COLLAPSIBLE SIDEBAR (Stationary on scroll, collapsible to icon-rail) */}
       <Sidebar
         activeSection={activeSection}
@@ -788,19 +787,19 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
         }`}
       >
         {/* Mobile Top Bar (with Hamburger menu to toggle sidebar on small screens) */}
-        <div className="lg:hidden flex items-center justify-between p-3 bg-[var(--theme-card)] text-[var(--theme-text)] border-b border-[var(--theme-border)] sticky top-0 z-30 backdrop-blur-md shadow-sm">
+        <div className="lg:hidden flex items-center justify-between p-3 bg-[#1f3f22]/95 text-white border-b-2 border-[#386439] sticky top-0 z-30 backdrop-blur-md shadow-sm">
           <div className="flex items-center gap-2.5">
             <button
               type="button"
               onClick={() => setMobileSidebarOpen(true)}
-              className="p-1.5 rounded-xl bg-[var(--theme-card-subtle)] text-[var(--theme-accent)] hover:opacity-80 transition cursor-pointer border border-[var(--theme-border)]"
+              className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-300 transition cursor-pointer"
               title="Open Navigation Menu"
             >
               <Menu className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-2">
               <img src="/logo.png" alt="Logo" className="w-6 h-6 rounded-lg object-cover" />
-              <span className="text-sm font-black font-['Space_Grotesk']">SAT Tracker</span>
+              <span className="text-sm font-black font-['Space_Grotesk'] text-white">SAT Tracker</span>
             </div>
           </div>
           <button
@@ -844,16 +843,16 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
         
         {/* DEDICATED STANDALONE PAGE BANNER: Displayed when viewing individual pages */}
         {activeSection !== 'all' && (
-          <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[var(--theme-card)] border border-[var(--theme-border)] shadow-md">
+          <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[#d2e4cd]/80 border-2 border-[#a6c4a1] shadow-xs backdrop-blur-md">
             <div className="flex items-center gap-2 flex-wrap">
               <button
                 onClick={() => handleSelectSection('all')}
-                className="text-xs sm:text-sm font-bold opacity-75 hover:opacity-100 flex items-center gap-1 cursor-pointer transition"
+                className="text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 flex items-center gap-1 cursor-pointer transition"
               >
                 <span>Home</span>
                 <span>/</span>
               </button>
-              <span className="text-xs sm:text-sm font-black text-[var(--theme-accent,#00d2ff)] capitalize font-['Space_Grotesk']">
+              <span className="text-xs sm:text-sm font-black text-[#1a3717] capitalize font-['Space_Grotesk']">
                 {activeSection === 'progress' && '📈 Study Progress & Daily Velocity Analytics'}
                 {activeSection === 'calendar' && '📅 Master 57-Day Calendar'}
                 {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
@@ -869,7 +868,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
 
             <button
               onClick={() => handleSelectSection('all')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black bg-[var(--theme-card-subtle)] text-[var(--theme-text)] border border-[var(--theme-border)] hover:border-[var(--theme-accent)] cursor-pointer transition active:scale-95 shadow-xs whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black text-[#1a3717] bg-[#c2d7bd] hover:bg-[#b2cbb0] border border-[#a6c4a1] cursor-pointer transition active:scale-95 shadow-xs whitespace-nowrap"
             >
               <span>← Return to Home (Full Dashboard)</span>
             </button>
@@ -1492,9 +1491,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
         onToggleItem={handleTogglePackingItem}
         onAddItem={handleAddPackingItem}
       />
-
-      {/* 3-Mode Color Theme Selector Modal (Dark, Mid, Light) */}
-      <ThemeModal />
     </div>
   );
 }

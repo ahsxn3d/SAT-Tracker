@@ -326,33 +326,11 @@ export const ZenBotanicalsBackground: React.FC = () => {
           maxRadius
         );
 
-        // Read active theme from DOM data-theme attribute
-        const currentTheme = (typeof document !== 'undefined' ? document.documentElement.getAttribute('data-theme') : 'dark') || 'dark';
-
-        let effectiveHue = blob.hue;
-        let effectiveSat = blob.sat;
-        let effectiveLight = blob.light;
-        let effectiveAlpha = blob.alpha;
-
-        if (currentTheme === 'dark') {
-          // Midnight Navy & Radiant Electric Cyan Glow Blobs (Top Reference)
-          effectiveHue = blob.hue === 44 || blob.hue === 48 ? 188 : 210;
-          effectiveSat = 85;
-          effectiveLight = 28;
-          effectiveAlpha = 0.32;
-        } else {
-          // Glacier Azure & Soft Pure Sky Blobs (Bottom Reference)
-          effectiveHue = 202;
-          effectiveSat = 65;
-          effectiveLight = 84;
-          effectiveAlpha = 0.24;
-        }
-
-        const a = effectiveAlpha;
-        grad.addColorStop(0, `hsla(${effectiveHue}, ${effectiveSat}%, ${effectiveLight}%, ${a})`);
-        grad.addColorStop(0.35, `hsla(${effectiveHue}, ${effectiveSat - 4}%, ${effectiveLight + 3}%, ${a * 0.75})`);
-        grad.addColorStop(0.70, `hsla(${effectiveHue}, ${effectiveSat - 8}%, ${effectiveLight + 6}%, ${a * 0.35})`);
-        grad.addColorStop(1, `hsla(${effectiveHue}, ${effectiveSat - 12}%, ${effectiveLight + 8}%, 0)`);
+        const a = blob.alpha;
+        grad.addColorStop(0, `hsla(${blob.hue}, ${blob.sat}%, ${blob.light}%, ${a})`);
+        grad.addColorStop(0.35, `hsla(${blob.hue}, ${blob.sat - 4}%, ${blob.light + 3}%, ${a * 0.75})`);
+        grad.addColorStop(0.70, `hsla(${blob.hue}, ${blob.sat - 8}%, ${blob.light + 6}%, ${a * 0.35})`);
+        grad.addColorStop(1, `hsla(${blob.hue}, ${blob.sat - 12}%, ${blob.light + 8}%, 0)`);
 
         ctx.save();
         ctx.translate(finalX, finalY);
