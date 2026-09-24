@@ -353,107 +353,107 @@ export const Sidebar: React.FC<SidebarProps> = ({
             )}
           </div>
 
-          {/* 3. User Profile Card / Sign In */}
-          {session?.user ? (
-            <div className={`rounded-2xl border transition-all ${
+          {/* 3. User Profile Card / Sign In (Exact match to requested UI) */}
+          <div
+            className={`rounded-2xl border transition-all select-none group relative ${
               isDark
-                ? 'bg-white/[0.05] border-[#1e3e66] text-white'
-                : 'bg-slate-100 border-[#e2e8f0] text-slate-900'
+                ? 'bg-white/[0.04] border-[#1e3e66] hover:border-[#00d2ff]/60 hover:bg-white/[0.07]'
+                : 'bg-slate-100/90 border-[#e2e8f0] hover:border-[#00b4d8]/60 hover:bg-slate-200/70'
             } ${
               isCollapsed ? 'p-2 flex flex-col items-center gap-1.5' : 'p-2.5 flex items-center justify-between gap-2.5'
-            }`}>
-              {/* Avatar & Name */}
-              <div
-                onClick={openThemeModal}
-                className="flex items-center gap-2.5 min-w-0 cursor-pointer flex-1"
-                title="Click Profile to Customize Theme"
-              >
-                <div className="relative w-8 h-8 shrink-0 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 border border-amber-300/50 flex items-center justify-center text-slate-950 font-black text-xs shadow-xs">
-                  {session.user.image ? (
-                    <img
-                      src={session.user.image}
-                      alt={userName}
-                      className="w-full h-full rounded-xl object-cover"
-                    />
-                  ) : (
-                    <span>{userInitials || 'U'}</span>
-                  )}
-                  <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-cyan-400 border border-[#06101e]" />
-                </div>
-
-                {!isCollapsed && (
-                  <div className="min-w-0 leading-tight">
-                    <div className="flex items-center gap-1.5">
-                      <span className={`text-xs font-black truncate font-['Plus_Jakarta_Sans'] ${
-                        isDark ? 'text-white' : 'text-slate-900'
-                      }`}>
-                        {userName}
-                      </span>
-                      <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded-md font-mono border ${
-                        isDark
-                          ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
-                          : 'bg-sky-100 text-sky-700 border-sky-300'
-                      }`}>
-                        {theme.toUpperCase()}
-                      </span>
-                    </div>
-                    <p className={`text-[10px] font-medium truncate flex items-center gap-1 ${
-                      isDark ? 'text-slate-400' : 'text-slate-500'
-                    }`}>
-                      <span>Theme Settings</span>
-                      <Palette className="w-2.5 h-2.5 opacity-80" />
-                    </p>
-                  </div>
+            }`}
+          >
+            {/* Clickable Area: If signed in, opens theme modal; if not signed in, links to /login */}
+            <Link
+              href={session?.user ? '#' : '/login'}
+              id="sidebar-user-card-btn"
+              onClick={(e) => {
+                if (session?.user) {
+                  e.preventDefault();
+                  openThemeModal();
+                }
+              }}
+              className="flex items-center gap-2.5 min-w-0 flex-1 cursor-pointer"
+              title={session?.user ? `${userName} • Click to customize theme` : 'Scholar • Click to Sign In'}
+            >
+              {/* Orange Squircle Avatar with Emerald Green Online Dot (Exact match to user screenshot) */}
+              <div className="relative w-9 h-9 shrink-0 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 border border-amber-300/60 flex items-center justify-center text-slate-950 font-black text-sm shadow-xs group-hover:scale-105 transition-transform">
+                {session?.user?.image ? (
+                  <img
+                    src={session.user.image}
+                    alt={userName}
+                    className="w-full h-full rounded-2xl object-cover"
+                  />
+                ) : (
+                  <span>{session?.user ? (userInitials || 'U') : 'S'}</span>
                 )}
+                {/* Mint/Emerald Green Online Dot at Bottom Right */}
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10b981] border-2 border-[#071526]" />
               </div>
 
-              {/* Sign Out Button */}
+              {/* Title & Motivational Subtitle */}
               {!isCollapsed && (
-                <button
-                  type="button"
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition cursor-pointer"
-                  title="Sign Out"
-                >
-                  <LogOut className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/login"
-                id="sidebar-sign-in-btn"
-                className={`flex-1 rounded-2xl border transition-all cursor-pointer flex items-center gap-2 font-bold text-xs ${
-                  isDark
-                    ? 'bg-gradient-to-r from-[#00d2ff]/20 to-[#0284c7]/20 border-[#00d2ff]/40 text-[#00d2ff] hover:bg-[#00d2ff]/30'
-                    : 'bg-gradient-to-r from-[#00b4d8]/15 to-[#0284c7]/15 border-[#00b4d8]/40 text-[#0284c7] hover:bg-[#00b4d8]/25'
-                } ${
-                  isCollapsed ? 'p-2 justify-center' : 'px-3 py-2 justify-between'
-                }`}
-                title="Sign in to save your progress"
-              >
-                <div className="flex items-center gap-1.5">
-                  <LogIn className="w-3.5 h-3.5 shrink-0" />
-                  {!isCollapsed && <span>Sign In</span>}
+                <div className="min-w-0 leading-tight flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-xs font-black truncate font-['Plus_Jakarta_Sans'] ${
+                      isDark ? 'text-white' : 'text-slate-900'
+                    }`}>
+                      {session?.user ? userName : 'Scholar'}
+                    </span>
+                    {!session?.user && (
+                      <span className={`text-[9px] font-black uppercase px-1.5 py-0.2 rounded font-mono ${
+                        isDark
+                          ? 'bg-cyan-500/20 text-[#00d2ff] border border-cyan-500/30'
+                          : 'bg-sky-100 text-sky-700 border border-sky-300'
+                      }`}>
+                        Sign In
+                      </span>
+                    )}
+                  </div>
+                  <p className={`text-[10px] font-medium truncate mt-0.5 ${
+                    isDark ? 'text-emerald-400/90' : 'text-emerald-700'
+                  }`}>
+                    {session?.user ? (session.user.email || 'Keep learning, keep growing') : 'Keep learning, keep g...'}
+                  </p>
                 </div>
-                {!isCollapsed && (
-                  <span className="text-[10px] font-mono opacity-80 font-normal">Account &rarr;</span>
-                )}
-              </Link>
+              )}
+            </Link>
 
-              {/* Streak Flame Pill */}
-              {!isCollapsed && (
+            {/* Right Side: Streak Flame Pill (15 🔥) & Sign Out Button */}
+            {!isCollapsed ? (
+              <div className="flex items-center gap-1.5 shrink-0">
                 <div
-                  className="shrink-0 px-2 py-1.5 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs"
+                  className={`px-2.5 py-1 rounded-xl border text-xs font-black font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs ${
+                    isDark
+                      ? 'bg-amber-400/15 text-amber-300 border-amber-400/40'
+                      : 'bg-amber-100 text-amber-800 border-amber-300'
+                  }`}
                   title={`${streakCount} Days Study Streak`}
                 >
                   <span>{streakCount}</span>
-                  <Flame className="w-3 h-3 text-amber-400 fill-amber-400" />
+                  <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
                 </div>
-              )}
-            </div>
-          )}
+
+                {session?.user && (
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="p-1 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition cursor-pointer"
+                    title="Sign Out"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div
+                className="w-5 h-5 rounded-full bg-amber-400/20 flex items-center justify-center text-[10px] text-amber-300 mt-1"
+                title={`${streakCount} Day Streak`}
+              >
+                <Flame className="w-3 h-3 text-amber-400 fill-amber-400" />
+              </div>
+            )}
+          </div>
 
           {/* 4. Quick 2-Mode Theme Selector Pill (Dark vs Light) */}
           {!isCollapsed ? (
