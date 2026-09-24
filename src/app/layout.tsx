@@ -46,7 +46,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#d7e5d2] text-[#122810] antialiased selection:bg-emerald-600 selection:text-white relative">
+      <body className="antialiased relative transition-colors duration-200">
         <SmoothScroll />
         <ZenBotanicalsBackground />
         <Providers>{children}</Providers>
