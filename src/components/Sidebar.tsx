@@ -317,19 +317,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* ============================================================== */}
         {/* TOP SECTION: BRAND HEADER + USER PROFILE CARD                  */}
         {/* ============================================================== */}
-        <div className="p-2.5 space-y-2 shrink-0 border-b border-white/15 bg-black/10 backdrop-blur-xs relative z-10">
+        <div className="p-3 space-y-2.5 shrink-0 border-b border-white/15 bg-black/10 backdrop-blur-xs relative z-10">
           {/* 1. Brand Header + Controls */}
           {isCollapsed ? (
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-col items-center gap-2.5">
               {/* Closed Sidebar Toggle Button on Top */}
               <button
                 type="button"
                 id="sidebar-collapse-toggle-btn"
                 onClick={onToggleCollapse}
-                className="p-1.5 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs flex items-center justify-center shadow-xs"
+                className="p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs flex items-center justify-center shadow-xs"
                 title="Expand Sidebar"
               >
-                <PanelLeftOpen className="w-4 h-4 text-emerald-200" />
+                <PanelLeftOpen className="w-4.5 h-4.5 text-emerald-200" />
               </button>
 
               {/* Logo Tile Under the Closed Sidebar Button */}
@@ -338,11 +338,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="cursor-pointer group transition flex items-center justify-center"
                 title="SAT Tracker • Dashboard"
               >
-                <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] p-0.5 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] ring-2 ring-[#a4e89e]/30 p-0.5 flex items-center justify-center shadow-md group-hover:scale-105 transition-all">
                   <img
                     src="/logo.png"
                     alt="SAT Tracker Logo"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-xl"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
@@ -351,17 +351,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
             </div>
           ) : (
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2.5">
               <div
                 onClick={() => onSelectSection('all')}
-                className="flex items-center gap-2.5 cursor-pointer group transition flex-1 min-w-0"
+                className="flex items-center gap-3 cursor-pointer group transition flex-1 min-w-0"
               >
-                {/* Logo Tile - Large, Bold & Prominent */}
-                <div className="relative w-9.5 h-9.5 shrink-0 rounded-xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] p-0.5 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                {/* Logo Tile - Large, Bold, Creative & Prominent */}
+                <div className="relative w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] ring-2 ring-[#a4e89e]/30 p-0.5 flex items-center justify-center shadow-lg group-hover:scale-105 group-hover:rotate-1 transition-all duration-200">
                   <img
                     src="/logo.png"
                     alt="SAT Tracker Logo"
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-[13px]"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = 'none';
                     }}
@@ -370,15 +370,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
                 {/* Brand Title & Subtitle */}
                 <div className="min-w-0 overflow-hidden flex-1 leading-tight">
-                  <div className="flex items-center gap-1.5">
-                    <h2 className="text-[15.5px] sm:text-base font-black tracking-tight font-['Space_Grotesk'] truncate text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <h2 className="text-[18.5px] sm:text-[19px] font-black tracking-tight font-['Space_Grotesk'] truncate text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
                       SAT Tracker
                     </h2>
-                    <span className="text-[8.5px] font-black uppercase px-1.5 py-0.2 rounded font-['JetBrains_Mono'] bg-amber-400/30 text-amber-200 border border-amber-300/50 shadow-2xs">
+                    <span className="text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-['JetBrains_Mono'] bg-gradient-to-r from-amber-400/40 to-amber-500/30 text-amber-200 border border-amber-300/60 shadow-xs">
                       PRO
                     </span>
                   </div>
-                  <div className="text-[10px] font-bold font-mono truncate text-emerald-100 mt-0.5 drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
+                  <div className="text-[11px] font-bold font-mono truncate text-emerald-100/90 mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] flex items-center gap-1">
                     Nov 7 Exam &bull; 44d left
                   </div>
                 </div>
@@ -389,64 +389,64 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   type="button"
                   onClick={onCloseMobile}
-                  className="lg:hidden p-1.5 rounded-lg text-emerald-100 hover:text-white hover:bg-white/10"
+                  className="lg:hidden p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/10"
                   title="Close Sidebar"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4.5 h-4.5" />
                 </button>
 
                 <button
                   type="button"
                   id="sidebar-collapse-toggle-btn"
                   onClick={onToggleCollapse}
-                  className="hidden lg:flex p-1.5 rounded-lg text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs"
+                  className="hidden lg:flex p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs shadow-xs"
                   title="Collapse to Icons"
                 >
-                  <PanelLeftClose className="w-4 h-4 text-emerald-200" />
+                  <PanelLeftClose className="w-4.5 h-4.5 text-emerald-200" />
                 </button>
               </div>
             </div>
           )}
 
-          {/* 2. User Profile Card / Sign In (Clean, Clear Glassmorphism) */}
+          {/* 2. User Profile Card / Sign In (Creative, Elevated Glassmorphism) */}
           <div
-            className={`rounded-xl border transition-all select-none group relative bg-black/20 border-white/15 hover:border-white/30 hover:bg-black/30 backdrop-blur-xs ${
-              isCollapsed ? 'p-1.5 flex flex-col items-center gap-1' : 'px-2.5 py-1.5 flex items-center justify-between gap-2'
+            className={`rounded-2xl border transition-all duration-200 select-none group relative bg-black/25 hover:bg-black/35 border-white/20 hover:border-white/35 backdrop-blur-md shadow-md ${
+              isCollapsed ? 'p-2 flex flex-col items-center gap-1.5' : 'px-3.5 py-2.5 flex items-center justify-between gap-3'
             }`}
           >
             <Link
               href={session?.user ? '#' : '/login'}
               id="sidebar-user-card-btn"
-              className="flex items-center gap-2.5 min-w-0 flex-1 cursor-pointer"
+              className="flex items-center gap-3 min-w-0 flex-1 cursor-pointer"
               title={session?.user ? userName : 'Scholar • Click to Sign In'}
             >
-              {/* Orange Squircle Avatar with Mint Online Dot */}
-              <div className="relative w-7 h-7 sm:w-7.5 sm:h-7.5 shrink-0 rounded-xl bg-gradient-to-br from-amber-400 to-amber-500 border border-amber-300/60 flex items-center justify-center text-slate-950 font-black text-xs shadow-xs group-hover:scale-105 transition-transform">
+              {/* Vibrant Gold Squircle Avatar with Mint Online Dot */}
+              <div className="relative w-10.5 h-10.5 shrink-0 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 border-2 border-amber-300/80 flex items-center justify-center text-slate-950 font-black text-sm sm:text-base shadow-md group-hover:scale-105 transition-transform duration-200">
                 {session?.user?.image ? (
                   <img
                     src={session.user.image}
                     alt={userName}
-                    className="w-full h-full rounded-xl object-cover"
+                    className="w-full h-full rounded-2xl object-cover"
                   />
                 ) : (
                   <span>{session?.user ? (userInitials || 'U') : 'S'}</span>
                 )}
-                <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#10b981] border-2 border-[#1d4414]" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10b981] border-2 border-[#163510] shadow-xs" />
               </div>
 
               {!isCollapsed && (
                 <div className="min-w-0 leading-tight flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-xs font-black truncate font-['Plus_Jakarta_Sans'] text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[14px] sm:text-[14.5px] font-black truncate font-['Plus_Jakarta_Sans'] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
                       {session?.user ? userName : 'Scholar'}
                     </span>
                     {!session?.user && (
-                      <span className="text-[8px] font-black uppercase px-1 py-0.2 rounded font-mono bg-emerald-500/20 text-emerald-200 border border-emerald-400/40">
+                      <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-mono bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 shadow-xs group-hover:bg-emerald-400 group-hover:text-slate-950 transition-colors">
                         Sign In
                       </span>
                     )}
                   </div>
-                  <p className="text-[9.5px] font-medium truncate text-emerald-100/90 drop-shadow-[0_1px_1px_rgba(0,0,0,0.4)]">
+                  <p className="text-[11px] font-medium truncate text-emerald-100/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] mt-0.5">
                     {session?.user ? (session.user.email || 'Keep learning') : 'Keep learning, keep growing'}
                   </p>
                 </div>
@@ -454,32 +454,32 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </Link>
 
             {!isCollapsed ? (
-              <div className="flex items-center gap-1 shrink-0">
+              <div className="flex items-center gap-1.5 shrink-0">
                 <div
-                  className="px-2 py-0.5 rounded-lg border text-[11px] font-black font-['JetBrains_Mono'] flex items-center gap-1 shadow-xs bg-amber-400/30 text-amber-200 border-amber-300/50"
+                  className="px-2.5 py-1 rounded-xl border text-xs font-black font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs bg-amber-400/25 text-amber-200 border-amber-300/50 hover:bg-amber-400/35 transition-colors"
                   title={`${streakCount} Days Study Streak`}
                 >
                   <span>{streakCount}</span>
-                  <Flame className="w-3 h-3 text-amber-300 fill-amber-300" />
+                  <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
                 </div>
 
                 {session?.user && (
                   <button
                     type="button"
                     onClick={() => signOut({ callbackUrl: '/' })}
-                    className="p-1 rounded-lg text-emerald-100 hover:text-rose-300 hover:bg-rose-500/20 transition cursor-pointer"
+                    className="p-1.5 rounded-xl text-emerald-100 hover:text-rose-300 hover:bg-rose-500/20 border border-white/10 hover:border-rose-400/30 transition cursor-pointer"
                     title="Sign Out"
                   >
-                    <LogOut className="w-3.5 h-3.5" />
+                    <LogOut className="w-4 h-4" />
                   </button>
                 )}
               </div>
             ) : (
               <div
-                className="w-4 h-4 rounded-full bg-amber-400/20 flex items-center justify-center text-[9px] text-amber-200"
+                className="w-5 h-5 rounded-full bg-amber-400/20 flex items-center justify-center text-[10px] text-amber-200"
                 title={`${streakCount} Day Streak`}
               >
-                <Flame className="w-2.5 h-2.5 text-amber-300 fill-amber-300" />
+                <Flame className="w-3 h-3 text-amber-300 fill-amber-300" />
               </div>
             )}
           </div>
