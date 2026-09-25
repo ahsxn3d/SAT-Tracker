@@ -319,7 +319,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* ============================================================== */}
         <motion.div 
           layout="position"
-          className="p-3 space-y-2.5 shrink-0 border-b border-white/15 bg-black/10 backdrop-blur-xs relative z-10 overflow-hidden"
+          className="p-3 space-y-2.5 shrink-0 bg-gradient-to-b from-black/25 via-black/10 to-transparent relative z-10 overflow-hidden"
         >
           {/* 1. Unified Brand Header + Controls */}
           <motion.div
