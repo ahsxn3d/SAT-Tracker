@@ -857,40 +857,6 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
       ) : (
         /* Main Container */
         <main className="max-w-[1740px] w-full mx-auto px-3 sm:px-5 lg:px-7 py-5 sm:py-6 space-y-7 flex-1">
-        
-        {/* DEDICATED STANDALONE PAGE BANNER: Displayed when viewing individual pages */}
-        {activeSection !== 'all' && (
-          <div className="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[#d2e4cd]/80 border-2 border-[#a6c4a1] shadow-xs backdrop-blur-md">
-            <div className="flex items-center gap-2 flex-wrap">
-              <button
-                onClick={() => handleSelectSection('all')}
-                className="text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-950 flex items-center gap-1 cursor-pointer transition"
-              >
-                <span>Home</span>
-                <span>/</span>
-              </button>
-              <span className="text-xs sm:text-sm font-black text-[#1a3717] capitalize font-['Space_Grotesk']">
-                {activeSection === 'progress' && '📈 Study Progress & Daily Velocity Analytics'}
-                {activeSection === 'calendar' && '📅 Master 57-Day Calendar'}
-                {activeSection === 'tomorrow' && `✨ Tomorrow Focus • ${tomorrowDay.formattedDate}`}
-                {activeSection === 'schedule' && '🧭 Phase 1: Content Foundations (Weeks 1–6)'}
-                {(activeSection === 'phase-2' || activeSection === 'bluebook') && '🏆 Phase 2: Bluebook Arena (18-Day Schedule • Oct 20–Nov 6)'}
-                {(activeSection === 'cheat-codes' || activeSection === 'formulas') && '📖 Core Info Vault (Important Info • Formulas • Cheat Codes)'}
-                {activeSection === 'error-log' && `📖 Mistake Autopsy & Error Log (${errorLogs.length})`}
-                {activeSection === 'crescent' && '📍 Crescent Model Official Exam Center & Test Day Protocols (Nov 7)'}
-                {activeSection === 'rules' && '🛡️ The Core Anti-Burnout Rules'}
-                {activeSection === 'exam-prep' && '🎒 48h & 24h Pre-Exam Preparation & Device Packout'}
-              </span>
-            </div>
-
-            <button
-              onClick={() => handleSelectSection('all')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-black text-[#1a3717] bg-[#c2d7bd] hover:bg-[#b2cbb0] border border-[#a6c4a1] cursor-pointer transition active:scale-95 shadow-xs whitespace-nowrap"
-            >
-              <span>← Return to Home (Full Dashboard)</span>
-            </button>
-          </div>
-        )}
 
         {/* ============================================================ */}
         {/* PROGRESS SECTION: VELOCITY GRAPH & SHIFT TRACKER            */}
