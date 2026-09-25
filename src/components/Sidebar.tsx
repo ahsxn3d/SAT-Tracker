@@ -315,113 +315,140 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* ============================================================== */}
-        {/* TOP SECTION: BRAND HEADER + USER PROFILE CARD                  */}
+        {/* TOP SECTION: BRAND HEADER + USER PROFILE CARD (ANIMATED FLIP)  */}
         {/* ============================================================== */}
-        <div className="p-3 space-y-2.5 shrink-0 border-b border-white/15 bg-black/10 backdrop-blur-xs relative z-10">
-          {/* 1. Brand Header + Controls */}
-          {isCollapsed ? (
-            <div className="flex flex-col items-center gap-2.5">
-              {/* Closed Sidebar Toggle Button on Top */}
+        <motion.div 
+          layout="position"
+          className="p-3 space-y-2.5 shrink-0 border-b border-white/15 bg-black/10 backdrop-blur-xs relative z-10 overflow-hidden"
+        >
+          {/* 1. Unified Brand Header + Controls */}
+          <motion.div
+            layout
+            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+            className={`flex items-center ${
+              isCollapsed ? 'flex-col gap-2.5' : 'justify-between gap-2.5'
+            }`}
+          >
+            {/* Toggle Button: order-1 when collapsed (top), order-2 when expanded (right) */}
+            <motion.div
+              layout="position"
+              transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              className={`flex items-center gap-1 shrink-0 ${
+                isCollapsed ? 'order-1' : 'order-2'
+              }`}
+            >
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="lg:hidden p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/10"
+                title="Close Sidebar"
+              >
+                <X className="w-4.5 h-4.5" />
+              </button>
+
               <button
                 type="button"
                 id="sidebar-collapse-toggle-btn"
                 onClick={onToggleCollapse}
-                className="p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs flex items-center justify-center shadow-xs"
-                title="Expand Sidebar"
+                className={`p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs shadow-xs flex items-center justify-center ${
+                  isCollapsed ? 'flex' : 'hidden lg:flex'
+                }`}
+                title={isCollapsed ? 'Expand Sidebar' : 'Collapse to Icons'}
               >
-                <PanelLeftOpen className="w-4.5 h-4.5 text-emerald-200" />
+                <motion.div
+                  key={isCollapsed ? 'collapsed-icon' : 'expanded-icon'}
+                  initial={{ rotate: isCollapsed ? -90 : 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {isCollapsed ? (
+                    <PanelLeftOpen className="w-4.5 h-4.5 text-emerald-200" />
+                  ) : (
+                    <PanelLeftClose className="w-4.5 h-4.5 text-emerald-200" />
+                  )}
+                </motion.div>
               </button>
+            </motion.div>
 
-              {/* Logo Tile Under the Closed Sidebar Button */}
-              <div
-                onClick={() => onSelectSection('all')}
-                className="cursor-pointer group transition flex items-center justify-center"
-                title="SAT Tracker • Dashboard"
+            {/* Logo + Brand Title: order-2 when collapsed (under button), order-1 when expanded (left) */}
+            <motion.div
+              layout="position"
+              transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              onClick={() => onSelectSection('all')}
+              className={`cursor-pointer group flex items-center min-w-0 ${
+                isCollapsed ? 'order-2 justify-center' : 'order-1 gap-3 flex-1'
+              }`}
+              title="SAT Tracker • Dashboard"
+            >
+              {/* Logo Squircle Tile - Animates position and scale smoothly */}
+              <motion.div
+                layout
+                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                className={`relative shrink-0 rounded-2xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] ring-2 ring-[#a4e89e]/30 p-0.5 flex items-center justify-center shadow-lg group-hover:scale-105 group-hover:rotate-1 transition-all duration-200 ${
+                  isCollapsed ? 'w-11 h-11' : 'w-12 h-12'
+                }`}
               >
-                <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] ring-2 ring-[#a4e89e]/30 p-0.5 flex items-center justify-center shadow-md group-hover:scale-105 transition-all">
-                  <img
-                    src="/logo.png"
-                    alt="SAT Tracker Logo"
-                    className="w-full h-full object-cover rounded-xl"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.display = 'none';
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center justify-between gap-2.5">
-              <div
-                onClick={() => onSelectSection('all')}
-                className="flex items-center gap-3 cursor-pointer group transition flex-1 min-w-0"
-              >
-                {/* Logo Tile - Large, Bold, Creative & Prominent */}
-                <div className="relative w-12 h-12 shrink-0 rounded-2xl bg-gradient-to-br from-[#1d4414] via-[#2c5c21] to-[#3e7532] border-2 border-[#a4e89e] ring-2 ring-[#a4e89e]/30 p-0.5 flex items-center justify-center shadow-lg group-hover:scale-105 group-hover:rotate-1 transition-all duration-200">
-                  <img
-                    src="/logo.png"
-                    alt="SAT Tracker Logo"
-                    className="w-full h-full object-cover rounded-[13px]"
-                    onError={(e) => {
-                      (e.target as HTMLElement).style.display = 'none';
-                    }}
-                  />
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="SAT Tracker Logo"
+                  className="w-full h-full object-cover rounded-[13px]"
+                  onError={(e) => {
+                    (e.target as HTMLElement).style.display = 'none';
+                  }}
+                />
+              </motion.div>
 
-                {/* Brand Title & Subtitle */}
-                <div className="min-w-0 overflow-hidden flex-1 leading-tight">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <h2 className="text-[18.5px] sm:text-[19px] font-black tracking-tight font-['Space_Grotesk'] truncate text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
-                      SAT Tracker
-                    </h2>
-                    <span className="text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-['JetBrains_Mono'] bg-gradient-to-r from-amber-400/40 to-amber-500/30 text-amber-200 border border-amber-300/60 shadow-xs">
-                      PRO
-                    </span>
-                  </div>
-                  <div className="text-[11px] font-bold font-mono truncate text-emerald-100/90 mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] flex items-center gap-1">
-                    Nov 7 Exam &bull; 44d left
-                  </div>
-                </div>
-              </div>
+              {/* Brand Title & Subtitle with AnimatePresence */}
+              <AnimatePresence initial={false}>
+                {!isCollapsed && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0, x: -12 }}
+                    animate={{ opacity: 1, width: 'auto', x: 0 }}
+                    exit={{ opacity: 0, width: 0, x: -12 }}
+                    transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+                    className="min-w-0 overflow-hidden flex-1 leading-tight whitespace-nowrap"
+                  >
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <h2 className="text-[18.5px] sm:text-[19px] font-black tracking-tight font-['Space_Grotesk'] truncate text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                        SAT Tracker
+                      </h2>
+                      <span className="text-[9.5px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-['JetBrains_Mono'] bg-gradient-to-r from-amber-400/40 to-amber-500/30 text-amber-200 border border-amber-300/60 shadow-xs">
+                        PRO
+                      </span>
+                    </div>
+                    <div className="text-[11px] font-bold font-mono truncate text-emerald-100/90 mt-0.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] flex items-center gap-1">
+                      Nov 7 Exam &bull; 44d left
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </motion.div>
 
-              {/* Collapse / Close Controls */}
-              <div className="flex items-center gap-1 shrink-0">
-                <button
-                  type="button"
-                  onClick={onCloseMobile}
-                  className="lg:hidden p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/10"
-                  title="Close Sidebar"
-                >
-                  <X className="w-4.5 h-4.5" />
-                </button>
-
-                <button
-                  type="button"
-                  id="sidebar-collapse-toggle-btn"
-                  onClick={onToggleCollapse}
-                  className="hidden lg:flex p-2 rounded-xl text-emerald-100 hover:text-white hover:bg-white/20 transition cursor-pointer border border-white/20 backdrop-blur-xs shadow-xs"
-                  title="Collapse to Icons"
-                >
-                  <PanelLeftClose className="w-4.5 h-4.5 text-emerald-200" />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* 2. User Profile Card / Sign In (Creative, Elevated Glassmorphism) */}
-          <div
-            className={`rounded-2xl border transition-all duration-200 select-none group relative bg-black/25 hover:bg-black/35 border-white/20 hover:border-white/35 backdrop-blur-md shadow-md ${
-              isCollapsed ? 'p-2 flex flex-col items-center gap-1.5' : 'px-3.5 py-2.5 flex items-center justify-between gap-3'
+          {/* 2. User Profile Card / Sign In (Creative, Animated Glassmorphism) */}
+          <motion.div
+            layout
+            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+            className={`rounded-2xl border transition-colors duration-200 select-none group relative bg-black/25 hover:bg-black/35 border-white/20 hover:border-white/35 backdrop-blur-md shadow-md ${
+              isCollapsed ? 'p-2 flex flex-col items-center gap-2' : 'px-3.5 py-2.5 flex items-center justify-between gap-3'
             }`}
           >
             <Link
               href={session?.user ? '#' : '/login'}
               id="sidebar-user-card-btn"
-              className="flex items-center gap-3 min-w-0 flex-1 cursor-pointer"
+              className={`flex items-center min-w-0 cursor-pointer ${
+                isCollapsed ? 'flex-col items-center' : 'gap-3 flex-1'
+              }`}
               title={session?.user ? userName : 'Scholar • Click to Sign In'}
             >
-              {/* Vibrant Gold Squircle Avatar with Mint Online Dot */}
-              <div className="relative w-10.5 h-10.5 shrink-0 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 border-2 border-amber-300/80 flex items-center justify-center text-slate-950 font-black text-sm sm:text-base shadow-md group-hover:scale-105 transition-transform duration-200">
+              {/* Vibrant Gold Squircle Avatar */}
+              <motion.div
+                layout
+                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                className={`relative shrink-0 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-orange-500 border-2 border-amber-300/80 flex items-center justify-center text-slate-950 font-black shadow-md group-hover:scale-105 transition-transform duration-200 ${
+                  isCollapsed ? 'w-10 h-10 text-sm' : 'w-10.5 h-10.5 text-sm sm:text-base'
+                }`}
+              >
                 {session?.user?.image ? (
                   <img
                     src={session.user.image}
@@ -432,61 +459,81 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <span>{session?.user ? (userInitials || 'U') : 'S'}</span>
                 )}
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10b981] border-2 border-[#163510] shadow-xs" />
-              </div>
+              </motion.div>
 
-              {!isCollapsed && (
-                <div className="min-w-0 leading-tight flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[14px] sm:text-[14.5px] font-black truncate font-['Plus_Jakarta_Sans'] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
-                      {session?.user ? userName : 'Scholar'}
-                    </span>
-                    {!session?.user && (
-                      <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-mono bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 shadow-xs group-hover:bg-emerald-400 group-hover:text-slate-950 transition-colors">
-                        Sign In
+              {/* Scholar Text with AnimatePresence */}
+              <AnimatePresence initial={false}>
+                {!isCollapsed && (
+                  <motion.div
+                    initial={{ opacity: 0, width: 0, x: -10 }}
+                    animate={{ opacity: 1, width: 'auto', x: 0 }}
+                    exit={{ opacity: 0, width: 0, x: -10 }}
+                    transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                    className="min-w-0 leading-tight flex-1 whitespace-nowrap overflow-hidden"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[14px] sm:text-[14.5px] font-black truncate font-['Plus_Jakarta_Sans'] text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+                        {session?.user ? userName : 'Scholar'}
                       </span>
-                    )}
-                  </div>
-                  <p className="text-[11px] font-medium truncate text-emerald-100/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] mt-0.5">
-                    {session?.user ? (session.user.email || 'Keep learning') : 'Keep learning, keep growing'}
-                  </p>
-                </div>
-              )}
+                      {!session?.user && (
+                        <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md font-mono bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 shadow-xs group-hover:bg-emerald-400 group-hover:text-slate-950 transition-colors">
+                          Sign In
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-[11px] font-medium truncate text-emerald-100/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] mt-0.5">
+                      {session?.user ? (session.user.email || 'Keep learning') : 'Keep learning, keep growing'}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Link>
 
-            {!isCollapsed ? (
-              <div className="flex items-center gap-1.5 shrink-0">
-                <div
-                  className="px-2.5 py-1 rounded-xl border text-xs font-black font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-xs bg-amber-400/25 text-amber-200 border-amber-300/50 hover:bg-amber-400/35 transition-colors"
-                  title={`${streakCount} Days Study Streak`}
-                >
-                  <span>{streakCount}</span>
-                  <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300" />
-                </div>
-
-                {session?.user && (
-                  <button
-                    type="button"
-                    onClick={() => signOut({ callbackUrl: '/' })}
-                    className="p-1.5 rounded-xl text-emerald-100 hover:text-rose-300 hover:bg-rose-500/20 border border-white/10 hover:border-rose-400/30 transition cursor-pointer"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            ) : (
-              <div
-                className="w-5 h-5 rounded-full bg-amber-400/20 flex items-center justify-center text-[10px] text-amber-200"
-                title={`${streakCount} Day Streak`}
+            {/* Streak Counter / Sign Out */}
+            <motion.div
+              layout
+              transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              className={`flex items-center ${isCollapsed ? 'flex-col gap-1' : 'gap-1.5 shrink-0'}`}
+            >
+              <motion.div
+                layout
+                className={`rounded-xl border font-black font-['JetBrains_Mono'] flex items-center justify-center shadow-xs bg-amber-400/25 text-amber-200 border-amber-300/50 hover:bg-amber-400/35 transition-colors ${
+                  isCollapsed ? 'px-1.5 py-0.5 text-[10px]' : 'px-2.5 py-1 text-xs gap-1.5'
+                }`}
+                title={`${streakCount} Days Study Streak`}
               >
-                <Flame className="w-3 h-3 text-amber-300 fill-amber-300" />
-              </div>
-            )}
-          </div>
-        </div>
+                <AnimatePresence initial={false}>
+                  {!isCollapsed && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: 'auto' }}
+                      exit={{ opacity: 0, width: 0 }}
+                      transition={{ duration: 0.15 }}
+                      className="overflow-hidden whitespace-nowrap"
+                    >
+                      {streakCount}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+                <Flame className="w-3.5 h-3.5 text-amber-300 fill-amber-300 shrink-0" />
+              </motion.div>
+
+              {session?.user && !isCollapsed && (
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="p-1.5 rounded-xl text-emerald-100 hover:text-rose-300 hover:bg-rose-500/20 border border-white/10 hover:border-rose-400/30 transition cursor-pointer"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              )}
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* ============================================================== */}
-        {/* MIDDLE SECTION: MAIN NAVIGATION LINKS (BALANCED, CLEAR & BIG) */}
+        {/* MIDDLE SECTION: MAIN NAVIGATION LINKS (BALANCED, ANIMATED)    */}
         {/* ============================================================== */}
         <div className="flex-1 overflow-y-auto px-2 py-1.5 space-y-1 scrollbar-thin scrollbar-thumb-emerald-950/40 pb-2 relative z-10">
           {SIDEBAR_NAV_ITEMS.map((item) => {
@@ -500,12 +547,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             const Icon = item.icon;
 
             return (
-              <div key={item.id} className="relative group">
+              <motion.div
+                key={item.id}
+                layout="position"
+                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                className="relative group"
+              >
                 <Link
                   href={item.href}
                   id={`sidebar-nav-${item.id}-btn`}
                   onClick={(e) => handleItemClick(e, item.id, item.href)}
-                  className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl font-bold transition-all duration-150 cursor-pointer select-none text-[13px] sm:text-[13.5px] relative ${
+                  className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl font-bold transition-colors duration-150 cursor-pointer select-none text-[13px] sm:text-[13.5px] relative ${
                     isCollapsed ? 'justify-center px-1.5' : ''
                   } ${
                     isActive
@@ -515,33 +567,52 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   {/* Left Active Glow Indicator */}
                   {isActive && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-4 rounded-r-full bg-[#c9fccb] shadow-[0_0_8px_rgba(201,252,203,0.8)]" />
+                    <motion.span
+                      layoutId="sidebar-active-indicator"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-4 rounded-r-full bg-[#c9fccb] shadow-[0_0_8px_rgba(201,252,203,0.8)]"
+                    />
                   )}
 
                   {/* Icon */}
-                  <Icon
-                    className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] ${
-                      isActive ? 'text-white' : 'text-emerald-100 group-hover:text-white'
-                    }`}
-                  />
-
-                  {/* Label (Only when Expanded) */}
-                  {!isCollapsed && (
-                    <span className="truncate flex-1 font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-[13px] sm:text-[13.5px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]">
-                      {item.label}
-                    </span>
-                  )}
-
-                  {/* Badge (Only when Expanded) */}
-                  {!isCollapsed && item.badge && (
-                    <span
-                      className={`text-[9.5px] sm:text-[10px] font-black px-2 py-0.5 rounded-full font-['JetBrains_Mono'] shrink-0 shadow-xs ${
-                        item.badgeColor || 'bg-white text-slate-900 border border-white/50'
+                  <motion.div layout="position" className="shrink-0 flex items-center justify-center">
+                    <Icon
+                      className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)] ${
+                        isActive ? 'text-white' : 'text-emerald-100 group-hover:text-white'
                       }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
+                    />
+                  </motion.div>
+
+                  {/* Label (Fluid collapse/expansion with AnimatePresence) */}
+                  <AnimatePresence initial={false}>
+                    {!isCollapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, width: 0, x: -8 }}
+                        animate={{ opacity: 1, width: 'auto', x: 0 }}
+                        exit={{ opacity: 0, width: 0, x: -8 }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                        className="truncate flex-1 font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-[13px] sm:text-[13.5px] drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)] whitespace-nowrap overflow-hidden"
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Badge (Fluid fade/scale with AnimatePresence) */}
+                  <AnimatePresence initial={false}>
+                    {!isCollapsed && item.badge && (
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.7 }}
+                        transition={{ duration: 0.16 }}
+                        className={`text-[9.5px] sm:text-[10px] font-black px-2 py-0.5 rounded-full font-['JetBrains_Mono'] shrink-0 shadow-xs ${
+                          item.badgeColor || 'bg-white text-slate-900 border border-white/50'
+                        }`}
+                      >
+                        {item.badge}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </Link>
 
                 {/* Floating Tooltip in Collapsed Mode */}
@@ -555,7 +626,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     )}
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -564,14 +635,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* BOTTOM SECTION: SLIM STATS (ZERO CROP GLASS FOOTER)           */}
         {/* ============================================================== */}
         <div className="p-2 border-t border-white/20 bg-black/15 backdrop-blur-md shrink-0 relative z-10">
-          {!isCollapsed && (
-            <div className="py-1 px-3 rounded-lg bg-black/25 border border-white/20 text-[10px] text-[#f2fcf1] font-['JetBrains_Mono'] flex items-center justify-between shadow-2xs">
-              <span className="font-semibold text-emerald-100 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">Nov 7 Exam</span>
-              <span className="font-bold text-amber-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-                {completedCount}/{totalTasks} ({totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0}%)
-              </span>
-            </div>
-          )}
+          <AnimatePresence initial={false}>
+            {!isCollapsed ? (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="py-1 px-3 rounded-lg bg-black/25 border border-white/20 text-[10px] text-[#f2fcf1] font-['JetBrains_Mono'] flex items-center justify-between shadow-2xs overflow-hidden"
+              >
+                <span className="font-semibold text-emerald-100 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] whitespace-nowrap">Nov 7 Exam</span>
+                <span className="font-bold text-amber-200 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)] whitespace-nowrap">
+                  {completedCount}/{totalTasks} ({totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0}%)
+                </span>
+              </motion.div>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.15 }}
+                className="flex justify-center py-0.5"
+                title={`Nov 7 Exam: ${completedCount}/${totalTasks} tasks`}
+              >
+                <span className="text-[9px] font-black font-mono text-amber-200 bg-black/30 border border-white/10 px-1.5 py-0.5 rounded-md">
+                  {totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0}%
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </aside>
     </>
