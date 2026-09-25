@@ -57,8 +57,22 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
   const carriedTasks = tomorrowDay.tasks.filter((t) => t.isCarriedOver);
   const nativeTasks = tomorrowDay.tasks.filter((t) => !t.isCarriedOver);
 
+  const yesterdayDateStr = React.useMemo(() => {
+    try {
+      const [y, m, d] = currentTrackerDate.split('-').map(Number);
+      const prev = new Date(y, m - 1, d - 1);
+      const py = prev.getFullYear();
+      const pm = String(prev.getMonth() + 1).padStart(2, '0');
+      const pd = String(prev.getDate()).padStart(2, '0');
+      return `${py}-${pm}-${pd}`;
+    } catch {
+      return '';
+    }
+  }, [currentTrackerDate]);
+
   const isExactTomorrow = tomorrowDay.dateStr === tomorrowDateStr;
   const isToday = tomorrowDay.dateStr === currentTrackerDate;
+  const isYesterday = tomorrowDay.dateStr === yesterdayDateStr;
 
   // Find next buffer day after this day
   const nextBufferDay = allDays.find((d) => d.dateStr > tomorrowDay.dateStr && d.isBuffer);
@@ -84,6 +98,8 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
                     ? `Tomorrow • ${tomorrowDay.formattedDate}` 
                     : isToday 
                     ? `Today • ${tomorrowDay.formattedDate}`
+                    : isYesterday
+                    ? `Yesterday • ${tomorrowDay.formattedDate}`
                     : `Focus Day • ${tomorrowDay.formattedDate}`}
                 </span>
               </span>
@@ -100,8 +116,8 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
             
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury">
               {tomorrowDay.isBuffer
-                ? `Tomorrow's Mission: Guaranteed Buffer Rest Day`
-                : `Tomorrow's Mission: ${tomorrowDay.formattedDate} Focus`}
+                ? `${isYesterday ? "Yesterday's" : isToday ? "Today's" : "Tomorrow's"} Mission: Guaranteed Buffer Rest Day`
+                : `${isYesterday ? "Yesterday's" : isToday ? "Today's" : "Tomorrow's"} Mission: ${tomorrowDay.formattedDate} Focus`}
             </h2>
             
             <p className="text-xs sm:text-sm text-slate-200 font-semibold max-w-2xl leading-relaxed">
@@ -159,19 +175,21 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
               <span>Preview Date:</span>
             </span>
             
-            {/* Exact Tomorrow (Default) */}
-            <button
-              onClick={() => onSelectTomorrowDate(tomorrowDateStr)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 ${
-                tomorrowDay.dateStr === tomorrowDateStr
-                  ? 'bg-amber-400 text-slate-950 shadow-sm ring-2 ring-amber-500'
-                  : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
-              }`}
-            >
-              ⭐ Exact Tomorrow ({new Date(tomorrowDateStr + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })})
-            </button>
+            {/* 1. Yesterday (Previous Day) */}
+            {yesterdayDateStr && (
+              <button
+                onClick={() => onSelectTomorrowDate(yesterdayDateStr)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 ${
+                  tomorrowDay.dateStr === yesterdayDateStr
+                    ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-500'
+                    : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
+                }`}
+              >
+                Yesterday ({new Date(yesterdayDateStr + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })})
+              </button>
+            )}
 
-            {/* Today */}
+            {/* 2. Today */}
             <button
               onClick={() => onSelectTomorrowDate(currentTrackerDate)}
               className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 ${
@@ -183,16 +201,16 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
               Today ({new Date(currentTrackerDate + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })})
             </button>
 
-            {/* Next Study Day (Sep 14) */}
+            {/* 3. Exact Tomorrow */}
             <button
-              onClick={() => onSelectTomorrowDate('2026-09-14')}
+              onClick={() => onSelectTomorrowDate(tomorrowDateStr)}
               className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all cursor-pointer shrink-0 ${
-                tomorrowDay.dateStr === '2026-09-14'
-                  ? 'bg-indigo-600 text-white shadow-sm ring-2 ring-indigo-500'
+                tomorrowDay.dateStr === tomorrowDateStr
+                  ? 'bg-amber-400 text-slate-950 shadow-sm ring-2 ring-amber-500'
                   : 'bg-white/80 text-slate-800 hover:bg-white border border-[#a6c4a1]'
               }`}
             >
-              Mon Sep 14 (Next Study Day)
+              ⭐ Exact Tomorrow ({new Date(tomorrowDateStr + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })})
             </button>
           </div>
         )}
@@ -204,7 +222,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
             <span>
               {tomorrowDay.isBuffer
                 ? `Buffer Day Recovery Plan (${tomorrowDay.formattedDate})`
-                : `Tomorrow's 90-Minute Daily Structure (${tomorrowDay.formattedDate})`}
+                : `${isYesterday ? "Yesterday's" : isToday ? "Today's" : "Tomorrow's"} 90-Minute Daily Structure (${tomorrowDay.formattedDate})`}
             </span>
           </h3>
           <span className="text-xs font-black font-['JetBrains_Mono'] text-indigo-900 bg-indigo-100 border border-indigo-300 px-3 py-1 rounded-xl self-start sm:self-auto shadow-xs">
