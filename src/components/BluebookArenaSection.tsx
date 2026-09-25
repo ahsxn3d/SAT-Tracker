@@ -36,103 +36,63 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
-    dateStr: '2026-10-20',
-    displayDate: 'Tue Oct 20',
-    dayOfWeek: 'Tue',
-    taskTitle: 'All Math 100% Finished (Day 32)',
-    whatItMeans: 'Math Units 2-13 100% complete! Phase 1 content study officially mastered.',
-    category: 'drill',
-    taskId: 'task-2026-10-20-2',
-    dayId: '2026-10-20',
-  },
-  {
-    dateStr: '2026-10-21',
-    displayDate: 'Wed Oct 21',
-    dayOfWeek: 'Wed',
-    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
-    category: 'test',
-    taskId: 'bluebook-test-1',
-    dayId: '2026-10-21',
-  },
-  {
-    dateStr: '2026-10-22',
-    displayDate: 'Thu Oct 22',
-    dayOfWeek: 'Thu',
-    taskTitle: 'Error-log review of Test #1 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Error-log review of Test #1: Open score report, dissect every wrong question: skill & root-cause autopsy',
-    category: 'review',
-    taskId: 'p2-d2-1',
-    dayId: '2026-10-22',
-  },
-  {
-    dateStr: '2026-10-23',
-    displayDate: 'Fri Oct 23',
-    dayOfWeek: 'Fri',
-    taskTitle: 'Targeted Math drills + Desmos speed drills (75 min)',
-    whatItMeans: '6:30 PM - 7:45 PM: Targeted Math drills on Test #1 errors (45m) + Desmos speed drills on systems & roots (30m)',
-    category: 'drill',
-    taskId: 'p2-d3-1',
-    dayId: '2026-10-23',
-  },
-  {
     dateStr: '2026-10-24',
     displayDate: 'Sat Oct 24',
     dayOfWeek: 'Sat',
-    taskTitle: 'Targeted R&W drills, punctuation/grammar review (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Redo missed R&W skills on Khan, review grammar rules',
+    taskTitle: 'All Math & R&W 100% Finished (Day 32)',
+    whatItMeans: 'Math Units 2-13 & R&W 100% complete! Phase 1 content study officially mastered.',
     category: 'drill',
-    taskId: 'p2-d4-1',
+    taskId: 'task-2026-10-24-2',
     dayId: '2026-10-24',
   },
   {
     dateStr: '2026-10-25',
     displayDate: 'Sun Oct 25',
     dayOfWeek: 'Sun',
-    taskTitle: 'REST DAY',
-    whatItMeans: 'Full day off, no studying. Guaranteed mental reset & recovery',
+    taskTitle: 'REST DAY: Pre-Phase 2 Mental Reset',
+    whatItMeans: 'Full day off, zero studying. Celebrate 100% curriculum completion and recharge for Mock Tests.',
     category: 'rest',
-    taskId: 'rest-2026-10-25',
+    taskId: 'break-2026-10-25-1',
     dayId: '2026-10-25',
   },
   {
     dateStr: '2026-10-26',
     displayDate: 'Mon Oct 26',
     dayOfWeek: 'Mon',
-    taskTitle: 'Light targeted practice on remaining weak spots (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Only weak spots still bothering you, nothing new',
-    category: 'drill',
-    taskId: 'p2-d6-1',
+    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-1',
     dayId: '2026-10-26',
   },
   {
     dateStr: '2026-10-27',
     displayDate: 'Tue Oct 27',
     dayOfWeek: 'Tue',
-    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2',
-    category: 'test',
-    taskId: 'bluebook-test-2',
+    taskTitle: 'Error-log review of Test #1 (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #1: skill & root-cause autopsy in the Mistake Autopsy Notebook',
+    category: 'review',
+    taskId: 'p2-d2-1',
     dayId: '2026-10-27',
   },
   {
     dateStr: '2026-10-28',
     displayDate: 'Wed Oct 28',
     dayOfWeek: 'Wed',
-    taskTitle: 'Error-log review of Test #2 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #2 and log root causes',
-    category: 'review',
-    taskId: 'p2-d8-1',
+    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-2',
     dayId: '2026-10-28',
   },
   {
     dateStr: '2026-10-29',
     displayDate: 'Thu Oct 29',
     dayOfWeek: 'Thu',
-    taskTitle: 'Targeted drills on Test #2 weak areas (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Fix what Test #2 exposed with targeted practice',
-    category: 'drill',
-    taskId: 'p2-d9-1',
+    taskTitle: 'Error-log review of Test #2 (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #2 and log root causes in your Error Notebook',
+    category: 'review',
+    taskId: 'p2-d8-1',
     dayId: '2026-10-29',
   },
   {
@@ -140,7 +100,7 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     displayDate: 'Fri Oct 30',
     dayOfWeek: 'Fri',
     taskTitle: 'Deep review, punctuation & transitions traps + Math cleanup (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Grammar traps & math cleanup review',
+    whatItMeans: '6:30 PM - 7:30 PM: Grammar traps, transitions, and Desmos shortcuts review before final full test',
     category: 'review',
     taskId: 'p2-d10-1',
     dayId: '2026-10-30',
@@ -150,7 +110,7 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     displayDate: 'Sat Oct 31',
     dayOfWeek: 'Sat',
     taskTitle: 'TEST #3 (final full test, timed)',
-    whatItMeans: '8:00 AM - 10:24 AM: TEST #3, final full test under timed real conditions',
+    whatItMeans: '8:00 AM - 10:24 AM: Final official Bluebook Practice Test #3 under full timed conditions',
     category: 'test',
     taskId: 'bluebook-test-3',
     dayId: '2026-10-31',
@@ -160,7 +120,7 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     displayDate: 'Sun Nov 1',
     dayOfWeek: 'Sun',
     taskTitle: 'REST DAY',
-    whatItMeans: 'Full day off, no studying. Guaranteed mental reset',
+    whatItMeans: 'Full day off, no studying. Guaranteed mental reset before final week',
     category: 'rest',
     taskId: 'rest-2026-11-01',
     dayId: '2026-11-01',
@@ -262,8 +222,8 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   }, []);
 
   const mockTests = [
-    { name: 'Bluebook Practice Test #1', date: 'Wed Oct 21', time: '8:00 AM - 10:24 AM', dayId: '2026-10-21', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
-    { name: 'Bluebook Practice Test #2', date: 'Tue Oct 27', time: '8:00 AM - 10:24 AM', dayId: '2026-10-27', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
+    { name: 'Bluebook Practice Test #1', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
+    { name: 'Bluebook Practice Test #2', date: 'Wed Oct 28', time: '8:00 AM - 10:24 AM', dayId: '2026-10-28', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
     { name: 'Bluebook Practice Test #3', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'bluebook-test-3', tag: 'Final Full Test' },
   ];
 
@@ -313,10 +273,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
-              Phase 2: Oct 20 – Nov 6 (18 Days) + Nov 7 Exam Day
+              Phase 2: Oct 24 – Nov 6 (14 Days) + Nov 7 Exam Day
             </span>
             <span className="text-xs text-amber-300 font-extrabold font-['JetBrains_Mono']">
-              4 Full Mocks &bull; Error Autopsies &bull; Final Rehearsals
+              3 Full Mocks &bull; Error Autopsies &bull; 4 Buffer Days Integrated
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury flex items-center gap-2.5">
@@ -324,8 +284,16 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
             <span>The Bluebook Arena: Full Phase 2 Breakdown</span>
           </h2>
           <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
-            Strict 18-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
+            Strict 14-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
           </p>
+
+          {/* Adaptive Flow Notice */}
+          <div className="mt-2 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-xs font-medium">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>
+              <strong>Adaptive Flow Active:</strong> 4 Buffer Days absorbed (Sep 22–25). 4 filler drill days subtracted from Phase 2 so all 32 Phase 1 days finish with 100% mastery before Test #1 on Oct 26!
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">

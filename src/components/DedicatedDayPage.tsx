@@ -47,6 +47,7 @@ interface DedicatedDayPageProps {
   taskTimings?: Record<string, import('../types').TaskTimingRecord>;
   onOpenStruggleModal?: (day: DayPlan) => void;
   stuckCount?: number;
+  onToggleBufferDay?: (dateStr: string) => void;
 }
 
 export function DedicatedDayPage({
@@ -67,6 +68,7 @@ export function DedicatedDayPage({
   taskTimings = {},
   onOpenStruggleModal,
   stuckCount = 0,
+  onToggleBufferDay,
 }: DedicatedDayPageProps) {
   // Local notes editing state
   const [currentNotes, setCurrentNotes] = useState(notes || '');
@@ -252,6 +254,30 @@ export function DedicatedDayPage({
               <span className="sm:hidden">Next</span>
               <ChevronRight className="w-4 h-4" />
             </button>
+
+            {onToggleBufferDay && day.dateStr !== '2026-11-07' && !day.isTestDay && (
+              <button
+                onClick={() => onToggleBufferDay(day.dateStr)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer shadow-2xs active:scale-95 ${
+                  day.isBuffer
+                    ? 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-amber-300'
+                    : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-950 border-emerald-300'
+                }`}
+                title={day.isBuffer ? 'Restore as a normal study day' : 'Too exhausted? Convert into a Buffer Day'}
+              >
+                {day.isBuffer ? (
+                  <>
+                    <RotateCcw className="w-3.5 h-3.5 text-amber-800" />
+                    <span>Restore Study Day</span>
+                  </>
+                ) : (
+                  <>
+                    <Coffee className="w-3.5 h-3.5 text-emerald-800" />
+                    <span>Take Buffer Day</span>
+                  </>
+                )}
+              </button>
+            )}
           </div>
         </div>
       </header>

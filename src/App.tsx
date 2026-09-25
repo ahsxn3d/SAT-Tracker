@@ -40,6 +40,11 @@ import { Sidebar } from './components/Sidebar';
 import { ProgressSection } from './components/ProgressSection';
 import { computeWeeksWithRollover } from './utils/rollover';
 import { 
+  DEFAULT_BUFFER_DATES, 
+  buildDynamicWeeks, 
+  getPhase2BufferMetrics 
+} from './utils/dynamicScheduler';
+import { 
   Calendar, 
   Filter, 
   CheckCircle2, 
@@ -49,16 +54,16 @@ import {
   RotateCcw, 
   ShieldCheck, 
   BookOpen, 
-  Sparkles,
-  Layers,
-  MapPin,
-  Trophy,
-  Compass,
-  Target,
-  Luggage,
-  Calculator,
-  Menu,
-  TrendingUp
+  Sparkles, 
+  Layers, 
+  MapPin, 
+  Trophy, 
+  Compass, 
+  Target, 
+  Luggage, 
+  Calculator, 
+  Menu, 
+  TrendingUp 
 } from 'lucide-react';
 
 const STORAGE_KEYS = {
@@ -72,6 +77,7 @@ const STORAGE_KEYS = {
   TASK_OVERRIDES_UNDO_STACK: 'anti_burnout_task_overrides_undo_stack_v1',
   TASK_TIMINGS: 'anti_burnout_task_timings_clean_v3',
   STUCK_CONCEPTS: 'anti_burnout_stuck_concepts_v1',
+  CUSTOM_BUFFER_DATES: 'anti_burnout_custom_buffer_dates_v1',
 };
 
 const DEFAULT_SESSION_TIMINGS: Record<string, DaySessionTiming> = {};
@@ -145,6 +151,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
   const [sessionTimings, setSessionTimings] = useState<Record<string, DaySessionTiming>>(DEFAULT_SESSION_TIMINGS);
   const [taskTimings, setTaskTimings] = useState<Record<string, TaskTimingRecord>>({});
   const [stuckConcepts, setStuckConcepts] = useState<StuckConceptRecord[]>([]);
+  const [customBufferDates, setCustomBufferDates] = useState<string[]>(DEFAULT_BUFFER_DATES);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
   // Push snapshot to undo stack (up to 25 historical snapshots)
@@ -232,6 +239,16 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
 
       const savedStuck = localStorage.getItem(STORAGE_KEYS.STUCK_CONCEPTS);
       if (savedStuck) setStuckConcepts(JSON.parse(savedStuck));
+
+      const savedBuffers = localStorage.getItem(STORAGE_KEYS.CUSTOM_BUFFER_DATES);
+      if (savedBuffers) {
+        try {
+          const parsed = JSON.parse(savedBuffers);
+          if (Array.isArray(parsed)) {
+            setCustomBufferDates(Array.from(new Set([...DEFAULT_BUFFER_DATES, ...parsed])));
+          }
+        } catch (e) {}
+      }
     } catch (e) {
       console.error('Error loading saved progress from localStorage', e);
     }
@@ -378,6 +395,31 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
     }
   }, [stuckConcepts, hasMounted]);
 
+  useEffect(() => {
+    if (!hasMounted) return;
+    try {
+      localStorage.setItem(STORAGE_KEYS.CUSTOM_BUFFER_DATES, JSON.stringify(customBufferDates));
+    } catch (e) {
+      console.error('Failed to save custom buffer dates', e);
+    }
+  }, [customBufferDates, hasMounted]);
+
+  // Toggle buffer day: converts study day to buffer or restores buffer to study day
+  const handleToggleBufferDay = useCallback((dateStr: string) => {
+    setCustomBufferDates((prev) => {
+      let next: string[];
+      if (prev.includes(dateStr)) {
+        next = prev.filter((d) => d !== dateStr);
+      } else {
+        next = [...prev, dateStr];
+      }
+      try {
+        localStorage.setItem(STORAGE_KEYS.CUSTOM_BUFFER_DATES, JSON.stringify(next));
+      } catch (e) {}
+      return next;
+    });
+  }, []);
+
   const currentTrackerDate = useMemo(() => {
     try {
       const now = new Date();
@@ -391,17 +433,18 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
     }
   }, []);
 
-  // Merge static STUDY_PLAN_WEEKS with dynamic user completion states & carryover rollover logic
+  // Merge dynamic custom buffer days with STUDY_PLAN_WEEKS and user completion states & rollover logic
   const weeks: WeekPlan[] = useMemo(() => {
+    const dynamicWeeks = buildDynamicWeeks(customBufferDates, STUDY_PLAN_WEEKS);
     return computeWeeksWithRollover(
-      STUDY_PLAN_WEEKS,
+      dynamicWeeks,
       completedTaskIds,
       taskCompletionDay,
       dayNotes,
       currentTrackerDate,
       taskScheduleOverrides
     );
-  }, [completedTaskIds, taskCompletionDay, dayNotes, currentTrackerDate, taskScheduleOverrides]);
+  }, [customBufferDates, completedTaskIds, taskCompletionDay, dayNotes, currentTrackerDate, taskScheduleOverrides]);
 
   // Flattened all days list
   const allDays = useMemo(() => {
@@ -809,6 +852,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
           taskTimings={taskTimings}
           onOpenStruggleModal={(d) => setStuckModalDay(d)}
           stuckCount={stuckConcepts.filter((s) => s.dateStr === dedicatedDay.dateStr).length}
+          onToggleBufferDay={handleToggleBufferDay}
         />
       ) : (
         /* Main Container */
@@ -945,6 +989,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 tomorrowDateStr={tomorrowDateStr}
                 onSelectTomorrowDate={setSelectedTomorrowDateStr}
                 allDays={allDays}
+                onToggleBufferDay={handleToggleBufferDay}
               />
             </div>
           </ScrollReveal>
@@ -982,6 +1027,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                 taskTimings={taskTimings}
                 onOpenStruggleModal={(day) => setStuckModalDay(day)}
                 stuckConcepts={stuckConcepts}
+                onToggleBufferDay={handleToggleBufferDay}
               />
             </div>
           </ScrollReveal>
@@ -1182,6 +1228,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
                                 allPrecedingDaysCompleted={allPrecedingDone}
                                 onOpenStruggleModal={() => setStuckModalDay(day)}
                                 strugglesCount={stuckConcepts.filter((s) => s.dateStr === day.dateStr).length}
+                                onToggleBufferDay={handleToggleBufferDay}
                               />
                             ))}
                           </div>

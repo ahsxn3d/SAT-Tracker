@@ -25,6 +25,7 @@ interface DayCardProps {
   allPrecedingDaysCompleted?: boolean;
   onOpenStruggleModal?: (day: DayPlan) => void;
   strugglesCount?: number;
+  onToggleBufferDay?: (dateStr: string) => void;
 }
 
 export const DayCard: React.FC<DayCardProps> = ({
@@ -36,6 +37,7 @@ export const DayCard: React.FC<DayCardProps> = ({
   allPrecedingDaysCompleted = true,
   onOpenStruggleModal,
   strugglesCount = 0,
+  onToggleBufferDay,
 }) => {
   const [showNotes, setShowNotes] = useState(false);
   const [notesText, setNotesText] = useState(day.userNotes || '');
@@ -142,6 +144,35 @@ export const DayCard: React.FC<DayCardProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Quick Buffer Shift Toggle */}
+          {!isExamDay && !day.isTestDay && onToggleBufferDay && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleBufferDay(day.dateStr);
+              }}
+              className={`text-[10px] font-black uppercase px-2.5 py-1 rounded-lg border flex items-center gap-1 font-['JetBrains_Mono'] transition-all cursor-pointer shadow-2xs active:scale-95 ${
+                day.isBuffer
+                  ? 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-amber-300'
+                  : 'bg-emerald-100/90 hover:bg-emerald-200 text-emerald-950 border-emerald-300'
+              }`}
+              title={day.isBuffer ? 'Restore this day as a regular study day' : 'Convert this day into a Buffer Day (shifts syllabus forward)'}
+            >
+              {day.isBuffer ? (
+                <>
+                  <RotateCcw className="w-2.5 h-2.5 text-amber-800" />
+                  <span>Restore</span>
+                </>
+              ) : (
+                <>
+                  <Coffee className="w-2.5 h-2.5 text-emerald-800" />
+                  <span>Buffer</span>
+                </>
+              )}
+            </button>
+          )}
+
           {/* Completion Badge */}
           <span
             className={`text-xs font-['JetBrains_Mono'] font-black px-2 py-0.5 rounded-md border ${
@@ -165,17 +196,17 @@ export const DayCard: React.FC<DayCardProps> = ({
 
       {/* Buffer Special Instructions */}
       {day.isBuffer && !isExamDay && (
-        <div className="p-3 text-xs text-emerald-950 bg-emerald-100/50 border-b border-emerald-200 flex items-start gap-2 font-semibold">
-          <Sparkles className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+        <div className="p-3 text-xs text-emerald-950 bg-emerald-100/60 border-b border-emerald-200 flex items-start gap-2 font-semibold">
+          <Coffee className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
           <div>
             <span className="font-extrabold block">
-              {allPrecedingDaysCompleted
-                ? 'Targets Hit! Sunday is 100% Free 🌿'
-                : 'Buffer Catch-up Window 🔄'}
+              {day.dayOfWeek === 'Sun'
+                ? (allPrecedingDaysCompleted ? 'Targets Hit! Sunday is 100% Free 🌿' : 'Weekly Buffer Catch-up Window 🔄')
+                : 'Anti-Burnout Buffer Day (Recovery & Reset) 🌿'}
             </span>
             <span className="text-emerald-900 font-medium">
               {day.specialInstructions ||
-                'Sundays are strictly for sleeping in, catching up only if needed, or full rest.'}
+                'Rest, recharge, or catch up on life without guilt. Anti-Burnout Rule #1: Recovery prevents cognitive fatigue.'}
             </span>
           </div>
         </div>

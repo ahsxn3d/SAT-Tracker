@@ -106,7 +106,7 @@ export const SIDEBAR_NAV_ITEMS: SidebarNavItem[] = [
     shortLabel: 'Phase 2',
     href: '/phase-2',
     icon: Trophy,
-    badge: '18 Days',
+    badge: '14 Days',
     badgeColor: 'bg-[#7dd3fc] text-sky-950 font-black border border-sky-300 shadow-sm',
     category: 'study'
   },

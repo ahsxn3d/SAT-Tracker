@@ -778,7 +778,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-2",
     "title": "Week 2: Foundations Mastery & Pure Content Study",
     "dateRange": "Sep 21 to Sep 27",
-    "subtitle": "Linear equations, systems, right triangles & pure content study.",
+    "subtitle": "Buffer reset integration, Foundations Mastery & Pure Content Study.",
     "phase": "foundations",
     "days": [
       {
@@ -789,7 +789,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": 7,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -875,10 +875,106 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dateStr": "2026-09-22",
         "dayOfWeek": "Tue",
         "formattedDate": "Tue Sep 22",
+        "weekId": "week-2",
+        "weekNumber": 2,
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "buffer-2026-09-22",
+            "label": "Buffer Day: Recovery Window (Energy / Health Reset) • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Anti-Burnout Buffer Day: Permitted rest window to recover energy, solve external problems, and reset mental stamina. All syllabus tasks have shifted forward cleanly without loss."
+      },
+      {
+        "id": "2026-09-23",
+        "dateStr": "2026-09-23",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Sep 23",
+        "weekId": "week-2",
+        "weekNumber": 2,
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "buffer-2026-09-23",
+            "label": "Buffer Day: Recovery Window (Energy / Health Reset) • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Anti-Burnout Buffer Day: Permitted rest window to recover energy, solve external problems, and reset mental stamina. All syllabus tasks have shifted forward cleanly without loss."
+      },
+      {
+        "id": "2026-09-24",
+        "dateStr": "2026-09-24",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Sep 24",
+        "weekId": "week-2",
+        "weekNumber": 2,
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "buffer-2026-09-24",
+            "label": "Buffer Day: Recovery Window (Energy / Health Reset) • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Anti-Burnout Buffer Day: Permitted rest window to recover energy, solve external problems, and reset mental stamina. All syllabus tasks have shifted forward cleanly without loss."
+      },
+      {
+        "id": "2026-09-25",
+        "dateStr": "2026-09-25",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Sep 25",
+        "weekId": "week-2",
+        "weekNumber": 2,
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "buffer-2026-09-25",
+            "label": "Buffer Day: Recovery Window (Energy / Health Reset) • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Anti-Burnout Buffer Day: Permitted rest window to recover energy, solve external problems, and reset mental stamina. All syllabus tasks have shifted forward cleanly without loss."
+      },
+      {
+        "id": "2026-09-26",
+        "dateStr": "2026-09-26",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Sep 26",
         "dayNumber": 8,
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -960,14 +1056,47 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-23",
-        "dateStr": "2026-09-23",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Sep 23",
-        "dayNumber": 9,
+        "id": "2026-09-27",
+        "dateStr": "2026-09-27",
+        "dayOfWeek": "Sun",
+        "formattedDate": "Sun Sep 27",
         "weekId": "week-2",
         "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekTitle": "Week 2: Foundations Mastery & Pure Content Study",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "break-2026-09-27-1",
+            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Weekly recovery window. Anti-burnout rule #1: Resting on Sundays consolidates the week’s learning and resets mental stamina for the upcoming week."
+      }
+    ]
+  },
+  {
+    "id": "week-3",
+    "title": "Week 3: Medium Tier Acceleration & Synthesis",
+    "dateRange": "Sep 28 to Oct 04",
+    "subtitle": "Medium tier acceleration, algebraic functions, and quantitative evidence synthesis.",
+    "phase": "foundations",
+    "days": [
+      {
+        "id": "2026-09-28",
+        "dateStr": "2026-09-28",
+        "dayOfWeek": "Mon",
+        "formattedDate": "Mon Sep 28",
+        "dayNumber": 9,
+        "weekId": "week-3",
+        "weekNumber": 3,
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1049,14 +1178,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-24",
-        "dateStr": "2026-09-24",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Sep 24",
+        "id": "2026-09-29",
+        "dateStr": "2026-09-29",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Sep 29",
         "dayNumber": 10,
-        "weekId": "week-2",
-        "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekId": "week-3",
+        "weekNumber": 3,
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1138,14 +1267,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-25",
-        "dateStr": "2026-09-25",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Sep 25",
+        "id": "2026-09-30",
+        "dateStr": "2026-09-30",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Sep 30",
         "dayNumber": 11,
-        "weekId": "week-2",
-        "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekId": "week-3",
+        "weekNumber": 3,
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1227,14 +1356,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-26",
-        "dateStr": "2026-09-26",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Sep 26",
+        "id": "2026-10-01",
+        "dateStr": "2026-10-01",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Oct 1",
         "dayNumber": 12,
-        "weekId": "week-2",
-        "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
+        "weekId": "week-3",
+        "weekNumber": 3,
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1316,49 +1445,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-27",
-        "dateStr": "2026-09-27",
-        "dayOfWeek": "Sun",
-        "formattedDate": "Sun Sep 27",
-        "weekId": "week-2",
-        "weekNumber": 2,
-        "weekTitle": "Foundations Mastery & Pure Content Study",
-        "phase": "foundations",
-        "isBuffer": true,
-        "isTestDay": false,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
-        "tasks": [
-          {
-            "id": "rest-2026-09-27",
-            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
-            "subject": "buffer",
-            "code": "REST",
-            "topic": "Cognitive Recovery",
-            "completed": false
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "week-3",
-    "title": "Week 3: Medium Tier Acceleration & Synthesis",
-    "dateRange": "Sep 28 to Oct 04",
-    "subtitle": "Medium tier Khan lessons, rhetorical synthesis & boundaries.",
-    "phase": "foundations",
-    "days": [
-      {
-        "id": "2026-09-28",
-        "dateStr": "2026-09-28",
-        "dayOfWeek": "Mon",
-        "formattedDate": "Mon Sep 28",
+        "id": "2026-10-02",
+        "dateStr": "2026-10-02",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 2",
         "dayNumber": 13,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1440,14 +1534,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-29",
-        "dateStr": "2026-09-29",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Sep 29",
+        "id": "2026-10-03",
+        "dateStr": "2026-10-03",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 3",
         "dayNumber": 14,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1529,14 +1623,47 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-09-30",
-        "dateStr": "2026-09-30",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Sep 30",
-        "dayNumber": 15,
+        "id": "2026-10-04",
+        "dateStr": "2026-10-04",
+        "dayOfWeek": "Sun",
+        "formattedDate": "Sun Oct 4",
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekTitle": "Week 3: Medium Tier Acceleration & Synthesis",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "break-2026-10-04-1",
+            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Weekly recovery window. Full day off, no studying."
+      }
+    ]
+  },
+  {
+    "id": "week-4",
+    "title": "Week 4: Challenge Unit Completion & All R&W Complete",
+    "dateRange": "Oct 05 to Oct 11",
+    "subtitle": "Punctuation mastery, non-linear functions, and challenge grammar rules.",
+    "phase": "foundations",
+    "days": [
+      {
+        "id": "2026-10-05",
+        "dateStr": "2026-10-05",
+        "dayOfWeek": "Mon",
+        "formattedDate": "Mon Oct 5",
+        "dayNumber": 15,
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1598,14 +1725,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-01",
-        "dateStr": "2026-10-01",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Oct 1",
+        "id": "2026-10-06",
+        "dateStr": "2026-10-06",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Oct 6",
         "dayNumber": 16,
-        "weekId": "week-3",
-        "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1667,14 +1794,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-02",
-        "dateStr": "2026-10-02",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 2",
+        "id": "2026-10-07",
+        "dateStr": "2026-10-07",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Oct 7",
         "dayNumber": 17,
-        "weekId": "week-3",
-        "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1736,14 +1863,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-03",
-        "dateStr": "2026-10-03",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 3",
+        "id": "2026-10-08",
+        "dateStr": "2026-10-08",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Oct 8",
         "dayNumber": 18,
-        "weekId": "week-3",
-        "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1825,49 +1952,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-04",
-        "dateStr": "2026-10-04",
-        "dayOfWeek": "Sun",
-        "formattedDate": "Sun Oct 4",
-        "weekId": "week-3",
-        "weekNumber": 3,
-        "weekTitle": "Medium Tier Acceleration & Synthesis",
-        "phase": "foundations",
-        "isBuffer": true,
-        "isTestDay": false,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
-        "tasks": [
-          {
-            "id": "rest-2026-10-04",
-            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
-            "subject": "buffer",
-            "code": "REST",
-            "topic": "Cognitive Recovery",
-            "completed": false
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "week-4",
-    "title": "Week 4: Challenge Unit Completion & All R&W Complete",
-    "dateRange": "Oct 05 to Oct 11",
-    "subtitle": "Challenge Unit finished on Oct 3; All Reading & Writing 100% finished on Thu Oct 8!",
-    "phase": "foundations",
-    "days": [
-      {
-        "id": "2026-10-05",
-        "dateStr": "2026-10-05",
-        "dayOfWeek": "Mon",
-        "formattedDate": "Mon Oct 5",
+        "id": "2026-10-09",
+        "dateStr": "2026-10-09",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 9",
         "dayNumber": 19,
         "weekId": "week-4",
         "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1949,14 +2041,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-06",
-        "dateStr": "2026-10-06",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Oct 6",
+        "id": "2026-10-10",
+        "dateStr": "2026-10-10",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 10",
         "dayNumber": 20,
         "weekId": "week-4",
         "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2038,14 +2130,47 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-07",
-        "dateStr": "2026-10-07",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Oct 7",
-        "dayNumber": 21,
+        "id": "2026-10-11",
+        "dateStr": "2026-10-11",
+        "dayOfWeek": "Sun",
+        "formattedDate": "Sun Oct 11",
         "weekId": "week-4",
         "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekTitle": "Week 4: Challenge Unit Completion & All R&W Complete",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "break-2026-10-11-1",
+            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Weekly recovery window. Full day off, no studying."
+      }
+    ]
+  },
+  {
+    "id": "week-5",
+    "title": "Week 5: Advanced Math Climax (Units 11 & 12)",
+    "dateRange": "Oct 12 to Oct 18",
+    "subtitle": "Advanced algebra, geometry & trigonometry mastery.",
+    "phase": "foundations",
+    "days": [
+      {
+        "id": "2026-10-12",
+        "dateStr": "2026-10-12",
+        "dayOfWeek": "Mon",
+        "formattedDate": "Mon Oct 12",
+        "dayNumber": 21,
+        "weekId": "week-5",
+        "weekNumber": 5,
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2127,14 +2252,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-08",
-        "dateStr": "2026-10-08",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Oct 8",
+        "id": "2026-10-13",
+        "dateStr": "2026-10-13",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Oct 13",
         "dayNumber": 22,
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekId": "week-5",
+        "weekNumber": 5,
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2216,14 +2341,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-09",
-        "dateStr": "2026-10-09",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 9",
+        "id": "2026-10-14",
+        "dateStr": "2026-10-14",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Oct 14",
         "dayNumber": 23,
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekId": "week-5",
+        "weekNumber": 5,
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2315,14 +2440,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-10",
-        "dateStr": "2026-10-10",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 10",
+        "id": "2026-10-15",
+        "dateStr": "2026-10-15",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Oct 15",
         "dayNumber": 24,
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
+        "weekId": "week-5",
+        "weekNumber": 5,
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2404,49 +2529,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-11",
-        "dateStr": "2026-10-11",
-        "dayOfWeek": "Sun",
-        "formattedDate": "Sun Oct 11",
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Challenge Unit Completion & All R&W Complete",
-        "phase": "foundations",
-        "isBuffer": true,
-        "isTestDay": false,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
-        "tasks": [
-          {
-            "id": "rest-2026-10-11",
-            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
-            "subject": "buffer",
-            "code": "REST",
-            "topic": "Cognitive Recovery",
-            "completed": false
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "week-5",
-    "title": "Week 5: Advanced Math Climax (Units 11 & 12)",
-    "dateRange": "Oct 12 to Oct 18",
-    "subtitle": "Advanced Math units: Data inferences, polynomial operations & quadratic systems.",
-    "phase": "foundations",
-    "days": [
-      {
-        "id": "2026-10-12",
-        "dateStr": "2026-10-12",
-        "dayOfWeek": "Mon",
-        "formattedDate": "Mon Oct 12",
+        "id": "2026-10-16",
+        "dateStr": "2026-10-16",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 16",
         "dayNumber": 25,
         "weekId": "week-5",
         "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2508,14 +2598,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-13",
-        "dateStr": "2026-10-13",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Oct 13",
+        "id": "2026-10-17",
+        "dateStr": "2026-10-17",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 17",
         "dayNumber": 26,
         "weekId": "week-5",
         "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2577,14 +2667,47 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-14",
-        "dateStr": "2026-10-14",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Oct 14",
-        "dayNumber": 27,
+        "id": "2026-10-18",
+        "dateStr": "2026-10-18",
+        "dayOfWeek": "Sun",
+        "formattedDate": "Sun Oct 18",
         "weekId": "week-5",
         "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekTitle": "Week 5: Advanced Math Climax (Units 11 & 12)",
+        "phase": "foundations",
+        "isBuffer": true,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "break-2026-10-18-1",
+            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
+            "subject": "buffer",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Weekly recovery window. Full day off, no studying."
+      }
+    ]
+  },
+  {
+    "id": "week-6",
+    "title": "Week 6: All Math 100% Complete & Phase 1 Climax",
+    "dateRange": "Oct 19 to Oct 25",
+    "subtitle": "Units 12 & 13 finalized. All 32 curriculum days 100% complete.",
+    "phase": "foundations",
+    "days": [
+      {
+        "id": "2026-10-19",
+        "dateStr": "2026-10-19",
+        "dayOfWeek": "Mon",
+        "formattedDate": "Mon Oct 19",
+        "dayNumber": 27,
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2646,14 +2769,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-15",
-        "dateStr": "2026-10-15",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Oct 15",
+        "id": "2026-10-20",
+        "dateStr": "2026-10-20",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Oct 20",
         "dayNumber": 28,
-        "weekId": "week-5",
-        "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2715,14 +2838,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-16",
-        "dateStr": "2026-10-16",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 16",
+        "id": "2026-10-21",
+        "dateStr": "2026-10-21",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Oct 21",
         "dayNumber": 29,
-        "weekId": "week-5",
-        "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2784,14 +2907,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-17",
-        "dateStr": "2026-10-17",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 17",
+        "id": "2026-10-22",
+        "dateStr": "2026-10-22",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Oct 22",
         "dayNumber": 30,
-        "weekId": "week-5",
-        "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2843,50 +2966,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-18",
-        "dateStr": "2026-10-18",
-        "dayOfWeek": "Sun",
-        "formattedDate": "Sun Oct 18",
-        "weekId": "week-5",
-        "weekNumber": 5,
-        "weekTitle": "Advanced Math Climax (Units 11 & 12)",
-        "phase": "foundations",
-        "isBuffer": true,
-        "isTestDay": false,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "specialInstructions": "Guaranteed Rest Day: Zero assigned lessons. Allow mental recharge, sleep, and physical recovery.",
-        "tasks": [
-          {
-            "id": "rest-2026-10-18",
-            "label": "Full Rest & Cognitive Recovery • Zero Assigned Study",
-            "subject": "buffer",
-            "code": "REST",
-            "topic": "Cognitive Recovery",
-            "completed": false
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "week-6",
-    "title": "Week 6: All Math Complete & Phase 2 Testing Launch",
-    "dateRange": "Oct 19 to Oct 25",
-    "subtitle": "All Math finished on Tue Oct 20; Full Bluebook Test #1 on Wed Oct 21.",
-    "phase": "bluebook",
-    "days": [
-      {
-        "id": "2026-10-19",
-        "dateStr": "2026-10-19",
-        "dayOfWeek": "Mon",
-        "formattedDate": "Mon Oct 19",
+        "id": "2026-10-23",
+        "dateStr": "2026-10-23",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 23",
         "dayNumber": 31,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
+        "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 120,
@@ -2937,15 +3025,15 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-20",
-        "dateStr": "2026-10-20",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Oct 20",
+        "id": "2026-10-24",
+        "dateStr": "2026-10-24",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 24",
         "dayNumber": 32,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
+        "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
         "studyTimeMinutes": 80,
@@ -2976,150 +3064,36 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         ]
       },
       {
-        "id": "2026-10-21",
-        "dateStr": "2026-10-21",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Oct 21",
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
-        "isBuffer": false,
-        "isTestDay": true,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 10,
-        "totalTimeMinutes": 154,
-        "specialInstructions": "TEST #1 (full Bluebook Practice Test, real conditions): 8:00 AM - 10:24 AM.",
-        "tasks": [
-          {
-            "id": "bluebook-test-1",
-            "label": "TEST #1 (full Bluebook Practice Test, real conditions)",
-            "subject": "test",
-            "code": "TEST #1",
-            "topic": "Full Bluebook Practice Test #1 (Real Conditions)",
-            "timeSlot": "8:00 AM - 10:24 AM",
-            "durationMinutes": 144,
-            "completed": false
-          }
-        ]
-      },
-      {
-        "id": "2026-10-22",
-        "dateStr": "2026-10-22",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Oct 22",
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 45,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 45,
-        "specialInstructions": "Error-log review of Test #1 (45 min): Open score report, dissect every wrong question: skill & root-cause autopsy.",
-        "tasks": [
-          {
-            "id": "p2-d2-1",
-            "label": "Error-log review of Test #1 (45 min)",
-            "subject": "review",
-            "code": "AUTOPSY",
-            "topic": "Test #1 Error Log Dissection",
-            "timeSlot": "6:30 PM - 7:15 PM",
-            "durationMinutes": 45,
-            "completed": false
-          }
-        ]
-      },
-      {
-        "id": "2026-10-23",
-        "dateStr": "2026-10-23",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 23",
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 75,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 75,
-        "specialInstructions": "Targeted Math drills on Test #1 errors (45m) + Desmos speed drills on systems & roots (30m).",
-        "tasks": [
-          {
-            "id": "p2-d3-1",
-            "label": "Targeted Math drills + Desmos speed drills (75 min)",
-            "subject": "drill",
-            "code": "MATH DRILL",
-            "topic": "Test #1 Error Drills & Desmos Speed Training",
-            "timeSlot": "6:30 PM - 7:45 PM",
-            "durationMinutes": 75,
-            "completed": false
-          }
-        ]
-      },
-      {
-        "id": "2026-10-24",
-        "dateStr": "2026-10-24",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 24",
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 60,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 60,
-        "specialInstructions": "Targeted R&W drills, punctuation/grammar review: Redo missed skills on Khan, review grammar rules.",
-        "tasks": [
-          {
-            "id": "p2-d4-1",
-            "label": "Targeted R&W drills, punctuation/grammar review (60 min)",
-            "subject": "drill",
-            "code": "RW DRILL",
-            "topic": "Grammar Traps & Reading Drills",
-            "timeSlot": "6:30 PM - 7:30 PM",
-            "durationMinutes": 60,
-            "completed": false
-          }
-        ]
-      },
-      {
         "id": "2026-10-25",
         "dateStr": "2026-10-25",
         "dayOfWeek": "Sun",
         "formattedDate": "Sun Oct 25",
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "All Math Complete & Phase 2 Testing Launch",
-        "phase": "bluebook",
+        "weekTitle": "Week 6: All Math 100% Complete & Phase 1 Climax",
+        "phase": "foundations",
         "isBuffer": true,
-        "isTestDay": false,
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset & recovery.",
         "tasks": [
           {
-            "id": "rest-2026-10-25",
-            "label": "REST DAY: Full day off, no studying. Guaranteed mental reset",
+            "id": "break-2026-10-25-1",
+            "label": "REST DAY: Full mental reset before Phase 2 Testing Launch",
             "subject": "buffer",
-            "code": "REST",
-            "topic": "Cognitive Recovery",
+            "durationMinutes": 0,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Full day off. Celebrate 100% completion of all Khan Academy Math & R&W curriculum! Tomorrow Phase 2 launches."
       }
     ]
   },
   {
     "id": "week-7",
-    "title": "Week 7: Practice Tests #2 & #3 Simulations",
+    "title": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
     "dateRange": "Oct 26 to Nov 01",
-    "subtitle": "Full Bluebook Test #2 on Tue Oct 27 and Final Test #3 on Sat Oct 31.",
+    "subtitle": "Official Bluebook timed simulations & focused error autopsies.",
     "phase": "bluebook",
     "days": [
       {
@@ -3129,26 +3103,23 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Mon Oct 26",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 45,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 45,
-        "specialInstructions": "Light targeted practice on remaining weak spots (45 min): Only weak spots still bothering you, nothing new.",
+        "isTestDay": true,
+        "studyTimeMinutes": 144,
+        "breakTimeMinutes": 10,
+        "totalTimeMinutes": 154,
         "tasks": [
           {
-            "id": "p2-d6-1",
-            "label": "Light targeted practice on remaining weak spots (45 min)",
-            "subject": "drill",
-            "code": "LIGHT DRILL",
-            "topic": "Weak Spot Maintenance",
-            "timeSlot": "6:30 PM - 7:15 PM",
-            "durationMinutes": 45,
+            "id": "bluebook-test-1",
+            "label": "TEST #1 (full Bluebook Practice Test, real conditions)",
+            "subject": "test",
+            "durationMinutes": 144,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions. No pausing, official calculator only."
       },
       {
         "id": "2026-10-27",
@@ -3157,26 +3128,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Tue Oct 27",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": true,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 10,
-        "totalTimeMinutes": 154,
-        "specialInstructions": "TEST #2 (full Bluebook Practice Test): 8:00 AM - 10:24 AM.",
+        "studyTimeMinutes": 45,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 45,
         "tasks": [
           {
-            "id": "bluebook-test-2",
-            "label": "TEST #2 (full Bluebook Practice Test)",
-            "subject": "test",
-            "code": "TEST #2",
-            "topic": "Full Bluebook Practice Test #2 (Real Conditions)",
-            "timeSlot": "8:00 AM - 10:24 AM",
-            "durationMinutes": 144,
+            "id": "p2-d2-1",
+            "label": "Error-log review of Test #1 (45 min)",
+            "subject": "review",
+            "durationMinutes": 45,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Dissect every wrong question on Test #1: skill & root-cause autopsy in the Mistake Autopsy Notebook."
       },
       {
         "id": "2026-10-28",
@@ -3185,26 +3152,23 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Wed Oct 28",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 45,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 45,
-        "specialInstructions": "Error-log review of Test #2 (45 min): Dissect every wrong question and log root-cause rules.",
+        "isTestDay": true,
+        "studyTimeMinutes": 144,
+        "breakTimeMinutes": 10,
+        "totalTimeMinutes": 154,
         "tasks": [
           {
-            "id": "p2-d8-1",
-            "label": "Error-log review of Test #2 (45 min)",
-            "subject": "review",
-            "code": "AUTOPSY",
-            "topic": "Test #2 Error Dissection",
-            "timeSlot": "6:30 PM - 7:15 PM",
-            "durationMinutes": 45,
+            "id": "bluebook-test-2",
+            "label": "TEST #2 (full Bluebook Practice Test)",
+            "subject": "test",
+            "durationMinutes": 144,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions."
       },
       {
         "id": "2026-10-29",
@@ -3213,26 +3177,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Thu Oct 29",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 60,
+        "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
-        "totalTimeMinutes": 60,
-        "specialInstructions": "Targeted drills on Test #2 weak areas (60 min): Fix what Test #2 exposed with targeted Khan practice.",
+        "totalTimeMinutes": 45,
         "tasks": [
           {
-            "id": "p2-d9-1",
-            "label": "Targeted drills on Test #2 weak areas (60 min)",
-            "subject": "drill",
-            "code": "TARGETED DRILL",
-            "topic": "Test #2 Weak Areas Targeted Drills",
-            "timeSlot": "6:30 PM - 7:30 PM",
-            "durationMinutes": 60,
+            "id": "p2-d8-1",
+            "label": "Error-log review of Test #2 (45 min)",
+            "subject": "review",
+            "durationMinutes": 45,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Dissect every wrong question on Test #2 and log root causes in your Error Notebook."
       },
       {
         "id": "2026-10-30",
@@ -3241,26 +3201,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Fri Oct 30",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
-        "isTestDay": false,
         "studyTimeMinutes": 60,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 60,
-        "specialInstructions": "Deep review, punctuation & transitions traps + Math cleanup (60 min).",
         "tasks": [
           {
             "id": "p2-d10-1",
             "label": "Deep review, punctuation & transitions traps + Math cleanup (60 min)",
             "subject": "review",
-            "code": "DEEP REVIEW",
-            "topic": "Grammar Traps & Math Polish",
-            "timeSlot": "6:30 PM - 7:30 PM",
             "durationMinutes": 60,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Grammar traps, transitions and Desmos shortcuts review before final full test tomorrow."
       },
       {
         "id": "2026-10-31",
@@ -3269,26 +3225,23 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sat Oct 31",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": false,
         "isTestDay": true,
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
-        "specialInstructions": "TEST #3 (final full test, timed): 8:00 AM - 10:24 AM under real conditions.",
         "tasks": [
           {
             "id": "bluebook-test-3",
             "label": "TEST #3 (final full test, timed)",
             "subject": "test",
-            "code": "TEST #3",
-            "topic": "Final Full Bluebook Practice Test #3 (Real Conditions)",
-            "timeSlot": "8:00 AM - 10:24 AM",
             "durationMinutes": 144,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "8:00 AM - 10:24 AM: Final official Bluebook Practice Test #3 under full timed conditions."
       },
       {
         "id": "2026-11-01",
@@ -3297,24 +3250,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sun Nov 1",
         "weekId": "week-7",
         "weekNumber": 7,
-        "weekTitle": "Practice Tests #2 & #3 Simulations",
+        "weekTitle": "Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)",
         "phase": "bluebook",
         "isBuffer": true,
-        "isTestDay": false,
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "REST DAY: Full day off, no studying. Guaranteed mental reset.",
         "tasks": [
           {
             "id": "rest-2026-11-01",
-            "label": "REST DAY: Full day off, no studying",
+            "label": "REST DAY: Full day off, no studying. Guaranteed mental reset",
             "subject": "buffer",
-            "code": "REST",
-            "topic": "Mental Reset",
+            "durationMinutes": 0,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Full day off. Cognitive restoration before final exam week."
       }
     ]
   },
@@ -3322,7 +3273,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-8",
     "title": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
     "dateRange": "Nov 02 to Nov 07",
-    "subtitle": "Test #3 error review, light taper, logistics check, bag packout, full rest & Sat Nov 7 Exam Day.",
+    "subtitle": "Final taper, logistics verification, and official test day at Crescent Model.",
     "phase": "exam",
     "days": [
       {
@@ -3332,26 +3283,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Mon Nov 2",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
-        "isTestDay": false,
         "studyTimeMinutes": 45,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 45,
-        "specialInstructions": "Error-log review of Test #3 + simulate exact test-day timing (45 min): Write down every wrong question and why, across both Math and Reading & Writing.",
         "tasks": [
           {
             "id": "w8-d1-1",
             "label": "Error-log review of Test #3 + simulate exact test-day timing (45 min)",
             "subject": "review",
-            "code": "AUTOPSY",
-            "topic": "Test #3 Error-Log Review & Timing Calibration",
-            "timeSlot": "6:30 PM - 7:15 PM",
             "durationMinutes": 45,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Root cause autopsy across both Math and R&W. Lock in your final cheat codes."
       },
       {
         "id": "2026-11-03",
@@ -3360,26 +3307,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Tue Nov 3",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
-        "isTestDay": false,
         "studyTimeMinutes": 30,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 30,
-        "specialInstructions": "Light taper, review error notebook + grammar rules (30 min): No heavy problem sets, gentle reinforcement.",
         "tasks": [
           {
             "id": "w8-d2-1",
             "label": "Light taper, review error notebook + grammar rules (30 min)",
             "subject": "review",
-            "code": "LIGHT TAPER",
-            "topic": "Error Notebook & Grammar Traps Refresh",
-            "timeSlot": "6:30 PM - 7:00 PM",
             "durationMinutes": 30,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Gentle review of high-yield formulas and grammar rules. Do not take tests."
       },
       {
         "id": "2026-11-04",
@@ -3388,26 +3331,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Wed Nov 4",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
-        "isTestDay": false,
         "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 20,
-        "specialInstructions": "Verify Bluebook app, admission ticket, ID (20 min): Ensure device is updated, admission ticket printed, ID ready.",
         "tasks": [
           {
             "id": "w8-d3-1",
             "label": "Verify Bluebook app, admission ticket, ID (20 min)",
             "subject": "logistics",
-            "code": "LOGISTICS",
-            "topic": "Bluebook App Verification & Admission Ticket Check",
-            "timeSlot": "6:30 PM - 6:50 PM",
             "durationMinutes": 20,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Logistics check: verify Bluebook exam setup, print physical ticket, confirm passport/smart CNIC."
       },
       {
         "id": "2026-11-05",
@@ -3416,26 +3355,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Thu Nov 5",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
-        "isTestDay": false,
         "studyTimeMinutes": 20,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 20,
-        "specialInstructions": "Very light review, then pack bag (20 min): Re-read top 5 rules, pack bag with ID/Smart CNIC, charger, snacks, calculator.",
         "tasks": [
           {
             "id": "w8-d4-1",
             "label": "Very light review, then pack bag (20 min)",
             "subject": "logistics",
-            "code": "BAG PACKOUT",
-            "topic": "Formula Checklist & Exam Bag Packing",
-            "timeSlot": "6:30 PM - 6:50 PM",
             "durationMinutes": 20,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Formula checklist review & complete bag packout according to the Rank 1-4 packing list."
       },
       {
         "id": "2026-11-06",
@@ -3444,24 +3379,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Fri Nov 6",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": true,
-        "isTestDay": false,
         "studyTimeMinutes": 0,
         "breakTimeMinutes": 0,
         "totalTimeMinutes": 0,
-        "specialInstructions": "FULL REST. No studying. Sleep early. Relax, hydrate, eat well, and sleep early.",
         "tasks": [
           {
             "id": "w8-d5-1",
             "label": "FULL REST. No studying. Sleep early",
             "subject": "buffer",
-            "code": "REST",
-            "topic": "Full Rest & Pre-Exam Sleep Curfew",
+            "durationMinutes": 0,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Zero studying. Eat a nutritious dinner, hydrate, lay out clothes, and sleep early for exam day."
       },
       {
         "id": "2026-11-07",
@@ -3470,26 +3403,23 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "formattedDate": "Sat Nov 7",
         "weekId": "week-8",
         "weekNumber": 8,
-        "weekTitle": "Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
+        "weekTitle": "Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day",
         "phase": "exam",
         "isBuffer": false,
         "isTestDay": true,
         "studyTimeMinutes": 144,
         "breakTimeMinutes": 10,
         "totalTimeMinutes": 154,
-        "specialInstructions": "Sat Nov 7 -- EXAM DAY: Follow your official admission ticket reporting time exactly. Arrive at Crescent Model School, Shadman Lahore by 7:15 AM sharp (gates lock at 7:45 AM).",
         "tasks": [
           {
             "id": "sat-exam-day",
-            "label": "EXAM DAY: Follow your official admission ticket reporting time exactly",
+            "label": "OFFICIAL SAT EXAM DAY: Arrive at Crescent Model by 7:15 AM sharp",
             "subject": "test",
-            "code": "OFFICIAL SAT",
-            "topic": "Official Digital SAT Exam",
-            "timeSlot": "7:15 AM arrival",
             "durationMinutes": 144,
             "completed": false
           }
-        ]
+        ],
+        "specialInstructions": "Doors close strictly around 7:45 AM. Arrive by 7:15 AM. Bring your original physical ID, printed ticket, testing laptop & charger."
       }
     ]
   }

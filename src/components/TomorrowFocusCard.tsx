@@ -30,6 +30,7 @@ interface TomorrowFocusCardProps {
   tomorrowDateStr?: string;
   onSelectTomorrowDate?: (dateStr: string) => void;
   allDays?: DayPlan[];
+  onToggleBufferDay?: (dateStr: string) => void;
 }
 
 export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
@@ -45,6 +46,7 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
   tomorrowDateStr = '2026-09-13',
   onSelectTomorrowDate,
   allDays = [],
+  onToggleBufferDay,
 }) => {
   const isTaskDone = (id: string) => !!completedTaskIds[id];
   const completedTasks = tomorrowDay.tasks.filter((t) => isTaskDone(t.id)).length;
@@ -110,6 +112,30 @@ export const TomorrowFocusCard: React.FC<TomorrowFocusCardProps> = ({
 
           {/* Quick Action Buttons */}
           <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
+            {onToggleBufferDay && tomorrowDay.dateStr !== '2026-11-07' && !tomorrowDay.isTestDay && (
+              <button
+                onClick={() => onToggleBufferDay(tomorrowDay.dateStr)}
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all duration-150 min-h-[44px] cursor-pointer shadow-xs active:scale-95 ${
+                  tomorrowDay.isBuffer
+                    ? 'bg-amber-400 text-slate-950 hover:bg-amber-300'
+                    : 'bg-emerald-400 text-slate-950 hover:bg-emerald-300'
+                }`}
+                title={tomorrowDay.isBuffer ? 'Restore as a regular study day' : 'Too exhausted? Convert into a Buffer Day'}
+              >
+                {tomorrowDay.isBuffer ? (
+                  <>
+                    <RotateCcw className="w-3.5 h-3.5 text-slate-950" />
+                    <span>Restore Study Day</span>
+                  </>
+                ) : (
+                  <>
+                    <Coffee className="w-3.5 h-3.5 text-slate-950" />
+                    <span>Mark as Buffer Day</span>
+                  </>
+                )}
+              </button>
+            )}
+
             {onOpenDedicatedDay && (
               <button
                 onClick={() => onOpenDedicatedDay(tomorrowDay.dateStr)}

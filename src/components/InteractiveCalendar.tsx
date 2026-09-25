@@ -37,6 +37,7 @@ interface InteractiveCalendarProps {
   taskTimings?: Record<string, TaskTimingRecord>;
   onOpenStruggleModal?: (day: DayPlan) => void;
   stuckConcepts?: import('../types').StuckConceptRecord[];
+  onToggleBufferDay?: (dateStr: string) => void;
 }
 
 type CalendarMonth = 'all' | '2026-09' | '2026-10' | '2026-11';
@@ -54,6 +55,7 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
   taskTimings = {},
   onOpenStruggleModal,
   stuckConcepts = [],
+  onToggleBufferDay,
 }) => {
   const [selectedMonth, setSelectedMonth] = useState<CalendarMonth>('2026-09');
   const [activeInspectDayId, setActiveInspectDayId] = useState<string | null>(null);
@@ -1252,7 +1254,34 @@ export const InteractiveCalendar: React.FC<InteractiveCalendarProps> = ({
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="p-4 sm:p-5 border-t border-slate-200 bg-matcha-sub rounded-b-3xl flex items-center justify-end gap-3">
+            <div className="p-4 sm:p-5 border-t border-slate-200 bg-matcha-sub rounded-b-3xl flex items-center justify-between gap-3">
+              <div>
+                {onToggleBufferDay && inspectedDay.dateStr !== '2026-11-07' && !inspectedDay.isTestDay && (
+                  <button
+                    onClick={() => {
+                      onToggleBufferDay(inspectedDay.dateStr);
+                    }}
+                    className={`px-3.5 py-2 rounded-xl text-xs font-black transition cursor-pointer flex items-center gap-1.5 border shadow-2xs active:scale-95 ${
+                      inspectedDay.isBuffer
+                        ? 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-amber-300'
+                        : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-950 border-emerald-300'
+                    }`}
+                  >
+                    {inspectedDay.isBuffer ? (
+                      <>
+                        <RotateCcw className="w-3.5 h-3.5 text-amber-800" />
+                        <span>Restore Study Day</span>
+                      </>
+                    ) : (
+                      <>
+                        <Coffee className="w-3.5 h-3.5 text-emerald-800" />
+                        <span>Convert to Buffer Day</span>
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+
               <button
                 onClick={() => setActiveInspectDayId(null)}
                 className="px-4 py-2.5 rounded-xl text-xs font-bold text-slate-700 bg-matcha-input hover:bg-[rgba(195,218,190,0.65)] border border-slate-300 transition cursor-pointer"
