@@ -319,13 +319,28 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* ============================================================== */}
         <motion.div 
           layout="position"
-          className="p-3 space-y-2.5 shrink-0 bg-gradient-to-b from-black/25 via-black/10 to-transparent relative z-10 overflow-hidden"
+          className="p-3 space-y-2.5 shrink-0 relative z-10 overflow-hidden"
         >
+          {/* Smooth Gradient Backdrop Blur starting at top and seamlessly fading out before Progress */}
+          <div 
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none z-0 backdrop-blur-md"
+            style={{
+              maskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.4) 80%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.4) 80%, transparent 100%)',
+            }}
+          />
+          {/* Subtle dark gradient atmospheric blend */}
+          <div 
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none z-0 bg-gradient-to-b from-black/35 via-black/15 to-transparent"
+          />
+
           {/* 1. Unified Brand Header + Controls */}
           <motion.div
             layout
             transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-            className={`flex items-center ${
+            className={`flex items-center relative z-10 ${
               isCollapsed ? 'flex-col gap-2.5' : 'justify-between gap-2.5'
             }`}
           >
