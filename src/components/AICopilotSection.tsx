@@ -100,32 +100,48 @@ export const DESTINATION_OPTIONS: {
   label: string;
   group: string;
 }[] = [
-  { id: '2026-09-27', label: 'Next Sunday, Sep 27 (Week 2 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: 'today', label: 'Today (Current Tracker Date)', group: 'Relative Days' },
+  { id: 'tomorrow', label: 'Tomorrow', group: 'Relative Days' },
+  { id: 'yesterday', label: 'Yesterday', group: 'Relative Days' },
+  { id: '2026-09-27', label: 'Sunday, Sep 27 (Week 2 Buffer Day)', group: 'Sundays / Buffer Days' },
   { id: '2026-10-04', label: 'Sunday, Oct 4 (Week 3 Buffer Day)', group: 'Sundays / Buffer Days' },
   { id: '2026-10-11', label: 'Sunday, Oct 11 (Week 4 Buffer Day)', group: 'Sundays / Buffer Days' },
   { id: '2026-10-18', label: 'Sunday, Oct 18 (Week 5 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-10-25', label: 'Sunday, Oct 25 (Week 6 Buffer Day)', group: 'Sundays / Buffer Days' },
+  { id: '2026-11-01', label: 'Sunday, Nov 1 (Week 7 Buffer Day)', group: 'Sundays / Buffer Days' },
   { id: '2026-09-20', label: 'Sunday, Sep 20 (Week 1 Buffer Day)', group: 'Sundays / Buffer Days' },
-  { id: 'tomorrow', label: 'Tomorrow', group: 'Relative Days' },
-  { id: 'today', label: 'Today (Current Tracker Date)', group: 'Relative Days' },
-  { id: '2026-10-02', label: 'Day 20 (Fri Oct 2)', group: 'Specific Study Days' },
-  { id: '2026-10-04', label: 'Day 22 (Sun Oct 4)', group: 'Specific Study Days' },
-  { id: '2026-10-07', label: 'Day 25 (Wed Oct 7)', group: 'Specific Study Days' },
-  { id: 'custom', label: '📅 Pick a Custom Date...', group: 'Custom' },
+  { id: 'custom', label: '📅 Custom Date (Pick Any Specific Date)...', group: 'Custom' },
 ];
 
 export function resolveDestinationDate(destId: string, refDateStr: string = '2026-09-22', customDate?: string): string {
   if (destId === 'custom' && customDate) return customDate;
   if (/^\d{4}-\d{2}-\d{2}$/.test(destId)) return destId;
-  if (destId === 'tomorrow') {
-    const d = new Date(refDateStr);
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split('T')[0];
-  }
+
+  const [y, m, d] = refDateStr.split('-').map(Number);
+  const ref = new Date(y, m - 1, d);
+
   if (destId === 'today') {
     return refDateStr;
   }
+  if (destId === 'tomorrow') {
+    const next = new Date(ref);
+    next.setDate(next.getDate() + 1);
+    const yr = next.getFullYear();
+    const mo = String(next.getMonth() + 1).padStart(2, '0');
+    const dy = String(next.getDate()).padStart(2, '0');
+    return `${yr}-${mo}-${dy}`;
+  }
+  if (destId === 'yesterday') {
+    const prev = new Date(ref);
+    prev.setDate(prev.getDate() - 1);
+    const yr = prev.getFullYear();
+    const mo = String(prev.getMonth() + 1).padStart(2, '0');
+    const dy = String(prev.getDate()).padStart(2, '0');
+    return `${yr}-${mo}-${dy}`;
+  }
   return destId;
 }
+
 
 const AI_MODES: {
   id: AIMode;
@@ -199,8 +215,29 @@ const AI_MODES: {
   }
 ];
 
+function parseYMD(dateStr: string): Date {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function formatYMD(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function formatShortDate(dateStr: string): string {
+  if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return dateStr || '';
+  const dt = parseYMD(dateStr);
+  const dayName = dt.toLocaleDateString('en-US', { weekday: 'short' });
+  const monthName = dt.toLocaleDateString('en-US', { month: 'short' });
+  return `${dayName}, ${monthName} ${dt.getDate()}`;
+}
+
 export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   currentDateStr = '2026-09-22',
+
   taskScheduleOverrides = {},
   undoCount = 0,
   onUndo,
@@ -301,14 +338,114 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     ];
   }, [availableUnits, selectedSubject]);
 
+  // Relative Dates: Today, Tomorrow, Yesterday
+  const todayDateStr = currentDateStr;
+  const tomorrowDateStr = useMemo(() => {
+    const d = parseYMD(todayDateStr);
+    d.setDate(d.getDate() + 1);
+    return formatYMD(d);
+  }, [todayDateStr]);
+  const yesterdayDateStr = useMemo(() => {
+    const d = parseYMD(todayDateStr);
+    d.setDate(d.getDate() - 1);
+    return formatYMD(d);
+  }, [todayDateStr]);
+
+  // Destination Options for Shift Selector
+  // Features: Today, Tomorrow, Yesterday, Upcoming Sundays with exact name, day and dates, and Custom Date
   const destinationOptionsForSelect = useMemo(() => {
-    return DESTINATION_OPTIONS.map((d) => ({
-      value: d.id,
-      label: d.label,
-      badge: d.group === 'Sundays / Buffer Days' ? 'Buffer' : d.group === 'Relative Days' ? 'Relative' : d.group === 'Custom' ? 'Custom' : 'Study Day',
-      sublabel: d.group
-    }));
+    const relativeOptions = [
+      {
+        value: 'today',
+        label: `Today (${formatShortDate(todayDateStr)})`,
+        badge: 'Today',
+        sublabel: 'Current Active Tracker Day'
+      },
+      {
+        value: 'tomorrow',
+        label: `Tomorrow (${formatShortDate(tomorrowDateStr)})`,
+        badge: 'Tomorrow',
+        sublabel: 'Next Immediate Study Day'
+      },
+      {
+        value: 'yesterday',
+        label: `Yesterday (${formatShortDate(yesterdayDateStr)})`,
+        badge: 'Yesterday',
+        sublabel: 'Previous Study Day'
+      }
+    ];
+
+    const sundayOptions: { value: string; label: string; badge: string; sublabel: string }[] = [];
+    STUDY_PLAN_WEEKS.forEach((week) => {
+      week.days.forEach((day) => {
+        if (day.isBuffer || day.dayOfWeek === 'Sun') {
+          const isPast = day.dateStr < todayDateStr;
+          const weekLabel = week.title.split(':')[0].trim();
+          sundayOptions.push({
+            value: day.dateStr,
+            label: `${day.formattedDate} • ${weekLabel} Buffer Recovery Window`,
+            badge: isPast ? 'Past Buffer' : 'Sunday Buffer',
+            sublabel: day.specialInstructions || 'Guaranteed recovery window • zero assigned study'
+          });
+        }
+      });
+    });
+
+    const customOption = {
+      value: 'custom',
+      label: '📅 Custom Date (Pick Any Specific Date)...',
+      badge: 'Custom',
+      sublabel: 'Opens Matcha Date & Day Picker Sector'
+    };
+
+    return [...relativeOptions, ...sundayOptions, customOption];
+  }, [todayDateStr, tomorrowDateStr, yesterdayDateStr]);
+
+  // All 54 study plan days formatted for MatchaSelect in the custom date sector
+  const allStudyDaysOptionsForSelect = useMemo(() => {
+    const options: { value: string; label: string; badge: string; sublabel: string }[] = [];
+    STUDY_PLAN_WEEKS.forEach((week) => {
+      week.days.forEach((day) => {
+        const isSun = day.isBuffer || day.dayOfWeek === 'Sun';
+        options.push({
+          value: day.dateStr,
+          label: `${day.formattedDate} — ${isSun ? 'Sunday Buffer' : `Day ${day.dayNumber || 'Test'}: ${day.weekTitle.split(':')[0]}`}`,
+          badge: isSun ? 'Buffer' : day.isTestDay ? 'Exam' : `Day ${day.dayNumber}`,
+          sublabel: day.specialInstructions || day.weekTitle
+        });
+      });
+    });
+    return options;
   }, []);
+
+  // Formatted preview of custom target date
+  const customDateFormattedSummary = useMemo(() => {
+    const allDays = STUDY_PLAN_WEEKS.flatMap((w) => w.days);
+    const matchedDay = allDays.find((d) => d.dateStr === customDestinationDate);
+    if (matchedDay) {
+      const dayType = matchedDay.isBuffer
+        ? 'Buffer Recovery Day'
+        : matchedDay.isTestDay
+        ? 'Exam Day'
+        : `Day ${matchedDay.dayNumber}`;
+      return `${matchedDay.formattedDate} (${dayType})`;
+    }
+    return formatShortDate(customDestinationDate);
+  }, [customDestinationDate]);
+
+  // Quick jump presets
+  const quickDatePresets = useMemo(
+    () => [
+      { label: 'Today', date: todayDateStr },
+      { label: 'Tomorrow', date: tomorrowDateStr },
+      { label: 'Yesterday', date: yesterdayDateStr },
+      { label: 'Sun Sep 27 (W2)', date: '2026-09-27' },
+      { label: 'Sun Oct 4 (W3)', date: '2026-10-04' },
+      { label: 'Sun Oct 11 (W4)', date: '2026-10-11' },
+      { label: 'SAT Test (Nov 7)', date: '2026-11-07' }
+    ],
+    [todayDateStr, tomorrowDateStr, yesterdayDateStr]
+  );
 
   // Filter lessons for selected unit and search query (supports ALL lessons)
   const filteredLessons = useMemo(() => {
@@ -370,8 +507,12 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
   const handleShiftSingleLesson = (lessonId: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     const targetDate = resolveDestinationDate(selectedDestination, currentDateStr, customDestinationDate);
-    const destOption = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination);
-    const targetLabel = destOption ? destOption.label.split('(')[0].trim() : targetDate;
+    const destOption = destinationOptionsForSelect.find((d) => d.value === selectedDestination);
+    const targetLabel = selectedDestination === 'custom'
+      ? customDateFormattedSummary
+      : destOption
+      ? destOption.label.split('•')[0].trim()
+      : targetDate;
 
     if (onBatchTaskShifted) {
       onBatchTaskShifted({ [lessonId]: targetDate });
@@ -418,8 +559,12 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
     }
 
     const targetDate = resolveDestinationDate(selectedDestination, currentDateStr, customDestinationDate);
-    const destOption = DESTINATION_OPTIONS.find((d) => d.id === selectedDestination);
-    const targetLabel = destOption ? destOption.label.split('(')[0].trim() : targetDate;
+    const destOption = destinationOptionsForSelect.find((d) => d.value === selectedDestination);
+    const targetLabel = selectedDestination === 'custom'
+      ? customDateFormattedSummary
+      : destOption
+      ? destOption.label.split('•')[0].trim()
+      : targetDate;
 
     const batch: Record<string, string> = {};
     selectedLessonIds.forEach((id) => {
@@ -438,6 +583,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
       message: `Successfully shifted ${selectedLessonIds.length} lesson${selectedLessonIds.length > 1 ? 's' : ''} from ${unitTitle} to ${targetLabel} (${targetDate})! Your Phase 1 schedule and Calendar are updated instantly.`
     });
   };
+
 
   // Reset Selected Lessons back to original days
   const handleResetSelected = () => {
@@ -869,7 +1015,7 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                   {/* MATCHA THEMED DROPDOWN SELECTORS ROW */}
                   <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end overflow-visible">
                     {/* Chapter / Unit Dropdown (MatchaSelect) */}
-                    <div className={selectedDestination === 'custom' ? 'md:col-span-5 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
+                    <div className="md:col-span-6 space-y-1.5">
                       <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
                         <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
                         <span>Select {selectedSubject === 'math' ? 'Math Chapter (Units 3–13)' : 'Reading & Writing Unit (Units 3–12)'}:</span>
@@ -887,39 +1033,122 @@ export const AICopilotSection: React.FC<AICopilotSectionProps> = ({
                     </div>
 
                     {/* Destination Dropdown (MatchaSelect) */}
-                    <div className={selectedDestination === 'custom' ? 'md:col-span-4 space-y-1.5' : 'md:col-span-6 space-y-1.5'}>
+                    <div className="md:col-span-6 space-y-1.5">
                       <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-emerald-700" />
-                        <span>Shift Destination (Target Buffer Day):</span>
+                        <span>Shift Destination (Buffer Day / Study Day):</span>
                       </label>
                       <MatchaSelect
                         value={selectedDestination}
                         onChange={(val) => setSelectedDestination(String(val))}
                         options={destinationOptionsForSelect}
-                        placeholder="Select Target Buffer Day..."
+                        placeholder="Select Shift Destination..."
                         variant="matcha"
                         size="md"
                         fullWidth
                         icon={<Calendar className="w-4 h-4 text-emerald-700" />}
                       />
                     </div>
-
-                    {/* Custom Date Picker */}
-                    {selectedDestination === 'custom' && (
-                      <div className="md:col-span-3 space-y-1.5">
-                        <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1.5">
-                          <Clock className="w-3.5 h-3.5 text-emerald-700" />
-                          <span>Choose Exact Date:</span>
-                        </label>
-                        <input
-                          type="date"
-                          value={customDestinationDate}
-                          onChange={(e) => setCustomDestinationDate(e.target.value)}
-                          className="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#a6c4a1] text-xs font-bold text-[#122810] focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs cursor-pointer min-h-[44px]"
-                        />
-                      </div>
-                    )}
                   </div>
+
+                  {/* BEAUTIFUL MATCHA CUSTOM DATE SECTOR */}
+                  <AnimatePresence>
+                    {selectedDestination === 'custom' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -6, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -6, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-visible"
+                      >
+                        <div className="p-4 rounded-2xl bg-gradient-to-br from-[#e8f4e6] via-[#f1f9ef] to-[#def0dc] border-2 border-[#a6c4a1] shadow-grave-card space-y-3.5">
+                          {/* Header */}
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-[#a6c4a1]/60">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 rounded-xl bg-[#1a3717] text-white flex items-center justify-center shadow-xs">
+                                <Calendar className="w-4 h-4 text-emerald-300" />
+                              </div>
+                              <div>
+                                <div className="text-xs font-black text-[#122810] font-luxury flex items-center gap-1.5">
+                                  <span>Selective Custom Date Sector</span>
+                                  <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-300 font-['JetBrains_Mono']">
+                                    Custom Target
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-[#2b5126] font-medium">
+                                  Select any specific day from the study plan calendar or choose an exact custom date.
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Target confirmation badge */}
+                            <div className="px-3 py-1.5 rounded-xl bg-white/95 border border-[#a6c4a1] text-[#122810] text-[11px] font-bold font-['JetBrains_Mono'] flex items-center gap-1.5 shadow-2xs self-start sm:self-center">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
+                              <span>Target: {customDateFormattedSummary}</span>
+                            </div>
+                          </div>
+
+                          {/* Dual Selector Row: Study Plan Day Dropdown + Exact Date Input */}
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                            {/* Option A: Select from Study Plan Days */}
+                            <div className="md:col-span-7 space-y-1.5">
+                              <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                                <span>1. Select Directly From Study Plan Calendar:</span>
+                              </label>
+                              <MatchaSelect
+                                value={customDestinationDate}
+                                onChange={(val) => setCustomDestinationDate(String(val))}
+                                options={allStudyDaysOptionsForSelect}
+                                placeholder="Pick a study day from calendar..."
+                                variant="matcha"
+                                size="md"
+                                fullWidth
+                                icon={<Calendar className="w-4 h-4 text-emerald-700" />}
+                              />
+                            </div>
+
+                            {/* Option B: Choose exact date via datepicker */}
+                            <div className="md:col-span-5 space-y-1.5">
+                              <label className="text-[10px] font-black uppercase text-[#2d5528] tracking-wider font-['JetBrains_Mono'] flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5 text-emerald-700" />
+                                <span>2. Or Choose Exact Calendar Date:</span>
+                              </label>
+                              <input
+                                type="date"
+                                min="2026-09-14"
+                                max="2026-11-08"
+                                value={customDestinationDate}
+                                onChange={(e) => setCustomDestinationDate(e.target.value)}
+                                className="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-[#a6c4a1] text-xs font-bold text-[#122810] focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs cursor-pointer min-h-[44px]"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Quick Date Jump Chips */}
+                          <div className="pt-2 border-t border-[#a6c4a1]/40 flex items-center gap-1.5 flex-wrap">
+                            <span className="text-[10px] font-black uppercase text-[#2b5126] font-['JetBrains_Mono'] mr-1">
+                              Quick Jump:
+                            </span>
+                            {quickDatePresets.map((preset) => (
+                              <button
+                                key={preset.date}
+                                type="button"
+                                onClick={() => setCustomDestinationDate(preset.date)}
+                                className={`px-2.5 py-1 rounded-lg text-xs font-bold font-['JetBrains_Mono'] transition-all cursor-pointer active:scale-95 ${
+                                  customDestinationDate === preset.date
+                                    ? 'bg-[#1a3717] text-white shadow-xs ring-2 ring-emerald-500/50'
+                                    : 'bg-white/85 hover:bg-white text-[#122810] border border-[#a6c4a1] shadow-2xs'
+                                }`}
+                              >
+                                {preset.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
 
                   {/* LESSONS DISPLAY: CLEAN EMPTY STATE OR MATCHA THEMED LIST */}
                   {!selectedUnit ? (
