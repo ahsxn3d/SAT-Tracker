@@ -56,3 +56,45 @@ const day3Carried2 = weeks2[0].days[2].tasks.filter(t => t.isCarriedOver).length
 console.log('Test 2 (Day 1 engaged with leftovers):');
 console.log('  Day 2 carried-over count =', day2Carried2, day2Carried2 === day1CurriculumLeft ? '✓ PASS' : '✗ FAIL');
 console.log('  Day 3 carried-over count =', day3Carried2, day3Carried2 === 0 ? '✓ PASS' : '✗ FAIL');
+
+// Test 3: User shifts lessons from Sep 19 (Day 6) to Sep 26 (Day 8)
+// -> Must NOT appear on Sep 20, 21, 22, 23, 24, 25!
+// -> Must appear on Sep 26 with isCarriedOver: false!
+const day6 = STUDY_PLAN_WEEKS[0].days[5]; // Sat Sep 19
+const taskToShift1 = day6.tasks[0].id;
+const taskToShift2 = day6.tasks[1].id;
+const targetDateStr = '2026-09-26';
+
+const overrides = {
+  [taskToShift1]: targetDateStr,
+  [taskToShift2]: targetDateStr,
+};
+
+// Simulate user completed task 4 on Sep 19, leaving uncompleted work
+const completedOnDay6 = { [day6.tasks[3].id]: true };
+const weeks3 = computeWeeksWithRollover(STUDY_PLAN_WEEKS, completedOnDay6, {}, {}, '2026-09-26', overrides);
+const allDays3 = weeks3.flatMap(w => w.days);
+
+const intermediateDates = ['2026-09-20', '2026-09-21', '2026-09-22', '2026-09-23', '2026-09-24', '2026-09-25'];
+let intermediateLeak = false;
+
+for (const date of intermediateDates) {
+  const d = allDays3.find(day => day.dateStr === date);
+  if (d) {
+    const hasShifted = d.tasks.some(t => t.id === taskToShift1 || t.id === taskToShift2);
+    if (hasShifted) {
+      console.log(`  ✗ LEAK DETECTED on ${date}: Task appeared unexpectedly!`);
+      intermediateLeak = true;
+    }
+  }
+}
+
+const targetDayObj = allDays3.find(d => d.dateStr === targetDateStr);
+const shifted1OnTarget = targetDayObj ? targetDayObj.tasks.find(t => t.id === taskToShift1) : null;
+const shifted2OnTarget = targetDayObj ? targetDayObj.tasks.find(t => t.id === taskToShift2) : null;
+
+console.log('\nTest 3 (Task shifted from Sep 19 to Sep 26):');
+console.log('  Intermediate days (Sep 20-25) clean of shifted tasks =', !intermediateLeak ? '✓ PASS' : '✗ FAIL');
+console.log('  Tasks present on target day (Sep 26) =', (shifted1OnTarget && shifted2OnTarget) ? '✓ PASS' : '✗ FAIL');
+console.log('  isCarriedOver is false on target day =', (shifted1OnTarget && !shifted1OnTarget.isCarriedOver && shifted2OnTarget && !shifted2OnTarget.isCarriedOver) ? '✓ PASS' : '✗ FAIL');
+

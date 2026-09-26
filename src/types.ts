@@ -8,6 +8,7 @@ export interface TaskItem {
   timeSlot?: string;
   completed: boolean;
   isCarriedOver?: boolean;
+  isRescheduled?: boolean;
   originalDayId?: string;
   originalDateStr?: string;
   originalFormattedDate?: string;
