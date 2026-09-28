@@ -5,6 +5,8 @@ export const DEFAULT_BUFFER_DATES: string[] = [
   '2026-09-23',
   '2026-09-24',
   '2026-09-25',
+  '2026-09-26',
+  '2026-09-27',
 ];
 
 export interface Phase2Metrics {
@@ -168,11 +170,11 @@ export function buildDynamicWeeks(
 ): WeekPlan[] {
   const bufferSet = new Set(customBufferDates);
 
-  // 1. Extract canonical 32 Phase 1 days in sequential order
+  // 1. Extract canonical 27 Phase 1 days in sequential order
   const curriculumDays: DayPlan[] = [];
   baseWeeks.forEach((w) => {
     w.days.forEach((d) => {
-      if (d.dayNumber !== undefined && d.dayNumber >= 1 && d.dayNumber <= 32) {
+      if (d.dayNumber !== undefined && d.dayNumber >= 1 && d.dayNumber <= 27) {
         if (!curriculumDays.some((c) => c.dayNumber === d.dayNumber)) {
           curriculumDays.push(d);
         }
@@ -351,14 +353,14 @@ export function buildDynamicWeeks(
   // 5. Partition the 55 scheduled days into the 8 calendar weeks
   // Weeks 1..7 have 7 days (Mon-Sun); Week 8 has 6 days (Mon-Sat, ending Nov 7)
   const weekDefinitions = [
-    { id: 'week-1', num: 1, title: 'Week 1: Problem Solving & Advanced Math Foundations', range: 'Sep 14 to Sep 20', subtitle: 'Ratios, unit conversions, percentages, data distributions & R&W launch.', phase: 'foundations' as const },
-    { id: 'week-2', num: 2, title: 'Week 2: Foundations Mastery & Pure Content Study', range: 'Sep 21 to Sep 27', subtitle: 'Buffer reset integration, Foundations Mastery & Pure Content Study.', phase: 'foundations' as const },
-    { id: 'week-3', num: 3, title: 'Week 3: Medium Tier Acceleration & Synthesis', range: 'Sep 28 to Oct 04', subtitle: 'Medium tier acceleration, algebraic functions, and quantitative evidence synthesis.', phase: 'foundations' as const },
-    { id: 'week-4', num: 4, title: 'Week 4: Challenge Unit Completion & All R&W Complete', range: 'Oct 05 to Oct 11', subtitle: 'Punctuation mastery, non-linear functions, and challenge grammar rules.', phase: 'foundations' as const },
-    { id: 'week-5', num: 5, title: 'Week 5: Advanced Math Climax (Units 11 & 12)', range: 'Oct 12 to Oct 18', subtitle: 'Advanced algebra, geometry & trigonometry mastery.', phase: 'foundations' as const },
-    { id: 'week-6', num: 6, title: 'Week 6: All Math 100% Complete & Phase 1 Climax', range: 'Oct 19 to Oct 25', subtitle: 'Units 12 & 13 finalized. All 32 curriculum days 100% complete.', phase: 'foundations' as const },
-    { id: 'week-7', num: 7, title: 'Week 7: Phase 2 Testing Arena (Practice Tests #1, #2, #3)', range: 'Oct 26 to Nov 01', subtitle: 'Official Bluebook timed simulations & focused error autopsies.', phase: 'bluebook' as const },
-    { id: 'week-8', num: 8, title: 'Week 8: Test #3 Autopsy, Taper Protocol & Official SAT Exam Day', range: 'Nov 02 to Nov 07', subtitle: 'Final taper, logistics verification, and official test day at Crescent Model.', phase: 'exam' as const },
+    { id: 'week-1', num: 1, title: 'Week 1: Problem Solving & Advanced Math Foundations', range: 'Sep 14 to Sep 20', subtitle: 'Ratios, unit conversions, percentages, data distributions & quadratic foundations.', phase: 'foundations' as const },
+    { id: 'week-2', num: 2, title: 'Week 2: Math U5 Launch & Recovery Buffer Block', range: 'Sep 21 to Sep 27', subtitle: 'Math U4/U5 completion and Sep 22-27 recovery buffer window.', phase: 'foundations' as const },
+    { id: 'week-3', num: 3, title: 'Week 3: Foundations Climax & Medium Tier Launch', range: 'Sep 28 to Oct 04', subtitle: 'Trigonometry, circles, algebra systems, and reading comprehension.', phase: 'foundations' as const },
+    { id: 'week-4', num: 4, title: 'Week 4: Advanced Quadratics, Functions & Algebra Modeling', range: 'Oct 05 to Oct 11', subtitle: 'Quadratics, exponents, geometry, and transitions.', phase: 'foundations' as const },
+    { id: 'week-5', num: 5, title: 'Week 5: Statistics & Advanced Math Climax', range: 'Oct 12 to Oct 18', subtitle: 'Percentages, statistics, advanced algebra, and grammar fundamentals.', phase: 'foundations' as const },
+    { id: 'week-6', num: 6, title: 'Week 6: Phase 1 100% Completion & Test #1 Diagnostic Launch', range: 'Oct 19 to Oct 25', subtitle: 'Phase 1 completed on Oct 20. Official Bluebook Test #1 on Wed Oct 21.', phase: 'bluebook' as const },
+    { id: 'week-7', num: 7, title: 'Week 7: Phase 2 Testing Arena (Practice Tests #2 & #3)', range: 'Oct 26 to Nov 01', subtitle: 'Official Bluebook timed simulations & focused error autopsies.', phase: 'bluebook' as const },
+    { id: 'week-8', num: 8, title: 'Week 8: Final Review, Taper, Packout & Official SAT Exam Day', range: 'Nov 02 to Nov 07', subtitle: 'Test #3 autopsy, final taper, logistics check, and exam day at Crescent Model.', phase: 'exam' as const },
   ];
 
   const weeks: WeekPlan[] = [];
@@ -401,16 +403,15 @@ export function buildDynamicWeeks(
  */
 export function getPhase2BufferMetrics(customBufferDates: string[]): Phase2Metrics {
   const totalBufferDays = customBufferDates.length;
-  // Baseline Phase 2 had 18 days; 4 buffer days compressed it to 14 days (4 filler days dropped)
   const phase2FillerDaysSubtracted = Math.max(0, totalBufferDays);
 
   return {
     totalBufferDays,
     phase2FillerDaysSubtracted,
-    phase1CompletionDateStr: '2026-10-24',
-    phase1CompletionFormatted: 'Sat Oct 24',
-    test1DateStr: '2026-10-26',
-    test2DateStr: '2026-10-28',
+    phase1CompletionDateStr: '2026-10-20',
+    phase1CompletionFormatted: 'Tue Oct 20',
+    test1DateStr: '2026-10-21',
+    test2DateStr: '2026-10-27',
     test3DateStr: '2026-10-31',
     examDateStr: '2026-11-07',
     statusLabel: `${totalBufferDays} Buffer Days Active • Phase 2 Balanced (${phase2FillerDaysSubtracted} filler days compressed)`

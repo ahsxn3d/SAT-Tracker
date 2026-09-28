@@ -7,22 +7,32 @@ let totalDays = 0;
 let numberedDays = 0;
 let testCount = 0;
 
+let mathLessonCount = 0;
+let rwLessonCount = 0;
+const testDates = [];
+
 for (const w of STUDY_PLAN_WEEKS) {
   console.log(`\n[${w.id}] ${w.title} (${w.days.length} days)`);
   for (const d of w.days) {
     totalDays++;
     if (d.dayNumber) numberedDays++;
-    if (d.isTestDay) testCount++;
+    if (d.isTestDay) {
+      testCount++;
+      testDates.push({ date: d.dateStr, label: d.tasks[0]?.label });
+    }
+
+    for (const t of d.tasks) {
+      if (t.subject === 'math' && t.code && t.code.startsWith('Math U')) mathLessonCount++;
+      if (t.subject === 'rw' && t.code && t.code.startsWith('R&W U')) rwLessonCount++;
+    }
 
     if (
       d.dayNumber === 1 ||
-      d.dayNumber === 9 ||
-      d.dayNumber === 12 ||
+      d.dayNumber === 7 ||
+      d.dateStr === '2026-09-22' ||
       d.dateStr === '2026-09-27' ||
-      d.dayNumber === 13 ||
-      d.dayNumber === 20 ||
-      d.dayNumber === 24 ||
-      d.dayNumber === 32 ||
+      d.dayNumber === 8 ||
+      d.dayNumber === 27 ||
       d.isTestDay ||
       d.dateStr === '2026-11-07'
     ) {
@@ -35,9 +45,13 @@ for (const w of STUDY_PLAN_WEEKS) {
 }
 
 console.log(`\nVerification Summary:`);
-console.log(`- Total Days: ${totalDays}`);
-console.log(`- Numbered Study Days (Phase 1): ${numberedDays}`);
-console.log(`- Full Practice Tests: ${testCount}`);
+console.log(`- Total Days: ${totalDays} (expected: 55) -> ${totalDays === 55 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Numbered Study Days (Phase 1): ${numberedDays} (expected: 27) -> ${numberedDays === 27 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Math Lessons: ${mathLessonCount} (expected: 102) -> ${mathLessonCount === 102 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- R&W Lessons: ${rwLessonCount} (expected: 43) -> ${rwLessonCount === 43 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Total Curriculum Lessons: ${mathLessonCount + rwLessonCount} (expected: 145) -> ${mathLessonCount + rwLessonCount === 145 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Full Practice Tests: ${testCount} (expected: 4) -> ${testCount === 4 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Test Dates:`, testDates);
 
 console.log('\n=== TESTING ROLLOVER & AUTO-SORTING INTEGRITY ===');
 const { computeWeeksWithRollover, sortDayTasks, extractTaskSortMetrics } = require('../src/utils/rollover');

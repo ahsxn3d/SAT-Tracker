@@ -36,63 +36,103 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
+    dateStr: '2026-10-20',
+    displayDate: 'Tue Oct 20',
+    dayOfWeek: 'Tue',
+    taskTitle: 'PHASE 1 COMPLETE: All 145 Skills Mastered (Day 27)',
+    whatItMeans: 'Math Units 3-13 & R&W Units 3-12 100% complete! Phase 1 content study officially mastered.',
+    category: 'drill',
+    taskId: 'task-2026-10-20-7',
+    dayId: '2026-10-20',
+  },
+  {
+    dateStr: '2026-10-21',
+    displayDate: 'Wed Oct 21',
+    dayOfWeek: 'Wed',
+    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-1',
+    dayId: '2026-10-21',
+  },
+  {
+    dateStr: '2026-10-22',
+    displayDate: 'Thu Oct 22',
+    dayOfWeek: 'Thu',
+    taskTitle: 'Error-log review of Test #1 (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #1: skill & root-cause autopsy in the Mistake Autopsy Notebook',
+    category: 'review',
+    taskId: 'p2-d2-1',
+    dayId: '2026-10-22',
+  },
+  {
+    dateStr: '2026-10-23',
+    displayDate: 'Fri Oct 23',
+    dayOfWeek: 'Fri',
+    taskTitle: 'Targeted Math drills + Desmos speed drills (75 min)',
+    whatItMeans: '6:30 PM - 7:45 PM: Eliminate algebraic calculation for quadratic systems, intersections, and regressions',
+    category: 'drill',
+    taskId: 'p2-d3-1',
+    dayId: '2026-10-23',
+  },
+  {
     dateStr: '2026-10-24',
     displayDate: 'Sat Oct 24',
     dayOfWeek: 'Sat',
-    taskTitle: 'All Math & R&W 100% Finished (Day 32)',
-    whatItMeans: 'Math Units 2-13 & R&W 100% complete! Phase 1 content study officially mastered.',
+    taskTitle: 'Targeted R&W drills, punctuation/grammar review (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Transitions, boundaries, and syntax traps review',
     category: 'drill',
-    taskId: 'task-2026-10-24-2',
+    taskId: 'p2-d4-1',
     dayId: '2026-10-24',
   },
   {
     dateStr: '2026-10-25',
     displayDate: 'Sun Oct 25',
     dayOfWeek: 'Sun',
-    taskTitle: 'REST DAY: Pre-Phase 2 Mental Reset',
-    whatItMeans: 'Full day off, zero studying. Celebrate 100% curriculum completion and recharge for Mock Tests.',
+    taskTitle: 'REST DAY: Pre-Test #2 Mental Reset',
+    whatItMeans: 'Full day off, zero studying. Guaranteed recharge before Test #2 on Tuesday.',
     category: 'rest',
-    taskId: 'break-2026-10-25-1',
+    taskId: 'rest-2026-10-25',
     dayId: '2026-10-25',
   },
   {
     dateStr: '2026-10-26',
     displayDate: 'Mon Oct 26',
     dayOfWeek: 'Mon',
-    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
-    category: 'test',
-    taskId: 'bluebook-test-1',
+    taskTitle: 'Light targeted practice on remaining weak spots (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Review key formulas and grammar rules before Test #2 tomorrow',
+    category: 'drill',
+    taskId: 'p2-d6-1',
     dayId: '2026-10-26',
   },
   {
     dateStr: '2026-10-27',
     displayDate: 'Tue Oct 27',
     dayOfWeek: 'Tue',
-    taskTitle: 'Error-log review of Test #1 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #1: skill & root-cause autopsy in the Mistake Autopsy Notebook',
-    category: 'review',
-    taskId: 'p2-d2-1',
+    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-2',
     dayId: '2026-10-27',
   },
   {
     dateStr: '2026-10-28',
     displayDate: 'Wed Oct 28',
     dayOfWeek: 'Wed',
-    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions',
-    category: 'test',
-    taskId: 'bluebook-test-2',
+    taskTitle: 'Error-log review of Test #2 (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #2 and log root causes in your Error Notebook',
+    category: 'review',
+    taskId: 'p2-d8-1',
     dayId: '2026-10-28',
   },
   {
     dateStr: '2026-10-29',
     displayDate: 'Thu Oct 29',
     dayOfWeek: 'Thu',
-    taskTitle: 'Error-log review of Test #2 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #2 and log root causes in your Error Notebook',
-    category: 'review',
-    taskId: 'p2-d8-1',
+    taskTitle: 'Targeted drills on Test #2 weak areas (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Redo missed problems until 100% understood',
+    category: 'drill',
+    taskId: 'p2-d9-1',
     dayId: '2026-10-29',
   },
   {
@@ -190,7 +230,7 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
 interface BluebookArenaSectionProps {
   weeks: WeekPlan[];
   completedTaskIds: Record<string, boolean>;
-  onToggleTask: (taskId: string, dayId: string) => void;
+  onToggleTask: (dayId: string, taskId: string) => void;
   onOpenDesmos: () => void;
   onOpenErrorLog: () => void;
 }
@@ -222,8 +262,8 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   }, []);
 
   const mockTests = [
-    { name: 'Bluebook Practice Test #1', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
-    { name: 'Bluebook Practice Test #2', date: 'Wed Oct 28', time: '8:00 AM - 10:24 AM', dayId: '2026-10-28', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
+    { name: 'Bluebook Practice Test #1', date: 'Wed Oct 21', time: '8:00 AM - 10:24 AM', dayId: '2026-10-21', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
+    { name: 'Bluebook Practice Test #2', date: 'Tue Oct 27', time: '8:00 AM - 10:24 AM', dayId: '2026-10-27', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
     { name: 'Bluebook Practice Test #3', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'bluebook-test-3', tag: 'Final Full Test' },
   ];
 
@@ -273,10 +313,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
-              Phase 2: Oct 24 – Nov 6 (14 Days) + Nov 7 Exam Day
+              Phase 2: Oct 21 – Nov 6 (17 Days) + Nov 7 Exam Day
             </span>
             <span className="text-xs text-amber-300 font-extrabold font-['JetBrains_Mono']">
-              3 Full Mocks &bull; Error Autopsies &bull; 4 Buffer Days Integrated
+              3 Full Mocks &bull; Error Autopsies &bull; 6 Buffer Days Integrated
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury flex items-center gap-2.5">
@@ -284,14 +324,14 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
             <span>The Bluebook Arena: Full Phase 2 Breakdown</span>
           </h2>
           <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
-            Strict 14-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
+            Strict 17-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
           </p>
 
           {/* Adaptive Flow Notice */}
           <div className="mt-2 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-xs font-medium">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>
-              <strong>Adaptive Flow Active:</strong> 4 Buffer Days absorbed (Sep 22–25). 4 filler drill days subtracted from Phase 2 so all 32 Phase 1 days finish with 100% mastery before Test #1 on Oct 26!
+              <strong>Adaptive Flow Active:</strong> 6 Buffer Days absorbed (Sep 22–27). Phase 1 curriculum completed across 27 study days (Sep 14 – Oct 20) with 100% skill mastery. Phase 2 launches Wed Oct 21 with Test #1!
             </span>
           </div>
         </div>
@@ -319,14 +359,14 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         </div>
       </div>
 
-      {/* The 5 Official Mock Tests Tracker */}
+      {/* The Official Mock Tests Tracker */}
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <h3 className="text-xs font-black uppercase tracking-wider text-sky-200 font-['JetBrains_Mono']">
             Core Bluebook Practice Tests & Dry Runs
           </h3>
           <span className="text-xs font-black font-['JetBrains_Mono'] text-sky-200 bg-[#072540]/90 px-3 py-1 rounded-xl border border-sky-400/35">
-            {completedTestsCount} of 5 Completed ({Math.round((completedTestsCount / 5) * 100)}%)
+            {completedTestsCount} of {mockTests.length} Completed ({Math.round((completedTestsCount / mockTests.length) * 100)}%)
           </span>
         </div>
 
@@ -465,7 +505,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-white font-luxury flex items-center gap-2">
-              <span>Full Phase 2 Breakdown (Oct 20 – Nov 6, 18 days + Nov 7 Exam Day)</span>
+              <span>Full Phase 2 Breakdown (Oct 21 – Nov 6, 17 days + Nov 7 Exam Day)</span>
             </h3>
             <p className="text-xs text-sky-200 font-medium mt-0.5">
               Every day has a defined purpose: test, autopsy, targeted Khan fix, or non-negotiable rest.
