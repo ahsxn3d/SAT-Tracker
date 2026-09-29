@@ -30,9 +30,9 @@ for (const w of STUDY_PLAN_WEEKS) {
       d.dayNumber === 1 ||
       d.dayNumber === 7 ||
       d.dateStr === '2026-09-22' ||
-      d.dateStr === '2026-09-27' ||
+      d.dateStr === '2026-09-28' ||
       d.dayNumber === 8 ||
-      d.dayNumber === 27 ||
+      d.dayNumber === 30 ||
       d.isTestDay ||
       d.dateStr === '2026-11-07'
     ) {
@@ -46,7 +46,7 @@ for (const w of STUDY_PLAN_WEEKS) {
 
 console.log(`\nVerification Summary:`);
 console.log(`- Total Days: ${totalDays} (expected: 55) -> ${totalDays === 55 ? '✓ PASS' : '✗ FAIL'}`);
-console.log(`- Numbered Study Days (Phase 1): ${numberedDays} (expected: 27) -> ${numberedDays === 27 ? '✓ PASS' : '✗ FAIL'}`);
+console.log(`- Numbered Study Days (Phase 1): ${numberedDays} (expected: 30) -> ${numberedDays === 30 ? '✓ PASS' : '✗ FAIL'}`);
 console.log(`- Math Lessons: ${mathLessonCount} (expected: 102) -> ${mathLessonCount === 102 ? '✓ PASS' : '✗ FAIL'}`);
 console.log(`- R&W Lessons: ${rwLessonCount} (expected: 43) -> ${rwLessonCount === 43 ? '✓ PASS' : '✗ FAIL'}`);
 console.log(`- Total Curriculum Lessons: ${mathLessonCount + rwLessonCount} (expected: 145) -> ${mathLessonCount + rwLessonCount === 145 ? '✓ PASS' : '✗ FAIL'}`);

@@ -36,123 +36,83 @@ interface Phase2DaySchedule {
 
 const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
   {
-    dateStr: '2026-10-20',
-    displayDate: 'Tue Oct 20',
-    dayOfWeek: 'Tue',
-    taskTitle: 'PHASE 1 COMPLETE: All 145 Skills Mastered (Day 27)',
-    whatItMeans: 'Math Units 3-13 & R&W Units 3-12 100% complete! Phase 1 content study officially mastered.',
-    category: 'drill',
-    taskId: 'task-2026-10-20-7',
-    dayId: '2026-10-20',
-  },
-  {
-    dateStr: '2026-10-21',
-    displayDate: 'Wed Oct 21',
-    dayOfWeek: 'Wed',
-    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
-    category: 'test',
-    taskId: 'bluebook-test-1',
-    dayId: '2026-10-21',
-  },
-  {
-    dateStr: '2026-10-22',
-    displayDate: 'Thu Oct 22',
-    dayOfWeek: 'Thu',
-    taskTitle: 'Error-log review of Test #1 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #1: skill & root-cause autopsy in the Mistake Autopsy Notebook',
-    category: 'review',
-    taskId: 'p2-d2-1',
-    dayId: '2026-10-22',
-  },
-  {
-    dateStr: '2026-10-23',
-    displayDate: 'Fri Oct 23',
-    dayOfWeek: 'Fri',
-    taskTitle: 'Targeted Math drills + Desmos speed drills (75 min)',
-    whatItMeans: '6:30 PM - 7:45 PM: Eliminate algebraic calculation for quadratic systems, intersections, and regressions',
-    category: 'drill',
-    taskId: 'p2-d3-1',
-    dayId: '2026-10-23',
-  },
-  {
     dateStr: '2026-10-24',
     displayDate: 'Sat Oct 24',
     dayOfWeek: 'Sat',
-    taskTitle: 'Targeted R&W drills, punctuation/grammar review (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Transitions, boundaries, and syntax traps review',
+    taskTitle: 'PHASE 1 COMPLETE: All 145 Skills Mastered (Day 30)',
+    whatItMeans: 'Math Units 3-13 & R&W Units 3-12 100% complete! Phase 1 content study officially mastered.',
     category: 'drill',
-    taskId: 'p2-d4-1',
+    taskId: 'task-2026-10-24-7',
     dayId: '2026-10-24',
   },
   {
     dateStr: '2026-10-25',
     displayDate: 'Sun Oct 25',
     dayOfWeek: 'Sun',
-    taskTitle: 'REST DAY: Pre-Test #2 Mental Reset',
-    whatItMeans: 'Full day off, zero studying. Guaranteed recharge before Test #2 on Tuesday.',
+    taskTitle: 'REST DAY: Pre-Phase 2 Mental Reset',
+    whatItMeans: 'Full day off, zero studying. Guaranteed recharge before Test #1 tomorrow morning.',
     category: 'rest',
-    taskId: 'rest-2026-10-25',
+    taskId: 'task-2026-10-25-1',
     dayId: '2026-10-25',
   },
   {
     dateStr: '2026-10-26',
     displayDate: 'Mon Oct 26',
     dayOfWeek: 'Mon',
-    taskTitle: 'Light targeted practice on remaining weak spots (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Review key formulas and grammar rules before Test #2 tomorrow',
-    category: 'drill',
-    taskId: 'p2-d6-1',
+    taskTitle: 'TEST #1 (full Bluebook Practice Test, real conditions)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #1 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-1',
     dayId: '2026-10-26',
   },
   {
     dateStr: '2026-10-27',
     displayDate: 'Tue Oct 27',
     dayOfWeek: 'Tue',
-    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
-    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions',
-    category: 'test',
-    taskId: 'bluebook-test-2',
+    taskTitle: 'Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min)',
+    whatItMeans: '6:30 PM - 7:45 PM: Dissect every wrong question on Test #1 in Error Notebook + Math/Desmos speed drills',
+    category: 'review',
+    taskId: 'task-2026-10-27-1',
     dayId: '2026-10-27',
   },
   {
     dateStr: '2026-10-28',
     displayDate: 'Wed Oct 28',
     dayOfWeek: 'Wed',
-    taskTitle: 'Error-log review of Test #2 (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #2 and log root causes in your Error Notebook',
-    category: 'review',
-    taskId: 'p2-d8-1',
+    taskTitle: 'Targeted R&W drills, punctuation/grammar review (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Transitions, boundaries, and syntax traps review',
+    category: 'drill',
+    taskId: 'task-2026-10-28-1',
     dayId: '2026-10-28',
   },
   {
     dateStr: '2026-10-29',
     displayDate: 'Thu Oct 29',
     dayOfWeek: 'Thu',
-    taskTitle: 'Targeted drills on Test #2 weak areas (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Redo missed problems until 100% understood',
+    taskTitle: 'Light targeted practice on remaining weak spots (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Review key formulas and grammar rules before Test #2 tomorrow',
     category: 'drill',
-    taskId: 'p2-d9-1',
+    taskId: 'task-2026-10-29-1',
     dayId: '2026-10-29',
   },
   {
     dateStr: '2026-10-30',
     displayDate: 'Fri Oct 30',
     dayOfWeek: 'Fri',
-    taskTitle: 'Deep review, punctuation & transitions traps + Math cleanup (60 min)',
-    whatItMeans: '6:30 PM - 7:30 PM: Grammar traps, transitions, and Desmos shortcuts review before final full test',
-    category: 'review',
-    taskId: 'p2-d10-1',
+    taskTitle: 'TEST #2 (full Bluebook Practice Test)',
+    whatItMeans: '8:00 AM - 10:24 AM: Full timed Bluebook Practice Test #2 under real conditions',
+    category: 'test',
+    taskId: 'bluebook-test-2',
     dayId: '2026-10-30',
   },
   {
     dateStr: '2026-10-31',
     displayDate: 'Sat Oct 31',
     dayOfWeek: 'Sat',
-    taskTitle: 'TEST #3 (final full test, timed)',
-    whatItMeans: '8:00 AM - 10:24 AM: Final official Bluebook Practice Test #3 under full timed conditions',
-    category: 'test',
-    taskId: 'bluebook-test-3',
+    taskTitle: 'Error-log review of Test #2 + targeted drills (75 min)',
+    whatItMeans: '6:30 PM - 7:45 PM: Dissect every wrong question on Test #2 and redo missed problems until 100% understood',
+    category: 'review',
+    taskId: 'task-2026-10-31-1',
     dayId: '2026-10-31',
   },
   {
@@ -162,47 +122,47 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     taskTitle: 'REST DAY',
     whatItMeans: 'Full day off, no studying. Guaranteed mental reset before final week',
     category: 'rest',
-    taskId: 'rest-2026-11-01',
+    taskId: 'task-2026-11-01-1',
     dayId: '2026-11-01',
   },
   {
     dateStr: '2026-11-02',
     displayDate: 'Mon Nov 2',
     dayOfWeek: 'Mon',
-    taskTitle: 'Error-log review of Test #3 + simulate exact test-day timing (45 min)',
-    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #3, root-cause autopsy across both Math and R&W',
+    taskTitle: 'Deep review, punctuation & transitions traps + Math cleanup (60 min)',
+    whatItMeans: '6:30 PM - 7:30 PM: Grammar traps, transitions, and Desmos shortcuts review before final full test',
     category: 'review',
-    taskId: 'w8-d1-1',
+    taskId: 'task-2026-11-02-1',
     dayId: '2026-11-02',
   },
   {
     dateStr: '2026-11-03',
     displayDate: 'Tue Nov 3',
     dayOfWeek: 'Tue',
-    taskTitle: 'Light taper, review error notebook + grammar rules (30 min)',
-    whatItMeans: '6:30 PM - 7:00 PM: Error notebook & grammar rules refresh',
-    category: 'taper',
-    taskId: 'w8-d2-1',
+    taskTitle: 'TEST #3 (final full test, timed)',
+    whatItMeans: '8:00 AM - 10:24 AM: Final official Bluebook Practice Test #3 under full timed conditions',
+    category: 'test',
+    taskId: 'bluebook-test-3',
     dayId: '2026-11-03',
   },
   {
     dateStr: '2026-11-04',
     displayDate: 'Wed Nov 4',
     dayOfWeek: 'Wed',
-    taskTitle: 'Verify Bluebook app, admission ticket, ID (20 min)',
-    whatItMeans: '6:30 PM - 6:50 PM: Logistics check: Bluebook app verified, admission ticket printed, physical ID ready',
-    category: 'drill',
-    taskId: 'w8-d3-1',
+    taskTitle: 'Error-log review of Test #3 + simulate exact test-day timing (45 min)',
+    whatItMeans: '6:30 PM - 7:15 PM: Dissect every wrong question on Test #3, root-cause autopsy across both Math and R&W',
+    category: 'review',
+    taskId: 'task-2026-11-04-1',
     dayId: '2026-11-04',
   },
   {
     dateStr: '2026-11-05',
     displayDate: 'Thu Nov 5',
     dayOfWeek: 'Thu',
-    taskTitle: 'Very light review, then pack bag (20 min)',
-    whatItMeans: '6:30 PM - 6:50 PM: Formula checklist review & complete bag packout',
+    taskTitle: 'Verify Bluebook app/ID/admission ticket + pack your bag (30 min)',
+    whatItMeans: '6:30 PM - 7:00 PM: Logistics check: verify Bluebook app setup, printed ticket, and valid physical ID + pack testing bag',
     category: 'drill',
-    taskId: 'w8-d4-1',
+    taskId: 'task-2026-11-05-1',
     dayId: '2026-11-05',
   },
   {
@@ -212,7 +172,7 @@ const PHASE_2_SCHEDULE: Phase2DaySchedule[] = [
     taskTitle: 'FULL REST. No studying. Sleep early.',
     whatItMeans: 'Zero studying. Eat well, hydrate, relax and sleep early for exam day',
     category: 'rest',
-    taskId: 'w8-d5-1',
+    taskId: 'task-2026-11-06-1',
     dayId: '2026-11-06',
   },
   {
@@ -262,9 +222,9 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
   }, []);
 
   const mockTests = [
-    { name: 'Bluebook Practice Test #1', date: 'Wed Oct 21', time: '8:00 AM - 10:24 AM', dayId: '2026-10-21', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
-    { name: 'Bluebook Practice Test #2', date: 'Tue Oct 27', time: '8:00 AM - 10:24 AM', dayId: '2026-10-27', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
-    { name: 'Bluebook Practice Test #3', date: 'Sat Oct 31', time: '8:00 AM - 10:24 AM', dayId: '2026-10-31', taskId: 'bluebook-test-3', tag: 'Final Full Test' },
+    { name: 'Bluebook Practice Test #1', date: 'Mon Oct 26', time: '8:00 AM - 10:24 AM', dayId: '2026-10-26', taskId: 'bluebook-test-1', tag: 'Real Conditions' },
+    { name: 'Bluebook Practice Test #2', date: 'Fri Oct 30', time: '8:00 AM - 10:24 AM', dayId: '2026-10-30', taskId: 'bluebook-test-2', tag: 'Timed Simulation' },
+    { name: 'Bluebook Practice Test #3', date: 'Tue Nov 03', time: '8:00 AM - 10:24 AM', dayId: '2026-11-03', taskId: 'bluebook-test-3', tag: 'Final Full Test' },
   ];
 
   const completedTestsCount = mockTests.filter((m) => completedTaskIds[m.taskId]).length;
@@ -313,10 +273,10 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-black uppercase px-3 py-1 rounded-full bg-sky-400/25 text-sky-200 border border-sky-300/40 font-['JetBrains_Mono'] shadow-2xs">
-              Phase 2: Oct 21 – Nov 6 (17 Days) + Nov 7 Exam Day
+              Phase 2: Oct 25 – Nov 6 (13 Days) + Nov 7 Exam Day
             </span>
             <span className="text-xs text-amber-300 font-extrabold font-['JetBrains_Mono']">
-              3 Full Mocks &bull; Error Autopsies &bull; 6 Buffer Days Integrated
+              3 Full Mocks &bull; Error Autopsies &bull; 7 Buffer Days Integrated
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-luxury flex items-center gap-2.5">
@@ -324,14 +284,14 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
             <span>The Bluebook Arena: Full Phase 2 Breakdown</span>
           </h2>
           <p className="text-xs sm:text-sm text-sky-100/90 max-w-2xl leading-relaxed font-medium">
-            Strict 17-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
+            Strict 13-day test-prep protocol transitioning from content learning into timed Bluebook mastery, targeted Khan repair, exact wake-up rehearsals, and zero-burnout taper.
           </p>
 
           {/* Adaptive Flow Notice */}
           <div className="mt-2 inline-flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-xs font-medium">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>
-              <strong>Adaptive Flow Active:</strong> 6 Buffer Days absorbed (Sep 22–27). Phase 1 curriculum completed across 27 study days (Sep 14 – Oct 20) with 100% skill mastery. Phase 2 launches Wed Oct 21 with Test #1!
+              <strong>Adaptive Flow Active:</strong> 7 Buffer Days absorbed (Sep 22–28). Phase 1 curriculum completed across 30 study days (Sep 14 – Oct 24) with 100% skill mastery. Phase 2 launches Sun Oct 25 (Mental Reset) with Test #1 on Mon Oct 26!
             </span>
           </div>
         </div>
@@ -505,7 +465,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
           <div>
             <h3 className="text-lg sm:text-xl font-bold text-white font-luxury flex items-center gap-2">
-              <span>Full Phase 2 Breakdown (Oct 21 – Nov 6, 17 days + Nov 7 Exam Day)</span>
+              <span>Full Phase 2 Breakdown (Oct 25 – Nov 6, 13 days + Nov 7 Exam Day)</span>
             </h3>
             <p className="text-xs text-sky-200 font-medium mt-0.5">
               Every day has a defined purpose: test, autopsy, targeted Khan fix, or non-negotiable rest.
@@ -520,7 +480,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
                   filterCategory === 'all' ? 'bg-sky-500 text-white' : 'text-sky-200 hover:text-white'
                 }`}
               >
-                All (19d)
+                All (15d)
               </button>
               <button
                 onClick={() => setFilterCategory('test')}
@@ -665,7 +625,7 @@ export const BluebookArenaSection: React.FC<BluebookArenaSectionProps> = ({
           transition={{ duration: 0.5, delay: 0.1 }}
           className="p-4 rounded-2xl bg-[#072642]/80 border border-sky-500/30 shadow-grave-card hover:shadow-grave-card-hover transition-all duration-200"
         >
-          <div className="text-xs font-black text-sky-300 font-['JetBrains_Mono']">Wed Oct 21 & Oct 28</div>
+          <div className="text-xs font-black text-sky-300 font-['JetBrains_Mono']">Tue Oct 27 & Wed Oct 28</div>
           <div className="text-base font-bold text-white mt-1 font-luxury">Targeted Drills & Desmos</div>
           <p className="text-xs text-sky-100/90 font-medium mt-1 leading-relaxed">
             Eliminate algebraic calculation for quadratic systems, intersections, and regressions. Redo Khan missed skills immediately after score reports.
