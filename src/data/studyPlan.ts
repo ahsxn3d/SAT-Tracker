@@ -900,7 +900,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-23",
@@ -929,7 +929,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-24",
@@ -958,7 +958,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-25",
@@ -987,7 +987,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-26",
@@ -1016,7 +1016,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-27",
@@ -1051,9 +1051,9 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
   },
   {
     "id": "week-3",
-    "title": "Week 3: Final Buffer Day & Phase 1 Resume (Units 5-7)",
+    "title": "Week 3: Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
     "dateRange": "Sep 28 to Oct 04",
-    "subtitle": "Mon Sep 28 buffer recovery; Days 8–12 launch trig, circles, linear systems & distributions.",
+    "subtitle": "Sep 28-29 buffer recovery; Days 8–11 launch trig, circles, linear systems & distributions.",
     "phase": "foundations",
     "days": [
       {
@@ -1064,7 +1064,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": null,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": true,
         "isTestDay": false,
@@ -1083,17 +1083,46 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24."
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
       },
       {
         "id": "2026-09-29",
         "dateStr": "2026-09-29",
         "dayOfWeek": "Tue",
         "formattedDate": "Tue Sep 29",
+        "dayNumber": null,
+        "weekId": "week-3",
+        "weekNumber": 3,
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
+        "phase": "foundations",
+        "isBuffer": true,
+        "isTestDay": false,
+        "studyTimeMinutes": 0,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 0,
+        "tasks": [
+          {
+            "id": "task-2026-09-29-1",
+            "label": "Health & Recovery Buffer (No Study)",
+            "subject": "buffer",
+            "topic": "Health & Recovery Buffer (No Study)",
+            "code": "BUFFER",
+            "timeSlot": "All Day",
+            "durationMinutes": 0,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25."
+      },
+      {
+        "id": "2026-09-30",
+        "dateStr": "2026-09-30",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Sep 30",
         "dayNumber": 8,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1102,7 +1131,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 164,
         "tasks": [
           {
-            "id": "task-2026-09-29-1",
+            "id": "task-2026-09-30-1",
             "label": "[MATH U5.3] Right triangle trigonometry",
             "subject": "math",
             "topic": "Right triangle trigonometry",
@@ -1112,7 +1141,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-2",
+            "id": "task-2026-09-30-2",
             "label": "[MATH U5.4] Circle theorems",
             "subject": "math",
             "topic": "Circle theorems",
@@ -1122,7 +1151,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-3",
+            "id": "task-2026-09-30-3",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1132,7 +1161,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-4",
+            "id": "task-2026-09-30-4",
             "label": "[MATH U5.5] Unit circle trigonometry",
             "subject": "math",
             "topic": "Unit circle trigonometry",
@@ -1142,7 +1171,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-5",
+            "id": "task-2026-09-30-5",
             "label": "[R&W U5.4] Inferences",
             "subject": "rw",
             "topic": "Inferences",
@@ -1152,7 +1181,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-6",
+            "id": "task-2026-09-30-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1162,7 +1191,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-29-7",
+            "id": "task-2026-09-30-7",
             "label": "[R&W U6.1] Words in context",
             "subject": "rw",
             "topic": "Words in context",
@@ -1175,14 +1204,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 8: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-09-30",
-        "dateStr": "2026-09-30",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Sep 30",
+        "id": "2026-10-01",
+        "dateStr": "2026-10-01",
+        "dayOfWeek": "Thu",
+        "formattedDate": "Thu Oct 01",
         "dayNumber": 9,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1191,7 +1220,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 157,
         "tasks": [
           {
-            "id": "task-2026-09-30-1",
+            "id": "task-2026-10-01-1",
             "label": "[MATH U5.6] Circle equations",
             "subject": "math",
             "topic": "Circle equations",
@@ -1201,7 +1230,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-2",
+            "id": "task-2026-10-01-2",
             "label": "[MATH U6.1] Solving linear equations and inequalities",
             "subject": "math",
             "topic": "Solving linear equations and inequalities",
@@ -1211,7 +1240,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-3",
+            "id": "task-2026-10-01-3",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1221,7 +1250,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-4",
+            "id": "task-2026-10-01-4",
             "label": "[MATH U6.2] Linear equation word problems",
             "subject": "math",
             "topic": "Linear equation word problems",
@@ -1231,7 +1260,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-5",
+            "id": "task-2026-10-01-5",
             "label": "[MATH U6.3] Linear relationship word problems",
             "subject": "math",
             "topic": "Linear relationship word problems",
@@ -1241,7 +1270,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-6",
+            "id": "task-2026-10-01-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1251,7 +1280,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-09-30-7",
+            "id": "task-2026-10-01-7",
             "label": "[R&W U6.2] Text structure and purpose",
             "subject": "rw",
             "topic": "Text structure and purpose",
@@ -1264,113 +1293,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 9: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-10-01",
-        "dateStr": "2026-10-01",
-        "dayOfWeek": "Thu",
-        "formattedDate": "Thu Oct 01",
-        "dayNumber": 10,
-        "weekId": "week-3",
-        "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
-        "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 144,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 174,
-        "tasks": [
-          {
-            "id": "task-2026-10-01-1",
-            "label": "[MATH U6.4] Graphs of linear equations and functions",
-            "subject": "math",
-            "topic": "Graphs of linear equations and functions",
-            "code": "Math U6.4",
-            "timeSlot": "6:30 PM - 6:55 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-2",
-            "label": "[MATH U6.5] Solving systems of linear equations",
-            "subject": "math",
-            "topic": "Solving systems of linear equations",
-            "code": "Math U6.5",
-            "timeSlot": "6:55 PM - 7:20 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-3",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "7:20 PM - 7:35 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-4",
-            "label": "[MATH U6.6] Systems of linear equations word problems",
-            "subject": "math",
-            "topic": "Systems of linear equations word problems",
-            "code": "Math U6.6",
-            "timeSlot": "7:35 PM - 8:00 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-5",
-            "label": "[MATH U6.7] Linear inequality word problems",
-            "subject": "math",
-            "topic": "Linear inequality word problems",
-            "code": "Math U6.7",
-            "timeSlot": "8:00 PM - 8:25 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "8:25 PM - 8:40 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-7",
-            "label": "[R&W U6.3] Cross-text connections",
-            "subject": "rw",
-            "topic": "Cross-text connections",
-            "code": "R&W U6.3",
-            "timeSlot": "8:40 PM - 9:02 PM",
-            "durationMinutes": 22,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-01-8",
-            "label": "[R&W U7.1] Transitions",
-            "subject": "rw",
-            "topic": "Transitions",
-            "code": "R&W U7.1",
-            "timeSlot": "9:02 PM - 9:24 PM",
-            "durationMinutes": 22,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Day 10: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
-      },
-      {
         "id": "2026-10-02",
         "dateStr": "2026-10-02",
         "dayOfWeek": "Fri",
         "formattedDate": "Fri Oct 02",
-        "dayNumber": 11,
+        "dayNumber": 10,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -1380,20 +1310,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-02-1",
-            "label": "[MATH U6.8] Graphs of linear systems and inequalities",
+            "label": "[MATH U6.4] Graphs of linear equations and functions",
             "subject": "math",
-            "topic": "Graphs of linear systems and inequalities",
-            "code": "Math U6.8",
+            "topic": "Graphs of linear equations and functions",
+            "code": "Math U6.4",
             "timeSlot": "6:30 PM - 6:55 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-10-02-2",
-            "label": "[MATH U7.1] Ratios, rates, and proportions",
+            "label": "[MATH U6.5] Solving systems of linear equations",
             "subject": "math",
-            "topic": "Ratios, rates, and proportions",
-            "code": "Math U7.1",
+            "topic": "Solving systems of linear equations",
+            "code": "Math U6.5",
             "timeSlot": "6:55 PM - 7:20 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1410,20 +1340,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-02-4",
-            "label": "[MATH U7.2] Unit conversion",
+            "label": "[MATH U6.6] Systems of linear equations word problems",
             "subject": "math",
-            "topic": "Unit conversion",
-            "code": "Math U7.2",
+            "topic": "Systems of linear equations word problems",
+            "code": "Math U6.6",
             "timeSlot": "7:35 PM - 8:00 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-10-02-5",
-            "label": "[MATH U7.3] Percentages",
+            "label": "[MATH U6.7] Linear inequality word problems",
             "subject": "math",
-            "topic": "Percentages",
-            "code": "Math U7.3",
+            "topic": "Linear inequality word problems",
+            "code": "Math U6.7",
             "timeSlot": "8:00 PM - 8:25 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1440,59 +1370,59 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-02-7",
-            "label": "[R&W U7.2] Rhetorical synthesis",
+            "label": "[R&W U6.3] Cross-text connections",
             "subject": "rw",
-            "topic": "Rhetorical synthesis",
-            "code": "R&W U7.2",
+            "topic": "Cross-text connections",
+            "code": "R&W U6.3",
             "timeSlot": "8:40 PM - 9:02 PM",
             "durationMinutes": 22,
             "completed": false
           },
           {
             "id": "task-2026-10-02-8",
-            "label": "[R&W U7.3] Form, structure, and sense",
+            "label": "[R&W U7.1] Transitions",
             "subject": "rw",
-            "topic": "Form, structure, and sense",
-            "code": "R&W U7.3",
+            "topic": "Transitions",
+            "code": "R&W U7.1",
             "timeSlot": "9:02 PM - 9:24 PM",
             "durationMinutes": 22,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 11: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 10: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-03",
         "dateStr": "2026-10-03",
         "dayOfWeek": "Sat",
         "formattedDate": "Sat Oct 03",
-        "dayNumber": 12,
+        "dayNumber": 11,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 147,
+        "studyTimeMinutes": 144,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 177,
+        "totalTimeMinutes": 174,
         "tasks": [
           {
             "id": "task-2026-10-03-1",
-            "label": "[MATH U7.4] Center, spread, and shape of distributions",
+            "label": "[MATH U6.8] Graphs of linear systems and inequalities",
             "subject": "math",
-            "topic": "Center, spread, and shape of distributions",
-            "code": "Math U7.4",
+            "topic": "Graphs of linear systems and inequalities",
+            "code": "Math U6.8",
             "timeSlot": "6:30 PM - 6:55 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-10-03-2",
-            "label": "[MATH U7.5] Data representations",
+            "label": "[MATH U7.1] Ratios, rates, and proportions",
             "subject": "math",
-            "topic": "Data representations",
-            "code": "Math U7.5",
+            "topic": "Ratios, rates, and proportions",
+            "code": "Math U7.1",
             "timeSlot": "6:55 PM - 7:20 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1509,20 +1439,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-03-4",
-            "label": "[MATH U7.6] Scatterplots",
+            "label": "[MATH U7.2] Unit conversion",
             "subject": "math",
-            "topic": "Scatterplots",
-            "code": "Math U7.6",
+            "topic": "Unit conversion",
+            "code": "Math U7.2",
             "timeSlot": "7:35 PM - 8:00 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-10-03-5",
-            "label": "[MATH U7.7] Linear and exponential growth",
+            "label": "[MATH U7.3] Percentages",
             "subject": "math",
-            "topic": "Linear and exponential growth",
-            "code": "Math U7.7",
+            "topic": "Percentages",
+            "code": "Math U7.3",
             "timeSlot": "8:00 PM - 8:25 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1539,26 +1469,26 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-03-7",
-            "label": "[MATH U7.8] Probability and relative frequency",
-            "subject": "math",
-            "topic": "Probability and relative frequency",
-            "code": "Math U7.8",
-            "timeSlot": "8:40 PM - 9:05 PM",
-            "durationMinutes": 25,
+            "label": "[R&W U7.2] Rhetorical synthesis",
+            "subject": "rw",
+            "topic": "Rhetorical synthesis",
+            "code": "R&W U7.2",
+            "timeSlot": "8:40 PM - 9:02 PM",
+            "durationMinutes": 22,
             "completed": false
           },
           {
             "id": "task-2026-10-03-8",
-            "label": "[R&W U7.4] Boundaries",
+            "label": "[R&W U7.3] Form, structure, and sense",
             "subject": "rw",
-            "topic": "Boundaries",
-            "code": "R&W U7.4",
-            "timeSlot": "9:05 PM - 9:27 PM",
+            "topic": "Form, structure, and sense",
+            "code": "R&W U7.3",
+            "timeSlot": "9:02 PM - 9:24 PM",
             "durationMinutes": 22,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 11: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-04",
@@ -1568,7 +1498,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dayNumber": null,
         "weekId": "week-3",
         "weekNumber": 3,
-        "weekTitle": "Final Buffer Day & Phase 1 Resume (Units 5-7)",
+        "weekTitle": "Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)",
         "phase": "foundations",
         "isBuffer": true,
         "isTestDay": false,
@@ -1595,7 +1525,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-4",
     "title": "Week 4: Quadratics, Functions, Geometry & Textual Analysis",
     "dateRange": "Oct 05 to Oct 11",
-    "subtitle": "Days 13–18 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.",
+    "subtitle": "Days 12–17 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.",
     "phase": "foundations",
     "days": [
       {
@@ -1603,33 +1533,33 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dateStr": "2026-10-05",
         "dayOfWeek": "Mon",
         "formattedDate": "Mon Oct 05",
-        "dayNumber": 13,
+        "dayNumber": 12,
         "weekId": "week-4",
         "weekNumber": 4,
         "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 135,
+        "studyTimeMinutes": 147,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 165,
+        "totalTimeMinutes": 177,
         "tasks": [
           {
             "id": "task-2026-10-05-1",
-            "label": "[MATH U7.9] Data inferences",
+            "label": "[MATH U7.4] Center, spread, and shape of distributions",
             "subject": "math",
-            "topic": "Data inferences",
-            "code": "Math U7.9",
+            "topic": "Center, spread, and shape of distributions",
+            "code": "Math U7.4",
             "timeSlot": "6:30 PM - 6:55 PM",
             "durationMinutes": 25,
             "completed": false
           },
           {
             "id": "task-2026-10-05-2",
-            "label": "[MATH U7.10] Evaluating statistical claims",
+            "label": "[MATH U7.5] Data representations",
             "subject": "math",
-            "topic": "Evaluating statistical claims",
-            "code": "Math U7.10",
+            "topic": "Data representations",
+            "code": "Math U7.5",
             "timeSlot": "6:55 PM - 7:20 PM",
             "durationMinutes": 25,
             "completed": false
@@ -1646,6 +1576,105 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-05-4",
+            "label": "[MATH U7.6] Scatterplots",
+            "subject": "math",
+            "topic": "Scatterplots",
+            "code": "Math U7.6",
+            "timeSlot": "7:35 PM - 8:00 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-05-5",
+            "label": "[MATH U7.7] Linear and exponential growth",
+            "subject": "math",
+            "topic": "Linear and exponential growth",
+            "code": "Math U7.7",
+            "timeSlot": "8:00 PM - 8:25 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-05-6",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "8:25 PM - 8:40 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-05-7",
+            "label": "[MATH U7.8] Probability and relative frequency",
+            "subject": "math",
+            "topic": "Probability and relative frequency",
+            "code": "Math U7.8",
+            "timeSlot": "8:40 PM - 9:05 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-05-8",
+            "label": "[R&W U7.4] Boundaries",
+            "subject": "rw",
+            "topic": "Boundaries",
+            "code": "R&W U7.4",
+            "timeSlot": "9:05 PM - 9:27 PM",
+            "durationMinutes": 22,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+      },
+      {
+        "id": "2026-10-06",
+        "dateStr": "2026-10-06",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Oct 06",
+        "dayNumber": 13,
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
+        "phase": "foundations",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 135,
+        "breakTimeMinutes": 30,
+        "totalTimeMinutes": 165,
+        "tasks": [
+          {
+            "id": "task-2026-10-06-1",
+            "label": "[MATH U7.9] Data inferences",
+            "subject": "math",
+            "topic": "Data inferences",
+            "code": "Math U7.9",
+            "timeSlot": "6:30 PM - 6:55 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-06-2",
+            "label": "[MATH U7.10] Evaluating statistical claims",
+            "subject": "math",
+            "topic": "Evaluating statistical claims",
+            "code": "Math U7.10",
+            "timeSlot": "6:55 PM - 7:20 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-06-3",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "7:20 PM - 7:35 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-06-4",
             "label": "[MATH U8.1] Factoring quadratic and polynomial expressions",
             "subject": "math",
             "topic": "Factoring quadratic and polynomial expressions",
@@ -1655,7 +1684,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-05-5",
+            "id": "task-2026-10-06-5",
             "label": "[MATH U8.2] Radicals and rational exponents",
             "subject": "math",
             "topic": "Radicals and rational exponents",
@@ -1665,7 +1694,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-05-6",
+            "id": "task-2026-10-06-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1675,7 +1704,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-05-7",
+            "id": "task-2026-10-06-7",
             "label": "[R&W U8.1] Command of textual evidence",
             "subject": "rw",
             "topic": "Command of textual evidence",
@@ -1688,10 +1717,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 13: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-10-06",
-        "dateStr": "2026-10-06",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Oct 06",
+        "id": "2026-10-07",
+        "dateStr": "2026-10-07",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Oct 07",
         "dayNumber": 14,
         "weekId": "week-4",
         "weekNumber": 4,
@@ -1704,7 +1733,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 170,
         "tasks": [
           {
-            "id": "task-2026-10-06-1",
+            "id": "task-2026-10-07-1",
             "label": "[MATH U8.3] Operations with polynomials",
             "subject": "math",
             "topic": "Operations with polynomials",
@@ -1714,100 +1743,11 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-06-2",
+            "id": "task-2026-10-07-2",
             "label": "[MATH U8.4] Operations with rational expressions",
             "subject": "math",
             "topic": "Operations with rational expressions",
             "code": "Math U8.4",
-            "timeSlot": "7:00 PM - 7:30 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-06-3",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "7:30 PM - 7:45 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-06-4",
-            "label": "[MATH U8.5] Nonlinear functions",
-            "subject": "math",
-            "topic": "Nonlinear functions",
-            "code": "Math U8.5",
-            "timeSlot": "7:45 PM - 8:15 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-06-5",
-            "label": "[R&W U8.2] Command of quantitative evidence",
-            "subject": "rw",
-            "topic": "Command of quantitative evidence",
-            "code": "R&W U8.2",
-            "timeSlot": "8:15 PM - 8:40 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-06-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "8:40 PM - 8:55 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-06-7",
-            "label": "[R&W U8.3] Central ideas and details",
-            "subject": "rw",
-            "topic": "Central ideas and details",
-            "code": "R&W U8.3",
-            "timeSlot": "8:55 PM - 9:20 PM",
-            "durationMinutes": 25,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Day 14: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
-      },
-      {
-        "id": "2026-10-07",
-        "dateStr": "2026-10-07",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Oct 07",
-        "dayNumber": 15,
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
-        "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 145,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 175,
-        "tasks": [
-          {
-            "id": "task-2026-10-07-1",
-            "label": "[MATH U8.6] Isolating quantities",
-            "subject": "math",
-            "topic": "Isolating quantities",
-            "code": "Math U8.6",
-            "timeSlot": "6:30 PM - 7:00 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-07-2",
-            "label": "[MATH U8.7] Solving quadratic equations",
-            "subject": "math",
-            "topic": "Solving quadratic equations",
-            "code": "Math U8.7",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -1824,22 +1764,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-07-4",
-            "label": "[MATH U8.8] Linear and quadratic systems",
+            "label": "[MATH U8.5] Nonlinear functions",
             "subject": "math",
-            "topic": "Linear and quadratic systems",
-            "code": "Math U8.8",
+            "topic": "Nonlinear functions",
+            "code": "Math U8.5",
             "timeSlot": "7:45 PM - 8:15 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-07-5",
-            "label": "[MATH U8.9] Radical, rational, and absolute value equations",
-            "subject": "math",
-            "topic": "Radical, rational, and absolute value equations",
-            "code": "Math U8.9",
-            "timeSlot": "8:15 PM - 8:45 PM",
-            "durationMinutes": 30,
+            "label": "[R&W U8.2] Command of quantitative evidence",
+            "subject": "rw",
+            "topic": "Command of quantitative evidence",
+            "code": "R&W U8.2",
+            "timeSlot": "8:15 PM - 8:40 PM",
+            "durationMinutes": 25,
             "completed": false
           },
           {
@@ -1848,55 +1788,55 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
             "code": "BREAK",
-            "timeSlot": "8:45 PM - 9:00 PM",
+            "timeSlot": "8:40 PM - 8:55 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-10-07-7",
-            "label": "[R&W U8.4] Inferences",
+            "label": "[R&W U8.3] Central ideas and details",
             "subject": "rw",
-            "topic": "Inferences",
-            "code": "R&W U8.4",
-            "timeSlot": "9:00 PM - 9:25 PM",
+            "topic": "Central ideas and details",
+            "code": "R&W U8.3",
+            "timeSlot": "8:55 PM - 9:20 PM",
             "durationMinutes": 25,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 15: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 14: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-08",
         "dateStr": "2026-10-08",
         "dayOfWeek": "Thu",
         "formattedDate": "Thu Oct 08",
-        "dayNumber": 16,
+        "dayNumber": 15,
         "weekId": "week-4",
         "weekNumber": 4,
         "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 140,
+        "studyTimeMinutes": 145,
         "breakTimeMinutes": 30,
-        "totalTimeMinutes": 170,
+        "totalTimeMinutes": 175,
         "tasks": [
           {
             "id": "task-2026-10-08-1",
-            "label": "[MATH U8.10] Quadratic and exponential word problems",
+            "label": "[MATH U8.6] Isolating quantities",
             "subject": "math",
-            "topic": "Quadratic and exponential word problems",
-            "code": "Math U8.10",
+            "topic": "Isolating quantities",
+            "code": "Math U8.6",
             "timeSlot": "6:30 PM - 7:00 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-08-2",
-            "label": "[MATH U8.11] Quadratic graphs",
+            "label": "[MATH U8.7] Solving quadratic equations",
             "subject": "math",
-            "topic": "Quadratic graphs",
-            "code": "Math U8.11",
+            "topic": "Solving quadratic equations",
+            "code": "Math U8.7",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -1913,6 +1853,95 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-08-4",
+            "label": "[MATH U8.8] Linear and quadratic systems",
+            "subject": "math",
+            "topic": "Linear and quadratic systems",
+            "code": "Math U8.8",
+            "timeSlot": "7:45 PM - 8:15 PM",
+            "durationMinutes": 30,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-08-5",
+            "label": "[MATH U8.9] Radical, rational, and absolute value equations",
+            "subject": "math",
+            "topic": "Radical, rational, and absolute value equations",
+            "code": "Math U8.9",
+            "timeSlot": "8:15 PM - 8:45 PM",
+            "durationMinutes": 30,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-08-6",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "8:45 PM - 9:00 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-08-7",
+            "label": "[R&W U8.4] Inferences",
+            "subject": "rw",
+            "topic": "Inferences",
+            "code": "R&W U8.4",
+            "timeSlot": "9:00 PM - 9:25 PM",
+            "durationMinutes": 25,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Day 15: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+      },
+      {
+        "id": "2026-10-09",
+        "dateStr": "2026-10-09",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 09",
+        "dayNumber": 16,
+        "weekId": "week-4",
+        "weekNumber": 4,
+        "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
+        "phase": "foundations",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 140,
+        "breakTimeMinutes": 30,
+        "totalTimeMinutes": 170,
+        "tasks": [
+          {
+            "id": "task-2026-10-09-1",
+            "label": "[MATH U8.10] Quadratic and exponential word problems",
+            "subject": "math",
+            "topic": "Quadratic and exponential word problems",
+            "code": "Math U8.10",
+            "timeSlot": "6:30 PM - 7:00 PM",
+            "durationMinutes": 30,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-09-2",
+            "label": "[MATH U8.11] Quadratic graphs",
+            "subject": "math",
+            "topic": "Quadratic graphs",
+            "code": "Math U8.11",
+            "timeSlot": "7:00 PM - 7:30 PM",
+            "durationMinutes": 30,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-09-3",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "7:30 PM - 7:45 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-09-4",
             "label": "[MATH U8.12] Exponential graphs",
             "subject": "math",
             "topic": "Exponential graphs",
@@ -1922,7 +1951,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-08-5",
+            "id": "task-2026-10-09-5",
             "label": "[R&W U9.1] Words in context",
             "subject": "rw",
             "topic": "Words in context",
@@ -1932,7 +1961,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-08-6",
+            "id": "task-2026-10-09-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -1942,7 +1971,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-08-7",
+            "id": "task-2026-10-09-7",
             "label": "[R&W U9.2] Text structure and purpose",
             "subject": "rw",
             "topic": "Text structure and purpose",
@@ -1955,10 +1984,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 16: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-10-09",
-        "dateStr": "2026-10-09",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 09",
+        "id": "2026-10-10",
+        "dateStr": "2026-10-10",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 10",
         "dayNumber": 17,
         "weekId": "week-4",
         "weekNumber": 4,
@@ -1971,7 +2000,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 180,
         "tasks": [
           {
-            "id": "task-2026-10-09-1",
+            "id": "task-2026-10-10-1",
             "label": "[MATH U8.13] Polynomial and other nonlinear graphs",
             "subject": "math",
             "topic": "Polynomial and other nonlinear graphs",
@@ -1981,7 +2010,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-2",
+            "id": "task-2026-10-10-2",
             "label": "[MATH U9.1] Area and volume",
             "subject": "math",
             "topic": "Area and volume",
@@ -1991,7 +2020,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-3",
+            "id": "task-2026-10-10-3",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -2001,7 +2030,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-4",
+            "id": "task-2026-10-10-4",
             "label": "[MATH U9.2] Congruence, similarity, and angle relationships",
             "subject": "math",
             "topic": "Congruence, similarity, and angle relationships",
@@ -2011,7 +2040,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-5",
+            "id": "task-2026-10-10-5",
             "label": "[R&W U9.3] Cross-text connections",
             "subject": "rw",
             "topic": "Cross-text connections",
@@ -2021,7 +2050,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-6",
+            "id": "task-2026-10-10-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -2031,7 +2060,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-09-7",
+            "id": "task-2026-10-10-7",
             "label": "[R&W U10.1] Transitions",
             "subject": "rw",
             "topic": "Transitions",
@@ -2042,75 +2071,6 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           }
         ],
         "specialInstructions": "Day 17: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
-      },
-      {
-        "id": "2026-10-10",
-        "dateStr": "2026-10-10",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 10",
-        "dayNumber": 18,
-        "weekId": "week-4",
-        "weekNumber": 4,
-        "weekTitle": "Quadratics, Functions, Geometry & Textual Analysis",
-        "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 130,
-        "breakTimeMinutes": 15,
-        "totalTimeMinutes": 145,
-        "tasks": [
-          {
-            "id": "task-2026-10-10-1",
-            "label": "[MATH U9.3] Right triangle trigonometry",
-            "subject": "math",
-            "topic": "Right triangle trigonometry",
-            "code": "Math U9.3",
-            "timeSlot": "6:30 PM - 7:05 PM",
-            "durationMinutes": 35,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-10-2",
-            "label": "[MATH U9.4] Circle theorems",
-            "subject": "math",
-            "topic": "Circle theorems",
-            "code": "Math U9.4",
-            "timeSlot": "7:05 PM - 7:40 PM",
-            "durationMinutes": 35,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-10-3",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "7:40 PM - 7:55 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-10-4",
-            "label": "[MATH U9.5] Unit circle trigonometry",
-            "subject": "math",
-            "topic": "Unit circle trigonometry",
-            "code": "Math U9.5",
-            "timeSlot": "7:55 PM - 8:30 PM",
-            "durationMinutes": 35,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-10-5",
-            "label": "[R&W U10.2] Rhetorical synthesis",
-            "subject": "rw",
-            "topic": "Rhetorical synthesis",
-            "code": "R&W U10.2",
-            "timeSlot": "8:30 PM - 8:55 PM",
-            "durationMinutes": 25,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Day 18: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-11",
@@ -2147,7 +2107,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-5",
     "title": "Week 5: Advanced Algebra, Statistics & Grammar Mastery",
     "dateRange": "Oct 12 to Oct 18",
-    "subtitle": "Days 19–24 master circle equations, linear inequalities, percentages & statistical claims.",
+    "subtitle": "Days 18–23 master circle equations, linear inequalities, percentages & statistical claims.",
     "phase": "foundations",
     "days": [
       {
@@ -2155,6 +2115,75 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dateStr": "2026-10-12",
         "dayOfWeek": "Mon",
         "formattedDate": "Mon Oct 12",
+        "dayNumber": 18,
+        "weekId": "week-5",
+        "weekNumber": 5,
+        "weekTitle": "Advanced Algebra, Statistics & Grammar Mastery",
+        "phase": "foundations",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 130,
+        "breakTimeMinutes": 15,
+        "totalTimeMinutes": 145,
+        "tasks": [
+          {
+            "id": "task-2026-10-12-1",
+            "label": "[MATH U9.3] Right triangle trigonometry",
+            "subject": "math",
+            "topic": "Right triangle trigonometry",
+            "code": "Math U9.3",
+            "timeSlot": "6:30 PM - 7:05 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-12-2",
+            "label": "[MATH U9.4] Circle theorems",
+            "subject": "math",
+            "topic": "Circle theorems",
+            "code": "Math U9.4",
+            "timeSlot": "7:05 PM - 7:40 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-12-3",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "7:40 PM - 7:55 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-12-4",
+            "label": "[MATH U9.5] Unit circle trigonometry",
+            "subject": "math",
+            "topic": "Unit circle trigonometry",
+            "code": "Math U9.5",
+            "timeSlot": "7:55 PM - 8:30 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-12-5",
+            "label": "[R&W U10.2] Rhetorical synthesis",
+            "subject": "rw",
+            "topic": "Rhetorical synthesis",
+            "code": "R&W U10.2",
+            "timeSlot": "8:30 PM - 8:55 PM",
+            "durationMinutes": 25,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Day 18: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+      },
+      {
+        "id": "2026-10-13",
+        "dateStr": "2026-10-13",
+        "dayOfWeek": "Tue",
+        "formattedDate": "Tue Oct 13",
         "dayNumber": 19,
         "weekId": "week-5",
         "weekNumber": 5,
@@ -2167,7 +2196,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 180,
         "tasks": [
           {
-            "id": "task-2026-10-12-1",
+            "id": "task-2026-10-13-1",
             "label": "[MATH U9.6] Circle equations",
             "subject": "math",
             "topic": "Circle equations",
@@ -2177,7 +2206,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-2",
+            "id": "task-2026-10-13-2",
             "label": "[MATH U10.1] Solving linear equations and inequalities",
             "subject": "math",
             "topic": "Solving linear equations and inequalities",
@@ -2187,7 +2216,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-3",
+            "id": "task-2026-10-13-3",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -2197,7 +2226,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-4",
+            "id": "task-2026-10-13-4",
             "label": "[MATH U10.2] Linear equation word problems",
             "subject": "math",
             "topic": "Linear equation word problems",
@@ -2207,7 +2236,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-5",
+            "id": "task-2026-10-13-5",
             "label": "[MATH U10.3] Linear relationship word problems",
             "subject": "math",
             "topic": "Linear relationship word problems",
@@ -2217,7 +2246,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-6",
+            "id": "task-2026-10-13-6",
             "label": "Screen-Free Rest & Recharge",
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
@@ -2227,7 +2256,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-12-7",
+            "id": "task-2026-10-13-7",
             "label": "[R&W U10.3] Form, structure, and sense",
             "subject": "rw",
             "topic": "Form, structure, and sense",
@@ -2240,10 +2269,10 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 19: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-10-13",
-        "dateStr": "2026-10-13",
-        "dayOfWeek": "Tue",
-        "formattedDate": "Tue Oct 13",
+        "id": "2026-10-14",
+        "dateStr": "2026-10-14",
+        "dayOfWeek": "Wed",
+        "formattedDate": "Wed Oct 14",
         "dayNumber": 20,
         "weekId": "week-5",
         "weekNumber": 5,
@@ -2256,7 +2285,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "totalTimeMinutes": 180,
         "tasks": [
           {
-            "id": "task-2026-10-13-1",
+            "id": "task-2026-10-14-1",
             "label": "[MATH U10.4] Graphs of linear equations and functions",
             "subject": "math",
             "topic": "Graphs of linear equations and functions",
@@ -2266,100 +2295,11 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           },
           {
-            "id": "task-2026-10-13-2",
+            "id": "task-2026-10-14-2",
             "label": "[MATH U10.5] Solving systems of linear equations",
             "subject": "math",
             "topic": "Solving systems of linear equations",
             "code": "Math U10.5",
-            "timeSlot": "7:00 PM - 7:30 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-13-3",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "7:30 PM - 7:45 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-13-4",
-            "label": "[MATH U10.6] Systems of linear equations word problems",
-            "subject": "math",
-            "topic": "Systems of linear equations word problems",
-            "code": "Math U10.6",
-            "timeSlot": "7:45 PM - 8:15 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-13-5",
-            "label": "[R&W U10.4] Boundaries",
-            "subject": "rw",
-            "topic": "Boundaries",
-            "code": "R&W U10.4",
-            "timeSlot": "8:15 PM - 8:40 PM",
-            "durationMinutes": 25,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-13-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "8:40 PM - 8:55 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-13-7",
-            "label": "[R&W U11.1] Command of evidence",
-            "subject": "rw",
-            "topic": "Command of evidence",
-            "code": "R&W U11.1",
-            "timeSlot": "8:55 PM - 9:30 PM",
-            "durationMinutes": 35,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Day 20: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
-      },
-      {
-        "id": "2026-10-14",
-        "dateStr": "2026-10-14",
-        "dayOfWeek": "Wed",
-        "formattedDate": "Wed Oct 14",
-        "dayNumber": 21,
-        "weekId": "week-5",
-        "weekNumber": 5,
-        "weekTitle": "Advanced Algebra, Statistics & Grammar Mastery",
-        "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 125,
-        "breakTimeMinutes": 15,
-        "totalTimeMinutes": 140,
-        "tasks": [
-          {
-            "id": "task-2026-10-14-1",
-            "label": "[MATH U10.7] Linear inequality word problems",
-            "subject": "math",
-            "topic": "Linear inequality word problems",
-            "code": "Math U10.7",
-            "timeSlot": "6:30 PM - 7:00 PM",
-            "durationMinutes": 30,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-14-2",
-            "label": "[MATH U10.8] Graphs of linear systems and inequalities",
-            "subject": "math",
-            "topic": "Graphs of linear systems and inequalities",
-            "code": "Math U10.8",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -2376,33 +2316,53 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-14-4",
-            "label": "[MATH U11.1] Ratios, rates, and proportions",
+            "label": "[MATH U10.6] Systems of linear equations word problems",
             "subject": "math",
-            "topic": "Ratios, rates, and proportions",
-            "code": "Math U11.1",
+            "topic": "Systems of linear equations word problems",
+            "code": "Math U10.6",
             "timeSlot": "7:45 PM - 8:15 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-14-5",
-            "label": "[R&W U11.2] Central ideas and details + inferences",
+            "label": "[R&W U10.4] Boundaries",
             "subject": "rw",
-            "topic": "Central ideas and details + inferences",
-            "code": "R&W U11.2",
-            "timeSlot": "8:15 PM - 8:50 PM",
+            "topic": "Boundaries",
+            "code": "R&W U10.4",
+            "timeSlot": "8:15 PM - 8:40 PM",
+            "durationMinutes": 25,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-14-6",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "8:40 PM - 8:55 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-14-7",
+            "label": "[R&W U11.1] Command of evidence",
+            "subject": "rw",
+            "topic": "Command of evidence",
+            "code": "R&W U11.1",
+            "timeSlot": "8:55 PM - 9:30 PM",
             "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 21: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 20: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-15",
         "dateStr": "2026-10-15",
         "dayOfWeek": "Thu",
         "formattedDate": "Thu Oct 15",
-        "dayNumber": 22,
+        "dayNumber": 21,
         "weekId": "week-5",
         "weekNumber": 5,
         "weekTitle": "Advanced Algebra, Statistics & Grammar Mastery",
@@ -2415,20 +2375,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-15-1",
-            "label": "[MATH U11.2] Unit conversion",
+            "label": "[MATH U10.7] Linear inequality word problems",
             "subject": "math",
-            "topic": "Unit conversion",
-            "code": "Math U11.2",
+            "topic": "Linear inequality word problems",
+            "code": "Math U10.7",
             "timeSlot": "6:30 PM - 7:00 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-15-2",
-            "label": "[MATH U11.3] Percentages",
+            "label": "[MATH U10.8] Graphs of linear systems and inequalities",
             "subject": "math",
-            "topic": "Percentages",
-            "code": "Math U11.3",
+            "topic": "Graphs of linear systems and inequalities",
+            "code": "Math U10.8",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -2445,59 +2405,59 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-15-4",
-            "label": "[MATH U11.4] Center, spread, and shape of distributions",
+            "label": "[MATH U11.1] Ratios, rates, and proportions",
             "subject": "math",
-            "topic": "Center, spread, and shape of distributions",
-            "code": "Math U11.4",
+            "topic": "Ratios, rates, and proportions",
+            "code": "Math U11.1",
             "timeSlot": "7:45 PM - 8:15 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-15-5",
-            "label": "[R&W U11.3] Words in context",
+            "label": "[R&W U11.2] Central ideas and details + inferences",
             "subject": "rw",
-            "topic": "Words in context",
-            "code": "R&W U11.3",
+            "topic": "Central ideas and details + inferences",
+            "code": "R&W U11.2",
             "timeSlot": "8:15 PM - 8:50 PM",
             "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 22: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 21: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-16",
         "dateStr": "2026-10-16",
         "dayOfWeek": "Fri",
         "formattedDate": "Fri Oct 16",
-        "dayNumber": 23,
+        "dayNumber": 22,
         "weekId": "week-5",
         "weekNumber": 5,
         "weekTitle": "Advanced Algebra, Statistics & Grammar Mastery",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 120,
+        "studyTimeMinutes": 125,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 135,
+        "totalTimeMinutes": 140,
         "tasks": [
           {
             "id": "task-2026-10-16-1",
-            "label": "[MATH U11.5] Data representations",
+            "label": "[MATH U11.2] Unit conversion",
             "subject": "math",
-            "topic": "Data representations",
-            "code": "Math U11.5",
+            "topic": "Unit conversion",
+            "code": "Math U11.2",
             "timeSlot": "6:30 PM - 7:00 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-16-2",
-            "label": "[MATH U11.6] Scatterplots",
+            "label": "[MATH U11.3] Percentages",
             "subject": "math",
-            "topic": "Scatterplots",
-            "code": "Math U11.6",
+            "topic": "Percentages",
+            "code": "Math U11.3",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -2514,59 +2474,59 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-16-4",
-            "label": "[MATH U11.7] Linear and exponential growth",
+            "label": "[MATH U11.4] Center, spread, and shape of distributions",
             "subject": "math",
-            "topic": "Linear and exponential growth",
-            "code": "Math U11.7",
+            "topic": "Center, spread, and shape of distributions",
+            "code": "Math U11.4",
             "timeSlot": "7:45 PM - 8:15 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-16-5",
-            "label": "[MATH U11.8] Probability and relative frequency",
-            "subject": "math",
-            "topic": "Probability and relative frequency",
-            "code": "Math U11.8",
-            "timeSlot": "8:15 PM - 8:45 PM",
-            "durationMinutes": 30,
+            "label": "[R&W U11.3] Words in context",
+            "subject": "rw",
+            "topic": "Words in context",
+            "code": "R&W U11.3",
+            "timeSlot": "8:15 PM - 8:50 PM",
+            "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 23: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 22: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-17",
         "dateStr": "2026-10-17",
         "dayOfWeek": "Sat",
         "formattedDate": "Sat Oct 17",
-        "dayNumber": 24,
+        "dayNumber": 23,
         "weekId": "week-5",
         "weekNumber": 5,
         "weekTitle": "Advanced Algebra, Statistics & Grammar Mastery",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 130,
+        "studyTimeMinutes": 120,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 145,
+        "totalTimeMinutes": 135,
         "tasks": [
           {
             "id": "task-2026-10-17-1",
-            "label": "[MATH U11.9] Data inferences",
+            "label": "[MATH U11.5] Data representations",
             "subject": "math",
-            "topic": "Data inferences",
-            "code": "Math U11.9",
+            "topic": "Data representations",
+            "code": "Math U11.5",
             "timeSlot": "6:30 PM - 7:00 PM",
             "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-17-2",
-            "label": "[MATH U11.10] Evaluating statistical claims",
+            "label": "[MATH U11.6] Scatterplots",
             "subject": "math",
-            "topic": "Evaluating statistical claims",
-            "code": "Math U11.10",
+            "topic": "Scatterplots",
+            "code": "Math U11.6",
             "timeSlot": "7:00 PM - 7:30 PM",
             "durationMinutes": 30,
             "completed": false
@@ -2583,26 +2543,26 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-17-4",
-            "label": "[MATH U12.1] Factoring quadratic and polynomial expressions",
+            "label": "[MATH U11.7] Linear and exponential growth",
             "subject": "math",
-            "topic": "Factoring quadratic and polynomial expressions",
-            "code": "Math U12.1",
-            "timeSlot": "7:45 PM - 8:20 PM",
-            "durationMinutes": 35,
+            "topic": "Linear and exponential growth",
+            "code": "Math U11.7",
+            "timeSlot": "7:45 PM - 8:15 PM",
+            "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-17-5",
-            "label": "[R&W U11.4] Text structure and purpose + cross-text connections",
-            "subject": "rw",
-            "topic": "Text structure and purpose + cross-text connections",
-            "code": "R&W U11.4",
-            "timeSlot": "8:20 PM - 8:55 PM",
-            "durationMinutes": 35,
+            "label": "[MATH U11.8] Probability and relative frequency",
+            "subject": "math",
+            "topic": "Probability and relative frequency",
+            "code": "Math U11.8",
+            "timeSlot": "8:15 PM - 8:45 PM",
+            "durationMinutes": 30,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 23: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-18",
@@ -2637,9 +2597,9 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
   },
   {
     "id": "week-6",
-    "title": "Week 6: Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+    "title": "Week 6: Phase 1 Climax (All 145 Skills Complete on Oct 25)",
     "dateRange": "Oct 19 to Oct 25",
-    "subtitle": "Days 25–30 finish all 145 skills by Sat Oct 24. Sun Oct 25 rest day resets before Test #1.",
+    "subtitle": "Days 24–30 finish all 145 skills by Sun Oct 25. Tomorrow Phase 2 launches with Test #1.",
     "phase": "foundations",
     "days": [
       {
@@ -2647,35 +2607,35 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "dateStr": "2026-10-19",
         "dayOfWeek": "Mon",
         "formattedDate": "Mon Oct 19",
-        "dayNumber": 25,
+        "dayNumber": 24,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 140,
+        "studyTimeMinutes": 130,
         "breakTimeMinutes": 15,
-        "totalTimeMinutes": 155,
+        "totalTimeMinutes": 145,
         "tasks": [
           {
             "id": "task-2026-10-19-1",
-            "label": "[MATH U12.2] Radicals and rational exponents",
+            "label": "[MATH U11.9] Data inferences",
             "subject": "math",
-            "topic": "Radicals and rational exponents",
-            "code": "Math U12.2",
-            "timeSlot": "6:30 PM - 7:05 PM",
-            "durationMinutes": 35,
+            "topic": "Data inferences",
+            "code": "Math U11.9",
+            "timeSlot": "6:30 PM - 7:00 PM",
+            "durationMinutes": 30,
             "completed": false
           },
           {
             "id": "task-2026-10-19-2",
-            "label": "[MATH U12.3] Operations with polynomials",
+            "label": "[MATH U11.10] Evaluating statistical claims",
             "subject": "math",
-            "topic": "Operations with polynomials",
-            "code": "Math U12.3",
-            "timeSlot": "7:05 PM - 7:40 PM",
-            "durationMinutes": 35,
+            "topic": "Evaluating statistical claims",
+            "code": "Math U11.10",
+            "timeSlot": "7:00 PM - 7:30 PM",
+            "durationMinutes": 30,
             "completed": false
           },
           {
@@ -2684,42 +2644,42 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "subject": "buffer",
             "topic": "Screen-Free Rest & Recharge",
             "code": "BREAK",
-            "timeSlot": "7:40 PM - 7:55 PM",
+            "timeSlot": "7:30 PM - 7:45 PM",
             "durationMinutes": 15,
             "completed": false
           },
           {
             "id": "task-2026-10-19-4",
-            "label": "[MATH U12.4] Operations with rational expressions",
+            "label": "[MATH U12.1] Factoring quadratic and polynomial expressions",
             "subject": "math",
-            "topic": "Operations with rational expressions",
-            "code": "Math U12.4",
-            "timeSlot": "7:55 PM - 8:30 PM",
+            "topic": "Factoring quadratic and polynomial expressions",
+            "code": "Math U12.1",
+            "timeSlot": "7:45 PM - 8:20 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-19-5",
-            "label": "[R&W U11.5] Boundaries + form, structure, and sense",
+            "label": "[R&W U11.4] Text structure and purpose + cross-text connections",
             "subject": "rw",
-            "topic": "Boundaries + form, structure, and sense",
-            "code": "R&W U11.5",
-            "timeSlot": "8:30 PM - 9:05 PM",
+            "topic": "Text structure and purpose + cross-text connections",
+            "code": "R&W U11.4",
+            "timeSlot": "8:20 PM - 8:55 PM",
             "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 25: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-20",
         "dateStr": "2026-10-20",
         "dayOfWeek": "Tue",
         "formattedDate": "Tue Oct 20",
-        "dayNumber": 26,
+        "dayNumber": 25,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2729,20 +2689,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-20-1",
-            "label": "[MATH U12.5] Nonlinear functions",
+            "label": "[MATH U12.2] Radicals and rational exponents",
             "subject": "math",
-            "topic": "Nonlinear functions",
-            "code": "Math U12.5",
+            "topic": "Radicals and rational exponents",
+            "code": "Math U12.2",
             "timeSlot": "6:30 PM - 7:05 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-20-2",
-            "label": "[MATH U12.6] Isolating quantities",
+            "label": "[MATH U12.3] Operations with polynomials",
             "subject": "math",
-            "topic": "Isolating quantities",
-            "code": "Math U12.6",
+            "topic": "Operations with polynomials",
+            "code": "Math U12.3",
             "timeSlot": "7:05 PM - 7:40 PM",
             "durationMinutes": 35,
             "completed": false
@@ -2759,59 +2719,59 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-20-4",
-            "label": "[MATH U12.7] Solving quadratic equations",
+            "label": "[MATH U12.4] Operations with rational expressions",
             "subject": "math",
-            "topic": "Solving quadratic equations",
-            "code": "Math U12.7",
+            "topic": "Operations with rational expressions",
+            "code": "Math U12.4",
             "timeSlot": "7:55 PM - 8:30 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-20-5",
-            "label": "[R&W U11.6] Transitions + rhetorical synthesis",
+            "label": "[R&W U11.5] Boundaries + form, structure, and sense",
             "subject": "rw",
-            "topic": "Transitions + rhetorical synthesis",
-            "code": "R&W U11.6",
+            "topic": "Boundaries + form, structure, and sense",
+            "code": "R&W U11.5",
             "timeSlot": "8:30 PM - 9:05 PM",
             "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 26: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 25: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-21",
         "dateStr": "2026-10-21",
         "dayOfWeek": "Wed",
         "formattedDate": "Wed Oct 21",
-        "dayNumber": 27,
+        "dayNumber": 26,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
-        "studyTimeMinutes": 135,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 165,
+        "studyTimeMinutes": 140,
+        "breakTimeMinutes": 15,
+        "totalTimeMinutes": 155,
         "tasks": [
           {
             "id": "task-2026-10-21-1",
-            "label": "[MATH U12.8] Linear and quadratic systems",
+            "label": "[MATH U12.5] Nonlinear functions",
             "subject": "math",
-            "topic": "Linear and quadratic systems",
-            "code": "Math U12.8",
+            "topic": "Nonlinear functions",
+            "code": "Math U12.5",
             "timeSlot": "6:30 PM - 7:05 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-21-2",
-            "label": "[MATH U12.9] Radical, rational, and absolute value equations",
+            "label": "[MATH U12.6] Isolating quantities",
             "subject": "math",
-            "topic": "Radical, rational, and absolute value equations",
-            "code": "Math U12.9",
+            "topic": "Isolating quantities",
+            "code": "Math U12.6",
             "timeSlot": "7:05 PM - 7:40 PM",
             "durationMinutes": 35,
             "completed": false
@@ -2828,56 +2788,36 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-21-4",
-            "label": "[MATH U12.10] Quadratic and exponential word problems",
+            "label": "[MATH U12.7] Solving quadratic equations",
             "subject": "math",
-            "topic": "Quadratic and exponential word problems",
-            "code": "Math U12.10",
+            "topic": "Solving quadratic equations",
+            "code": "Math U12.7",
             "timeSlot": "7:55 PM - 8:30 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-21-5",
-            "label": "[R&W U12.1] Subject-verb agreement",
+            "label": "[R&W U11.6] Transitions + rhetorical synthesis",
             "subject": "rw",
-            "topic": "Subject-verb agreement",
-            "code": "R&W U12.1",
-            "timeSlot": "8:30 PM - 8:45 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-21-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "8:45 PM - 9:00 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-21-7",
-            "label": "[R&W U12.2] Pronoun-antecedent agreement",
-            "subject": "rw",
-            "topic": "Pronoun-antecedent agreement",
-            "code": "R&W U12.2",
-            "timeSlot": "9:00 PM - 9:15 PM",
-            "durationMinutes": 15,
+            "topic": "Transitions + rhetorical synthesis",
+            "code": "R&W U11.6",
+            "timeSlot": "8:30 PM - 9:05 PM",
+            "durationMinutes": 35,
             "completed": false
           }
         ],
-        "specialInstructions": "Day 27: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+        "specialInstructions": "Day 26: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
         "id": "2026-10-22",
         "dateStr": "2026-10-22",
         "dayOfWeek": "Thu",
         "formattedDate": "Thu Oct 22",
-        "dayNumber": 28,
+        "dayNumber": 27,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -2887,20 +2827,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-22-1",
-            "label": "[MATH U12.11] Quadratic graphs",
+            "label": "[MATH U12.8] Linear and quadratic systems",
             "subject": "math",
-            "topic": "Quadratic graphs",
-            "code": "Math U12.11",
+            "topic": "Linear and quadratic systems",
+            "code": "Math U12.8",
             "timeSlot": "6:30 PM - 7:05 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-22-2",
-            "label": "[MATH U12.12] Exponential graphs",
+            "label": "[MATH U12.9] Radical, rational, and absolute value equations",
             "subject": "math",
-            "topic": "Exponential graphs",
-            "code": "Math U12.12",
+            "topic": "Radical, rational, and absolute value equations",
+            "code": "Math U12.9",
             "timeSlot": "7:05 PM - 7:40 PM",
             "durationMinutes": 35,
             "completed": false
@@ -2917,20 +2857,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-22-4",
-            "label": "[MATH U12.13] Polynomial and other nonlinear graphs",
+            "label": "[MATH U12.10] Quadratic and exponential word problems",
             "subject": "math",
-            "topic": "Polynomial and other nonlinear graphs",
-            "code": "Math U12.13",
+            "topic": "Quadratic and exponential word problems",
+            "code": "Math U12.10",
             "timeSlot": "7:55 PM - 8:30 PM",
             "durationMinutes": 35,
             "completed": false
           },
           {
             "id": "task-2026-10-22-5",
-            "label": "[R&W U12.3] Plurals and possessives",
+            "label": "[R&W U12.1] Subject-verb agreement",
             "subject": "rw",
-            "topic": "Plurals and possessives",
-            "code": "R&W U12.3",
+            "topic": "Subject-verb agreement",
+            "code": "R&W U12.1",
             "timeSlot": "8:30 PM - 8:45 PM",
             "durationMinutes": 15,
             "completed": false
@@ -2947,6 +2887,95 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-22-7",
+            "label": "[R&W U12.2] Pronoun-antecedent agreement",
+            "subject": "rw",
+            "topic": "Pronoun-antecedent agreement",
+            "code": "R&W U12.2",
+            "timeSlot": "9:00 PM - 9:15 PM",
+            "durationMinutes": 15,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Day 27: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+      },
+      {
+        "id": "2026-10-23",
+        "dateStr": "2026-10-23",
+        "dayOfWeek": "Fri",
+        "formattedDate": "Fri Oct 23",
+        "dayNumber": 28,
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
+        "phase": "foundations",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 135,
+        "breakTimeMinutes": 30,
+        "totalTimeMinutes": 165,
+        "tasks": [
+          {
+            "id": "task-2026-10-23-1",
+            "label": "[MATH U12.11] Quadratic graphs",
+            "subject": "math",
+            "topic": "Quadratic graphs",
+            "code": "Math U12.11",
+            "timeSlot": "6:30 PM - 7:05 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-2",
+            "label": "[MATH U12.12] Exponential graphs",
+            "subject": "math",
+            "topic": "Exponential graphs",
+            "code": "Math U12.12",
+            "timeSlot": "7:05 PM - 7:40 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-3",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "7:40 PM - 7:55 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-4",
+            "label": "[MATH U12.13] Polynomial and other nonlinear graphs",
+            "subject": "math",
+            "topic": "Polynomial and other nonlinear graphs",
+            "code": "Math U12.13",
+            "timeSlot": "7:55 PM - 8:30 PM",
+            "durationMinutes": 35,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-5",
+            "label": "[R&W U12.3] Plurals and possessives",
+            "subject": "rw",
+            "topic": "Plurals and possessives",
+            "code": "R&W U12.3",
+            "timeSlot": "8:30 PM - 8:45 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-6",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "8:45 PM - 9:00 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-23-7",
             "label": "[R&W U12.4] Verb forms",
             "subject": "rw",
             "topic": "Verb forms",
@@ -2959,103 +2988,14 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "specialInstructions": "Day 28: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
       },
       {
-        "id": "2026-10-23",
-        "dateStr": "2026-10-23",
-        "dayOfWeek": "Fri",
-        "formattedDate": "Fri Oct 23",
-        "dayNumber": 29,
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
-        "phase": "foundations",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 150,
-        "breakTimeMinutes": 30,
-        "totalTimeMinutes": 180,
-        "tasks": [
-          {
-            "id": "task-2026-10-23-1",
-            "label": "[MATH U13.1] Area and volume",
-            "subject": "math",
-            "topic": "Area and volume",
-            "code": "Math U13.1",
-            "timeSlot": "6:30 PM - 7:10 PM",
-            "durationMinutes": 40,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-2",
-            "label": "[MATH U13.2] Congruence, similarity, and angle relationships",
-            "subject": "math",
-            "topic": "Congruence, similarity, and angle relationships",
-            "code": "Math U13.2",
-            "timeSlot": "7:10 PM - 7:50 PM",
-            "durationMinutes": 40,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-3",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "7:50 PM - 8:05 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-4",
-            "label": "[MATH U13.3] Right triangle trigonometry",
-            "subject": "math",
-            "topic": "Right triangle trigonometry",
-            "code": "Math U13.3",
-            "timeSlot": "8:05 PM - 8:45 PM",
-            "durationMinutes": 40,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-5",
-            "label": "[R&W U12.5] Subject-modifier placement",
-            "subject": "rw",
-            "topic": "Subject-modifier placement",
-            "code": "R&W U12.5",
-            "timeSlot": "8:45 PM - 9:00 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-6",
-            "label": "Screen-Free Rest & Recharge",
-            "subject": "buffer",
-            "topic": "Screen-Free Rest & Recharge",
-            "code": "BREAK",
-            "timeSlot": "9:00 PM - 9:15 PM",
-            "durationMinutes": 15,
-            "completed": false
-          },
-          {
-            "id": "task-2026-10-23-7",
-            "label": "[R&W U12.6] Linking clauses",
-            "subject": "rw",
-            "topic": "Linking clauses",
-            "code": "R&W U12.6",
-            "timeSlot": "9:15 PM - 9:30 PM",
-            "durationMinutes": 15,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Day 29: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
-      },
-      {
         "id": "2026-10-24",
         "dateStr": "2026-10-24",
         "dayOfWeek": "Sat",
         "formattedDate": "Sat Oct 24",
-        "dayNumber": 30,
+        "dayNumber": 29,
         "weekId": "week-6",
         "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
         "phase": "foundations",
         "isBuffer": false,
         "isTestDay": false,
@@ -3065,20 +3005,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-24-1",
-            "label": "[MATH U13.4] Circle theorems",
+            "label": "[MATH U13.1] Area and volume",
             "subject": "math",
-            "topic": "Circle theorems",
-            "code": "Math U13.4",
+            "topic": "Area and volume",
+            "code": "Math U13.1",
             "timeSlot": "6:30 PM - 7:10 PM",
             "durationMinutes": 40,
             "completed": false
           },
           {
             "id": "task-2026-10-24-2",
-            "label": "[MATH U13.5] Unit circle trigonometry",
+            "label": "[MATH U13.2] Congruence, similarity, and angle relationships",
             "subject": "math",
-            "topic": "Unit circle trigonometry",
-            "code": "Math U13.5",
+            "topic": "Congruence, similarity, and angle relationships",
+            "code": "Math U13.2",
             "timeSlot": "7:10 PM - 7:50 PM",
             "durationMinutes": 40,
             "completed": false
@@ -3095,20 +3035,20 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-24-4",
-            "label": "[MATH U13.6] Circle equations",
+            "label": "[MATH U13.3] Right triangle trigonometry",
             "subject": "math",
-            "topic": "Circle equations",
-            "code": "Math U13.6",
+            "topic": "Right triangle trigonometry",
+            "code": "Math U13.3",
             "timeSlot": "8:05 PM - 8:45 PM",
             "durationMinutes": 40,
             "completed": false
           },
           {
             "id": "task-2026-10-24-5",
-            "label": "[R&W U12.7] Supplements",
+            "label": "[R&W U12.5] Subject-modifier placement",
             "subject": "rw",
-            "topic": "Supplements",
-            "code": "R&W U12.7",
+            "topic": "Subject-modifier placement",
+            "code": "R&W U12.5",
             "timeSlot": "8:45 PM - 9:00 PM",
             "durationMinutes": 15,
             "completed": false
@@ -3125,6 +3065,95 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           },
           {
             "id": "task-2026-10-24-7",
+            "label": "[R&W U12.6] Linking clauses",
+            "subject": "rw",
+            "topic": "Linking clauses",
+            "code": "R&W U12.6",
+            "timeSlot": "9:15 PM - 9:30 PM",
+            "durationMinutes": 15,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Day 29: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals."
+      },
+      {
+        "id": "2026-10-25",
+        "dateStr": "2026-10-25",
+        "dayOfWeek": "Sun",
+        "formattedDate": "Sun Oct 25",
+        "dayNumber": 30,
+        "weekId": "week-6",
+        "weekNumber": 6,
+        "weekTitle": "Phase 1 Climax (All 145 Skills Complete on Oct 25)",
+        "phase": "foundations",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 150,
+        "breakTimeMinutes": 30,
+        "totalTimeMinutes": 180,
+        "tasks": [
+          {
+            "id": "task-2026-10-25-1",
+            "label": "[MATH U13.4] Circle theorems",
+            "subject": "math",
+            "topic": "Circle theorems",
+            "code": "Math U13.4",
+            "timeSlot": "6:30 PM - 7:10 PM",
+            "durationMinutes": 40,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-2",
+            "label": "[MATH U13.5] Unit circle trigonometry",
+            "subject": "math",
+            "topic": "Unit circle trigonometry",
+            "code": "Math U13.5",
+            "timeSlot": "7:10 PM - 7:50 PM",
+            "durationMinutes": 40,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-3",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "7:50 PM - 8:05 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-4",
+            "label": "[MATH U13.6] Circle equations",
+            "subject": "math",
+            "topic": "Circle equations",
+            "code": "Math U13.6",
+            "timeSlot": "8:05 PM - 8:45 PM",
+            "durationMinutes": 40,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-5",
+            "label": "[R&W U12.7] Supplements",
+            "subject": "rw",
+            "topic": "Supplements",
+            "code": "R&W U12.7",
+            "timeSlot": "8:45 PM - 9:00 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-6",
+            "label": "Screen-Free Rest & Recharge",
+            "subject": "buffer",
+            "topic": "Screen-Free Rest & Recharge",
+            "code": "BREAK",
+            "timeSlot": "9:00 PM - 9:15 PM",
+            "durationMinutes": 15,
+            "completed": false
+          },
+          {
+            "id": "task-2026-10-25-7",
             "label": "[R&W U12.8] Punctuation",
             "subject": "rw",
             "topic": "Punctuation",
@@ -3134,36 +3163,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
             "completed": false
           }
         ],
-        "specialInstructions": "PHASE 1 COMPLETE: All 145 Khan Academy Math & R&W curriculum skills mastered! Tomorrow is a mandatory reset before Phase 2 Bluebook testing launches on Monday."
-      },
-      {
-        "id": "2026-10-25",
-        "dateStr": "2026-10-25",
-        "dayOfWeek": "Sun",
-        "formattedDate": "Sun Oct 25",
-        "dayNumber": null,
-        "weekId": "week-6",
-        "weekNumber": 6,
-        "weekTitle": "Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch",
-        "phase": "bluebook",
-        "isBuffer": true,
-        "isTestDay": false,
-        "studyTimeMinutes": 0,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 0,
-        "tasks": [
-          {
-            "id": "task-2026-10-25-1",
-            "label": "Screen-Free Mental Reset (No Studying)",
-            "subject": "buffer",
-            "topic": "Screen-Free Mental Reset (No Studying)",
-            "code": "REST",
-            "timeSlot": "All Day",
-            "durationMinutes": 0,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "REST DAY: Pre-Phase 2 Mental Reset. Zero studying. Recharge energy before Test #1 tomorrow morning."
+        "specialInstructions": "PHASE 1 COMPLETE: All 145 Khan Academy Math & R&W curriculum skills mastered! Tomorrow Phase 2 launches with Test #1."
       }
     ]
   },

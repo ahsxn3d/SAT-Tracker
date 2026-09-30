@@ -8,6 +8,7 @@ export const DEFAULT_BUFFER_DATES: string[] = [
   '2026-09-26',
   '2026-09-27',
   '2026-09-28',
+  '2026-09-29',
 ];
 
 export interface Phase2Metrics {
@@ -356,10 +357,10 @@ export function buildDynamicWeeks(
   const weekDefinitions = [
     { id: 'week-1', num: 1, title: 'Week 1: Problem Solving & Advanced Math Foundations', range: 'Sep 14 to Sep 20', subtitle: 'Ratios, unit conversions, percentages, data distributions & quadratic foundations.', phase: 'foundations' as const },
     { id: 'week-2', num: 2, title: 'Week 2: Math U5 Launch & Recovery Buffer Block', range: 'Sep 21 to Sep 27', subtitle: 'Day 7 completed, then Sep 22–27 buffer window for full illness recovery.', phase: 'foundations' as const },
-    { id: 'week-3', num: 3, title: 'Week 3: Final Buffer Day & Phase 1 Resume (Units 5-7)', range: 'Sep 28 to Oct 04', subtitle: 'Mon Sep 28 buffer recovery; Days 8–12 launch trig, circles, linear systems & distributions.', phase: 'foundations' as const },
-    { id: 'week-4', num: 4, title: 'Week 4: Quadratics, Functions, Geometry & Textual Analysis', range: 'Oct 05 to Oct 11', subtitle: 'Days 13–18 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.', phase: 'foundations' as const },
-    { id: 'week-5', num: 5, title: 'Week 5: Advanced Algebra, Statistics & Grammar Mastery', range: 'Oct 12 to Oct 18', subtitle: 'Days 19–24 master circle equations, linear inequalities, percentages & statistical claims.', phase: 'foundations' as const },
-    { id: 'week-6', num: 6, title: 'Week 6: Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch', range: 'Oct 19 to Oct 25', subtitle: 'Days 25–30 finish all 145 skills by Sat Oct 24. Sun Oct 25 rest day resets before Test #1.', phase: 'foundations' as const },
+    { id: 'week-3', num: 3, title: 'Week 3: Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)', range: 'Sep 28 to Oct 04', subtitle: 'Sep 28-29 buffer recovery; Days 8–11 launch trig, circles, linear systems & distributions.', phase: 'foundations' as const },
+    { id: 'week-4', num: 4, title: 'Week 4: Quadratics, Functions, Geometry & Textual Analysis', range: 'Oct 05 to Oct 11', subtitle: 'Days 12–17 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.', phase: 'foundations' as const },
+    { id: 'week-5', num: 5, title: 'Week 5: Advanced Algebra, Statistics & Grammar Mastery', range: 'Oct 12 to Oct 18', subtitle: 'Days 18–23 master circle equations, linear inequalities, percentages & statistical claims.', phase: 'foundations' as const },
+    { id: 'week-6', num: 6, title: 'Week 6: Phase 1 Climax (All 145 Skills Complete on Oct 25)', range: 'Oct 19 to Oct 25', subtitle: 'Days 24–30 finish all 145 skills by Sun Oct 25. Tomorrow Phase 2 launches with Test #1.', phase: 'foundations' as const },
     { id: 'week-7', num: 7, title: 'Week 7: Phase 2 Testing Arena (Practice Tests #1 & #2)', range: 'Oct 26 to Nov 01', subtitle: 'Full timed Bluebook Test #1 (Mon Oct 26) and Test #2 (Fri Oct 30) with autopsies & drills.', phase: 'bluebook' as const },
     { id: 'week-8', num: 8, title: 'Week 8: Test #3 Final Mock, Taper, Packout & Official SAT Exam Day', range: 'Nov 02 to Nov 07', subtitle: 'Test #3 (Tue Nov 3), light taper, bag packout, full rest & Sat Nov 7 Exam Day.', phase: 'exam' as const },
   ];
@@ -409,8 +410,8 @@ export function getPhase2BufferMetrics(customBufferDates: string[]): Phase2Metri
   return {
     totalBufferDays,
     phase2FillerDaysSubtracted,
-    phase1CompletionDateStr: '2026-10-24',
-    phase1CompletionFormatted: 'Sat Oct 24',
+    phase1CompletionDateStr: '2026-10-25',
+    phase1CompletionFormatted: 'Sun Oct 25',
     test1DateStr: '2026-10-26',
     test2DateStr: '2026-10-30',
     test3DateStr: '2026-11-03',

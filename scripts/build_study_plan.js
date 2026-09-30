@@ -3,8 +3,8 @@ const path = require('path');
 
 // ============================================================================
 // OFFICIAL UPDATED SAT STUDY PLAN
-// Phase 1: Sep 14 - Oct 24 (Days 1 to 30; Sep 22-28 = 7 Buffer Days)
-// Phase 2: Oct 25 - Nov 06 (3 Full Mocks, Autopsies, Drills & Taper)
+// Phase 1: Sep 14 - Oct 25 (Days 1 to 30; Sep 22-29 = 8 Buffer Days)
+// Phase 2: Oct 26 - Nov 06 (3 Full Mocks, Autopsies, Drills & Taper)
 // Exam Day: Sat Nov 07 (Official SAT at Crescent Model School)
 // ============================================================================
 
@@ -32,9 +32,9 @@ const WEEKS_META = [
   {
     id: 'week-3',
     weekNumber: 3,
-    title: 'Week 3: Final Buffer Day & Phase 1 Resume (Units 5-7)',
+    title: 'Week 3: Final Buffer Days & Phase 1 Resume (Sep 30 - Oct 04)',
     dateRange: 'Sep 28 to Oct 04',
-    subtitle: 'Mon Sep 28 buffer recovery; Days 8–12 launch trig, circles, linear systems & distributions.',
+    subtitle: 'Sep 28-29 buffer recovery; Days 8–11 launch trig, circles, linear systems & distributions.',
     phase: 'foundations',
     startDate: '2026-09-28',
     endDate: '2026-10-04'
@@ -44,7 +44,7 @@ const WEEKS_META = [
     weekNumber: 4,
     title: 'Week 4: Quadratics, Functions, Geometry & Textual Analysis',
     dateRange: 'Oct 05 to Oct 11',
-    subtitle: 'Days 13–18 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.',
+    subtitle: 'Days 12–17 cover factoring, polynomials, exponential models, 3D geometry & rhetoric.',
     phase: 'foundations',
     startDate: '2026-10-05',
     endDate: '2026-10-11'
@@ -54,7 +54,7 @@ const WEEKS_META = [
     weekNumber: 5,
     title: 'Week 5: Advanced Algebra, Statistics & Grammar Mastery',
     dateRange: 'Oct 12 to Oct 18',
-    subtitle: 'Days 19–24 master circle equations, linear inequalities, percentages & statistical claims.',
+    subtitle: 'Days 18–23 master circle equations, linear inequalities, percentages & statistical claims.',
     phase: 'foundations',
     startDate: '2026-10-12',
     endDate: '2026-10-18'
@@ -62,9 +62,9 @@ const WEEKS_META = [
   {
     id: 'week-6',
     weekNumber: 6,
-    title: 'Week 6: Phase 1 Climax (All 145 Skills Complete) & Phase 2 Launch',
+    title: 'Week 6: Phase 1 Climax (All 145 Skills Complete on Oct 25)',
     dateRange: 'Oct 19 to Oct 25',
-    subtitle: 'Days 25–30 finish all 145 skills by Sat Oct 24. Sun Oct 25 rest day resets before Test #1.',
+    subtitle: 'Days 24–30 finish all 145 skills by Sun Oct 25. Tomorrow Phase 2 launches with Test #1.',
     phase: 'foundations',
     startDate: '2026-10-19',
     endDate: '2026-10-25'
@@ -251,7 +251,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -264,7 +264,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -277,7 +277,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -290,7 +290,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -303,7 +303,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -333,7 +333,7 @@ const ALL_DAYS_DATA = [
     phase: 'foundations',
     isBuffer: true,
     isTestDay: false,
-    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 29 - Oct 24.',
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
     rawTasks: [
       { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
     ]
@@ -342,6 +342,19 @@ const ALL_DAYS_DATA = [
     dateStr: '2026-09-29',
     dayOfWeek: 'Tue',
     formattedDate: 'Tue Sep 29',
+    dayNumber: null,
+    phase: 'foundations',
+    isBuffer: true,
+    isTestDay: false,
+    specialInstructions: 'BUFFER DAY (fever/dizziness): Zero assigned study. Full rest and recovery. Work redistributed across Sep 30 - Oct 25.',
+    rawTasks: [
+      { timeSlot: 'All Day', type: 'buffer', code: 'BUFFER', topic: 'Health & Recovery Buffer (No Study)', duration: 0 },
+    ]
+  },
+  {
+    dateStr: '2026-09-30',
+    dayOfWeek: 'Wed',
+    formattedDate: 'Wed Sep 30',
     dayNumber: 8,
     phase: 'foundations',
     isBuffer: false,
@@ -358,9 +371,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-09-30',
-    dayOfWeek: 'Wed',
-    formattedDate: 'Wed Sep 30',
+    dateStr: '2026-10-01',
+    dayOfWeek: 'Thu',
+    formattedDate: 'Thu Oct 01',
     dayNumber: 9,
     phase: 'foundations',
     isBuffer: false,
@@ -377,9 +390,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-01',
-    dayOfWeek: 'Thu',
-    formattedDate: 'Thu Oct 01',
+    dateStr: '2026-10-02',
+    dayOfWeek: 'Fri',
+    formattedDate: 'Fri Oct 02',
     dayNumber: 10,
     phase: 'foundations',
     isBuffer: false,
@@ -397,9 +410,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-02',
-    dayOfWeek: 'Fri',
-    formattedDate: 'Fri Oct 02',
+    dateStr: '2026-10-03',
+    dayOfWeek: 'Sat',
+    formattedDate: 'Sat Oct 03',
     dayNumber: 11,
     phase: 'foundations',
     isBuffer: false,
@@ -414,26 +427,6 @@ const ALL_DAYS_DATA = [
       { timeSlot: '8:25 PM - 8:40 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
       { timeSlot: '8:40 PM - 9:02 PM', type: 'rw', code: 'R&W U7.2', topic: 'Rhetorical synthesis', duration: 22 },
       { timeSlot: '9:02 PM - 9:24 PM', type: 'rw', code: 'R&W U7.3', topic: 'Form, structure, and sense', duration: 22 },
-    ]
-  },
-  {
-    dateStr: '2026-10-03',
-    dayOfWeek: 'Sat',
-    formattedDate: 'Sat Oct 03',
-    dayNumber: 12,
-    phase: 'foundations',
-    isBuffer: false,
-    isTestDay: false,
-    specialInstructions: 'Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
-    rawTasks: [
-      { timeSlot: '6:30 PM - 6:55 PM', type: 'math', code: 'Math U7.4', topic: 'Center, spread, and shape of distributions', duration: 25 },
-      { timeSlot: '6:55 PM - 7:20 PM', type: 'math', code: 'Math U7.5', topic: 'Data representations', duration: 25 },
-      { timeSlot: '7:20 PM - 7:35 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
-      { timeSlot: '7:35 PM - 8:00 PM', type: 'math', code: 'Math U7.6', topic: 'Scatterplots', duration: 25 },
-      { timeSlot: '8:00 PM - 8:25 PM', type: 'math', code: 'Math U7.7', topic: 'Linear and exponential growth', duration: 25 },
-      { timeSlot: '8:25 PM - 8:40 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
-      { timeSlot: '8:40 PM - 9:05 PM', type: 'math', code: 'Math U7.8', topic: 'Probability and relative frequency', duration: 25 },
-      { timeSlot: '9:05 PM - 9:27 PM', type: 'rw', code: 'R&W U7.4', topic: 'Boundaries', duration: 22 },
     ]
   },
   {
@@ -457,6 +450,26 @@ const ALL_DAYS_DATA = [
     dateStr: '2026-10-05',
     dayOfWeek: 'Mon',
     formattedDate: 'Mon Oct 05',
+    dayNumber: 12,
+    phase: 'foundations',
+    isBuffer: false,
+    isTestDay: false,
+    specialInstructions: 'Day 12: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
+    rawTasks: [
+      { timeSlot: '6:30 PM - 6:55 PM', type: 'math', code: 'Math U7.4', topic: 'Center, spread, and shape of distributions', duration: 25 },
+      { timeSlot: '6:55 PM - 7:20 PM', type: 'math', code: 'Math U7.5', topic: 'Data representations', duration: 25 },
+      { timeSlot: '7:20 PM - 7:35 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
+      { timeSlot: '7:35 PM - 8:00 PM', type: 'math', code: 'Math U7.6', topic: 'Scatterplots', duration: 25 },
+      { timeSlot: '8:00 PM - 8:25 PM', type: 'math', code: 'Math U7.7', topic: 'Linear and exponential growth', duration: 25 },
+      { timeSlot: '8:25 PM - 8:40 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
+      { timeSlot: '8:40 PM - 9:05 PM', type: 'math', code: 'Math U7.8', topic: 'Probability and relative frequency', duration: 25 },
+      { timeSlot: '9:05 PM - 9:27 PM', type: 'rw', code: 'R&W U7.4', topic: 'Boundaries', duration: 22 },
+    ]
+  },
+  {
+    dateStr: '2026-10-06',
+    dayOfWeek: 'Tue',
+    formattedDate: 'Tue Oct 06',
     dayNumber: 13,
     phase: 'foundations',
     isBuffer: false,
@@ -473,9 +486,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-06',
-    dayOfWeek: 'Tue',
-    formattedDate: 'Tue Oct 06',
+    dateStr: '2026-10-07',
+    dayOfWeek: 'Wed',
+    formattedDate: 'Wed Oct 07',
     dayNumber: 14,
     phase: 'foundations',
     isBuffer: false,
@@ -492,9 +505,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-07',
-    dayOfWeek: 'Wed',
-    formattedDate: 'Wed Oct 07',
+    dateStr: '2026-10-08',
+    dayOfWeek: 'Thu',
+    formattedDate: 'Thu Oct 08',
     dayNumber: 15,
     phase: 'foundations',
     isBuffer: false,
@@ -511,9 +524,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-08',
-    dayOfWeek: 'Thu',
-    formattedDate: 'Thu Oct 08',
+    dateStr: '2026-10-09',
+    dayOfWeek: 'Fri',
+    formattedDate: 'Fri Oct 09',
     dayNumber: 16,
     phase: 'foundations',
     isBuffer: false,
@@ -530,9 +543,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-09',
-    dayOfWeek: 'Fri',
-    formattedDate: 'Fri Oct 09',
+    dateStr: '2026-10-10',
+    dayOfWeek: 'Sat',
+    formattedDate: 'Sat Oct 10',
     dayNumber: 17,
     phase: 'foundations',
     isBuffer: false,
@@ -546,23 +559,6 @@ const ALL_DAYS_DATA = [
       { timeSlot: '8:25 PM - 8:50 PM', type: 'rw', code: 'R&W U9.3', topic: 'Cross-text connections', duration: 25 },
       { timeSlot: '8:50 PM - 9:05 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
       { timeSlot: '9:05 PM - 9:30 PM', type: 'rw', code: 'R&W U10.1', topic: 'Transitions', duration: 25 },
-    ]
-  },
-  {
-    dateStr: '2026-10-10',
-    dayOfWeek: 'Sat',
-    formattedDate: 'Sat Oct 10',
-    dayNumber: 18,
-    phase: 'foundations',
-    isBuffer: false,
-    isTestDay: false,
-    specialInstructions: 'Day 18: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
-    rawTasks: [
-      { timeSlot: '6:30 PM - 7:05 PM', type: 'math', code: 'Math U9.3', topic: 'Right triangle trigonometry', duration: 35 },
-      { timeSlot: '7:05 PM - 7:40 PM', type: 'math', code: 'Math U9.4', topic: 'Circle theorems', duration: 35 },
-      { timeSlot: '7:40 PM - 7:55 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
-      { timeSlot: '7:55 PM - 8:30 PM', type: 'math', code: 'Math U9.5', topic: 'Unit circle trigonometry', duration: 35 },
-      { timeSlot: '8:30 PM - 8:55 PM', type: 'rw', code: 'R&W U10.2', topic: 'Rhetorical synthesis', duration: 25 },
     ]
   },
   {
@@ -586,6 +582,23 @@ const ALL_DAYS_DATA = [
     dateStr: '2026-10-12',
     dayOfWeek: 'Mon',
     formattedDate: 'Mon Oct 12',
+    dayNumber: 18,
+    phase: 'foundations',
+    isBuffer: false,
+    isTestDay: false,
+    specialInstructions: 'Day 18: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
+    rawTasks: [
+      { timeSlot: '6:30 PM - 7:05 PM', type: 'math', code: 'Math U9.3', topic: 'Right triangle trigonometry', duration: 35 },
+      { timeSlot: '7:05 PM - 7:40 PM', type: 'math', code: 'Math U9.4', topic: 'Circle theorems', duration: 35 },
+      { timeSlot: '7:40 PM - 7:55 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
+      { timeSlot: '7:55 PM - 8:30 PM', type: 'math', code: 'Math U9.5', topic: 'Unit circle trigonometry', duration: 35 },
+      { timeSlot: '8:30 PM - 8:55 PM', type: 'rw', code: 'R&W U10.2', topic: 'Rhetorical synthesis', duration: 25 },
+    ]
+  },
+  {
+    dateStr: '2026-10-13',
+    dayOfWeek: 'Tue',
+    formattedDate: 'Tue Oct 13',
     dayNumber: 19,
     phase: 'foundations',
     isBuffer: false,
@@ -602,9 +615,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-13',
-    dayOfWeek: 'Tue',
-    formattedDate: 'Tue Oct 13',
+    dateStr: '2026-10-14',
+    dayOfWeek: 'Wed',
+    formattedDate: 'Wed Oct 14',
     dayNumber: 20,
     phase: 'foundations',
     isBuffer: false,
@@ -621,9 +634,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-14',
-    dayOfWeek: 'Wed',
-    formattedDate: 'Wed Oct 14',
+    dateStr: '2026-10-15',
+    dayOfWeek: 'Thu',
+    formattedDate: 'Thu Oct 15',
     dayNumber: 21,
     phase: 'foundations',
     isBuffer: false,
@@ -638,9 +651,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-15',
-    dayOfWeek: 'Thu',
-    formattedDate: 'Thu Oct 15',
+    dateStr: '2026-10-16',
+    dayOfWeek: 'Fri',
+    formattedDate: 'Fri Oct 16',
     dayNumber: 22,
     phase: 'foundations',
     isBuffer: false,
@@ -655,9 +668,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-16',
-    dayOfWeek: 'Fri',
-    formattedDate: 'Fri Oct 16',
+    dateStr: '2026-10-17',
+    dayOfWeek: 'Sat',
+    formattedDate: 'Sat Oct 17',
     dayNumber: 23,
     phase: 'foundations',
     isBuffer: false,
@@ -669,23 +682,6 @@ const ALL_DAYS_DATA = [
       { timeSlot: '7:30 PM - 7:45 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
       { timeSlot: '7:45 PM - 8:15 PM', type: 'math', code: 'Math U11.7', topic: 'Linear and exponential growth', duration: 30 },
       { timeSlot: '8:15 PM - 8:45 PM', type: 'math', code: 'Math U11.8', topic: 'Probability and relative frequency', duration: 30 },
-    ]
-  },
-  {
-    dateStr: '2026-10-17',
-    dayOfWeek: 'Sat',
-    formattedDate: 'Sat Oct 17',
-    dayNumber: 24,
-    phase: 'foundations',
-    isBuffer: false,
-    isTestDay: false,
-    specialInstructions: 'Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
-    rawTasks: [
-      { timeSlot: '6:30 PM - 7:00 PM', type: 'math', code: 'Math U11.9', topic: 'Data inferences', duration: 30 },
-      { timeSlot: '7:00 PM - 7:30 PM', type: 'math', code: 'Math U11.10', topic: 'Evaluating statistical claims', duration: 30 },
-      { timeSlot: '7:30 PM - 7:45 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
-      { timeSlot: '7:45 PM - 8:20 PM', type: 'math', code: 'Math U12.1', topic: 'Factoring quadratic and polynomial expressions', duration: 35 },
-      { timeSlot: '8:20 PM - 8:55 PM', type: 'rw', code: 'R&W U11.4', topic: 'Text structure and purpose + cross-text connections', duration: 35 },
     ]
   },
   {
@@ -709,6 +705,23 @@ const ALL_DAYS_DATA = [
     dateStr: '2026-10-19',
     dayOfWeek: 'Mon',
     formattedDate: 'Mon Oct 19',
+    dayNumber: 24,
+    phase: 'foundations',
+    isBuffer: false,
+    isTestDay: false,
+    specialInstructions: 'Day 24: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.',
+    rawTasks: [
+      { timeSlot: '6:30 PM - 7:00 PM', type: 'math', code: 'Math U11.9', topic: 'Data inferences', duration: 30 },
+      { timeSlot: '7:00 PM - 7:30 PM', type: 'math', code: 'Math U11.10', topic: 'Evaluating statistical claims', duration: 30 },
+      { timeSlot: '7:30 PM - 7:45 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
+      { timeSlot: '7:45 PM - 8:20 PM', type: 'math', code: 'Math U12.1', topic: 'Factoring quadratic and polynomial expressions', duration: 35 },
+      { timeSlot: '8:20 PM - 8:55 PM', type: 'rw', code: 'R&W U11.4', topic: 'Text structure and purpose + cross-text connections', duration: 35 },
+    ]
+  },
+  {
+    dateStr: '2026-10-20',
+    dayOfWeek: 'Tue',
+    formattedDate: 'Tue Oct 20',
     dayNumber: 25,
     phase: 'foundations',
     isBuffer: false,
@@ -723,9 +736,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-20',
-    dayOfWeek: 'Tue',
-    formattedDate: 'Tue Oct 20',
+    dateStr: '2026-10-21',
+    dayOfWeek: 'Wed',
+    formattedDate: 'Wed Oct 21',
     dayNumber: 26,
     phase: 'foundations',
     isBuffer: false,
@@ -740,9 +753,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-21',
-    dayOfWeek: 'Wed',
-    formattedDate: 'Wed Oct 21',
+    dateStr: '2026-10-22',
+    dayOfWeek: 'Thu',
+    formattedDate: 'Thu Oct 22',
     dayNumber: 27,
     phase: 'foundations',
     isBuffer: false,
@@ -759,9 +772,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-22',
-    dayOfWeek: 'Thu',
-    formattedDate: 'Thu Oct 22',
+    dateStr: '2026-10-23',
+    dayOfWeek: 'Fri',
+    formattedDate: 'Fri Oct 23',
     dayNumber: 28,
     phase: 'foundations',
     isBuffer: false,
@@ -778,9 +791,9 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-23',
-    dayOfWeek: 'Fri',
-    formattedDate: 'Fri Oct 23',
+    dateStr: '2026-10-24',
+    dayOfWeek: 'Sat',
+    formattedDate: 'Sat Oct 24',
     dayNumber: 29,
     phase: 'foundations',
     isBuffer: false,
@@ -797,14 +810,14 @@ const ALL_DAYS_DATA = [
     ]
   },
   {
-    dateStr: '2026-10-24',
-    dayOfWeek: 'Sat',
-    formattedDate: 'Sat Oct 24',
+    dateStr: '2026-10-25',
+    dayOfWeek: 'Sun',
+    formattedDate: 'Sun Oct 25',
     dayNumber: 30,
     phase: 'foundations',
     isBuffer: false,
     isTestDay: false,
-    specialInstructions: 'PHASE 1 COMPLETE: All 145 Khan Academy Math & R&W curriculum skills mastered! Tomorrow is a mandatory reset before Phase 2 Bluebook testing launches on Monday.',
+    specialInstructions: 'PHASE 1 COMPLETE: All 145 Khan Academy Math & R&W curriculum skills mastered! Tomorrow Phase 2 launches with Test #1.',
     rawTasks: [
       { timeSlot: '6:30 PM - 7:10 PM', type: 'math', code: 'Math U13.4', topic: 'Circle theorems', duration: 40 },
       { timeSlot: '7:10 PM - 7:50 PM', type: 'math', code: 'Math U13.5', topic: 'Unit circle trigonometry', duration: 40 },
@@ -813,19 +826,6 @@ const ALL_DAYS_DATA = [
       { timeSlot: '8:45 PM - 9:00 PM', type: 'rw', code: 'R&W U12.7', topic: 'Supplements', duration: 15 },
       { timeSlot: '9:00 PM - 9:15 PM', type: 'buffer', code: 'BREAK', topic: 'Screen-Free Rest & Recharge', duration: 15 },
       { timeSlot: '9:15 PM - 9:30 PM', type: 'rw', code: 'R&W U12.8', topic: 'Punctuation', duration: 15 },
-    ]
-  },
-  {
-    dateStr: '2026-10-25',
-    dayOfWeek: 'Sun',
-    formattedDate: 'Sun Oct 25',
-    dayNumber: null,
-    phase: 'bluebook',
-    isBuffer: true,
-    isTestDay: false,
-    specialInstructions: 'REST DAY: Pre-Phase 2 Mental Reset. Zero studying. Recharge energy before Test #1 tomorrow morning.',
-    rawTasks: [
-      { timeSlot: 'All Day', type: 'buffer', code: 'REST', topic: 'Screen-Free Mental Reset (No Studying)', duration: 0 },
     ]
   },
 
@@ -1047,7 +1047,7 @@ function processDay(rawDay, weekMeta) {
     if (rawDay.dateStr === '2026-10-26' && t.type === 'test') taskId = 'bluebook-test-1';
     if (rawDay.dateStr === '2026-10-30' && t.type === 'test') taskId = 'bluebook-test-2';
     if (rawDay.dateStr === '2026-11-03' && t.type === 'test') taskId = 'bluebook-test-3';
-    if (rawDay.dateStr === '2026-11-07' && t.type === 'exam') taskId = 'sat-exam-day';
+    if (rawDay.dateStr === '2026-11-07' && (t.type === 'exam' || t.code === 'EXAM')) taskId = 'sat-exam-day';
 
     return {
       id: taskId,

@@ -30,7 +30,7 @@ for (const w of STUDY_PLAN_WEEKS) {
       d.dayNumber === 1 ||
       d.dayNumber === 7 ||
       d.dateStr === '2026-09-22' ||
-      d.dateStr === '2026-09-28' ||
+      d.dateStr === '2026-09-29' ||
       d.dayNumber === 8 ||
       d.dayNumber === 30 ||
       d.isTestDay ||
