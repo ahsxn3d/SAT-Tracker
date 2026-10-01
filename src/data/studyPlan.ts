@@ -3051,7 +3051,7 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
     "id": "week-7",
     "title": "Week 7: Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)",
     "dateRange": "Oct 26 to Nov 01",
-    "subtitle": "Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Sat Oct 31.",
+    "subtitle": "Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Fri Oct 30.",
     "phase": "bluebook",
     "days": [
       {
@@ -3279,51 +3279,22 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-10-29-1",
-            "label": "[REVIEW] Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min)",
+            "label": "[REVIEW] Error-log review of Test #1 + targeted Math/R&W drills on weak areas (75 min)",
             "subject": "review",
-            "topic": "Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min)",
+            "topic": "Error-log review of Test #1 + targeted Math/R&W drills on weak areas (75 min)",
             "code": "REVIEW",
             "timeSlot": "6:30 PM - 7:45 PM",
             "durationMinutes": 75,
             "completed": false
           }
         ],
-        "specialInstructions": "Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min). Dissect every mistake in your error notebook."
+        "specialInstructions": "Error-log review of Test #1 + targeted Math/R&W drills on weak areas (75 min). Dissect every mistake in your error notebook."
       },
       {
         "id": "2026-10-30",
         "dateStr": "2026-10-30",
         "dayOfWeek": "Fri",
         "formattedDate": "Fri Oct 30",
-        "dayNumber": null,
-        "weekId": "week-7",
-        "weekNumber": 7,
-        "weekTitle": "Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)",
-        "phase": "bluebook",
-        "isBuffer": false,
-        "isTestDay": false,
-        "studyTimeMinutes": 60,
-        "breakTimeMinutes": 0,
-        "totalTimeMinutes": 60,
-        "tasks": [
-          {
-            "id": "task-2026-10-30-1",
-            "label": "[DRILL] Targeted R&W drills, punctuation/grammar review (60 min)",
-            "subject": "drill",
-            "topic": "Targeted R&W drills, punctuation/grammar review (60 min)",
-            "code": "DRILL",
-            "timeSlot": "6:30 PM - 7:30 PM",
-            "durationMinutes": 60,
-            "completed": false
-          }
-        ],
-        "specialInstructions": "Targeted R&W drills, punctuation/grammar review (60 min). Focus on transitions and boundary rules."
-      },
-      {
-        "id": "2026-10-31",
-        "dateStr": "2026-10-31",
-        "dayOfWeek": "Sat",
-        "formattedDate": "Sat Oct 31",
         "dayNumber": null,
         "weekId": "week-7",
         "weekNumber": 7,
@@ -3347,6 +3318,35 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
           }
         ],
         "specialInstructions": "TEST #2: Full timed Bluebook Practice Test #2 under real exam conditions (8:00 AM - 10:24 AM)."
+      },
+      {
+        "id": "2026-10-31",
+        "dateStr": "2026-10-31",
+        "dayOfWeek": "Sat",
+        "formattedDate": "Sat Oct 31",
+        "dayNumber": null,
+        "weekId": "week-7",
+        "weekNumber": 7,
+        "weekTitle": "Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)",
+        "phase": "bluebook",
+        "isBuffer": false,
+        "isTestDay": false,
+        "studyTimeMinutes": 75,
+        "breakTimeMinutes": 0,
+        "totalTimeMinutes": 75,
+        "tasks": [
+          {
+            "id": "task-2026-10-31-1",
+            "label": "[REVIEW] Error-log review of Test #2 + targeted drills on weak areas (75 min)",
+            "subject": "review",
+            "topic": "Error-log review of Test #2 + targeted drills on weak areas (75 min)",
+            "code": "REVIEW",
+            "timeSlot": "6:30 PM - 7:45 PM",
+            "durationMinutes": 75,
+            "completed": false
+          }
+        ],
+        "specialInstructions": "Error-log review of Test #2 + targeted drills on weak areas (75 min). Dissect every wrong question and redo missed problems."
       },
       {
         "id": "2026-11-01",
@@ -3404,16 +3404,16 @@ export const STUDY_PLAN_WEEKS: WeekPlan[] = [
         "tasks": [
           {
             "id": "task-2026-11-02-1",
-            "label": "[REVIEW] Deep review, punctuation & transitions traps + Math cleanup (60 min)",
+            "label": "[REVIEW] Deep review -- punctuation/transitions traps + Math formula cleanup (60 min)",
             "subject": "review",
-            "topic": "Deep review, punctuation & transitions traps + Math cleanup (60 min)",
+            "topic": "Deep review -- punctuation/transitions traps + Math formula cleanup (60 min)",
             "code": "REVIEW",
             "timeSlot": "6:30 PM - 7:30 PM",
             "durationMinutes": 60,
             "completed": false
           }
         ],
-        "specialInstructions": "Deep review, punctuation & transitions traps + Math cleanup (60 min). Lock in test-day strategy."
+        "specialInstructions": "Deep review -- punctuation/transitions traps + Math formula cleanup (60 min). Lock in test-day strategy."
       },
       {
         "id": "2026-11-03",

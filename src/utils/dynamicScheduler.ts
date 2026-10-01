@@ -362,7 +362,7 @@ export function buildDynamicWeeks(
     { id: 'week-4', num: 4, title: 'Week 4: Advanced Quadratics, Functions, Geometry & Reading Skills', range: 'Oct 05 to Oct 11', subtitle: 'Days 11–16 cover ratios, data inferences, factoring, polynomials & rhetorical skills.', phase: 'foundations' as const },
     { id: 'week-5', num: 5, title: 'Week 5: Advanced Algebra, Statistics & Grammar Mastery', range: 'Oct 12 to Oct 18', subtitle: 'Days 17–22 master 3D geometry, circle equations, linear inequalities, percentages & data.', phase: 'foundations' as const },
     { id: 'week-6', num: 6, title: 'Week 6: Exponential Models, Advanced Quadratics & Grammar Systems', range: 'Oct 19 to Oct 25', subtitle: 'Days 23–28 cover scatterplots, quadratics, systems, word problems & grammar conventions.', phase: 'foundations' as const },
-    { id: 'week-7', num: 7, title: 'Week 7: Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)', range: 'Oct 26 to Nov 01', subtitle: 'Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Sat Oct 31.', phase: 'bluebook' as const },
+    { id: 'week-7', num: 7, title: 'Week 7: Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)', range: 'Oct 26 to Nov 01', subtitle: 'Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Fri Oct 30.', phase: 'bluebook' as const },
     { id: 'week-8', num: 8, title: 'Week 8: Test #3 Final Mock, Taper, Packout & Official SAT Exam Day', range: 'Nov 02 to Nov 07', subtitle: 'Test #3 (Tue Nov 3), light taper, bag packout, full rest & Sat Nov 7 Exam Day.', phase: 'exam' as const },
   ];
 
@@ -414,7 +414,7 @@ export function getPhase2BufferMetrics(customBufferDates: string[]): Phase2Metri
     phase1CompletionDateStr: '2026-10-27',
     phase1CompletionFormatted: 'Tue Oct 27',
     test1DateStr: '2026-10-28',
-    test2DateStr: '2026-10-31',
+    test2DateStr: '2026-10-30',
     test3DateStr: '2026-11-03',
     examDateStr: '2026-11-07',
     statusLabel: `${totalBufferDays} Buffer Days Active • Phase 2 Balanced (${phase2FillerDaysSubtracted} filler days compressed)`

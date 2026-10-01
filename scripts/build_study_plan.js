@@ -74,7 +74,7 @@ const WEEKS_META = [
     weekNumber: 7,
     title: 'Week 7: Phase 1 Climax (Ends Oct 27) & Phase 2 Launch (Tests #1 & #2)',
     dateRange: 'Oct 26 to Nov 01',
-    subtitle: 'Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Sat Oct 31.',
+    subtitle: 'Days 29-30 complete all 145 skills by Tue Oct 27. Phase 2 launches Wed Oct 28 with Test #1 & Test #2 on Fri Oct 30.',
     phase: 'bluebook',
     startDate: '2026-10-26',
     endDate: '2026-11-01'
@@ -879,9 +879,9 @@ const ALL_DAYS_DATA = [
     phase: 'bluebook',
     isBuffer: false,
     isTestDay: false,
-    specialInstructions: 'Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min). Dissect every mistake in your error notebook.',
+    specialInstructions: 'Error-log review of Test #1 + targeted Math/R&W drills on weak areas (75 min). Dissect every mistake in your error notebook.',
     rawTasks: [
-      { timeSlot: '6:30 PM - 7:45 PM', type: 'review', code: 'REVIEW', topic: 'Error-log review of Test #1 + Math/Desmos drills on weak areas (75 min)', duration: 75 },
+      { timeSlot: '6:30 PM - 7:45 PM', type: 'review', code: 'REVIEW', topic: 'Error-log review of Test #1 + targeted Math/R&W drills on weak areas (75 min)', duration: 75 },
     ]
   },
   {
@@ -891,10 +891,10 @@ const ALL_DAYS_DATA = [
     dayNumber: null,
     phase: 'bluebook',
     isBuffer: false,
-    isTestDay: false,
-    specialInstructions: 'Targeted R&W drills, punctuation/grammar review (60 min). Focus on transitions and boundary rules.',
+    isTestDay: true,
+    specialInstructions: 'TEST #2: Full timed Bluebook Practice Test #2 under real exam conditions (8:00 AM - 10:24 AM).',
     rawTasks: [
-      { timeSlot: '6:30 PM - 7:30 PM', type: 'drill', code: 'DRILL', topic: 'Targeted R&W drills, punctuation/grammar review (60 min)', duration: 60 },
+      { timeSlot: '8:00 AM - 10:24 AM', type: 'test', code: 'BLUEBOOK TEST 2', topic: 'TEST #2 (full Bluebook Practice Test)', duration: 144 },
     ]
   },
   {
@@ -904,10 +904,10 @@ const ALL_DAYS_DATA = [
     dayNumber: null,
     phase: 'bluebook',
     isBuffer: false,
-    isTestDay: true,
-    specialInstructions: 'TEST #2: Full timed Bluebook Practice Test #2 under real exam conditions (8:00 AM - 10:24 AM).',
+    isTestDay: false,
+    specialInstructions: 'Error-log review of Test #2 + targeted drills on weak areas (75 min). Dissect every wrong question and redo missed problems.',
     rawTasks: [
-      { timeSlot: '8:00 AM - 10:24 AM', type: 'test', code: 'BLUEBOOK TEST 2', topic: 'TEST #2 (full Bluebook Practice Test)', duration: 144 },
+      { timeSlot: '6:30 PM - 7:45 PM', type: 'review', code: 'REVIEW', topic: 'Error-log review of Test #2 + targeted drills on weak areas (75 min)', duration: 75 },
     ]
   },
   {
@@ -935,9 +935,9 @@ const ALL_DAYS_DATA = [
     phase: 'bluebook',
     isBuffer: false,
     isTestDay: false,
-    specialInstructions: 'Deep review, punctuation & transitions traps + Math cleanup (60 min). Lock in test-day strategy.',
+    specialInstructions: 'Deep review -- punctuation/transitions traps + Math formula cleanup (60 min). Lock in test-day strategy.',
     rawTasks: [
-      { timeSlot: '6:30 PM - 7:30 PM', type: 'review', code: 'REVIEW', topic: 'Deep review, punctuation & transitions traps + Math cleanup (60 min)', duration: 60 },
+      { timeSlot: '6:30 PM - 7:30 PM', type: 'review', code: 'REVIEW', topic: 'Deep review -- punctuation/transitions traps + Math formula cleanup (60 min)', duration: 60 },
     ]
   },
   {
@@ -1045,7 +1045,7 @@ function processDay(rawDay, weekMeta) {
 
     let taskId = `task-${rawDay.dateStr}-${idx + 1}`;
     if (rawDay.dateStr === '2026-10-28' && t.type === 'test') taskId = 'bluebook-test-1';
-    if (rawDay.dateStr === '2026-10-31' && t.type === 'test') taskId = 'bluebook-test-2';
+    if (rawDay.dateStr === '2026-10-30' && t.type === 'test') taskId = 'bluebook-test-2';
     if (rawDay.dateStr === '2026-11-03' && t.type === 'test') taskId = 'bluebook-test-3';
     if (rawDay.dateStr === '2026-11-07' && (t.type === 'exam' || t.code === 'EXAM')) taskId = 'sat-exam-day';
 
