@@ -7,6 +7,8 @@ export interface TaskItem {
   durationMinutes?: number;
   timeSlot?: string;
   completed: boolean;
+  type?: string;
+  duration?: number;
   isCarriedOver?: boolean;
   isRescheduled?: boolean;
   originalDayId?: string;
@@ -39,11 +41,14 @@ export interface DayPlan {
 
 export interface WeekPlan {
   id: string;
+  weekNumber?: number | string;
   title: string;
   dateRange: string;
   subtitle: string;
   phase: 'foundations' | 'bluebook' | 'exam';
   days: DayPlan[];
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface ErrorLogEntry {
