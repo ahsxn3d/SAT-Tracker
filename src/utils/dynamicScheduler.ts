@@ -10,7 +10,118 @@ export const DEFAULT_BUFFER_DATES: string[] = [
   '2026-09-28',
   '2026-09-29',
   '2026-09-30',
+  '2026-10-01',
+  '2026-10-02',
 ];
+
+/**
+ * Builds the calendar weeks from the authoritative master plan (STUDY_PLAN_WEEKS).
+ *
+ * - If the user has NOT added any extra buffer days beyond those already in the plan,
+ *   the master plan is returned exactly as written (dates, Sundays, Phase 2 — untouched).
+ * - If the user marks extra buffer days, only Phase 1 curriculum days shift forward.
+ *   Overflow consumes elastic Phase 2 days (drills/reviews), never tests, rest-before-exam,
+ *   or exam day.
+ */
+export function buildDynamicWeeks(
+  customBufferDates: string[],
+  baseWeeks: WeekPlan[]
+): WeekPlan[] {
+  const clone = <T,>(v: T): T => JSON.parse(JSON.stringify(v));
+  const weeks = clone(baseWeeks);
+  const allDays = weeks.flatMap((w) => w.days);
+
+  const baseBufferDates = new Set(allDays.filter((d) => d.isBuffer).map((d) => d.dateStr));
+  const extraBuffers = new Set(customBufferDates.filter((d) => !baseBufferDates.has(d)));
+
+  if (extraBuffers.size === 0) return weeks;
+
+  // Curriculum queue: Phase 1 study days in order
+  const curriculum = allDays
+    .filter((d) => d.phase === 'foundations' && !d.isBuffer && d.dayNumber !== undefined)
+    .sort((a, b) => (a.dayNumber || 0) - (b.dayNumber || 0));
+
+  let qi = 0;
+  const isProtected = (d: DayPlan) =>
+    d.isTestDay || d.phase === 'exam' || (d.isBuffer && d.phase !== 'foundations');
+
+  for (const week of weeks) {
+    week.days = week.days.map((slot) => {
+      const meta = {
+        id: slot.dateStr,
+        dateStr: slot.dateStr,
+        dayOfWeek: slot.dayOfWeek,
+        formattedDate: slot.formattedDate,
+        weekId: slot.weekId,
+        weekNumber: slot.weekNumber,
+        weekTitle: slot.weekTitle,
+      };
+
+      // Base rest/buffer days stay as they are
+      if (slot.isBuffer && slot.phase === 'foundations') return slot;
+
+      // User-added buffer day
+      if (extraBuffers.has(slot.dateStr) && !isProtected(slot)) {
+        return {
+          ...meta,
+          phase: slot.phase,
+          isBuffer: true,
+          isTestDay: false,
+          studyTimeMinutes: 0,
+          breakTimeMinutes: 0,
+          totalTimeMinutes: 0,
+          specialInstructions:
+            'Anti-Burnout Buffer Day: Recovery window. All remaining syllabus shifts forward cleanly without loss.',
+          tasks: [
+            {
+              id: `buffer-${slot.dateStr}`,
+              label: 'Anti-Burnout Buffer Day • Zero Assigned Study',
+              subject: 'buffer',
+              durationMinutes: 0,
+              completed: false,
+            },
+          ],
+        } as DayPlan;
+      }
+
+      // Phase 1 slot, or elastic Phase 2 slot while curriculum is still pending
+      const isPhase1Slot = slot.phase === 'foundations' && !slot.isBuffer;
+      const canAbsorb = isPhase1Slot || (!isProtected(slot) && qi < curriculum.length);
+      if (canAbsorb && qi < curriculum.length) {
+        const src = curriculum[qi++];
+        return { ...src, ...meta, phase: 'foundations', isBuffer: false } as DayPlan;
+      }
+      if (isPhase1Slot) {
+        // Curriculum exhausted early — leave a light review day
+        return {
+          ...meta,
+          phase: 'foundations',
+          isBuffer: false,
+          studyTimeMinutes: 45,
+          breakTimeMinutes: 0,
+          totalTimeMinutes: 45,
+          specialInstructions: 'Phase 1 complete. Light error-log review.',
+          tasks: [
+            {
+              id: `review-${slot.dateStr}`,
+              label: 'Error-log review & weak-skill cleanup (45 min)',
+              subject: 'review',
+              durationMinutes: 45,
+              completed: false,
+            },
+          ],
+        } as DayPlan;
+      }
+      return slot;
+    });
+  }
+
+  return weeks;
+}
+
+// ---------------------------------------------------------------------------
+// Legacy scheduler (kept for reference; no longer used)
+// ---------------------------------------------------------------------------
 
 export interface Phase2Metrics {
   totalBufferDays: number;
@@ -164,10 +275,10 @@ const PHASE_2_MASTER_CANDIDATES: Phase2TemplateItem[] = [
 ];
 
 /**
- * Dynamically constructs the 8 weeks based on any active buffer dates.
- * If baseWeeks already contains the shifted schedule, it can be passed in.
+ * Legacy: dynamically constructs the 8 weeks based on any active buffer dates.
+ * Superseded by buildDynamicWeeks above (forced Sunday rests; ignored master plan).
  */
-export function buildDynamicWeeks(
+export function legacyBuildDynamicWeeks(
   customBufferDates: string[],
   baseWeeks: WeekPlan[]
 ): WeekPlan[] {
