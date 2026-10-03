@@ -45,7 +45,7 @@ export interface MockTestScoreRecord {
 const STORAGE_KEY = 'anti_burnout_mock_scores_v1';
 
 export const MOCK_TESTS_CONFIG = [
-  { id: 'bluebook-test-1', name: 'Full Bluebook Practice Test #1 (Real Conditions)', date: 'Wed Oct 28', tag: 'Phase 2 Launch' },
+  { id: 'bluebook-test-1', name: 'Full Bluebook Practice Test #1 (Real Conditions)', date: 'Mon Oct 26', tag: 'Phase 2 Launch' },
   { id: 'bluebook-test-2', name: 'Full Bluebook Practice Test #2 (Timed Simulation)', date: 'Fri Oct 30', tag: 'High-Stakes Simulation' },
   { id: 'bluebook-test-3', name: 'Full Bluebook Practice Test #3 (Final Full Test, Timed)', date: 'Tue Nov 03', tag: 'Final Practice Test' },
 ];

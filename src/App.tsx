@@ -1217,7 +1217,7 @@ export default function App({ initialSection = 'all', initialSubTab, initialSubj
               <div className="flex items-center justify-between px-1">
                 <span className="text-xs font-black uppercase tracking-wider text-sky-800 font-['JetBrains_Mono'] flex items-center gap-1.5">
                   <Trophy className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Section 5 &bull; Phase 2: The Bluebook Arena (10-Day Schedule • Oct 28–Nov 6)</span>
+                  <span>Section 5 &bull; Phase 2: The Bluebook Arena (13-Day Schedule • Oct 25–Nov 6)</span>
                 </span>
                 {activeSection !== 'all' && (
                   <button

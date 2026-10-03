@@ -22,8 +22,9 @@ for (const w of STUDY_PLAN_WEEKS) {
     }
 
     for (const t of d.tasks) {
-      if (t.subject === 'math' && t.code && t.code.startsWith('Math U')) mathLessonCount++;
-      if (t.subject === 'rw' && t.code && t.code.startsWith('R&W U')) rwLessonCount++;
+      const codeOrLabel = t.code || t.label || '';
+      if (t.subject === 'math' && codeOrLabel.match(/MATH\s+U\d+/i)) mathLessonCount++;
+      if (t.subject === 'rw' && codeOrLabel.match(/R&W\s+U\d+/i)) rwLessonCount++;
     }
 
     if (
