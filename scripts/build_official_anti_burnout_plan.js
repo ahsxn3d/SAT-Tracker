@@ -76,210 +76,183 @@ Tue Sep 29 -- BUFFER DAY
 Wed Sep 30 -- BUFFER DAY
 Thu Oct 01 -- BUFFER DAY
 Fri Oct 02 -- BUFFER DAY
-
-DAY 8 -- Sat Oct 03  (study 164 min)  <<< UNIT 5 RESTART PROGRESS
-  6:30 PM-7:00 PM  MATH U5.1    Area and volume (30 min)
-  7:00 PM-7:30 PM  MATH U5.2    Congruence, similarity, and angle relationships (30 min)
-  7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U5.3    Right triangle trigonometry (30 min)
-  8:15 PM-8:45 PM  MATH U5.4    Circle theorems (30 min)
-  8:45 PM-9:00 PM  BREAK (15 min)
-  9:00 PM-9:22 PM  R&W  U5.1    Command of textual evidence (22 min)
-  9:22 PM-9:44 PM  R&W  U5.2    Command of quantitative evidence (22 min)
-
-DAY 9 -- Sun Oct 04  (study 157 min)
-  6:30 PM-7:00 PM  MATH U5.5    Unit circle trigonometry (30 min)
-  7:00 PM-7:30 PM  MATH U5.6    Circle equations (30 min)
-  7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:10 PM  MATH U6.1    Solving linear equations and inequalities (25 min)
-  8:10 PM-8:35 PM  MATH U6.2    Linear equation word problems (25 min)
-  8:35 PM-8:50 PM  BREAK (15 min)
-  8:50 PM-9:15 PM  MATH U6.3    Linear relationship word problems (25 min)
-  9:15 PM-9:37 PM  R&W  U5.3    Central ideas and details (22 min)
-
-DAY 10 -- Mon Oct 05  (study 144 min)
-  6:30 PM-6:55 PM  MATH U6.4    Graphs of linear equations and functions (25 min)
-  6:55 PM-7:20 PM  MATH U6.5    Solving systems of linear equations (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U6.6    Systems of linear equations word problems (25 min)
-  8:00 PM-8:25 PM  MATH U6.7    Linear inequality word problems (25 min)
-  8:25 PM-8:40 PM  BREAK (15 min)
-  8:40 PM-9:02 PM  R&W  U5.4    Inferences (22 min)
-  9:02 PM-9:24 PM  R&W  U6.1    Words in context (22 min)
-
-Tue Oct 06 -- Mon Oct 05 CATCHUP
-  6:30 PM-6:55 PM  MATH U6.8    Graphs of linear systems and inequalities (25 min)
-  6:55 PM-7:15 PM  R&W  U6.2    Text structure and purpose (20 min)
-  7:15 PM-7:35 PM  R&W  U6.3    Cross-text connections (20 min)
-  7:35 PM-7:55 PM  R&W  U7.1    Transitions (20 min)
-
-Wed Oct 07 -- REVIEW & BUFFER
-  6:30 PM-7:00 PM  MATH U6.5    Linear systems review (30 min)
-  7:00 PM-7:30 PM  R&W  U7.2    Rhetorical synthesis review (30 min)
-
+Sat Oct 03 -- BUFFER DAY
+Sun Oct 04 -- BUFFER DAY
+Mon Oct 05 -- BUFFER DAY
+Tue Oct 06 -- BUFFER DAY
+Wed Oct 07 -- BUFFER DAY
 Thu Oct 08 -- BUFFER DAY
 Fri Oct 09 -- BUFFER DAY
 Sat Oct 10 -- BUFFER DAY
 
-DAY 11 -- Sun Oct 11  (study 176 min)  <<< MATH CHAPTER 7 & R&W CHAPTER 5 LAUNCH
+DAY 8 -- Sun Oct 11  (study 216 min)  <<< MATH CHAPTER 7 + ENGLISH CHAPTER 5 START HERE (lesson 1 of each)
   6:30 PM-6:55 PM  MATH U7.1    Ratios, rates, and proportions (25 min)
   6:55 PM-7:20 PM  MATH U7.2    Unit conversion (25 min)
   7:20 PM-7:35 PM  BREAK (15 min)
   7:35 PM-8:00 PM  MATH U7.3    Percentages (25 min)
   8:00 PM-8:25 PM  MATH U7.4    Center, spread, and shape of distributions (25 min)
-  8:25 PM-8:50 PM  MATH U7.5    Data representations (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:27 PM  R&W  U5.1    Command of textual evidence (22 min)
-  9:27 PM-9:49 PM  R&W  U5.2    Command of quantitative evidence (22 min)
-  9:49 PM-10:11 PM R&W  U5.3    Central ideas and details (22 min)
-
-DAY 12 -- Mon Oct 12  (study 166 min)
-  6:30 PM-6:55 PM  MATH U7.6    Scatterplots (25 min)
-  6:55 PM-7:20 PM  MATH U7.7    Linear and exponential growth (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U7.8    Probability and relative frequency (25 min)
-  8:00 PM-8:25 PM  MATH U7.9    Data inferences (25 min)
-  8:25 PM-8:50 PM  MATH U7.10   Evaluating statistical claims (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:27 PM  R&W  U5.4    Inferences (22 min)
-  9:27 PM-9:49 PM  R&W  U6.1    Words in context (22 min)
-  9:49 PM-10:11 PM R&W  U6.2    Text structure and purpose (22 min)
-
-DAY 13 -- Tue Oct 13  (study 166 min)
-  6:30 PM-6:55 PM  MATH U8.1    Factoring quadratic and polynomial expressions (25 min)
-  6:55 PM-7:20 PM  MATH U8.2    Radicals and rational exponents (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U8.3    Operations with polynomials (25 min)
-  8:00 PM-8:25 PM  MATH U8.4    Operations with rational expressions (25 min)
-  8:25 PM-8:50 PM  MATH U8.5    Nonlinear functions (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:27 PM  R&W  U6.3    Cross-text connections (22 min)
-  9:27 PM-9:49 PM  R&W  U7.1    Transitions (22 min)
-  9:49 PM-10:11 PM R&W  U7.2    Rhetorical synthesis (22 min)
-
-DAY 14 -- Wed Oct 14  (study 169 min)
-  6:30 PM-6:55 PM  MATH U8.6    Isolating quantities (25 min)
-  6:55 PM-7:20 PM  MATH U8.7    Solving quadratic equations (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U8.8    Linear and quadratic systems (25 min)
-  8:00 PM-8:25 PM  MATH U8.9    Radical, rational, and absolute value equations (25 min)
-  8:25 PM-8:50 PM  MATH U8.10   Quadratic and exponential word problems (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:27 PM  R&W  U7.3    Form, structure, and sense (22 min)
-  9:27 PM-9:49 PM  R&W  U7.4    Boundaries (22 min)
-
-DAY 15 -- Thu Oct 15  (study 175 min)
-  6:30 PM-6:55 PM  MATH U8.11   Quadratic graphs (25 min)
-  6:55 PM-7:20 PM  MATH U8.12   Exponential graphs (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U8.13   Polynomial and other nonlinear graphs (25 min)
-  8:00 PM-8:30 PM  MATH U9.1    Area and volume (30 min)
-  8:30 PM-9:00 PM  MATH U9.2    Congruence, similarity, and angle relationships (30 min)
-  9:00 PM-9:15 PM  BREAK (15 min)
-  9:15 PM-9:40 PM  R&W  U8.1    Command of textual evidence (25 min)
-  9:40 PM-10:05 PM R&W  U8.2    Command of quantitative evidence (25 min)
-
-DAY 16 -- Fri Oct 16  (study 170 min)
-  6:30 PM-7:00 PM  MATH U9.3    Right triangle trigonometry (30 min)
-  7:00 PM-7:30 PM  MATH U9.4    Circle theorems (30 min)
-  7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U9.5    Unit circle trigonometry (30 min)
-  8:15 PM-8:45 PM  MATH U9.6    Circle equations (30 min)
-  8:45 PM-9:00 PM  BREAK (15 min)
-  9:00 PM-9:25 PM  R&W  U8.3    Central ideas and details (25 min)
-  9:25 PM-9:50 PM  R&W  U8.4    Inferences (25 min)
-
-DAY 17 -- Sat Oct 17  (study 150 min)
-  6:30 PM-6:55 PM  MATH U10.1   Solving linear equations and inequalities (25 min)
-  6:55 PM-7:20 PM  MATH U10.2   Linear equation word problems (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U10.3   Linear relationship word problems (25 min)
-  8:00 PM-8:25 PM  MATH U10.4   Graphs of linear equations and functions (25 min)
   8:25 PM-8:40 PM  BREAK (15 min)
-  8:40 PM-9:05 PM  R&W  U9.1    Words in context (25 min)
-  9:05 PM-9:30 PM  R&W  U9.2    Text structure and purpose (25 min)
+  8:40 PM-9:05 PM  MATH U7.5    Data representations (25 min)
+  9:05 PM-9:30 PM  MATH U7.6    Scatterplots (25 min)
+  9:30 PM-9:45 PM  BREAK (15 min)
+  9:45 PM-10:07 PM R&W  U5.1    Command of textual evidence (22 min)
+  10:07 PM-10:29 PM R&W U5.2    Command of quantitative evidence (22 min)
+  10:29 PM-10:51 PM R&W U5.3    Central ideas and details (22 min)
 
-DAY 18 -- Sun Oct 18  (study 150 min)
-  6:30 PM-6:55 PM  MATH U10.5   Solving systems of linear equations (25 min)
-  6:55 PM-7:20 PM  MATH U10.6   Systems of linear equations word problems (25 min)
+DAY 9 -- Mon Oct 12  (study 196 min)
+  6:30 PM-6:55 PM  MATH U7.7    Linear and exponential growth (25 min)
+  6:55 PM-7:20 PM  MATH U7.8    Probability and relative frequency (25 min)
   7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U10.7   Linear inequality word problems (25 min)
-  8:00 PM-8:25 PM  MATH U10.8   Graphs of linear systems and inequalities (25 min)
+  7:35 PM-8:00 PM  MATH U7.9    Data inferences (25 min)
+  8:00 PM-8:25 PM  MATH U7.10   Evaluating statistical claims (25 min)
   8:25 PM-8:40 PM  BREAK (15 min)
-  8:40 PM-9:05 PM  R&W  U9.3    Cross-text connections (25 min)
-  9:05 PM-9:30 PM  R&W  U10.1   Transitions (25 min)
+  8:40 PM-9:10 PM  MATH U8.1    Factoring quadratic and polynomial expressions (30 min)
+  9:10 PM-9:32 PM  R&W  U5.4    Inferences (22 min)
+  9:32 PM-9:47 PM  BREAK (15 min)
+  9:47 PM-10:09 PM R&W  U6.1    Words in context (22 min)
+  10:09 PM-10:31 PM R&W U6.2    Text structure and purpose (22 min)
 
-DAY 19 -- Mon Oct 19  (study 175 min)
-  6:30 PM-6:55 PM  MATH U11.1   Ratios, rates, and proportions (25 min)
-  6:55 PM-7:20 PM  MATH U11.2   Unit conversion (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U11.3   Percentages (25 min)
-  8:00 PM-8:25 PM  MATH U11.4   Center, spread, and shape of distributions (25 min)
-  8:25 PM-8:50 PM  MATH U11.5   Data representations (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:30 PM  R&W  U10.2   Rhetorical synthesis (25 min)
-  9:30 PM-9:55 PM  R&W  U10.3   Form, structure, and sense (25 min)
-
-DAY 20 -- Tue Oct 20  (study 180 min)
-  6:30 PM-6:55 PM  MATH U11.6   Scatterplots (25 min)
-  6:55 PM-7:20 PM  MATH U11.7   Linear and exponential growth (25 min)
-  7:20 PM-7:35 PM  BREAK (15 min)
-  7:35 PM-8:00 PM  MATH U11.8   Probability and relative frequency (25 min)
-  8:00 PM-8:25 PM  MATH U11.9   Data inferences (25 min)
-  8:25 PM-8:50 PM  MATH U11.10  Evaluating statistical claims (25 min)
-  8:50 PM-9:05 PM  BREAK (15 min)
-  9:05 PM-9:30 PM  R&W  U10.4   Boundaries (25 min)
-  9:30 PM-10:00 PM R&W  U11.1   Command of evidence (30 min)
-
-DAY 21 -- Wed Oct 21  (study 180 min)
-  6:30 PM-7:00 PM  MATH U12.1   Factoring quadratic and polynomial expressions (30 min)
-  7:00 PM-7:30 PM  MATH U12.2   Radicals and rational exponents (30 min)
+DAY 10 -- Tue Oct 13  (study 216 min)
+  6:30 PM-7:00 PM  MATH U8.2    Radicals and rational exponents (30 min)
+  7:00 PM-7:30 PM  MATH U8.3    Operations with polynomials (30 min)
   7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U12.3   Operations with polynomials (30 min)
-  8:15 PM-8:45 PM  MATH U12.4   Operations with rational expressions (30 min)
+  7:45 PM-8:15 PM  MATH U8.4    Operations with rational expressions (30 min)
+  8:15 PM-8:45 PM  MATH U8.5    Nonlinear functions (30 min)
   8:45 PM-9:00 PM  BREAK (15 min)
-  9:00 PM-9:30 PM  R&W  U11.2   Central ideas and details + inferences (30 min)
-  9:30 PM-10:00 PM R&W  U11.3   Words in context (30 min)
+  9:00 PM-9:30 PM  MATH U8.6    Isolating quantities (30 min)
+  9:30 PM-9:52 PM  R&W  U6.3    Cross-text connections (22 min)
+  9:52 PM-10:07 PM BREAK (15 min)
+  10:07 PM-10:29 PM R&W U7.1    Transitions (22 min)
+  10:29 PM-10:51 PM R&W U7.2    Rhetorical synthesis (22 min)
 
-DAY 22 -- Thu Oct 22  (study 180 min)
-  6:30 PM-7:00 PM  MATH U12.5   Nonlinear functions (30 min)
-  7:00 PM-7:30 PM  MATH U12.6   Isolating quantities (30 min)
+DAY 11 -- Wed Oct 14  (study 219 min)
+  6:30 PM-7:00 PM  MATH U8.7    Solving quadratic equations (30 min)
+  7:00 PM-7:30 PM  MATH U8.8    Linear and quadratic systems (30 min)
   7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U12.7   Solving quadratic equations (30 min)
-  8:15 PM-8:45 PM  MATH U12.8   Linear and quadratic systems (30 min)
+  7:45 PM-8:15 PM  MATH U8.9    Radical, rational, and absolute value equations (30 min)
+  8:15 PM-8:45 PM  MATH U8.10   Quadratic and exponential word problems (30 min)
   8:45 PM-9:00 PM  BREAK (15 min)
-  9:00 PM-9:30 PM  R&W  U11.4   Text structure and purpose + cross-text connections (30 min)
-  9:30 PM-10:00 PM R&W  U11.5   Boundaries + form, structure, and sense (30 min)
+  9:00 PM-9:30 PM  MATH U8.11   Quadratic graphs (30 min)
+  9:30 PM-9:52 PM  R&W  U7.3    Form, structure, and sense (22 min)
+  9:52 PM-10:07 PM BREAK (15 min)
+  10:07 PM-10:29 PM R&W U7.4    Boundaries (22 min)
+  10:29 PM-10:54 PM R&W U8.1    Command of textual evidence (25 min)
 
-DAY 23 -- Fri Oct 23  (study 190 min)
-  6:30 PM-7:00 PM  MATH U12.9   Radical, rational, and absolute value equations (30 min)
-  7:00 PM-7:30 PM  MATH U12.10  Quadratic and exponential word problems (30 min)
+DAY 12 -- Thu Oct 15  (study 205 min)
+  6:30 PM-7:00 PM  MATH U8.12   Exponential graphs (30 min)
+  7:00 PM-7:30 PM  MATH U8.13   Polynomial and other nonlinear graphs (30 min)
   7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U12.11  Quadratic graphs (30 min)
-  8:15 PM-8:45 PM  MATH U12.12  Exponential graphs (30 min)
-  8:45 PM-9:15 PM  MATH U12.13  Polynomial and other nonlinear graphs (30 min)
+  7:45 PM-8:20 PM  MATH U9.1    Area and volume (35 min)
+  8:20 PM-8:55 PM  MATH U9.2    Congruence, similarity, and angle relationships (35 min)
+  8:55 PM-9:10 PM  BREAK (15 min)
+  9:10 PM-9:35 PM  R&W  U8.2    Command of quantitative evidence (25 min)
+  9:35 PM-10:00 PM R&W  U8.3    Central ideas and details (25 min)
+  10:00 PM-10:15 PM BREAK (15 min)
+  10:15 PM-10:40 PM R&W U8.4    Inferences (25 min)
+
+DAY 13 -- Fri Oct 16  (study 195 min)
+  6:30 PM-7:05 PM  MATH U9.3    Right triangle trigonometry (35 min)
+  7:05 PM-7:40 PM  MATH U9.4    Circle theorems (35 min)
+  7:40 PM-7:55 PM  BREAK (15 min)
+  7:55 PM-8:30 PM  MATH U9.5    Unit circle trigonometry (35 min)
+  8:30 PM-9:05 PM  MATH U9.6    Circle equations (35 min)
+  9:05 PM-9:20 PM  BREAK (15 min)
+  9:20 PM-9:50 PM  MATH U10.1   Solving linear equations and inequalities (30 min)
+  9:50 PM-10:15 PM R&W  U9.1    Words in context (25 min)
+
+DAY 14 -- Sat Oct 17  (study 200 min)
+  6:30 PM-7:00 PM  MATH U10.2   Linear equation word problems (30 min)
+  7:00 PM-7:30 PM  MATH U10.3   Linear relationship word problems (30 min)
+  7:30 PM-7:45 PM  BREAK (15 min)
+  7:45 PM-8:15 PM  MATH U10.4   Graphs of linear equations and functions (30 min)
+  8:15 PM-8:45 PM  MATH U10.5   Solving systems of linear equations (30 min)
+  8:45 PM-9:00 PM  BREAK (15 min)
+  9:00 PM-9:30 PM  MATH U10.6   Systems of linear equations word problems (30 min)
+  9:30 PM-9:55 PM  R&W  U9.2    Text structure and purpose (25 min)
+  9:55 PM-10:10 PM BREAK (15 min)
+  10:10 PM-10:35 PM R&W U9.3    Cross-text connections (25 min)
+
+DAY 15 -- Sun Oct 18  (study 195 min)
+  6:30 PM-7:00 PM  MATH U10.7   Linear inequality word problems (30 min)
+  7:00 PM-7:30 PM  MATH U10.8   Graphs of linear systems and inequalities (30 min)
+  7:30 PM-7:45 PM  BREAK (15 min)
+  7:45 PM-8:15 PM  MATH U11.1   Ratios, rates, and proportions (30 min)
+  8:15 PM-8:45 PM  MATH U11.2   Unit conversion (30 min)
+  8:45 PM-9:00 PM  BREAK (15 min)
+  9:00 PM-9:25 PM  R&W  U10.1   Transitions (25 min)
+  9:25 PM-9:50 PM  R&W  U10.2   Rhetorical synthesis (25 min)
+  9:50 PM-10:05 PM BREAK (15 min)
+  10:05 PM-10:30 PM R&W U10.3   Form, structure, and sense (25 min)
+
+DAY 16 -- Mon Oct 19  (study 180 min)
+  6:30 PM-7:00 PM  MATH U11.3   Percentages (30 min)
+  7:00 PM-7:30 PM  MATH U11.4   Center, spread, and shape of distributions (30 min)
+  7:30 PM-7:45 PM  BREAK (15 min)
+  7:45 PM-8:15 PM  MATH U11.5   Data representations (30 min)
+  8:15 PM-8:45 PM  MATH U11.6   Scatterplots (30 min)
+  8:45 PM-9:00 PM  BREAK (15 min)
+  9:00 PM-9:25 PM  R&W  U10.4   Boundaries (25 min)
+  9:25 PM-10:00 PM R&W  U11.1   Command of evidence (35 min)
+
+DAY 17 -- Tue Oct 20  (study 190 min)
+  6:30 PM-7:00 PM  MATH U11.7   Linear and exponential growth (30 min)
+  7:00 PM-7:30 PM  MATH U11.8   Probability and relative frequency (30 min)
+  7:30 PM-7:45 PM  BREAK (15 min)
+  7:45 PM-8:15 PM  MATH U11.9   Data inferences (30 min)
+  8:15 PM-8:45 PM  MATH U11.10  Evaluating statistical claims (30 min)
+  8:45 PM-9:00 PM  BREAK (15 min)
+  9:00 PM-9:35 PM  R&W  U11.2   Central ideas and details + inferences (35 min)
+  9:35 PM-10:10 PM R&W  U11.3   Words in context (35 min)
+
+DAY 18 -- Wed Oct 21  (study 175 min)
+  6:30 PM-7:05 PM  MATH U12.1   Factoring quadratic and polynomial expressions (35 min)
+  7:05 PM-7:40 PM  MATH U12.2   Radicals and rational exponents (35 min)
+  7:40 PM-7:55 PM  BREAK (15 min)
+  7:55 PM-8:30 PM  MATH U12.3   Operations with polynomials (35 min)
+  8:30 PM-9:05 PM  R&W  U11.4   Text structure and purpose + cross-text connections (35 min)
+  9:05 PM-9:20 PM  BREAK (15 min)
+  9:20 PM-9:55 PM  R&W  U11.5   Boundaries + form, structure, and sense (35 min)
+
+DAY 19 -- Thu Oct 22  (study 190 min)
+  6:30 PM-7:05 PM  MATH U12.4   Operations with rational expressions (35 min)
+  7:05 PM-7:40 PM  MATH U12.5   Nonlinear functions (35 min)
+  7:40 PM-7:55 PM  BREAK (15 min)
+  7:55 PM-8:30 PM  MATH U12.6   Isolating quantities (35 min)
+  8:30 PM-9:05 PM  MATH U12.7   Solving quadratic equations (35 min)
+  9:05 PM-9:20 PM  BREAK (15 min)
+  9:20 PM-9:55 PM  R&W  U11.6   Transitions + rhetorical synthesis (35 min)
+  9:55 PM-10:10 PM R&W  U12.1   Subject-verb agreement (15 min)
+
+DAY 20 -- Fri Oct 23  (study 185 min)
+  6:30 PM-7:05 PM  MATH U12.8   Linear and quadratic systems (35 min)
+  7:05 PM-7:40 PM  MATH U12.9   Radical, rational, and absolute value equations (35 min)
+  7:40 PM-7:55 PM  BREAK (15 min)
+  7:55 PM-8:30 PM  MATH U12.10  Quadratic and exponential word problems (35 min)
+  8:30 PM-9:05 PM  MATH U12.11  Quadratic graphs (35 min)
+  9:05 PM-9:20 PM  BREAK (15 min)
+  9:20 PM-9:35 PM  R&W  U12.2   Pronoun-antecedent agreement (15 min)
+  9:35 PM-9:50 PM  R&W  U12.3   Plurals and possessives (15 min)
+  9:50 PM-10:05 PM R&W  U12.4   Verb forms (15 min)
+
+DAY 21 -- Sat Oct 24  (study 180 min)
+  6:30 PM-7:05 PM  MATH U12.12  Exponential graphs (35 min)
+  7:05 PM-7:40 PM  MATH U12.13  Polynomial and other nonlinear graphs (35 min)
+  7:40 PM-7:55 PM  BREAK (15 min)
+  7:55 PM-8:35 PM  MATH U13.1   Area and volume (40 min)
+  8:35 PM-9:15 PM  MATH U13.2   Congruence, similarity, and angle relationships (40 min)
   9:15 PM-9:30 PM  BREAK (15 min)
-  9:30 PM-10:00 PM R&W  U11.6   Transitions + rhetorical synthesis (30 min)
-  10:00 PM-10:15 PM R&W U12.1   Subject-verb agreement (15 min)
-  10:15 PM-10:30 PM R&W U12.2   Pronoun-antecedent agreement (15 min)
+  9:30 PM-9:45 PM  R&W  U12.5   Subject-modifier placement (15 min)
+  9:45 PM-10:00 PM R&W  U12.6   Linking clauses (15 min)
 
-DAY 24 -- Sat Oct 24  (study 135 min)
-  6:30 PM-7:00 PM  MATH U13.1   Area and volume (30 min)
-  7:00 PM-7:30 PM  MATH U13.2   Congruence, similarity, and angle relationships (30 min)
-  7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U13.3   Right triangle trigonometry (30 min)
-  8:15 PM-8:30 PM  R&W  U12.3   Plurals and possessives (15 min)
-  8:30 PM-8:45 PM  R&W  U12.4   Verb forms (15 min)
-  8:45 PM-9:00 PM  R&W  U12.5   Subject-modifier placement (15 min)
-
-DAY 25 -- Sun Oct 25  (study 135 min)  <<< PHASE 1 100% COMPLETE
-  6:30 PM-7:00 PM  MATH U13.4   Circle theorems (30 min)
-  7:00 PM-7:30 PM  MATH U13.5   Unit circle trigonometry (30 min)
-  7:30 PM-7:45 PM  BREAK (15 min)
-  7:45 PM-8:15 PM  MATH U13.6   Circle equations (30 min)
-  8:15 PM-8:30 PM  R&W  U12.6   Linking clauses (15 min)
-  8:30 PM-8:45 PM  R&W  U12.7   Supplements (15 min)
-  8:45 PM-9:00 PM  R&W  U12.8   Punctuation (15 min)
+DAY 22 -- Sun Oct 25  (study 190 min)  <<< PHASE 1 ENDS HERE (ALL SKILLS COMPLETE)
+  6:30 PM-7:10 PM  MATH U13.3   Right triangle trigonometry (40 min)
+  7:10 PM-7:50 PM  MATH U13.4   Circle theorems (40 min)
+  7:50 PM-8:05 PM  BREAK (15 min)
+  8:05 PM-8:45 PM  MATH U13.5   Unit circle trigonometry (40 min)
+  8:45 PM-9:25 PM  MATH U13.6   Circle equations (40 min)
+  9:25 PM-9:40 PM  BREAK (15 min)
+  9:40 PM-9:55 PM  R&W  U12.7   Supplements (15 min)
+  9:55 PM-10:10 PM R&W  U12.8   Punctuation (15 min)
 `;
 
 const MONTH_MAP = {
@@ -351,7 +324,7 @@ for (let i = 0; i < lines.length; i++) {
       studyTimeMinutes: 0,
       breakTimeMinutes: 0,
       totalTimeMinutes: 0,
-      specialInstructions: 'Full Recovery Buffer: 0 study minutes. Rest, hydrate, sleep, and rebuild mental strength.',
+      specialInstructions: 'Recovery Buffer: 0 study minutes. Rest, hydrate, sleep, and rebuild mental strength.',
       tasks: [
         {
           id: `buffer-${dateStr}`,
@@ -367,31 +340,7 @@ for (let i = 0; i < lines.length; i++) {
     continue;
   }
 
-  // Single review/catchup day: e.g. "Tue Oct 06 -- Mon Oct 05 CATCHUP"
-  const specialDayMatch = line.match(/^([A-Za-z]{3}\s+(?:Sep|Oct|Nov)\s+\d+)\s+--\s+(.*)/i);
-  if (specialDayMatch && !line.startsWith('DAY')) {
-    const formattedDate = specialDayMatch[1];
-    const dateStr = parseDateFormatted(formattedDate);
-    const dayOfWeek = formattedDate.split(/\s+/)[0];
-    const title = specialDayMatch[2].trim();
-    currentDay = {
-      dateStr,
-      formattedDate,
-      dayOfWeek,
-      dayNumber: undefined,
-      isBuffer: false,
-      isTestDay: false,
-      studyTimeMinutes: 0,
-      breakTimeMinutes: 0,
-      totalTimeMinutes: 0,
-      specialInstructions: title,
-      tasks: []
-    };
-    parsedDays.push(currentDay);
-    continue;
-  }
-
-  // Day header: e.g. "DAY 8 -- Sat Oct 03 (study 164 min) <<< UNIT 5 RESTART PROGRESS"
+  // Day header: e.g. "DAY 8 -- Sun Oct 11 (study 216 min) <<< MATH CHAPTER 7 + ENGLISH CHAPTER 5 START HERE"
   const headerMatch = line.match(/^DAY\s+(\d+)\s*--\s*([A-Za-z]{3}\s+[A-Za-z]{3}\s+\d+)(?:\s*\(([^\)]+)\))?(.*)/i);
   if (headerMatch) {
     const dayNumber = parseInt(headerMatch[1], 10);
@@ -403,10 +352,10 @@ for (let i = 0; i < lines.length; i++) {
     let instructions = `Day ${dayNumber}: Complete assigned tasks with strict timer adherence. Rest during scheduled break intervals.`;
     if (dayNumber >= 1 && dayNumber <= 7) {
       instructions = `Day ${dayNumber} (DONE): Completed historical foundations record (Sep 14 - Sep 21).`;
-    } else if (dayNumber === 11) {
-      instructions = 'Day 11: Fresh launch today! Math Chapter 7 (Problem Solving & Data Analysis) and R&W Chapter 5 (Information & Ideas).';
-    } else if (dayNumber === 25) {
-      instructions = 'Day 25: Phase 1 Final Milestone! Complete remaining Circle Equations & Punctuation conventions. 100% of skills mastered!';
+    } else if (dayNumber === 8) {
+      instructions = 'Day 8: Official restart today! Math Chapter 7 (Problem Solving & Data Analysis) and R&W Chapter 5 (Information & Ideas) start from Lesson 1.';
+    } else if (dayNumber === 22) {
+      instructions = 'Day 22: Phase 1 Final Milestone! Circle equations & Punctuation conventions. All syllabus skills 100% complete!';
     } else if (rawNote) {
       instructions = `Day ${dayNumber}: ${rawNote}`;
     }
@@ -819,9 +768,9 @@ const WEEKS_META = [
   {
     id: 'week-3',
     weekNumber: 3,
-    title: 'Week 3: Recovery Buffer & Unit 5 Restart Progress',
+    title: 'Week 3: Recovery Buffer Window (Sep 28 - Oct 04)',
     dateRange: 'Sep 28 to Oct 04',
-    subtitle: 'Sep 28-Oct 02 recovery buffer; Unit 5 restarts on Sat Oct 03 (Day 8) and Sun Oct 04 (Day 9).',
+    subtitle: 'Sep 28 to Oct 04 full illness and recovery buffer window.',
     phase: 'foundations',
     startDate: '2026-09-28',
     endDate: '2026-10-04'
@@ -829,9 +778,9 @@ const WEEKS_META = [
   {
     id: 'week-4',
     weekNumber: 4,
-    title: 'Week 4: Unit 6 Pacing, Catchup & Recovery Buffer',
+    title: 'Week 4: Pre-Restart Buffer Window (Oct 05 - Oct 10)',
     dateRange: 'Oct 05 to Oct 10',
-    subtitle: 'Oct 05 Day 10 session, Oct 06 catchup, Oct 07 review, Oct 08-10 recovery buffer window.',
+    subtitle: 'Oct 05 to Oct 10 buffer and physical rest window before fresh restart.',
     phase: 'foundations',
     startDate: '2026-10-05',
     endDate: '2026-10-10'
@@ -839,9 +788,9 @@ const WEEKS_META = [
   {
     id: 'week-5',
     weekNumber: 5,
-    title: 'Week 5: Math Chapter 7 Launch & Intensive Front-Load',
+    title: 'Week 5: Math Chapter 7 & English Chapter 5 Restart (Oct 11 - Oct 17)',
     dateRange: 'Oct 11 to Oct 17',
-    subtitle: 'Days 11-17 master Math Unit 7, Unit 8, Unit 9 and R&W Units 5-9.',
+    subtitle: 'Days 8-14: Fresh launch from Lesson 1 of Math Ch 7 and R&W Ch 5 with heavier front-load.',
     phase: 'foundations',
     startDate: '2026-10-11',
     endDate: '2026-10-17'
@@ -849,9 +798,9 @@ const WEEKS_META = [
   {
     id: 'week-6',
     weekNumber: 6,
-    title: 'Week 6: Advanced 800 Mastery & Phase 1 Climax',
+    title: 'Week 6: Advanced 800 Mastery & Phase 1 Climax (Oct 18 - Oct 25)',
     dateRange: 'Oct 18 to Oct 25',
-    subtitle: 'Days 18-25 complete all remaining Math Units 10-13 and R&W Units 9-12 by Sun Oct 25.',
+    subtitle: 'Days 15-22: Complete all remaining Math & R&W skills by Sun Oct 25 (100% curriculum completion).',
     phase: 'foundations',
     startDate: '2026-10-18',
     endDate: '2026-10-25'
